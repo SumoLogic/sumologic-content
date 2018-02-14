@@ -1,0 +1,9 @@
+_sourcecategory=fortigate !%ASA "type=traffic"
+| extract "date=(?<date>.*?) time=(?<time>.*?) devname=(?<devname>.*?) devid=(?<devid>.*?) logid=(?<logid>.*?) type=(?<type>.*?) subtype=(?<subtype>.*?) level=(?<level>.*?) vd=[\"]*(?<vd>.*?)[\"]* " nodrop
+| extract "srcip=(?<srcip>.*?) (?:srcport=(?<srcport>.*?) )?(?:srcintf=[\"]*(?<srcintf>.*?)[\"]*)? dstip=(?<dstip>.*?) (?:dstport=(?<dstport>.*?) )?(?:dstintf=[\"]*(?<dstintf>.*?)[\"]*)? " nodrop
+| extract "(?:poluuid=(?<poluuid>.*?) )?sessionid=(?<sessionid>.*?) action=(?<action>.*?) policyid=(?<policyid>.*?) (?:dstcountry=\"(?<dstcountry>.*?)\" srccountry=\"(?<srccountry>.*?)\"\s)?" nodrop
+| extract "trandisp=(?<trandisp>.*?) service=(?<service>.*?) proto=(?<proto>.*?) " nodrop
+| extract "(?:appid=(?<appid>.*?) app=\"(?<app>.*?)\" appcat=\"(?<appcat>.*?)\" apprisk=(?<apprisk>.*?) )?applist=\"(?<applist>.*?)\" (?:appact=(?<appact>.*?) )?" nodrop
+| extract "duration=(?<duration>.*?) sentbyte=(?<sentbyte>.*?) rcvdbyte=(?<rcvdbyte>.*?) (?:sentpkt=(?<sentpkt>.*?) rcvdpkt=(?<rcvdpkt>.*?)[\s$])?" nodrop
+| extract "utmaction=(?<utmaction>.*?) (?:countweb=(?<countweb>.*?)[\s$]+)?(?:countapp=(?<countapp>.*?)[\s$]+)?" nodrop //[\s$]+
+| extract "crscore=(?<crscore>.*?) craction=(?<craction>.*?)$" nodrop

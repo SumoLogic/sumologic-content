@@ -1,0 +1,62 @@
+Index Name: threat_intel_ip_address
+*
+| parse regex "(?<ip_address>\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" multi
+| where ip_address != "0.0.0.0" and ip_address != "127.0.0.1"
+| lookup type, actor, raw, threatlevel as malicious_confidence from sumo://threat/cs on threat=ip_address 
+| where type="ip_address" and !isNull(malicious_confidence) 
+| if (isEmpty(actor), "Unassigned", actor) as Actor 
+| parse field=raw "\"ip_address_types\":[\"*\"]" as ip_address_types nodrop 
+| parse field=raw "\"kill_chains\":[\"*\"]" as kill_chains nodrop 
+| timeslice 1m 
+| count _timeslice, ip_address, malicious_confidence, actor, kill_chains, ip_address_types, _sourceCategory, _source
+
+Index Name: threat_intel_url
+* 
+| parse regex "(?<url>(?:http(?:s)?:\/\/.)?(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b(?:[-a-zA-Z0-9@:%_\+.~#?&//=]*))" multi nodrop 
+| parse regex "(?<url>(?:\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3})\/.\S+\.?\S{0,3})" multi 
+| lookup type, actor, raw, threatlevel as malicious_confidence from sumo://threat/cs on threat=url 
+| where type = "url" and !isNull(malicious_confidence) 
+| if (isEmpty(actor), "Unassigned", actor) as Actor 
+| parse field=raw "\"kill_chains\":[\"*\"]" as kill_chains nodrop 
+| timeslice 1m 
+| count _timeslice, url, malicious_confidence, actor, kill_chains, _sourceCategory, _source
+
+Index Name: threat_intel_domain
+*
+| parse regex "(?<domain>\b[a-zA-Z0-9][a-zA-Z0-9-_]{1,61}[a-zA-Z0-9]\.[a-zA-Z]{2,6}|[a-zA-Z0-9-]{2,30}\.[a-zA-Z]{2,3}\b)" multi
+| lookup type, actor, raw, threatlevel as malicious_confidence from sumo://threat/cs on threat=domain
+| where  type = "domain" and !isNull(malicious_confidence)
+| if (isEmpty(actor), "Unassigned", actor) as Actor
+| parse field=raw "\"kill_chains\":[\"*\"]" as kill_chains nodrop
+| timeslice 1m
+| count _timeslice, domain, malicious_confidence, actor, kill_chains, _sourceCategory, _source
+
+Index Name: threat_intel_email
+*
+| parse regex "(?<email_address>[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-zA-Z]{2,4})" multi
+| lookup type, actor, raw, threatlevel as malicious_confidence from sumo://threat/cs on threat=email_address
+| where type="email_address" and !isNull(malicious_confidence)
+| if (isEmpty(actor), "Unassigned", actor) as Actor
+| parse field=raw "\"kill_chains\":[\"*\"]" as kill_chains nodrop
+| timeslice 1m
+| count _timeslice, email_address, malicious_confidence, actor, kill_chains, _sourceCategory, _source
+
+Index Name: threat_intel_file_name
+*
+| parse regex "(?<file_name>\b[\w,\s-]+\.[A-Za-z]{3,5}\b)" multi
+| lookup type, actor, raw, threatlevel as malicious_confidence from sumo://threat/cs on threat=file_name
+| where type = "file_name" and !isNull(malicious_confidence)
+| if (isEmpty(actor), "Unassigned", actor) as Actor
+| parse field=raw "\"kill_chains\":[\"*\"]" as kill_chains nodrop
+| timeslice 1m
+| count _timeslice, file_name, malicious_confidence, actor, kill_chains, _sourceCategory, _source
+
+Index Name: threat_intel_hash_256
+*
+| parse regex "(?<hash_256>\b[A-Fa-f0-9]{64}\b)" 
+| lookup type, actor, raw, threatlevel as malicious_confidence from sumo://threat/cs on threat=hash_256 
+| where type = "hash_sha256"
+| if (isEmpty(actor), "Unassigned", actor) as Actor
+| parse field=raw "\"kill_chains\":[\"*\"]" as kill_chains nodrop
+| timeslice 1m
+| count _timeslice, hash_256, malicious_confidence, actor, kill_chains, _sourceCategory, _source

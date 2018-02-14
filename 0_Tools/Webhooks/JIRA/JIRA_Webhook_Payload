@@ -1,0 +1,27 @@
+{
+   
+    "fields": {
+        "project": {
+            "id": "10000"
+        },
+        "summary": "$SearchName",
+        "issuetype": {
+            "id": "10000"
+        },
+        
+        "labels": [
+            "bugfix",
+            "JIRA_test"
+        ],
+        
+        
+        "description": "$AggregateResultsJson",
+        "duedate": "2018-03-11",
+       
+        "components": [
+            {
+                "id": "10000"
+            }
+        ]
+    }
+}
