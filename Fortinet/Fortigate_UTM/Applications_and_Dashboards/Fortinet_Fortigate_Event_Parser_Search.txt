@@ -1,2 +1,0 @@
-_sourcecategory=fortigate !(%ASA) "type=event"
-| extract "date=(?<date>.*?) time=(?<time>.*?) devname=(?<devname>.*?) devid=(?<devid>.*?) logid=(?<logid>.*?) type=(?<type>.*?) subtype=(?<subtype>.*?) (?:eventtype=(?<eventtype>.*?) )?level=(?<level>.*?) vd=[\"]*(?<vd>.*?)[\"]* "

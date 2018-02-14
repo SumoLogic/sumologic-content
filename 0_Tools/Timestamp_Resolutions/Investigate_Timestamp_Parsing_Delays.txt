@@ -1,6 +1,0 @@
-*
-| _receiptTime - _messageTime as delay
-| delay / 60000 as delayInMinutes
-| toInt(delayInMinutes) as delayInMinutes
-| where delayInMinutes > 10 or delayInMinutes < -10 
-| count(*) as messagecount, count_distinct(delayInMinutes) as indexFragmentation, avg(delayInMinutes) as avgDelayInMinutes, min(delayInMinutes) as minDelayInMinutes, max(delayInMinutes) as maxDelayInMinutes by _collector, _source, _sourceCategory, _sourceName, _sourceHost

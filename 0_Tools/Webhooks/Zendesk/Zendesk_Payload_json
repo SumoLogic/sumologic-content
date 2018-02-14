@@ -1,9 +1,0 @@
-{
-	"ticket": {
-		"subject": "Alert fired for $SearchName",
-		"comment": {
-			"body": " timerange: $TimeRange \n firetime: $FireTime \n num: $NumRawResults \n agg: $AggregateResultsJson \n raw: $RawResultsJson"
-		},
-		"priority": "high"
-	}
-}
