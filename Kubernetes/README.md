@@ -1,3 +1,6 @@
+IMPORTANT: DEPRECATED. Official Kubernetes Application is now available in the Sumo Logic App Catalog.
+//////////////////////////////////////
+//////////////////////////////////////
 Contains all Kubernetes technology and product lines for which Sumo Logic has content for.
 
 See [Sumo Logic Documentation](https://help.sumologic.com/) for instructions on how to collect logs and metrics for use with content.
