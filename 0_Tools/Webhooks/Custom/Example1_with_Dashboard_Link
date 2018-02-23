@@ -1,6 +1,6 @@
 { 
 	"text": "$TimeRange - $SearchName \n\r Number of hits: $NumRawResults \n\r Triggered: $FireTime \n\n\r Click Here To Open Results: $SearchQueryUrl \n\r ========================== \n\r Dashboard Link: <Dashboard URL Here> \n\r ==========================", 
-	"token": "T0C7AUUKZ",
+	"token": <your token here>,
 	"channel": "#<your_channel_here>",
 	"username": "<your_username_here>",
     "icon_emoji": ":rotating_light:" 

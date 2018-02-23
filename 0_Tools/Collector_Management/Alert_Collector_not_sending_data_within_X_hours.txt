@@ -1,4 +1,5 @@
 // Set this query up as as Alert that runs regularly and only emails you when there are greater than 0 results
+// Required Data Volume Index Enabled
 _index=sumologic_volume _sourceCategory="collector_volume" 
 | parse regex "(?<collector>\"[^\"]+\")\:\{\"sizeInBytes\"\:(?<bytes>\d+),\"count\"\:(?<count>\d+)\}" multi
 | first(_messagetime) as most_recent, sum(bytes) as TotalVolume by collector 
