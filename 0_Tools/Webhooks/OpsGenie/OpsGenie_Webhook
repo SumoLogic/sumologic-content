@@ -1,0 +1,10 @@
+{
+  "searchName": "$SearchName",
+  "searchDescription": "$SearchDescription",
+  "searchQuery": "$SearchQuery",
+  "searchQueryUrl": "$SearchQueryUrl",
+  "timeRange": "$TimeRange",
+  "fireTime": "$FireTime",
+  "rawResultsJson": "$RawResultsJson",
+  "numRawResults": "$NumRawResults"
+}
