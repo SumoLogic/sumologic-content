@@ -1,7 +1,4 @@
-
 Contains all Palo Alto Networks specific apps for which Sumo Logic has content for.
-=======
-**IMPORTANT: DEPRECATED**. Official Kubernetes Application is now available in the Sumo Logic App Catalog.
 
 See [Sumo Logic Documentation](https://help.sumologic.com/) for instructions on how to collect logs and metrics for use with content.
 
