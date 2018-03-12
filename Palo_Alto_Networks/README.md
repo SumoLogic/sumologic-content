@@ -1,11 +1,7 @@
-<<<<<<< HEAD:Palo_Alto_Networks/README.md
+
 Contains all Palo Alto Networks specific apps for which Sumo Logic has content for.
 =======
-IMPORTANT: DEPRECATED. Official Kubernetes Application is now available in the Sumo Logic App Catalog.
-//////////////////////////////////////
-//////////////////////////////////////
-Contains all Kubernetes technology and product lines for which Sumo Logic has content for.
->>>>>>> 1597c048cb929a8a7bfdfca02ca4d4514b1fcae4:Kubernetes/README.md
+**IMPORTANT: DEPRECATED**. Official Kubernetes Application is now available in the Sumo Logic App Catalog.
 
 See [Sumo Logic Documentation](https://help.sumologic.com/) for instructions on how to collect logs and metrics for use with content.
 
