@@ -1,6 +1,7 @@
-# Sumo-Content App Catalog
+# Sumo Logic Community Content Catalog
 
-A repository of unsupported Sumo Logic content, queries, and dashboards.
+A repository of community supported Sumo Logic content including searches, alerts, and dashboards. Visit our Public slack group @ http://slack.sumologic.com for help.
+
 ## Table of contents
 - [Getting Started](#getting-started)
 - [Issues](#Issues)
@@ -8,8 +9,8 @@ A repository of unsupported Sumo Logic content, queries, and dashboards.
 
 ## Getting Started
 - There are two types of content here
-	- [Tools] : Built and Provided by various SEs
-	- [Content] : Apps not yet in the App Catalog
+	- [Tools] : Useful tools for managing your Sumo Logic instance
+	- [Content] : Content that may not yet exist in the official App Catalog
 
 ## Issues
 
@@ -38,17 +39,3 @@ Please refer to each project's style guidelines and guidelines for submitting pa
  - Submit a **pull request** so that we can review your changes
 
 > **NOTE:** Be sure to merge the latest from "upstream" before making a pull request!
-
-[//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
-   [tools]: <0_Tools>
-   [content]: </>
-   [AWS]: <https://aws.amazon.com/>
-   [Centrify]: <https://www.centrify.com/>
-   [Citrix]: <https://www.citrix.com/>
-   [Fastly]: <https://www.fastly.com/>
-   [Fortinet]: <https://www.fortinet.com/>
-   [Google]: <https://www.google.com/>
-   [Kubernetes]: <https://kubernetes.io/>
-   [Palo Alto Networks]: <https://www.paloaltonetworks.com/>
-   [Sentinelone]: <https://www.sentinelone.com/>
-   [Sumo Logic]: <https://www.sumologic.com>
