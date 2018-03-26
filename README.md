@@ -1,36 +1,43 @@
-# Sumo Logic Community Content Catalog
+# Welcome to Sumo Logic's Community Content Repository!
 
-A repository of community supported Sumo Logic content including searches, alerts, and dashboards. Visit our Public slack group @ http://slack.sumologic.com for help.
+We created this repository of content for everyone to use. Our goals are to help reduce time to value and shed light on possibilities. Your contributions are welcome.
+
+## DISCLAIMER
+
+Please note the following before you use this content:
+
+1. Support for this content is provided by our community on a volunteer basis. Visit the #sumo-content channel on our Public slack group @ http://slack.sumologic.com to discuss or ask for help. Submit [GitHub Issues](https://github.com/SumoLogic/sumologic-content/issues) for bugs and enhancement requests.
+
+2. This content is separate from our official app catalog unless otherwise noted; README files will indicate when specific content has been upgraded to official app status and is available in our app catalog and officially supported.
 
 ## Table of contents
 - [Getting Started](#getting-started)
-- [Issues](#Issues)
 - [Contributing](#Contributing)
 
 ## Getting Started
 - There are two types of content here
-	- [Tools] : Useful tools for managing your Sumo Logic instance
-	- [Content] : Content that may not yet exist in the official App Catalog
+	- [Tools] : There's a tool for every occasion; from managing your collectors and data volume to processing rules, and everyones favorite: regular expressions.
 
-## Issues
-
-Feel free to submit issues and enhancement requests.
+	- [Content] : Content that helps extract instant value from a variety of data streams. This content typically includes pre-built dashboards, alerts, and extraction rules.
 
 ## Contributing
 
-Guidelines PLEASE READ:
+Please review our contribution guidelines:
 
-To contribute to subfolders or create new subfolders here, please follow the standards below:
+- Verify that all sensitive data has been removed BEFORE submitting a PR. This includes PII, Credentials, and Network data. Screenshots included.
 
-- All application, dashboard and search content in .json format. Please use descriptive naming such as:
-	- Company_TechnologyLine_ContentFunction. E.g. AWS_Kinesis_Errors.json or Sentinel_Vanguard_All.json
-- Relevant screenshot(s) in .png or equivalent format. Naming similar or equivalent to .json content it represents.
-	- More than 1 screenshot? Please create a "Screenshots" folder.
-- Create/update a README.md file within the subfolder to track:
+- All application, dashboard and search content in .json format (exported from Sumo Logic). Please use a descriptive naming convention:
+
+	- Company-Product-Function. E.g. AWS-Kinesis-Errors.json
+
+- When possible, include a screenshot of your dashboards in .png or .jpg format. Name your screenshots the same as their respective .json content.
+
+- Create README.md file within each subfolder to track:
 	- Authors, versions, dates
-	- Link(s) to relevant 3rd party documentation to specify what types of data need to be collected for content to work.
+	- Links to 3rd party docs that help setup the required data stream.
 
-Please refer to each project's style guidelines and guidelines for submitting patches and additions. In general, we follow the "fork-and-pull" Git workflow.
+
+We follow the "fork-and-pull" Git workflow.
 
  - **Fork** the repo on GitHub
  - **Clone** the project to your own machine
