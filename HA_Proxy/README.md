@@ -1,6 +1,6 @@
 ## Usage:
 
-> **NOTE:** you **MUST** find and replace `haproxy` in the content json (currently _sourceCategory=*haproxy*) with a suitable string to match your HA Proxy logs.
+> **NOTE:** you **MUST** find and replace `*haproxy*` in the content json (currently `_sourceCategory=*haproxy*`) with a suitable string to match your HA Proxy logs.
 
 
 Contains all HA Proxy technology and product lines for which Sumo Logic has content for.
