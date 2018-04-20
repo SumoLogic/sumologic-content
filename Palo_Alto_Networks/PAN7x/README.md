@@ -11,17 +11,17 @@ Traffic parsing should work with the current parsing from PAN7; however, the upd
 
 The PAN7x app has a Threat dashboard for threats detected by the PAN appliance. Also included is a panel that integrates with Sumo Logic's integrated threat intelligence with Crowdstrike. 
 
-This panel relies upon the Scheduled Views in the [Threat Intel Quick Analysis - Optimized](https://github.com/Sanyaku/public-content/tree/master/Sumo_Logic/Threat_Intelligence_Optimized) app.
+This panel relies upon the Scheduled Views in the [Threat Intel Quick Analysis - Optimized](https://github.com/SumoLogic/sumologic-content/tree/master/Sumo-Logic-Tools/Threat_Intelligence_Optimized) app.
 
 ### Update Source Categories
 
 Update source categories to the appropriate one(s):
 
 PAN queries:
-_sourceCategory=*pan*
+_sourceCategory=\*pan\*
 
 Sumo Logic Threat Intelligence panel(s):
-where _sourceCategory matches \"*pan*\" 
+where _sourceCategory matches "\*pan\*" 
 
 
 ### Import App
