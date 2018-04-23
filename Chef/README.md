@@ -22,7 +22,7 @@ To contribute to subfolders or create new subfolders here, please follow the sta
 
 # Setup:
 + First search and replace all instances of `_sourceCategory=chef*` in the source file (Chef.json) with the corresponding value in your environment for Chef data.
-+ Import content from the Sumo content [console](https://help.sumologic.com/Search/Library/Export-and-Import-Content-in-the-Library)
++ Import Chef.json via the Sumo [console](https://help.sumologic.com/Search/Library/Export-and-Import-Content-in-the-Library)
 
 2018/04/17:
 	Add content and README file. 
