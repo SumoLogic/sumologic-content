@@ -1,5 +1,7 @@
 # RDS Enhanced Monitoring
 
+![Alt text](/Screenshots/RDS-Enhanced-Monitoring-Overview.png)
+
 AWS offers monitoring of RDS instances out of the box through CloudWatch Metrics. They also offer a more in-depth monitoring at the OS-level through the use of [Enhanced Monitoring](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Monitoring.OS.html). Enhanced Monitoring sends performance logs to CloudWatch Logs. While Sumo Logic can ingest these performance logs through the use of the standard CloudWatch Logs Lambda function, ingesting them as a timeseries metric will provide more real-time analysis at a fraction of the cost.
 
 ## Metric Collection
