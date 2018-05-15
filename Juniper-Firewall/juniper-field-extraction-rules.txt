@@ -1,27 +1,2 @@
 parse regex "^\<(?<priority_code>\d+)\>(?<version>\d+)\s(?<timestamp>[^\s]+)\s(?<hostname>[\S]+)\s(?<process>[\S]+)\s(?<processID>[\S+])\s(?<TAG>[\S]+)\s\[(?<hardware_platform>[\S]+)\s"
-| parse "source-address=\"*\"" as sourceIP nodrop
-| parse "source-port=\"*\"" as sourcePort nodrop
-| parse "destination-address=\"*\"" as destIP nodrop 
-| parse "destination-port=\"*\"" as destPort nodrop
-| parse "service-name=\"*\"" as serviceName nodrop
-| parse "application=\"*\"" as application nodrop
-| parse "nested-application=\"*\"" as nestedApplication nodrop
-| parse "nat-source-address=\"*\"" as natSourceIP nodrop
-| parse "nat-source-port=\"*\"" as natSourcePort nodrop
-| parse "nat-destination-address=\"*\"" as natDestIP nodrop
-| parse "nat-destination-port=\"*\"" as natDestPort nodrop
-| parse "src-nat-rule-name=\"*\"" as srcNatRuleName nodrop
-| parse "dst-nat-rule-name=\"*\"" as dstNatRuleName nodrop
-| parse "protocol-id=\"*\"" as protocolId nodrop
-| parse "policy-name=\"*\"" as policyName nodrop
-| parse "source-zone-name=\"*\"" as sourceZoneName nodrop
-| parse "destination-zone-name=\"*\"" as destZoneName nodrop
-| parse "packets-from-client=\"*\"" as packetsFromClient nodrop
-| parse "bytes-from-client=\"*\"" as bytesFromClient nodrop
-| parse "packets-from-server=\"*\"" as packetsFromServer nodrop
-| parse "bytes-from-server=\"*\"" as bytesFromServer nodrop
-| parse "elapsed-time=\"*\"" as elapsedTime nodrop
-| parse "username=\"*\"" as username nodrop
-| parse "roles=\"*\"" as roles nodrop
-| parse "encrypted=\"*\"" as encrypted nodrop
-| parse "session-id-32=\"*\"" as sessionId nodrop
+| parse "source-address=\"*\"" as sourceIP, "source-port=\"*\"" as sourcePort, "destination-address=\"*\"" as destIP, "destination-port=\"*\"" as destPort, "service-name=\"*\"" as serviceName, "application=\"*\"" as application, "nested-application=\"*\"" as nestedApplication, "nat-source-address=\"*\"" as natSourceIP, "nat-source-port=\"*\"" as natSourcePort, "nat-destination-address=\"*\"" as natDestIP, "nat-destination-port=\"*\"" as natDestPort, "src-nat-rule-name=\"*\"" as srcNatRuleName, "dst-nat-rule-name=\"*\"" as dstNatRuleName, "protocol-id=\"*\"" as protocolId, "policy-name=\"*\"" as policyName, "source-zone-name=\"*\"" as sourceZoneName, "destination-zone-name=\"*\"" as destZoneName, "packets-from-client=\"*\"" as packetsFromClient, "bytes-from-client=\"*\"" as bytesFromClient, "packets-from-server=\"*\"" as packetsFromServer, "bytes-from-server=\"*\"" as bytesFromServer, "elapsed-time=\"*\"" as elapsedTime, "username=\"*\"" as username, "roles=\"*\"" as roles, "encrypted=\"*\"" as encrypted, "session-id-32=\"*\"" as sessionId
