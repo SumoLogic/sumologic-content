@@ -1,0 +1,50 @@
+Index Name: threat_intel_alb
+_sourceCategory = *alb* 
+| parse "* * * *:* *:* * * * * * * * \"*\" \"*\" * * * \"*\" \"*\" \"*\"" as type, datetime, elb_resource, client_ip, client_port, target_ip, target_port, request_processing_time, target_processing_time, response_processing_time, elb_status_code, target_status_code, received_bytes, sent_bytes, request,user_agent,ssl_cipher,ssl_protocol,target_group_arn,trace_id, domain_name, chosen_cert_arn nodrop 
+| parse field=request "* *://*:*/* HTTP" as method, protocol, domain, server_port, path nodrop 
+| lookup type, actor, raw, threatlevel as malicious_confidence, threat from sumo://threat/cs on threat=client_ip 
+| where type="ip_address" or type="domain" 
+| json field=raw "malware_families[*]" as threat_malware_families 
+| json field=raw "last_updated" as last_updated 
+| formatDate(fromseconds(last_updated), "MM-dd-yyyy") as threat_last_updated 
+| json field=raw "labels[*].name" as label_name 
+| replace(label_name, "\\/","->") as label_name 
+| replace(label_name, "\""," ") as label_name 
+| if (isNull(actor) or actor="","Unassigned",actor) as actor 
+| timeslice 1m 
+| count by _timeslice, label_name,threat_last_updated, elb_resource, elb_status_code, domain, client_ip, client_port , target_ip, target_port, malicious_confidence, threat_malware_families, actor
+
+
+Index Name: threat_intel_cloudtrail
+_sourceCategory = *cloudtrail* 
+| json "eventTime","eventName", "awsRegion", "sourceIPAddress", "errorCode","userAgent" as event_time, event_name, aws_region, src_ip, result,user_agent nodrop 
+| json "userIdentity.userName", "userIdentity.accountId" as src_user, accountId nodrop 
+| if (result=="" or isNull(result), "Success",result) as result 
+| lookup type, actor, raw, threatlevel as malicious_confidence, threat from sumo://threat/cs on threat=src_ip
+| where type="ip_address" 
+| json field=raw "malware_families[*]" as threat_malware_families 
+| json field=raw "last_updated" as last_updated 
+| formatDate(fromseconds(last_updated), "MM-dd-yyyy") as threat_last_updated 
+| json field=raw "labels[*].name" as label_name 
+| replace(label_name, "\\/","->") as label_name 
+| replace(label_name, "\""," ") as label_name 
+| if (isNull(actor) or actor="","Unassigned",actor) as actor 
+| timeslice 1m 
+| count by _timeslice, src_ip, event_name, label_name,threat_last_updated, event_time, src_user,aws_region, result, malicious_confidence, threat_malware_families, actor
+
+
+Index Name: threat_intel_vpc
+_sourceCategory = *vpc* 
+| json "message" 
+| parse field=message "* * * * * * * * * * * * * *" as version,accountID,interfaceID,src_ip,dest_ip,src_port,dest_port,Protocol,Packets,bytes,StartSample,EndSample,Action,status 
+| lookup type, actor, raw, threatlevel as malicious_confidence, threat from sumo://threat/cs on threat=src_ip
+| where type="ip_address" 
+| json field=raw "malware_families[*]" as threat_malware_families 
+| json field=raw "last_updated" as last_updated 
+| formatDate(fromseconds(last_updated), "MM-dd-yyyy") as threat_last_updated 
+| json field=raw "labels[*].name" as label_name 
+| replace(label_name, "\\/","->") as label_name 
+| replace(label_name, "\""," ") as label_name 
+| if (isNull(actor) or actor="","Unassigned",actor) as actor 
+| timeslice 1m 
+| count by _timeslice, label_name,threat_last_updated, action, interfaceID, accountID, src_ip, src_port, dest_ip, dest_port, Protocol, malicious_confidence, threat_malware_families, actor
