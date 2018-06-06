@@ -1,7 +1,17 @@
+#Sumo Logic for MimeCast
+
+![MimeCast Audit Dashboard](https://raw.githubusercontent.com/SumoLogic/sumologic-content/master/MimeCast/Screenshots/Screenshot-MimeCast-Audit.png)
+
+![MimeCast Mail Transfer Agent Dashboard Figure 1](https://raw.githubusercontent.com/SumoLogic/sumologic-content/master/MimeCast/Screenshots/Screenshot-MimeCast-MTA1.png)
+
+![MimeCast Mail Transfer Agent Dashboard Figure 2](https://raw.githubusercontent.com/SumoLogic/sumologic-content/master/MimeCast/Screenshots/Screenshot-MimeCast-MTA2.png)
+
+![MimeCast Mail Transfer Agent Dashboard Figure 3](https://raw.githubusercontent.com/SumoLogic/sumologic-content/master/MimeCast/Screenshots/Screenshot-MimeCast-MTA3.png)
+
 Contains all MimeCast product lines for which Sumo Logic has content for.
 
 See [Sumo Logic Documentation](https://help.sumologic.com/) for instructions on how to collect logs and metrics for use with content.
-**In addition, for MimeCast log collection, please refer to Sumo Logic Data Collection for MimeCast.docx in this repo**
+**In addition, for MimeCast log collection, please refer to SumoLogic-Data-Collection-for-MimeCast.pdf in this repo**
 
 To use the content:
 
