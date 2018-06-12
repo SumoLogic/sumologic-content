@@ -1,4 +1,4 @@
-# Source Shutoff Script
+# Automatic Source Shutoff Script
 
 This is a Python script that will automatically add a [processing rule](https://help.sumologic.com/Manage/Collection/Processing-Rules) to a source on a collector to exclude all logs.
 
@@ -16,7 +16,7 @@ When a source is excluded, it will create a log entry under the source of the na
 
 2. Create a Sumo Access ID and Access Key set.
 
-3. Modify _sourceShutoff.py_, and replace ACCESSID, ACCESSKEY, and DEPLOYMENT with your appropriate values.
+3. Modify _sourceShutoff.py_, and replace ACCESSID, ACCESSKEY, and [DEPLOYMENT](https://help.sumologic.com/APIs/General-API-Information/Sumo-Logic-Endpoints-and-Firewall-Security) with your appropriate values. Fill in your appropriate Environment for DEPLOYMENT.
 
 4. Place sourceShutoff.py in a folder on the system.
 
