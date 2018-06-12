@@ -1,0 +1,5 @@
+_view=DataVolumeAdvanced
+| timeslice 5m
+| sum(bytes) as bytes by _timeslice, _collector, _source, _sourceId, _collectorId
+| bytes / 1024 / 1024 as mbytes
+| where mbytes > 50
