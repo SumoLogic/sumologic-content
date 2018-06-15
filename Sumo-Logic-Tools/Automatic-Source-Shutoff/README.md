@@ -10,7 +10,7 @@ This script should be used in conjunction with a Sumo Logic [Script Action](http
 
 *This script currently will only create the exclusion of logs. It will not automatically "turn on" a source. You must manually remove the processing rule created.*
 
-The script will add a processing rule to the source on the specified collector called "Drop Logs Script". It adds an exclude rule for _all_ logs (regex pattern: .\*).
+The script will add a processing rule to the source on the specified collector called "Drop Logs Script". It adds an exclude rule for _all_ logs (regex pattern: (?s).\*).
 
 When a source is excluded, it will create a log entry under the source of the name of the Script Action specifying the time, Source, and Collector.
 
