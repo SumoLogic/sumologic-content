@@ -3,12 +3,12 @@ import json
 import requests
 import datetime
 
-ACCESSID='INSERT_SUMO_ID'
-ACCESSKEY='INSERT_SUMO_KEY'
+ACCESSID=#OBTAIN_SUMO_ACCESS_ID_HERE
+ACCESSKEY=#OBTAIN_SUMO_ACCESS_KEY_HERE
 DEPLOYMENT='us2'
 
 url="https://api." + DEPLOYMENT + ".sumologic.com/api/v1/"
-processing_rule={"filterType": "Exclude", "name": "Drop Logs Script", "regexp": ".*"}
+processing_rule={"filterType": "Exclude", "name": "Drop Logs Script", "regexp": "(?s).*"}
 
 results=sys.argv[1]
 with open(results) as data_file:
