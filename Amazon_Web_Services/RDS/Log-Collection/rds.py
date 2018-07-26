@@ -29,7 +29,7 @@ except IOError:
 #Get a list of the logs that have been modified since last run
 dbLogs=client.describe_db_log_files(
     DBInstanceIdentifier=dBInstanceIdentifier,
-    FileLastWritten=lastReadDate, # Base this off of last query
+    FileLastWritten=lastReadDate # Base this off of last query
 )
 lastReadDate=int(round(time.time() * 1000))
 
@@ -48,13 +48,13 @@ for logFile in dbLogs['DescribeDBLogFiles']:
         response=client.download_db_log_file_portion(
             DBInstanceIdentifier=dBInstanceIdentifier,
             LogFileName=logFile['LogFileName'],
-            Marker=readMarker,
+            Marker=readMarker
         )
         if len(response['LogFileData']) > 0:
-            logLines=response['LogFileData'].strip().splitlines() # LogFileData sends all entries as a single string. Split it up into a list to be able to append text to the start
-            for entry in logLines:
-                print("["+ dBInstanceIdentifier + " " + logFile['LogFileName'] + "] " + entry)
-        readState[logFile['LogFileName']]=response['Marker']
+            r = response[ 'LogFileData' ].strip() 
+            print( r )
+        name = logFile[ 'LogFileName' ]
+        readState[ name ] = response[ 'Marker' ]
 
 
 f=open(dBInstanceIdentifier + '_rds_log_state', 'w')
