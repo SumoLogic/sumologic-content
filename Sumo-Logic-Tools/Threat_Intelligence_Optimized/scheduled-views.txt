@@ -12,8 +12,8 @@ Index Name: threat_intel_ip_address
 
 Index Name: threat_intel_url
 *
-| parse regex "(?<url>(?:http(?:s)?:\/\/.)?(?:www\.)?[-a-zA-Z0-9@:%._\+~#]{2,256}\.[a-z]{2,6}\b(?:[-a-zA-Z0-9@:%_\+.~#?&//=]*))" multi nodrop
-| parse regex "(?<url>(?:\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3})\/.\S+\.?\S{0,3})" multi
+| parse regex "(?<url>(?:http(?:s)?:\/\/.)?(?:www\.)?[-a-zA-Z0-9@:%._\+~#]{2,256}\.[a-z]{2,6}\b(?:[-a-zA-Z0-9@:%_\+.~#?&//=]*))" nodrop
+| parse regex "(?<url>(?:\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3})\/.\S+\.?\S{0,3})"
 | lookup type, actor, raw, threatlevel as malicious_confidence from sumo://threat/cs on threat=url
 | where type = "url" and !isNull(malicious_confidence)
 | if (isEmpty(actor), "Unassigned", actor) as Actor 
