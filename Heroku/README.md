@@ -14,9 +14,7 @@ Additional documentation from Heroku on required logging:
 
 ### Update Source Categories
 
-Update source categories to your appropriate one(s):
-
-_sourceCategory=\*heroku\*
+Update source categories to your appropriate one(s) by performing a find-and-replace in a text editor of *\_sourceCategory=$$HEROKULOGS* with your appropriate metadata scope.
 
 ### Import App
 
