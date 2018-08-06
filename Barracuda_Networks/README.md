@@ -3,7 +3,7 @@ Contains all Barracuda Networks technology and product lines for which Sumo Logi
 See [Sumo Logic Documentation](https://help.sumologic.com/) for instructions on how to collect logs and metrics for use with content.
 
 To use the content:
-Download the raw JSON file(s) and search for (CTRL+F / CMD+F) "<REPLACEME>" to replace with your appropriate _sourceCategory.
+Download the raw JSON file(s) and search for (CTRL+F / CMD+F) "$$Barracuda_WAAF" to replace with your appropriate _sourceCategory.
 
 Guidelines PLEASE READ:
 

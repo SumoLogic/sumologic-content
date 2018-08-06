@@ -4,7 +4,7 @@ See [Sumo Logic Documentation](https://help.sumologic.com/) for instructions on 
 
 To use the content:
 
-Download the raw JSON file(s) and search for (CTRL+F / CMD+F) "<REPLACEME>" to replace with your appropriate _sourceCategory.
+Download the raw JSON file(s) and search for (CTRL+F / CMD+F) "$$Aruba" to replace with your appropriate _sourceCategory.
 
 Guidelines PLEASE READ:
 

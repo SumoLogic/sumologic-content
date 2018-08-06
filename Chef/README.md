@@ -21,7 +21,7 @@ To contribute to subfolders or create new subfolders here, please follow the sta
 + The dashboards in the content use either the Chef client logs, or via a [Chef Handler](https://github.com/duchatran/chef-handler-sumologic). You will need to integrate these as part of your flow (e.g setup a Sumo [local file source](https://help.sumologic.com/Send-Data/Sources/01Sources-for-Installed-Collectors/Local-File-Source) to collect the local client logs)
 
 # Setup:
-+ First search and replace all instances of `_sourceCategory=chef*` in the source file (Chef.json) with the corresponding value in your environment for Chef data.
++ First search and replace all instances of `_sourceCategory=$$Chef` in the source file (Chef.json) with the corresponding value in your environment for Chef data.
 + Import Chef.json via the Sumo [console](https://help.sumologic.com/Search/Library/Export-and-Import-Content-in-the-Library)
 
 2018/04/17:
