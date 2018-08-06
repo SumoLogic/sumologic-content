@@ -16,7 +16,7 @@
       "detailLevel":2,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=cpuUtilization cpuUtilization=idle | avg by instanceID",
+        "query":"_sourceCategory=$$RDS type=cpuUtilization cpuUtilization=idle | avg by instanceID",
         "rowId":"A"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -149,10 +149,10 @@
       "detailLevel":2,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=cpuUtilization cpuUtilization=user | avg by instanceID, cpuUtilization ",
+        "query":"_sourceCategory=$$RDS type=cpuUtilization cpuUtilization=user | avg by instanceID, cpuUtilization ",
         "rowId":"A"
       },{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=cpuUtilization cpuUtilization=guest | avg by instanceID, cpuUtilization ",
+        "query":"_sourceCategory=$$RDS type=cpuUtilization cpuUtilization=guest | avg by instanceID, cpuUtilization ",
         "rowId":"B"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -285,10 +285,10 @@
       "detailLevel":2,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=cpuUtilization cpuUtilization=irq | avg by instanceID, cpuUtilization ",
+        "query":"_sourceCategory=$$RDS type=cpuUtilization cpuUtilization=irq | avg by instanceID, cpuUtilization ",
         "rowId":"A"
       },{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=cpuUtilization cpuUtilization=steal | avg by instanceID, cpuUtilization ",
+        "query":"_sourceCategory=$$RDS type=cpuUtilization cpuUtilization=steal | avg by instanceID, cpuUtilization ",
         "rowId":"B"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -421,7 +421,7 @@
       "detailLevel":2,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=cpuUtilization cpuUtilization=total | avg by instanceID",
+        "query":"_sourceCategory=$$RDS type=cpuUtilization cpuUtilization=total | avg by instanceID",
         "rowId":"A"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -554,7 +554,7 @@
       "detailLevel":2,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=loadAverageMinute loadAverageMinute=fifteen | avg by instanceID",
+        "query":"_sourceCategory=$$RDS type=loadAverageMinute loadAverageMinute=fifteen | avg by instanceID",
         "rowId":"A"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -687,10 +687,10 @@
       "detailLevel":2,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=cpuUtilization cpuUtilization=wait | avg by instanceID, cpuUtilization ",
+        "query":"_sourceCategory=$$RDS type=cpuUtilization cpuUtilization=wait | avg by instanceID, cpuUtilization ",
         "rowId":"A"
       },{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=cpuUtilization cpuUtilization=nice | avg by instanceID, cpuUtilization ",
+        "query":"_sourceCategory=$$RDS type=cpuUtilization cpuUtilization=nice | avg by instanceID, cpuUtilization ",
         "rowId":"B"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -823,7 +823,7 @@
       "detailLevel":2,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=cpuUtilization cpuUtilization=system | avg by instanceID",
+        "query":"_sourceCategory=$$RDS type=cpuUtilization cpuUtilization=system | avg by instanceID",
         "rowId":"A"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -956,7 +956,7 @@
       "detailLevel":2,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=loadAverageMinute loadAverageMinute=five | avg by instanceID",
+        "query":"_sourceCategory=$$RDS type=loadAverageMinute loadAverageMinute=five | avg by instanceID",
         "rowId":"A"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -1089,7 +1089,7 @@
       "detailLevel":2,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=loadAverageMinute loadAverageMinute=one | avg by instanceID",
+        "query":"_sourceCategory=$$RDS type=loadAverageMinute loadAverageMinute=one | avg by instanceID",
         "rowId":"A"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -1267,10 +1267,10 @@
       "detailLevel":2,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=diskIO diskIO=writeKb | sum by instanceID, device, diskIO",
+        "query":"_sourceCategory=$$RDS type=diskIO diskIO=writeKb | sum by instanceID, device, diskIO",
         "rowId":"A"
       },{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=diskIO diskIO=writeKbPs | avg by instanceID, device, diskIO",
+        "query":"_sourceCategory=$$RDS type=diskIO diskIO=writeKbPs | avg by instanceID, device, diskIO",
         "rowId":"B"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -1411,7 +1411,7 @@
       "detailLevel":0,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=diskIO diskIO=avgReqSz | avg by instanceID, device",
+        "query":"_sourceCategory=$$RDS type=diskIO diskIO=avgReqSz | avg by instanceID, device",
         "rowId":"A"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -1552,7 +1552,7 @@
       "detailLevel":0,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=diskIO diskIO=rrqmPS | sum by instanceID, device",
+        "query":"_sourceCategory=$$RDS type=diskIO diskIO=rrqmPS | sum by instanceID, device",
         "rowId":"A"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -1693,7 +1693,7 @@
       "detailLevel":0,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=diskIO diskIO=wrqmPS | sum by instanceID, device",
+        "query":"_sourceCategory=$$RDS type=diskIO diskIO=wrqmPS | sum by instanceID, device",
         "rowId":"A"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -1834,7 +1834,7 @@
       "detailLevel":0,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=diskIO diskIO=tps | sum by instanceID, device",
+        "query":"_sourceCategory=$$RDS type=diskIO diskIO=tps | sum by instanceID, device",
         "rowId":"A"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -1975,7 +1975,7 @@
       "detailLevel":0,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=diskIO diskIO=avgQueueLen | avg by instanceID, device",
+        "query":"_sourceCategory=$$RDS type=diskIO diskIO=avgQueueLen | avg by instanceID, device",
         "rowId":"A"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -2116,7 +2116,7 @@
       "detailLevel":0,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=diskIO diskIO=await | avg by instanceID, device",
+        "query":"_sourceCategory=$$RDS type=diskIO diskIO=await | avg by instanceID, device",
         "rowId":"A"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -2257,10 +2257,10 @@
       "detailLevel":0,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=diskIO diskIO=readKb | sum by instanceID, device, diskIO",
+        "query":"_sourceCategory=$$RDS type=diskIO diskIO=readKb | sum by instanceID, device, diskIO",
         "rowId":"A"
       },{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=diskIO diskIO=readKbPs | avg by instanceID, device, diskIO",
+        "query":"_sourceCategory=$$RDS type=diskIO diskIO=readKbPs | avg by instanceID, device, diskIO",
         "rowId":"B"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -2401,7 +2401,7 @@
       "detailLevel":0,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=diskIO diskIO=writeIOsPS | sum by instanceID, device",
+        "query":"_sourceCategory=$$RDS type=diskIO diskIO=writeIOsPS | sum by instanceID, device",
         "rowId":"A"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -2542,7 +2542,7 @@
       "detailLevel":0,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=diskIO diskIO=readIOsPS | sum by instanceID, device",
+        "query":"_sourceCategory=$$RDS type=diskIO diskIO=readIOsPS | sum by instanceID, device",
         "rowId":"A"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -2692,7 +2692,7 @@
       "detailLevel":0,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=fileSys fileSys=total | avg by instanceID, name, mountPoint",
+        "query":"_sourceCategory=$$RDS type=fileSys fileSys=total | avg by instanceID, name, mountPoint",
         "rowId":"A"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -2841,7 +2841,7 @@
       "detailLevel":0,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=fileSys fileSys=maxFiles | avg by instanceID, name, mountPoint",
+        "query":"_sourceCategory=$$RDS type=fileSys fileSys=maxFiles | avg by instanceID, name, mountPoint",
         "rowId":"A"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -2990,10 +2990,10 @@
       "detailLevel":2,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=fileSys fileSys=used | sum by instanceID, name, mountPoint, fileSys ",
+        "query":"_sourceCategory=$$RDS type=fileSys fileSys=used | sum by instanceID, name, mountPoint, fileSys ",
         "rowId":"A"
       },{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=fileSys fileSys=usedPercent | avg by instanceID, name, mountPoint, fileSys",
+        "query":"_sourceCategory=$$RDS type=fileSys fileSys=usedPercent | avg by instanceID, name, mountPoint, fileSys",
         "rowId":"B"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -3142,10 +3142,10 @@
       "detailLevel":2,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=fileSys fileSys=usedFiles | sum by instanceID, name, mountPoint, fileSys ",
+        "query":"_sourceCategory=$$RDS type=fileSys fileSys=usedFiles | sum by instanceID, name, mountPoint, fileSys ",
         "rowId":"A"
       },{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=fileSys fileSys=usedFilePercent | sum by instanceID, name, mountPoint, fileSys ",
+        "query":"_sourceCategory=$$RDS type=fileSys fileSys=usedFilePercent | sum by instanceID, name, mountPoint, fileSys ",
         "rowId":"C"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -3321,7 +3321,7 @@
       "detailLevel":0,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=memory memory=dirty | avg by instanceID",
+        "query":"_sourceCategory=$$RDS type=memory memory=dirty | avg by instanceID",
         "rowId":"A"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -3454,10 +3454,10 @@
       "detailLevel":0,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=memory memory=free | avg by instanceID, memory",
+        "query":"_sourceCategory=$$RDS type=memory memory=free | avg by instanceID, memory",
         "rowId":"A"
       },{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=memory memory=total | avg by instanceID, memory",
+        "query":"_sourceCategory=$$RDS type=memory memory=total | avg by instanceID, memory",
         "rowId":"B"
       },{
         "query":"((#A) / #B) * 100 | avg by instanceID",
@@ -3593,7 +3593,7 @@
       "detailLevel":0,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=memory memory=inactive | avg by instanceID",
+        "query":"_sourceCategory=$$RDS type=memory memory=inactive | avg by instanceID",
         "rowId":"A"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -3744,7 +3744,7 @@
       "detailLevel":0,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=memory memory=hugePagesSize | avg by instanceID",
+        "query":"_sourceCategory=$$RDS type=memory memory=hugePagesSize | avg by instanceID",
         "rowId":"A"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -3877,7 +3877,7 @@
       "detailLevel":0,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=swap swap=free | avg by instanceID",
+        "query":"_sourceCategory=$$RDS type=swap swap=free | avg by instanceID",
         "rowId":"A"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -4010,10 +4010,10 @@
       "detailLevel":0,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=memory memory=buffers | avg by instanceID, memory",
+        "query":"_sourceCategory=$$RDS type=memory memory=buffers | avg by instanceID, memory",
         "rowId":"A"
       },{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=memory memory=cached | avg by instanceID, memory",
+        "query":"_sourceCategory=$$RDS type=memory memory=cached | avg by instanceID, memory",
         "rowId":"B"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -4146,7 +4146,7 @@
       "detailLevel":0,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=memory memory=hugePagesTotal | avg by instanceID",
+        "query":"_sourceCategory=$$RDS type=memory memory=hugePagesTotal | avg by instanceID",
         "rowId":"A"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -4279,7 +4279,7 @@
       "detailLevel":0,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=memory memory=hugePagesFree | avg by instanceID",
+        "query":"_sourceCategory=$$RDS type=memory memory=hugePagesFree | avg by instanceID",
         "rowId":"A"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -4412,7 +4412,7 @@
       "detailLevel":0,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=swap swap=cached | avg by instanceID",
+        "query":"_sourceCategory=$$RDS type=swap swap=cached | avg by instanceID",
         "rowId":"A"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -4545,7 +4545,7 @@
       "detailLevel":0,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=swap swap=total | avg by instanceID",
+        "query":"_sourceCategory=$$RDS type=swap swap=total | avg by instanceID",
         "rowId":"A"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -4678,10 +4678,10 @@
       "detailLevel":0,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=memory memory=active | avg by instanceID, memory",
+        "query":"_sourceCategory=$$RDS type=memory memory=active | avg by instanceID, memory",
         "rowId":"A"
       },{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=memory memory=total | avg by instanceID, memory",
+        "query":"_sourceCategory=$$RDS type=memory memory=total | avg by instanceID, memory",
         "rowId":"B"
       },{
         "query":"((#A) / #B) * 100 | avg by instanceID",
@@ -4817,7 +4817,7 @@
       "detailLevel":0,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=memory memory=mapped | avg by instanceID",
+        "query":"_sourceCategory=$$RDS type=memory memory=mapped | avg by instanceID",
         "rowId":"A"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -4968,7 +4968,7 @@
       "detailLevel":0,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=memory memory=writeback | avg by instanceID",
+        "query":"_sourceCategory=$$RDS type=memory memory=writeback | avg by instanceID",
         "rowId":"A"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -5101,7 +5101,7 @@
       "detailLevel":0,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=memory memory=pageTables | avg by instanceID",
+        "query":"_sourceCategory=$$RDS type=memory memory=pageTables | avg by instanceID",
         "rowId":"A"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -5234,7 +5234,7 @@
       "detailLevel":0,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=memory memory=hugePagesRsvd | avg by instanceID",
+        "query":"_sourceCategory=$$RDS type=memory memory=hugePagesRsvd | avg by instanceID",
         "rowId":"A"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -5367,7 +5367,7 @@
       "detailLevel":0,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=memory memory=hugePagesSurp | avg by instanceID",
+        "query":"_sourceCategory=$$RDS type=memory memory=hugePagesSurp | avg by instanceID",
         "rowId":"A"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -5509,7 +5509,7 @@
       "detailLevel":2,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=network network=rx | avg by instanceID, interface",
+        "query":"_sourceCategory=$$RDS type=network network=rx | avg by instanceID, interface",
         "rowId":"A"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -5650,7 +5650,7 @@
       "detailLevel":2,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=network network=tx | avg by instanceID, interface",
+        "query":"_sourceCategory=$$RDS type=network network=tx | avg by instanceID, interface",
         "rowId":"A"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -5791,7 +5791,7 @@
       "detailLevel":2,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=network network=tx | sum by instanceID, interface",
+        "query":"_sourceCategory=$$RDS type=network network=tx | sum by instanceID, interface",
         "rowId":"A"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -5932,7 +5932,7 @@
       "detailLevel":0,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=network network=rx | sum by instanceID, interface",
+        "query":"_sourceCategory=$$RDS type=network network=rx | sum by instanceID, interface",
         "rowId":"A"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -6082,10 +6082,10 @@
       "detailLevel":0,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=network network=rx | avg by instanceID, interface, network",
+        "query":"_sourceCategory=$$RDS type=network network=rx | avg by instanceID, interface, network",
         "rowId":"A"
       },{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=network network=tx | avg by instanceID, interface, network",
+        "query":"_sourceCategory=$$RDS type=network network=tx | avg by instanceID, interface, network",
         "rowId":"B"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -6226,7 +6226,7 @@
       "detailLevel":0,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=cpuUtilization cpuUtilization=total | avg by instanceID",
+        "query":"_sourceCategory=$$RDS type=cpuUtilization cpuUtilization=total | avg by instanceID",
         "rowId":"A"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -6359,7 +6359,7 @@
       "detailLevel":0,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=processList processList=cpuUsedPc | avg by parentID, tgid, id, instanceID, name",
+        "query":"_sourceCategory=$$RDS type=processList processList=cpuUsedPc | avg by parentID, tgid, id, instanceID, name",
         "rowId":"A"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -6532,7 +6532,7 @@
       "detailLevel":0,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=tasks tasks=total | avg by instanceID",
+        "query":"_sourceCategory=$$RDS type=tasks tasks=total | avg by instanceID",
         "rowId":"A"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -6665,10 +6665,10 @@
       "detailLevel":0,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=diskIO diskIO=writeKbPs | avg by instanceID, device, diskIO",
+        "query":"_sourceCategory=$$RDS type=diskIO diskIO=writeKbPs | avg by instanceID, device, diskIO",
         "rowId":"A"
       },{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=diskIO diskIO=readKbPs | avg by instanceID, device, diskIO",
+        "query":"_sourceCategory=$$RDS type=diskIO diskIO=readKbPs | avg by instanceID, device, diskIO",
         "rowId":"B"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -6809,7 +6809,7 @@
       "detailLevel":0,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=fileSys fileSys=total | avg by instanceID, name, mountPoint",
+        "query":"_sourceCategory=$$RDS type=fileSys fileSys=total | avg by instanceID, name, mountPoint",
         "rowId":"A"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -6958,10 +6958,10 @@
       "detailLevel":0,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=memory memory=free | avg by instanceID, memory",
+        "query":"_sourceCategory=$$RDS type=memory memory=free | avg by instanceID, memory",
         "rowId":"A"
       },{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=memory memory=total | avg by instanceID, memory",
+        "query":"_sourceCategory=$$RDS type=memory memory=total | avg by instanceID, memory",
         "rowId":"B"
       },{
         "query":"((#A) / #B) * 100 | avg by instanceID",
@@ -7106,7 +7106,7 @@
       "detailLevel":2,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=processList processList=cpuUsedPc | avg by parentID, tgid, id, instanceID, name",
+        "query":"_sourceCategory=$$RDS type=processList processList=cpuUsedPc | avg by parentID, tgid, id, instanceID, name",
         "rowId":"A"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -7279,7 +7279,7 @@
       "detailLevel":2,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=processList processList=memoryUsedPc | avg by parentID, tgid, id, instanceID, name",
+        "query":"_sourceCategory=$$RDS type=processList processList=memoryUsedPc | avg by parentID, tgid, id, instanceID, name",
         "rowId":"A"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -7452,7 +7452,7 @@
       "detailLevel":0,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=processList processList=rss | avg by parentID, tgid, id, instanceID, name",
+        "query":"_sourceCategory=$$RDS type=processList processList=rss | avg by parentID, tgid, id, instanceID, name",
         "rowId":"A"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -7625,7 +7625,7 @@
       "detailLevel":0,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=processList processList=vss | avg by parentID, tgid, id, instanceID, name",
+        "query":"_sourceCategory=$$RDS type=processList processList=vss | avg by parentID, tgid, id, instanceID, name",
         "rowId":"A"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -7807,7 +7807,7 @@
       "detailLevel":0,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=tasks tasks=running | sum by instanceID",
+        "query":"_sourceCategory=$$RDS type=tasks tasks=running | sum by instanceID",
         "rowId":"A"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -7940,7 +7940,7 @@
       "detailLevel":0,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=tasks tasks=stopped | sum by instanceID",
+        "query":"_sourceCategory=$$RDS type=tasks tasks=stopped | sum by instanceID",
         "rowId":"A"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -8073,7 +8073,7 @@
       "detailLevel":0,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=tasks tasks=zombie | sum by instanceID",
+        "query":"_sourceCategory=$$RDS type=tasks tasks=zombie | sum by instanceID",
         "rowId":"A"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -8206,7 +8206,7 @@
       "detailLevel":0,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=tasks tasks=sleeping | sum by instanceID",
+        "query":"_sourceCategory=$$RDS type=tasks tasks=sleeping | sum by instanceID",
         "rowId":"A"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -8339,7 +8339,7 @@
       "detailLevel":0,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=tasks tasks=blocked | sum by instanceID",
+        "query":"_sourceCategory=$$RDS type=tasks tasks=blocked | sum by instanceID",
         "rowId":"A"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",
@@ -8472,7 +8472,7 @@
       "detailLevel":0,
       "queryString":"",
       "metricsQueries":[{
-        "query":"_sourceCategory=RDS_ENHANCED_MONITORING type=tasks tasks=total | avg by instanceID",
+        "query":"_sourceCategory=$$RDS type=tasks tasks=total | avg by instanceID",
         "rowId":"A"
       }],
       "timeRange":"[{\"t\":\"relative\",\"d\":-3600000}]",

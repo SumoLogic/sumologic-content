@@ -5,6 +5,10 @@ See [Sumo Logic Documentation](https://help.sumologic.com/) for instructions on 
 For more information, see Proofpoint's Youtube here:
 [Proofpoint Logging](https://www.youtube.com/watch?v=qPOgaXB6xBw)
 
+
+To use the dashboards, replace $$Proofpoint with the source category for your data.
+
+
 Guidelines PLEASE READ:
 
 To contribute to subfolders or create new subfolders here, please follow the standards below:

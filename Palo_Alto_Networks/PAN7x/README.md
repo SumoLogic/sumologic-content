@@ -18,10 +18,10 @@ This panel relies upon the Scheduled Views in the [Threat Intel Quick Analysis -
 Update source categories to the appropriate one(s):
 
 PAN queries:
-_sourceCategory=\*pan\*
+_sourceCategory=$$PAN
 
 Sumo Logic Threat Intelligence panel(s):
-where _sourceCategory matches "\*pan\*" 
+where _sourceCategory matches "$$PAN" 
 
 
 ### Import App
