@@ -14,6 +14,6 @@ Setup of the Lambda function follows the [standard setup as outlined in the Gith
 
 The app includes 8 dashboards that can be modified for different visualizations and insights.
 
-To install the app, replace all instances of *_sourceCategory=$$RDS* with the source category for your RDS Enhanced Monitoring source.
+To install the app, replace all instances of $$RDS with "_sourceCategory=yourSourceCategory".
 
 **Note: This current version does not support Microsoft SQL Server yet. See [AWS documentation](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Monitoring.OS.html) for supported metrics for other engines.**

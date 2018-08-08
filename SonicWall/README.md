@@ -18,11 +18,11 @@ This panel relies upon the Scheduled Views in the [Threat Intel Quick Analysis -
 Update source categories to the appropriate one(s):
 
 SonicWall queries:
-_sourceCategory=$$SonicWall
+Update $$SonicWall to "_sourceCategory=yourSourceCategory" 
 
 
 Sumo Logic Threat Intelligence panel(s):
-_sourceCategory=$$SonicWall
+update $$SonicWall to "_sourceCategory=yourSourceCategory"
 
 
 ### Import App

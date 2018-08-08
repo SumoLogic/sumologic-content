@@ -12,7 +12,7 @@ The concept of this optimized version of the app is based on the [Threat Intelli
 
 Scheduled Views are key to making the Threat Intelligence optimized to rapidly query.  These scheduled views are created to search across *all* data ingested into Sumo Logic. They can be grouped in different ways including Source Category and Source.  Add additional metadata as needed.  
 
-Using the *scheduled-views-threat-intel-aws-optimized.txt* file, create a new scheduled view for each in the list. Change your scope as necessary (e.g., replace \_sourceCategory=*vpc* with your appropriate metadata tags and scope).
+Using the *scheduled-views-threat-intel-aws-optimized.txt* file, create a new scheduled view for each in the list. Change your scope as necessary (e.g., replace $$vpc with your appropriate metadata tags and scope, ex. "_sourceCategory=yourSourceCategory").
 
 Once created, it will take time to initially run the scheduled views and queue them up.  Once setup, querying for threats will be done off of these indexes. 
 
