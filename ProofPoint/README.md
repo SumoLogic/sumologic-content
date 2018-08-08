@@ -6,7 +6,7 @@ For more information, see Proofpoint's Youtube here:
 [Proofpoint Logging](https://www.youtube.com/watch?v=qPOgaXB6xBw)
 
 
-To use the dashboards, replace $$Proofpoint with the source category for your data.
+To use the dashboards, replace $$Proofpoint with "_sourceCategory=yourSourceCategory".
 
 
 Guidelines PLEASE READ:

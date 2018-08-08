@@ -5,7 +5,7 @@ See [Sumo Logic Documentation](https://help.sumologic.com/) for instructions on 
 For more information, see Centrify's documentation here:
 [Centrify Logging](https://docs.centrify.com/en/centrify/macadmin/index.html#page/macadmin/adm_troubleshooting_EnableLogging.html)
 
-To use this application replace $$Centrify with your _sourceCategory of Centrify in the Centrify_NoSpecProduct_Logs.json file.
+To use this application replace $$Centrify with your "_sourceCategory=yourSourceCategory" of Centrify in the Centrify_NoSpecProduct_Logs.json file.
 
 
 Guidelines PLEASE READ:
@@ -28,3 +28,5 @@ To contribute to subfolders or create new subfolders here, please follow the sta
   - Centrify Logs
   For more information, see Centrify's documentation here:
   [Centrify Logging](https://docs.centrify.com/en/centrify/macadmin/index.html#page/macadmin/adm_troubleshooting_EnableLogging.html)
+
+

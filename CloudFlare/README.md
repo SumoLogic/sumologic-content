@@ -2,7 +2,7 @@ Contains all CloudFlare technology and product lines for which Sumo Logic has co
 
 See [Sumo Logic Documentation](https://help.sumologic.com/) for instructions on how to collect logs and metrics for use with content.
 
-To use this application, replace $$CloudFlare with your Cloud Flare source Category in the CloudFlare_Logs.json file.
+To use this application, replace $$CloudFlare with your "_sourceCategory=yourSourceCategory" in the CloudFlare_Logs.json file.
 
 For more information, see CloudFlare's documentation here:
 Shipping CloudFlare Logs to Sumo Logic: https://hackernoon.com/how-to-ship-cloudflare-logs-to-sumo-logic-with-lambda-a119e5379f02
