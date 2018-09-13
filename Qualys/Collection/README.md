@@ -20,6 +20,7 @@ Configure Qualys logon and reports url in [QualysURLs] section (logonURL and qua
 Configure reportname and download location with full path and filename in [Input] section (reportname and downloadfile)
 Configure Sumo http hosted collector URL in [SumoUpload] section (sumoURL)
 
+
 IMPORTANT:
 The attached config file requires you to add your credentials, URL's, output file names as well as the sumo HTTP Endpoint URL that the script will be posting the data to.
 Please refer to the below documentation for instructions on how to set up HTTPS Sources.

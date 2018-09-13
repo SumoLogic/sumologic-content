@@ -21,7 +21,7 @@ This dashboard relies upon the IP Scheduled View in the [Threat Intel Quick Anal
 
 Update source categories to the appropriate one(s):
 
-_sourceCategory=\*juniper/firewall\*
+Replace $$Juniper with "_sourceCategory=yourSourceCategory"
 
 ### Import App
 

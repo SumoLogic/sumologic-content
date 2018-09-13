@@ -21,7 +21,7 @@ This dashboard relies upon the Scheduled Views in the [Threat Intel Quick Analys
 
 Update source categories to the appropriate one(s):
 
-_sourceCategory=\*sophos\*
+Update *$$Sophos* to "_sourceCategory=yourSourceCategory"
 
 ### Import App
 
