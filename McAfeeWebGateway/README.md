@@ -5,6 +5,8 @@ See [Sumo Logic Documentation](https://help.sumologic.com/) for instructions on 
 For more information, see McAfee Web Gateway's instruction here:
 [McAfee Web Gateway](https://www.mcafee.com/us/products/web-gateway.aspx)
 
+*NOTE:* update $$McAfeeWebGateway with "_sourceCategory=yourSourceCategory"
+
 Guidelines PLEASE READ:
 
 To contribute to subfolders or create new subfolders here, please follow the standards below:

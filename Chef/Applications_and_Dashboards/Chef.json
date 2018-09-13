@@ -246,7 +246,7 @@
       "name":"Run Duration Distribution Overtime",
       "viewerType":"bar",
       "detailLevel":2,
-      "queryString":"_sourceCategory=chef*  \"chef*-Client\" \"elapsed_time\"\n| parse \"chef*-Client *:\" as msg\n| if (msg matches \"*completed successfully*\", \"success\", \"failed\") as status \n| parse \"elapsed_time=*&\" as runtime \n| 5 as bucket_size\n| long(runtime/bucket_size) as range | format(\"%d-%d\",long(range*bucket_size), long((range+1)*bucket_size)) as bucket\n| count as Runs by bucket, status,range\n| sort by range | fields -range\n| transpose row bucket column status \n| sort by bucket \n",
+      "queryString":"$$Chef  \"chef*-Client\" \"elapsed_time\"\n| parse \"chef*-Client *:\" as msg\n| if (msg matches \"*completed successfully*\", \"success\", \"failed\") as status \n| parse \"elapsed_time=*&\" as runtime \n| 5 as bucket_size\n| long(runtime/bucket_size) as range | format(\"%d-%d\",long(range*bucket_size), long((range+1)*bucket_size)) as bucket\n| count as Runs by bucket, status,range\n| sort by range | fields -range\n| transpose row bucket column status \n| sort by bucket \n",
       "metricsQueries":[],
       "timeRange":"[{\"t\":\"relative\",\"d\":-86400000}]",
       "x":9,
