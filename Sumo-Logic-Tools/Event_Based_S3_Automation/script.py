@@ -2,6 +2,7 @@ import requests
 import boto3
 import json
 import getpass
+import time
 from requests.auth import HTTPBasicAuth
 from collections import defaultdict
 
@@ -120,6 +121,7 @@ class SumoSetupHelper():
 			for source in allSources['sources']:
 				if (self.isPollingSource(source) == True):
 					listOfPollingSources.append(source)
+			time.sleep(0.2) # Sleep to avoid getting throttled.
 
 		return listOfPollingSources
 
