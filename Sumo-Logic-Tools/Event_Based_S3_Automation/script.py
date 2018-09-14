@@ -1,6 +1,7 @@
 import requests
 import boto3
 import json
+import getpass
 from requests.auth import HTTPBasicAuth
 from collections import defaultdict
 
@@ -36,7 +37,7 @@ class InitialSetupHelper:
 		print("\nEnter you SUMO ACCESS ID AND ACCESS KEY")
 
 		access_id = input("ACCESS ID: ")
-		access_key = input("ACCESS KEY: ")
+		access_key = getpass.getpass("ACCESS KEY: ")
 
 		return (base_url, access_id, access_key)
 
@@ -141,7 +142,7 @@ Helps in setting up event based S3 using the appropriate AWS APIs.
 It does the following tasks:
 1. Using the map of bucket name to endpoint generated above, it creates a topic per bucket. (So a topic for every key in that map)
 2. Configure event notification on the bucket to send the object creation notification to the corresponding topic created in step 1.
-3. Creates a subscription per endpoint for the correspodning topic to allow sending the notifications to Sumo Logic.
+3. Creates a subscription per endpoint for the corresponding topic to allow sending the notifications to Sumo Logic.
 '''
 class AwsSetupHelper:
 
@@ -158,7 +159,6 @@ class AwsSetupHelper:
 	def setupEventNotifications(self):
 		self.createTopicPerBucket()
 		self.createSubscriptionsPerTopic()
-
 
 	def createTopicPerBucket(self):
 		for bucketName, endpointList in self.mapOfBucketNameToEndpoint.items():
