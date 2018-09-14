@@ -70,16 +70,23 @@ class SumoSetupHelper():
 		listOfSourcesLink = list()
 		try:
 			for collector in listOfCollectors['collectors']:
-				links = collector['links']
-				listOfSourcesLink.extend(self.extractSourcesLink(collector['links']))
+				if (self.isHostedCollector(collector)):
+					print("Analyising the collector: ", collector["id"])
+					links = collector['links']
+					listOfSourcesLink.extend(self.extractSourcesLink(collector['links']))
 		except KeyError as e:
 			try:
 				collector = listOfCollectors['collector']
 				links = collector['links']
-				listOfSourcesLink.extend(self.extractSourcesLink(collector['links']))
+				if (self.isHostedCollector(collector)):
+					print("Analyising the collector: ", collector["id"])
+					listOfSourcesLink.extend(self.extractSourcesLink(collector['links']))
 			except KeyError as e:
 				print("The API did not return any collectors!")
 		return listOfSourcesLink
+
+	def isHostedCollector(self, collector):
+		return (collector['collectorType'] == "Hosted")
 
 	def extractSourcesLink(self, links):
 		listOfSourcesLink = list()
@@ -152,6 +159,7 @@ class AwsSetupHelper:
 			topicName = "Sumo-" + str(bucketName) + "-Topic"
 			response = self.snsClient.create_topic(Name = topicName)
 			topicArn = response.get('TopicArn')
+			print("Created a topic with ARN:", topicArn, "for bucket:", bucketName)
 			self.setTopicPolicy(bucketName, topicArn)
 			self.putBucketNotification(bucketName, topicArn)
 			self.mapOfBucketNameToTopicArn[bucketName] = topicArn
@@ -207,14 +215,16 @@ class AwsSetupHelper:
 	def createSubscriptionsPerTopic(self):
 		for bucketName, listOfEndpoint in self.mapOfBucketNameToEndpoint.items():
 			for endpoint in listOfEndpoint:
-				self.snsClient.subscribe(
+				response = self.snsClient.subscribe(
 					TopicArn = self.mapOfBucketNameToTopicArn.get(bucketName),
 					Protocol = "https",
 					Endpoint = endpoint,
 					Attributes = {
 						'DeliveryPolicy': self.getDeliveryPolicy()
-					}
+					},
+					ReturnSubscriptionArn=True
 				)
+				print("Created a subscription with ARN:", response["SubscriptionArn"], "for endpoint:", endpoint)
 
 	def getDeliveryPolicy(self):
 		retryPolicy = {
