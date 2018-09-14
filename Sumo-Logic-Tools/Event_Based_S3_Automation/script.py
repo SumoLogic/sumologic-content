@@ -61,28 +61,45 @@ class SumoSetupHelper():
 		return self.mapOfBucketNameToEndpoint
 
 	def getListOfCollectors(self):
-		return self.makeGetRequest(self.collector_url).json()
+		collector_list = []
+		offset = 0
 
-	def makeGetRequest(self, url):
-		return requests.get(url = self.base_url + str(url), auth = HTTPBasicAuth(self.access_id, self.access_key))
+		while True:
+			payload = {'offset': offset}
+			r = self.makeGetRequest(self.collector_url, payload)
+			if r.status_code != 200:
+				print('[ERROR] %s' % r.json()['message'].lower()[:-1])
+				break
+
+			try:
+				sublist = json.loads(r.text)['collectors']
+				collector_list.extend(sublist)
+			except KeyError as e:
+				sublist = json.loads(r.text)['collector']
+				collector_list.append(sublist)
+
+			if not sublist:
+				break
+
+			print('[PROGRESS] fetching and sorting through the next %d to %d collectors' % (offset + 1, offset + len(sublist)))
+
+			if len(sublist) < 1000:   # we have reached the end of the list of collectors
+				break
+			offset += 1000
+
+		return collector_list
+
+	def makeGetRequest(self, url, payload = None):
+		return requests.get(url = self.base_url + str(url), auth = HTTPBasicAuth(self.access_id, self.access_key), params=payload)
 
 	def getSourcesLinks(self, listOfCollectors):
 		listOfSourcesLink = list()
-		try:
-			for collector in listOfCollectors['collectors']:
-				if (self.isHostedCollector(collector)):
-					print("Analyising the collector: ", collector["id"])
-					links = collector['links']
-					listOfSourcesLink.extend(self.extractSourcesLink(collector['links']))
-		except KeyError as e:
-			try:
-				collector = listOfCollectors['collector']
+		for collector in listOfCollectors:
+			if (self.isHostedCollector(collector)):
+				print("[PROGRESS] Analyising the collector: ", collector["id"])
 				links = collector['links']
-				if (self.isHostedCollector(collector)):
-					print("Analyising the collector: ", collector["id"])
-					listOfSourcesLink.extend(self.extractSourcesLink(collector['links']))
-			except KeyError as e:
-				print("The API did not return any collectors!")
+				listOfSourcesLink.extend(self.extractSourcesLink(collector['links']))
+
 		return listOfSourcesLink
 
 	def isHostedCollector(self, collector):
@@ -159,7 +176,7 @@ class AwsSetupHelper:
 			topicName = "Sumo-" + str(bucketName) + "-Topic"
 			response = self.snsClient.create_topic(Name = topicName)
 			topicArn = response.get('TopicArn')
-			print("Created a topic with ARN:", topicArn, "for bucket:", bucketName)
+			print("[PROGRESS] Created a topic with ARN:", topicArn, "for bucket:", bucketName)
 			self.setTopicPolicy(bucketName, topicArn)
 			self.putBucketNotification(bucketName, topicArn)
 			self.mapOfBucketNameToTopicArn[bucketName] = topicArn
@@ -224,7 +241,7 @@ class AwsSetupHelper:
 					},
 					ReturnSubscriptionArn=True
 				)
-				print("Created a subscription with ARN:", response["SubscriptionArn"], "for endpoint:", endpoint)
+				print("[PROGRESS] Created a subscription with ARN:", response["SubscriptionArn"], "for endpoint:", endpoint)
 
 	def getDeliveryPolicy(self):
 		retryPolicy = {
