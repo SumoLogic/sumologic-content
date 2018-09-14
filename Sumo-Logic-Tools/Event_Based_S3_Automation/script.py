@@ -15,26 +15,13 @@ https://help.sumologic.com/Manage/Security/Access-Keys can help with the second 
 '''
 class InitialSetupHelper:
 
-	apiEndpointOrderedList = ['https://api.us2.sumologic.com/api', 'https://api.sumologic.com/api', 'https://api.au.sumologic.com/api', 'https://api.eu.sumologic.com/api', 'https://api.de.sumologic.com/api']
-
 	def takeRequiredInputs(self):
-		print("\n WELCOME! THIS SCRIPT WILL AUTOMATE THE EVENT BASED S3 SETUP FOR YOU. IT WILL ADD THE NOTIFICATION BASED MECHANISM ON ALL OF YOUR POLLING SOURCES! \n")
-		print("\nBUT FIRST YOU NEED TO PROVIDE SOME INPUTS \n")
+		print("\nTHIS SCRIPT WILL AUTOMATE THE EVENT BASED S3 SETUP FOR YOU. IT WILL ADD THE NOTIFICATION BASED MECHANISM ON ALL OF YOUR POLLING SOURCES \n")
 		print("\nMAKE SURE THAT YOU HAVE RUN AWS CONFIG AND CONFIGURED THE AWS CLI PROPERLY WITH THE CORRECT CREDENTIALS AND REGION \n")
-		print("\nWHICH SUMO API ENDPOINT DO YOU GUYS USE? [1-5]")
-		print("1. ", self.apiEndpointOrderedList[0], "\n2. ", self.apiEndpointOrderedList[1], "\n3. ", self.apiEndpointOrderedList[2], "\n4. ", self.apiEndpointOrderedList[3], "\n5. ", self.apiEndpointOrderedList[4])
+		print("\nPlease refer to the docs (https://help.sumologic.com/APIs/General-API-Information/Sumo-Logic-Endpoints-and-Firewall-Security) and enter the appropriate SUMO LOGIC API endpoint. eg. https://api.us2.sumologic.com/api, https://api.sumologic.com/api etc.")
+		base_url = input("Enter your endpoint: ")
 
-		while True:
-			deployment = int(input("Enter your choice: "))
-			if (deployment < 1 or deployment > 5):
-				print("Please select a value between 1 to 5")
-				continue
-			else:
-				break
-
-		base_url = str(self.apiEndpointOrderedList[deployment - 1])
-
-		print("\nEnter you SUMO ACCESS ID AND ACCESS KEY")
+		print("\nEnter your SUMO LOGIC ACCESS ID AND ACCESS KEY")
 
 		access_id = input("ACCESS ID: ")
 		access_key = getpass.getpass("ACCESS KEY: ")
