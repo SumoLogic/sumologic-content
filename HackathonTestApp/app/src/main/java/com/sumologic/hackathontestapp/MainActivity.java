@@ -31,8 +31,9 @@ public class MainActivity extends AppCompatActivity
     private Logger log = LoggerFactory.getLogger(MainActivity.class);
     private OkHttpClient client = new OkHttpClient();
 
-    private void foo() {
-        android.util.Log.e("Ashish","Hello test error");
+
+    private void sendLogData(String data) {
+        android.util.Log.e("Ashish",data);
         log.info("hello world");
         RequestBody body = RequestBody.create(null, "This is an example for the usage of OkHttp in a standard Java program");
         Request request = new Request.Builder()
@@ -57,7 +58,6 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                foo();
+                test();
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action",  null).show();
             }
@@ -144,5 +144,9 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void test() {
+        sendLogData("Hello test error");
     }
 }
