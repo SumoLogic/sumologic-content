@@ -19,6 +19,9 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven {
+            url uri('mint-plugin-repo-5.2.4')
+        }
     }
 }
 
