@@ -60,12 +60,12 @@ public class SumoHttpSender {
         this.socketTimeout = socketTimeout;
     }
 
-    public void testSend(String data) {
+    public void testSend(String data, String url) {
         android.util.Log.e("Ashish",data);
-        log.debug("Sending log to sumo");
+        log.debug("Sending log to sumo " + url);
         RequestBody body = RequestBody.create(null,  data);
         Request request = new Request.Builder()
-                .url("https://nite-events.sumologic.net/receiver/v1/http/ZaVnC4dhaV04u34YMFUkmIdaGwpCloT32G8ssgNMANXpKrfKij779eUGOOxyLK6nDbmx7tRk0dah3-NAJIjkgt25N3hvW1SZi_AeW0HYj6K8tSVxO0738Q==")
+                .url(url)
                 .post(body)
                 .build();
 

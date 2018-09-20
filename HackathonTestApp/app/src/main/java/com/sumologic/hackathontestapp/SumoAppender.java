@@ -10,14 +10,16 @@ public class SumoAppender extends UnsynchronizedAppenderBase<ILoggingEvent> {
     private String sourceName = null;
     private String sourceHost = null;
     private String sourceCategory = null;
-    private String testMessage = null;
+    private String prefix = null;
 
     public String getTestMessage() {
-        return testMessage;
+        return prefix;
     }
 
-    public void setTestMessage(String testMessage) {
-        this.testMessage = testMessage;
+    public void setPrefix(String prefix) {
+        if (prefix != null && !prefix.isEmpty()) {
+            this.prefix = prefix;
+        }
     }
 
     public String getUrl() {
@@ -25,7 +27,9 @@ public class SumoAppender extends UnsynchronizedAppenderBase<ILoggingEvent> {
     }
 
     public void setUrl(String url) {
-        this.url = url;
+        if (url != null && !url.isEmpty()) {
+            this.url = url;
+        }
     }
 
     public String getSourceName() {
@@ -58,9 +62,7 @@ public class SumoAppender extends UnsynchronizedAppenderBase<ILoggingEvent> {
     }
 
     public void append(ILoggingEvent event) {
-        Log.v("Hi", "Came to Sumo appender ash@" + testMessage + event.getMessage());
-        sender.testSend(event.getMessage());
+        Log.v("Hi", "Came to Sumo appender " + prefix + " " + event.getMessage());
+        sender.testSend(event.getMessage(), getUrl());
     }
-
-
 }

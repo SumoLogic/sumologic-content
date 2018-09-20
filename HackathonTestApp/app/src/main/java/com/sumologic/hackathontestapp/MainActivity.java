@@ -13,21 +13,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import java.io.IOException;
-import java.util.Random;
-import java.util.logging.LogManager;
-
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.Appender;
-import okhttp3.Headers;
 import okhttp3.OkHttpClient;
-import okhttp3.Response;
-import okhttp3.Request;
-import okhttp3.RequestBody;
 
 
 public class MainActivity extends AppCompatActivity
@@ -38,38 +28,13 @@ public class MainActivity extends AppCompatActivity
     private Logger  sumoLogger = LoggerFactory.getLogger("Sumo logger");
 
 
-    private void sendLogData(String data) {
-        android.util.Log.e("Ashish",data);
-        log.info("hello world");
-        RequestBody body = RequestBody.create(null, "This is an example for the usage of OkHttp in a standard Java program");
-        Request request = new Request.Builder()
-                .url("https://nite-events.sumologic.net/receiver/v1/http/ZaVnC4dhaV04u34YMFUkmIdaGwpCloT32G8ssgNMANXpKrfKij779eUGOOxyLK6nDbmx7tRk0dah3-NAJIjkgt25N3hvW1SZi_AeW0HYj6K8tSVxO0738Q==")
-                .post(body)
-                .build();
-
-        try {
-            try (Response response = client.newCall(request).execute()) {
-                if (!response.isSuccessful())
-                    log.error("Error while sending http request" + response.toString());
-
-                log.info(String.valueOf(response.code()));
-                Headers responseHeaders = response.headers();
-                for (int i = 0; i < responseHeaders.size(); i++) {
-                    log.info(responseHeaders.name(i) + ": " + responseHeaders.value(i));
-                }
-                log.info(response.body().string());
-            }
-        } catch (IOException e) {
-            log.error(e.toString());
-        }
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+
+        new ConfigurationManager("http://ec2-54-145-154-222.compute-1.amazonaws.com/config.json", 10000);
 
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -157,14 +122,13 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void test() {
-        sendLogData("Hello test error");
 
         Double counter = Math.random();
         counter += 1;
         ch.qos.logback.classic.Logger root = (ch.qos.logback.classic.Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
         Appender<ILoggingEvent> appender = root.getAppender("sumoAppender");
         SumoAppender sumoAppender = appender instanceof SumoAppender ? ((SumoAppender) appender) : null;
-        sumoAppender.setTestMessage("" + counter);
+        sumoAppender.setPrefix("" + counter);
         try {
             throwException();
         } catch (Exception e) {
