@@ -1,11 +1,12 @@
 package com.sumologic.hackathontestapp;
 
 import android.util.Log;
+
+import ch.qos.logback.classic.android.LogcatAppender;
 import ch.qos.logback.classic.spi.ILoggingEvent;
-import ch.qos.logback.core.UnsynchronizedAppenderBase;
 
 
-public class SumoAppender extends UnsynchronizedAppenderBase<ILoggingEvent> {
+public class SumoAppender extends LogcatAppender {
     private String url = null;
     private String sourceName = null;
     private String sourceHost = null;
@@ -62,7 +63,8 @@ public class SumoAppender extends UnsynchronizedAppenderBase<ILoggingEvent> {
     }
 
     public void append(ILoggingEvent event) {
-        Log.v("Hi", "Came to Sumo appender " + prefix + " " + event.getMessage());
-        sender.testSend(event.getMessage(), getUrl());
+        String logMessage = "Prefix: " + prefix + " " + getEncoder().getLayout().doLayout(event);
+        Log.v("Append",logMessage);
+        sender.testSend(logMessage, getUrl());
     }
 }

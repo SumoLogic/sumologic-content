@@ -61,8 +61,6 @@ public class SumoHttpSender {
     }
 
     public void testSend(String data, String url) {
-        android.util.Log.e("Ashish",data);
-        log.debug("Sending log to sumo " + url);
         RequestBody body = RequestBody.create(null,  data);
         Request request = new Request.Builder()
                 .url(url)
@@ -70,6 +68,7 @@ public class SumoHttpSender {
                 .build();
 
         try {
+            log.debug("Sending http request", request.headers().toString());
             try (Response response = client.newCall(request).execute()) {
                 if (!response.isSuccessful())
                     log.debug("Error while sending http request" + response.toString());
