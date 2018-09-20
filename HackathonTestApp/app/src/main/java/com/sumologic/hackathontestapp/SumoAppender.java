@@ -58,6 +58,8 @@ public class SumoAppender extends LogcatAppender {
     }
 
     private SumoHttpSender sender = new SumoHttpSender();
+
+
     public SumoAppender() {
         Log.v("Hi", "Init Sumo Appender!");
     }

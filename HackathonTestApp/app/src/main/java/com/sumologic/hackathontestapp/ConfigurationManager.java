@@ -26,7 +26,7 @@ public class ConfigurationManager extends TimerTask {
   private SumoAppender sumoAppender = appender instanceof SumoAppender ? ((SumoAppender) appender) : null;
 
   public ConfigurationManager(String serverUrl, int sleep) {
-    Log.v("Hi", "Initializing task!");
+    log.debug("Hi", "Initializing task!");
     log.info("Printing info log");
     this.serverUrl = serverUrl;
     this.sleep = sleep;
@@ -35,9 +35,7 @@ public class ConfigurationManager extends TimerTask {
 
   @Override
   public void run() {
-    Log.v("Hey", "Hi see you after 10 seconds: " + Thread.currentThread().getId());
-    log.debug("Printing debug log");
-    log.error("Printing error log");
+    log.debug("Started com.sumologic.hackathontestapp.ConfigurationManager.run");
     JSONObject jsonObject;
     String url;
     String prefix;
@@ -54,26 +52,14 @@ public class ConfigurationManager extends TimerTask {
       jsonObject = extractJsonObject(response);
 
       // Extract and update the URL
-      url = extractUrl(jsonObject);
+      url = extract(jsonObject, "url");
+      prefix = extract(jsonObject, "prefix");
       sumoAppender.setUrl(url);
-
-      // Extract and update the prefix
-      prefix = extractPrefix(jsonObject);
       sumoAppender.setPrefix(prefix);
-
-      // Extract and update the logging level
-      logLevel = extractLogLevel(jsonObject);
+      logLevel= extract(jsonObject, "logLevel");
       setLevel(logLevel);
 
     } catch (IOException e) {
-      log.error(e.toString());
-    }
-
-    // sleep for some time
-    try {
-      Thread.sleep(sleep);
-      run();
-    } catch (InterruptedException e) {
       log.error(e.toString());
     }
   }
@@ -93,56 +79,35 @@ public class ConfigurationManager extends TimerTask {
     return jsonObject;
   }
 
-  private String extractUrl(JSONObject jsonObject) {
-    String url = null;
+  private String extract(JSONObject jsonObject, String key) {
+    String value = null;
     try {
-      url = jsonObject.getString("url");
+      value = jsonObject.getString(key);
     } catch (JSONException e) {
       log.error(e.toString());
     }
-    Log.v("Hi", "Extracted URL is: " + url);
-    return url;
-  }
-
-  private String extractPrefix(JSONObject jsonObject) {
-    String prefix;
-    try {
-      prefix = jsonObject.getString("prefix");
-    } catch (JSONException e) {
-      log.error(e.toString());
-      return null;
-    }
-    Log.v("Hi", "Extracted prefix is: " + prefix);
-    return prefix;
-  }
-
-  private String extractLogLevel(JSONObject jsonObject) {
-    String logLevel;
-    try {
-      logLevel = jsonObject.getString("logLevel");
-    } catch (JSONException e) {
-      log.error(e.toString());
-      return null;
-    }
-    Log.v("Hi", "Extracted logLevel is: " + logLevel);
-    return logLevel;
+    return value;
   }
 
   private void setLevel(String logLevel) {
-    if (logLevel.equals("info")) {
-      Log.v("Hi", "setting log level to info");
+    log.info("Going to set log level to " + logLevel);
+    if (logLevel == null) {
+      log.warn("Empty log level found");
+      root.setLevel(Level.INFO);
+    } else if(logLevel.equals("info")) {
+      log.debug("setting log level to info");
       root.setLevel(Level.INFO);
     } else if (logLevel.equals("debug")) {
-      Log.v("Hi", "setting log level to debug");
+      log.debug("setting log level to debug");
       root.setLevel(Level.DEBUG);
     } else if (logLevel.equals("warn")) {
-      Log.v("Hi", "setting log level to warn");
+      log.debug("setting log level to warn");
       root.setLevel(Level.WARN);
     } else if (logLevel.equals("error")) {
-      Log.v("Hi", "setting log level to error");
+      log.debug("setting log level to error");
       root.setLevel(Level.ERROR);
     } else {
-      Log.v("Hi", "setting log level to others");
+      log.warn("No log level found");
       root.setLevel(Level.INFO);
     }
   }
