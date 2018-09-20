@@ -14,10 +14,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import java.io.IOException;
+import java.util.Random;
+import java.util.logging.LogManager;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.core.Appender;
 import okhttp3.Headers;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
@@ -30,6 +35,7 @@ public class MainActivity extends AppCompatActivity
 
     private Logger log = LoggerFactory.getLogger(MainActivity.class);
     private OkHttpClient client = new OkHttpClient();
+    private Logger  sumoLogger = LoggerFactory.getLogger("Sumo logger");
 
 
     private void sendLogData(String data) {
@@ -146,7 +152,23 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    private void throwException(){
+        throw new IllegalArgumentException("Test stack trace exception");
+    }
+
     private void test() {
         sendLogData("Hello test error");
+
+        Double counter = Math.random();
+        counter += 1;
+        ch.qos.logback.classic.Logger root = (ch.qos.logback.classic.Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
+        Appender<ILoggingEvent> appender = root.getAppender("sumoAppender");
+        SumoAppender sumoAppender = appender instanceof SumoAppender ? ((SumoAppender) appender) : null;
+        sumoAppender.setTestMessage("" + counter);
+        try {
+            throwException();
+        } catch (Exception e) {
+            log.error("Some error thrown", e);
+        }
     }
 }

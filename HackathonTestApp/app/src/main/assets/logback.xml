@@ -8,7 +8,18 @@
         </encoder>
     </appender>
 
+    <appender name="sumoAppender" class="com.sumologic.hackathontestapp.SumoAppender">
+        <tagEncoder>
+            <pattern>%logger{12}</pattern>
+        </tagEncoder>
+        <encoder>
+            <pattern>[%-20thread] %msg</pattern>
+        </encoder>
+        <testMessage>ashish@testMessage</testMessage>
+    </appender>
+
     <root level="DEBUG">
         <appender-ref ref="logcat" />
+        <appender-ref ref="sumoAppender" />
     </root>
 </configuration>
