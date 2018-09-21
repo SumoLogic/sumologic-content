@@ -74,8 +74,11 @@ public class SumoAppender extends LogcatAppender {
     }
 
     public void append(ILoggingEvent event) {
-        String logMessage = "Prefix: " + prefix + " " + getEncoder().getLayout().doLayout(event);
-        Log.v("Append",logMessage);
+        String logMessage = getEncoder().getLayout().doLayout(event);
+        if(!(prefix == null || prefix.isEmpty())){
+            logMessage = "Prefix: " + prefix + " " + logMessage;
+        }
+        logMessage = event.getLevel().levelStr + " " + logMessage;
         sender.testSend(logMessage, getUrl());
     }
 }

@@ -39,6 +39,7 @@ public class ConfigSyncService extends JobService {
     this.serverUrl = params.getExtras().getString("url");
     serverUrl = "http://ec2-54-145-154-222.compute-1.amazonaws.com/config.json";
     sync();
+    DummyLoggenrator.generateLog();
     ConfigManager.scheduleJob(getApplication());
     return true;
   }
@@ -49,8 +50,7 @@ public class ConfigSyncService extends JobService {
   }
 
   public void sync() {
-    Log.i("SyncService", "Started com.sumologic.hackathontestapp.ConfigSyncService.sync");
-    // log.debug("Started com.sumologic.hackathontestapp.ConfigSyncService.run");
+    log.debug("Started Sync service");
     JSONObject jsonObject;
     String url;
     String prefix;
