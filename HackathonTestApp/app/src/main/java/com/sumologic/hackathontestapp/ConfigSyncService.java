@@ -50,7 +50,7 @@ public class ConfigSyncService extends JobService {
 
   public void sync() {
     Log.i("SyncService", "Started com.sumologic.hackathontestapp.ConfigSyncService.sync");
-    log.debug("Started com.sumologic.hackathontestapp.ConfigSyncService.run");
+    // log.debug("Started com.sumologic.hackathontestapp.ConfigSyncService.run");
     JSONObject jsonObject;
     String url;
     String prefix;
@@ -72,7 +72,7 @@ public class ConfigSyncService extends JobService {
       sumoAppender.setUrl(url);
       sumoAppender.setPrefix(prefix);
       logLevel= extract(jsonObject, "logLevel");
-      setLevel(logLevel);
+      setLevel(sumoAppender, logLevel);
 
     } catch (IOException e) {
       log.error(e.toString());
@@ -105,26 +105,30 @@ public class ConfigSyncService extends JobService {
     return value;
   }
 
-  private void setLevel(String logLevel) {
-    log.info("Going to set log level to " + logLevel);
-    if (logLevel == null) {
-      log.warn("Empty log level found");
-      root.setLevel(Level.INFO);
-    } else if(logLevel.equals("info")) {
-      log.debug("setting log level to info");
-      root.setLevel(Level.INFO);
-    } else if (logLevel.equals("debug")) {
-      log.debug("setting log level to debug");
-      root.setLevel(Level.DEBUG);
-    } else if (logLevel.equals("warn")) {
-      log.debug("setting log level to warn");
-      root.setLevel(Level.WARN);
-    } else if (logLevel.equals("error")) {
-      log.debug("setting log level to error");
-      root.setLevel(Level.ERROR);
-    } else {
-      log.warn("No log level found");
-      root.setLevel(Level.INFO);
+  private void setLevel(SumoAppender sumoAppender, String logLevel) {
+    String oldLevel = sumoAppender.getLogLevel();
+    if (!logLevel.equals(oldLevel)) {
+      log.info("Config changed. Going to set log level to " + logLevel);
+      sumoAppender.setLogLevel(logLevel);
+      if (logLevel == null) {
+        log.warn("Empty log level found");
+        root.setLevel(Level.INFO);
+      } else if (logLevel.equals("info")) {
+        log.debug("Setting log level to info");
+        root.setLevel(Level.INFO);
+      } else if (logLevel.equals("debug")) {
+        log.debug("Setting log level to debug");
+        root.setLevel(Level.DEBUG);
+      } else if (logLevel.equals("warn")) {
+        log.debug("Setting log level to warn");
+        root.setLevel(Level.WARN);
+      } else if (logLevel.equals("error")) {
+        log.debug("Setting log level to error");
+        root.setLevel(Level.ERROR);
+      } else {
+        log.warn("No log level found");
+        root.setLevel(Level.INFO);
+      }
     }
   }
 }

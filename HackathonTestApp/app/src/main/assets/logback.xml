@@ -9,11 +9,8 @@
     </appender>
 
     <appender name="sumoAppender" class="com.sumologic.hackathontestapp.SumoAppender">
-        <tagEncoder>
-            <pattern>%logger{12}</pattern>
-        </tagEncoder>
         <encoder>
-            <pattern>[%-20thread] %msg</pattern>
+            <pattern>[%logger{12}] %msg</pattern>
         </encoder>
         <testMessage>ashish@testMessage</testMessage>
     </appender>

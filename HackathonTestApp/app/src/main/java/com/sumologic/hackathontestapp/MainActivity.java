@@ -2,7 +2,9 @@ package com.sumologic.hackathontestapp;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -58,49 +60,30 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                test();
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action",  null).show();
-            }
-        });
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(mActivity);
+        builder1.setMessage("Internal Server Error! Contact Zuber support.");
+        builder1.setCancelable(true);
 
-        // Action for INFO Button
-        Button infoButton = (Button) findViewById(R.id.button2);
-        infoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.v("HI", "Info button pressed!");
-                log.info("The INFO button was pressed!");
-            }
-        });
+        builder1.setPositiveButton(
+                "Ok",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        debugLogger();
+                        exceptionThrower();
+                        dialog.cancel();
+                    }
+                });
 
-        // Action for ERROR Button
-        Button errorButton = (Button) findViewById(R.id.button);
-        errorButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.v("HI", "Error button pressed!");
-                try {
-                    throwException();
-                } catch (Exception e) {
-                    log.error("Error button was pressed. Throwing error", e);
-                }
-            }
-        });
 
-        // Action for SUMO SEND Button
-        Button sendButton = (Button) findViewById(R.id.button3);
-        final EditText editText = (EditText) findViewById(R.id.editText);
+        final AlertDialog alert11 = builder1.create();
+
+        // Action for Confirm Uber button
+        Button sendButton = (Button) findViewById(R.id.button);
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.v("HI", "Sumo send button pressed!");
-                final String message = editText.getText().toString();
-                log.debug(message);
+                Log.v("HI", "Confirm Uber button pressed");
+                alert11.show();
             }
         });
 
@@ -132,18 +115,19 @@ public class MainActivity extends AppCompatActivity {
         throw new IllegalArgumentException("Test stack trace exception");
     }
 
-    private void test() {
-
-        Double counter = Math.random();
-        counter += 1;
-        ch.qos.logback.classic.Logger root = (ch.qos.logback.classic.Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
-        Appender<ILoggingEvent> appender = root.getAppender("sumoAppender");
-        SumoAppender sumoAppender = appender instanceof SumoAppender ? ((SumoAppender) appender) : null;
-        sumoAppender.setPrefix("" + counter);
+    private void exceptionThrower() {
         try {
             throwException();
         } catch (Exception e) {
-            log.error("Some error thrown", e);
+            log.error("Exception in downstream pipeline", e);
         }
+    }
+
+    private void debugLogger() {
+        log.debug("Sending ride information to Zuber server");
+        log.debug("Starting position is: Delhi");
+        log.debug("Ending position is: SumoLogic India");
+        log.debug("Info received at Zuber server");
+        log.debug("Pushing info to our ride processing pipeline");
     }
 }

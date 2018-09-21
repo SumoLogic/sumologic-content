@@ -12,6 +12,7 @@ public class SumoAppender extends LogcatAppender {
     private String sourceHost = null;
     private String sourceCategory = null;
     private String prefix = null;
+    private String logLevel = null;
 
     public String getTestMessage() {
         return prefix;
@@ -31,6 +32,14 @@ public class SumoAppender extends LogcatAppender {
         if (url != null && !url.isEmpty()) {
             this.url = url;
         }
+    }
+
+    public String getLogLevel() {
+        return logLevel;
+    }
+
+    public void setLogLevel(String level) {
+        this.logLevel = level;
     }
 
     public String getSourceName() {
