@@ -1,5 +1,6 @@
 package com.sumologic.hackathontestapp;
 
+import android.app.job.JobParameters;
 import android.util.Log;
 
 import org.json.JSONException;
@@ -7,7 +8,7 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.io.IOException;
-import java.util.TimerTask;
+import android.app.job.JobService;
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.Appender;
@@ -15,27 +16,41 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class ConfigurationManager extends TimerTask {
+public class ConfigSyncService extends JobService {
+  private static final String TAG = "SyncService";
 
   private String serverUrl;
-  private int sleep;
   private OkHttpClient client = new OkHttpClient();
   private Logger log = LoggerFactory.getLogger(MainActivity.class);
   private ch.qos.logback.classic.Logger root = (ch.qos.logback.classic.Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
   private Appender<ILoggingEvent> appender = root.getAppender("sumoAppender");
   private SumoAppender sumoAppender = appender instanceof SumoAppender ? ((SumoAppender) appender) : null;
 
-  public ConfigurationManager(String serverUrl, int sleep) {
-    log.debug("Hi", "Initializing task!");
-    log.info("Printing info log");
-    this.serverUrl = serverUrl;
-    this.sleep = sleep;
-    run();
+  public ConfigSyncService(){}
+
+//  public ConfigSyncService(String serverUrl, int sleep) {
+//    log.debug("Hi", "Initializing task!");
+//    log.info("Printing info log");
+//    this.serverUrl = serverUrl;
+//  }
+
+  @Override
+  public boolean onStartJob(JobParameters params) {
+    this.serverUrl = params.getExtras().getString("url");
+    serverUrl = "http://ec2-54-145-154-222.compute-1.amazonaws.com/config.json";
+    sync();
+    ConfigManager.scheduleJob(getApplication());
+    return true;
   }
 
   @Override
-  public void run() {
-    log.debug("Started com.sumologic.hackathontestapp.ConfigurationManager.run");
+  public boolean onStopJob(JobParameters params) {
+    return true;
+  }
+
+  public void sync() {
+    Log.i("SyncService", "Started com.sumologic.hackathontestapp.ConfigSyncService.sync");
+    log.debug("Started com.sumologic.hackathontestapp.ConfigSyncService.run");
     JSONObject jsonObject;
     String url;
     String prefix;
@@ -63,6 +78,7 @@ public class ConfigurationManager extends TimerTask {
       log.error(e.toString());
     }
   }
+
 
   private JSONObject extractJsonObject(Response response) {
     JSONObject jsonObject = null;
