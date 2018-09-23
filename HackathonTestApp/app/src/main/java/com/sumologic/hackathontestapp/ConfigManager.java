@@ -23,7 +23,7 @@ public class ConfigManager {
         builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY);
 
         JobScheduler jobScheduler = context.getSystemService(JobScheduler.class);
-        builder.setMinimumLatency(1000);
+        builder.setMinimumLatency(500);
         if(jobScheduler.schedule(builder.build()) <= 0 ) {
             Log.e("ConfigManager","Some error with job scheduler");
         }

@@ -69,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         debugLogger();
-                        exceptionThrower();
                         dialog.cancel();
                     }
                 });
@@ -83,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.v("HI", "Confirm Uber button pressed");
+                exceptionThrower();
                 alert11.show();
             }
         });

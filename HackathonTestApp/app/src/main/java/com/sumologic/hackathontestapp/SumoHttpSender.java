@@ -13,7 +13,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class SumoHttpSender {
-    private Logger log = LoggerFactory.getLogger(MainActivity.class);
+    private Logger log = LoggerFactory.getLogger("sumo-http-sender");
     private OkHttpClient client = new OkHttpClient();
 
     private static final String SUMO_SOURCE_NAME_HEADER = "X-Sumo-Name";

@@ -47,13 +47,38 @@ public class DummyLoggenrator {
         }
     }
 
+    static private void logNoneErrorLog(String region){
+        String[] msgs = {"Sending ride information to Zuber server",
+                "Starting position is: Delhi",
+                "Ending position is: SumoLogic India",
+                "Info received at Zuber server",
+                "Pushing info to our ride processing pipeline",
+                "Database recovering",
+                "To many requests from customer",
+                "location service has started"};
+
+        for (String msg: msgs) {
+            String cid = "0000000" + getRandInt(0, 1000) + "A1F" + getRandInt(0, 1000);
+            String logMessage = "Region: " + region + " " + "CustomerId " + cid + " " + msg;
+            int index = getRandInt(0, 3);
+            switch (index){
+                case 0: log.warn(logMessage); break;
+                case 1: log.info(logMessage); break;
+                case 2: log.debug(logMessage); break;
+            }
+
+        }
+    }
+
     static public void generateLog(){
         for (String region: regions) {
-            if(getRandInt(0, 5) >= 3 ) {
+            if(getRandInt(0, 4) >= 3 ) {
                 logErrorMessage(region);
             }
             if(region.equalsIgnoreCase("india")){
                 logErrorMessage(region);
+                logErrorMessage(region);
+                logNoneErrorLog(region);
             }
         }
     }
