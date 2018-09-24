@@ -1,4 +1,4 @@
-# EVENT BASED S3 SETUP AUTOMATOR
+# Notification based S3 Setup Automator Script
 
 ### NOTE: This script is *community supported* and no guarantees are made by Sumo Logic.
 
