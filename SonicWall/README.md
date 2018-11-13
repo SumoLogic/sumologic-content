@@ -1,7 +1,9 @@
 
 # SonicWall
 
+
 ![sonicwall_overview](Screenshots/sonicwall_overview.png)
+
 
 This is a dashboard and parser for SonicWall appliances. 
 
@@ -21,6 +23,7 @@ This panel relies upon the Scheduled Views in the [Threat Intel Quick Analysis -
 Update source categories to the appropriate one(s):
 
 SonicWall queries:
+
 Update `$$SonicWall` to `_sourceCategory=yourSourceCategory` 
 
 
