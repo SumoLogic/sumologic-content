@@ -1,6 +1,7 @@
+
 # SonicWall
 
-![SonicWall Overview Dashboard](https://raw.githubusercontent.com/SumoLogic/sumologic-content/master/SonicWall/Screenshots/sonicwall_overview.png)
+![sonicwall_overview](Screenshots/sonicwall_overview.png)
 
 This is a dashboard and parser for SonicWall appliances. 
 
@@ -29,4 +30,4 @@ update $$SonicWall to `_sourceCategory=yourSourceCategory`
 
 ### Import App
 
-Once imported, the app should automatically be setup to query against SonicWall logs. 
+Once imported, the app should automatically be setup to query against SonicWall logs.
