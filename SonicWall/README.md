@@ -1,8 +1,10 @@
 # SonicWall
 
+![SonicWall Overview Dashboard](https://raw.githubusercontent.com/SumoLogic/sumologic-content/master/SonicWall/Screenshots/sonicwall_overview.png)
+
 This is a dashboard and parser for SonicWall appliances. 
 
-The dashboard partially utilizes the parsers as well as the [Optimized Threat Intelligence scheduled view for IP addresses](https://github.com/SumoLogic/sumologic-content/blob/master/Sumo-Logic-Tools/Threat_Intelligence_Optimized/scheduled_views.txt).
+The dashboard partially utilizes the parsers as well as the [Optimized Threat Intelligence scheduled view for IP addresses](https://github.com/SumoLogic/sumologic-content/blob/master/Sumo-Logic-Tools/Threat_Intelligence_Optimized/scheduled-views.txt).
 
 
 ## Setup
@@ -18,13 +20,13 @@ This panel relies upon the Scheduled Views in the [Threat Intel Quick Analysis -
 Update source categories to the appropriate one(s):
 
 SonicWall queries:
-Update $$SonicWall to "_sourceCategory=yourSourceCategory" 
+Update $$SonicWall to `_sourceCategory=yourSourceCategory` 
 
 
 Sumo Logic Threat Intelligence panel(s):
-update $$SonicWall to "_sourceCategory=yourSourceCategory"
+update $$SonicWall to `_sourceCategory=yourSourceCategory`
 
 
 ### Import App
 
-Once imported, the app should automatically be setup to query against SonicWall logs. 
+Once imported, the app should automatically be setup to query against SonicWall logs.
