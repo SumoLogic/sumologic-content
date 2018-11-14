@@ -1,5 +1,7 @@
 # Palo Alto Networks 7.x
 
+![PAN7_Overview](Screenshots/PAN7_Overview.png)
+
 This is an updated version of the Palo Alto Networks app to support parsing for PAN7.x.
 
 Traffic parsing should work with the current parsing from PAN7; however, the updated app is primarly to work with PAN7 Threat logs. 
@@ -18,13 +20,19 @@ This panel relies upon the Scheduled Views in the [Threat Intel Quick Analysis -
 Update source categories to the appropriate one(s):
 
 PAN queries:
-Update $$PAN to "_sourceCategory=yourSourceCategory"
+Update `$$PAN` to `_sourceCategory=yourSourceCategory`
 
 Sumo Logic Threat Intelligence panel(s):
 
-Update "$$PAN" to "_sourceCategory=yourSourceCategory"
+Update `$$PAN` to `_sourceCategory=yourSourceCategory`
 
 
 ### Import App
 
 Once imported, the app should automatically be setup to query against PAN7 logs. 
+
+## Additional Dashboards
+
+![PAN7_Threats.png](Screenshots/PAN7_Threats.png)
+
+![PAN7_Traffic](Screenshots/PAN7_Traffic.png)
