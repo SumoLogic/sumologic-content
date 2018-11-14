@@ -2,13 +2,6 @@
 
 ![Sophos UTM - Overview](https://raw.githubusercontent.com/SumoLogic/sumologic-content/master/Sophos/UTM/Screenshots/Screenshot-Sophos-UTM-Overview.png)
 
-![Sophos UTM - Blocked Traffic](https://raw.githubusercontent.com/SumoLogic/sumologic-content/master/Sophos/UTM/Screenshots/Screenshot-Sophos-UTM-Blocked-Traffic.png)
-
-![Sophos UTM - Dropped Packets](https://raw.githubusercontent.com/SumoLogic/sumologic-content/master/Sophos/UTM/Screenshots/Screenshot-Sophos-UTM-Dropped-Packets.png)
-
-![Sophos UTM - Traffic](https://raw.githubusercontent.com/SumoLogic/sumologic-content/master/Sophos/UTM/Screenshots/Screenshot-Sophos-UTM-Traffic.png)
-
-![Sophos UTM - Threat Intelligence](https://raw.githubusercontent.com/SumoLogic/sumologic-content/master/Sophos/UTM/Screenshots/Screenshot-Sophos-UTM-Threat-Intelligence.png)
 
 This is an app for Sophos UTM. It contains dashboards for an overview, blocked traffic, dropped packets, accepted traffic,  and threats per the Sumo Logic Integrated Threat Intelligence. 
 
@@ -31,8 +24,18 @@ This dashboard relies upon the Scheduled Views in the [Threat Intel Quick Analys
 
 Update source categories to the appropriate one(s):
 
-Update *$$Sophos* to `_sourceCategory=yourSourceCategory`
+Update `*$$Sophos*` to `_sourceCategory=yourSourceCategory`
 
 ### Import App
 
 Import the Sophos-UTM.json into Sumo Logic. Once imported, the app should automatically be setup to query against Sophos UTM logs.
+
+### Additional Dashboards
+
+![Screenshot-Sophos-UTM-Blocked-Traffic](Screenshots/Screenshot-Sophos-UTM-Blocked-Traffic.png)
+
+![Screenshots/Screenshot-Sophos-UTM-Dropped-Packets](Screenshots/Screenshot-Sophos-UTM-Dropped-Packets.png)
+
+![Screenshot-Sophos-UTM-Traffic](Screenshots/Screenshot-Sophos-UTM-Traffic.png)
+
+![Screenshot-Sophos-UTM-Threat-Intelligence](Screenshots/Screenshot-Sophos-UTM-Threat-Intelligence.png)
