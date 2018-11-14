@@ -1,11 +1,25 @@
+# Sumo Logic for CLoudFlare
+
+![CloudFlare%20-%20Overview](Screenshots/CloudFlare%20-%20Overview.png)
+
 Contains all CloudFlare technology and product lines for which Sumo Logic has content for.
 
 See [Sumo Logic Documentation](https://help.sumologic.com/) for instructions on how to collect logs and metrics for use with content.
 
-To use this application, replace $$CloudFlare with your "_sourceCategory=yourSourceCategory" in the CloudFlare_Logs.json file.
+To use this application, replace `$$CloudFlare` with your `_sourceCategory=yourSourceCategory` in the CloudFlare_Logs.json file.
 
 For more information, see CloudFlare's documentation here:
 Shipping CloudFlare Logs to Sumo Logic: https://hackernoon.com/how-to-ship-cloudflare-logs-to-sumo-logic-with-lambda-a119e5379f02
+
+## Additional Dashboards
+
+![CloudFlare%20-%20Visitor%20Access%20Types](Screenshots/CloudFlare%20-%20Visitor%20Access%20Types.png)
+
+![CloudFlare%20-%20Visitor%20Locations](Screenshots/CloudFlare%20-%20Visitor%20Locations.png)
+
+![CloudFlare%20-%20Visitor%20Traffic%20Insights.png](Screenshots/CloudFlare%20-%20Visitor%20Traffic%20Insights.png)
+
+![CloudFlare%20-%20Web%20Server%20Operations](Screenshots/CloudFlare%20-%20Web%20Server%20Operations.png)
 
 Guidelines PLEASE READ:
 

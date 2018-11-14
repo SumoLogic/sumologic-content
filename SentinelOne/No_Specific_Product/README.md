@@ -1,3 +1,5 @@
+![SentinelOne_NoSpecProduct_Logs](Screenshots/SentinelOne_NoSpecProduct_Logs.png)
+
 All content associated with SentinelOne Endpoint Logs. Requires collection of:
 - SentinelOne logs
 

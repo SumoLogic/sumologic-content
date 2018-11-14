@@ -1,3 +1,7 @@
+# Sumo Logic for Centrify
+
+![Centrify_NoSpecProduct_Logs.png](Screenshots/Centrify_NoSpecProduct_Logs.png)
+
 Contains all Centrify technology and product lines for which Sumo Logic has content for.
 
 See [Sumo Logic Documentation](https://help.sumologic.com/) for instructions on how to collect logs and metrics for use with content.
@@ -5,7 +9,7 @@ See [Sumo Logic Documentation](https://help.sumologic.com/) for instructions on 
 For more information, see Centrify's documentation here:
 [Centrify Logging](https://docs.centrify.com/en/centrify/macadmin/index.html#page/macadmin/adm_troubleshooting_EnableLogging.html)
 
-To use this application replace $$Centrify with your "_sourceCategory=yourSourceCategory" of Centrify in the Centrify_NoSpecProduct_Logs.json file.
+To use this application replace `$$Centrify` with your `_sourceCategory=yourSourceCategory` of Centrify in the Centrify_NoSpecProduct_Logs.json file.
 
 
 Guidelines PLEASE READ:

@@ -1,19 +1,19 @@
-#Sumo Logic application for AWS APIGateway
+# Sumo Logic application for AWS APIGateway
  
 Contains Dashboards for AWS API Gateway
 
 To use the content:
 1. Collect AWS Cloudtrail and Cloudwatch Metrics for API Gateway
-2. Download the raw JSON file(s) and search for (CTRL+F / CMD+F) "$$Cloudtrail" to replace with "_sourceCategory=yourSourceCategory"
+2. Download the raw JSON file(s) and search for (CTRL+F / CMD+F) `$$Cloudtrail` to replace with `_sourceCategory=yourSourceCategory`
 
 This dashboard provides show the total number of API hits and the status code breakdown of 400s and 500s.
-![API Gateway Total Traffic, 400s and 500s. ](https://raw.githubusercontent.com/SumoLogic/sumologic-content/master/Amazon_Web_Services/API_Gateway/Screenshots/Total-Traffic-400s-500s.png)
+![Total-Traffic-400s-500s](Screenshots/Total-Traffic-400s-500s.png)
 
 This dashboard provides API Gateway latency performance metrics.
-![API Gateway Latency-CacheHit-CacheMiss](https://raw.githubusercontent.com/SumoLogic/sumologic-content/master/Amazon_Web_Services/API_Gateway/Screenshots/Latency-CacheHit-CacheMiss.png)
+![Latency-CacheHit-CacheMiss](Screenshots/Latency-CacheHit-CacheMiss.png)
 
 This dashboard provides the breakdown of events for the API Gateway
-![API Gateway Events](https://raw.githubusercontent.com/SumoLogic/sumologic-content/master/Amazon_Web_Services/API_Gateway/Screenshots/API-Gateway-Events.png)
+![API-Gateway-Events](Screenshots/API-Gateway-Events.png)
 
 
 
