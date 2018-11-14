@@ -1,3 +1,7 @@
+# Sumo Logic for Aqua Security
+
+![AquaSecurity-Dashboard](AquaSecurity-Dashboard.png)
+
 Contains a dashboard for Aqua Security (https://www.aquasec.com)
 This dashboard was tested with Aqua Container Security Platform 3.2.
 
