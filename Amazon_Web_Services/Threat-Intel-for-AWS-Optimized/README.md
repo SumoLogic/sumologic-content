@@ -1,5 +1,7 @@
 # Threat Intelligence for AWS - Optimized
 
+![Screenshot-Threat-Intel-for-AWS-Overview-Optimized](Screenshots/Screenshot-Threat-Intel-for-AWS-Overview-Optimized.png)
+
 While the included Threat Intelligence for AWS app is a great place to start for valuable threat intelligence, it still needs to be optimized to get the most value out of it.  This is an optimized version of the included app.
 
 Note that the app in the Sumo Logic App Catalog is for ELB - Classic, and this version is currently for ELB - Application. Minor tweaking may be necessary for ELB - Classic.
