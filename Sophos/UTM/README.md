@@ -1,6 +1,6 @@
 # Sophos UTM
 
-![Sophos UTM - Overview](https://raw.githubusercontent.com/SumoLogic/sumologic-content/master/Sophos/UTM/Screenshots/Screenshot-Sophos-UTM-Overview.png)
+![Screenshot-Sophos-UTM-Overview](Screenshots/Screenshot-Sophos-UTM-Overview.png)
 
 
 This is an app for Sophos UTM. It contains dashboards for an overview, blocked traffic, dropped packets, accepted traffic,  and threats per the Sumo Logic Integrated Threat Intelligence. 
