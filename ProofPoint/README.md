@@ -1,3 +1,5 @@
+![ProofPoint_Overview](Screenshots/ProofPoint_Overview.png)
+
 Contains all Proofpoint and product lines for which Sumo Logic has content for.
 
 See [Sumo Logic Documentation](https://help.sumologic.com/) for instructions on how to collect logs and metrics for use with content.
@@ -6,7 +8,7 @@ For more information, see Proofpoint's Youtube here:
 [Proofpoint Logging](https://www.youtube.com/watch?v=qPOgaXB6xBw)
 
 
-To use the dashboards, replace $$Proofpoint with "_sourceCategory=yourSourceCategory".
+To use the dashboards, replace `$$Proofpoint` with `_sourceCategory=yourSourceCategory`
 
 
 Guidelines PLEASE READ:
