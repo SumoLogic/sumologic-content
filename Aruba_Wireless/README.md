@@ -1,6 +1,16 @@
+# Sumo Logic for Aruba Wireless
+
+![ArubaWireless-Controller-AuthMgr](ArubaWireless_Controller/Screenshots/ArubaWireless-Controller-AuthMgr.png)
+
 Contains all Aruba Wireless technology and product lines for which Sumo Logic has content for.
 
 See [Sumo Logic Documentation](https://help.sumologic.com/) for instructions on how to collect logs and metrics for use with content.
+
+## Additional Dashboards
+
+![ArubaWireless-Controller-WMSModule](ArubaWireless_Controller/Screenshots/ArubaWireless-Controller-WMSModule.png)
+
+![ArubaWireless-TACACS](ArubaWireless_TACACS/Screenshots/ArubaWireless-TACACS.png)
 
 To use the content:
 
