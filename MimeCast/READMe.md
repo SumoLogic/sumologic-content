@@ -29,7 +29,7 @@ To contribute to subfolders or create new subfolders here, please follow the sta
 For more information, see MimeCast documentation here:
 [MimeCast logs](https://www.mimecast.com/developer/documentation/get-siem-logs/)
 
-##Additional Dashboards
+## Additional Dashboards
 
 ![Screenshot-MimeCast-MTA1](Screenshots/Screenshot-MimeCast-MTA1.png)
 
