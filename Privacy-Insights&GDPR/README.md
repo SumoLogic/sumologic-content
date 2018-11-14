@@ -1,24 +1,29 @@
+# GDPR Privacy Insights
+
+![Privacy_MainInsights](Screenshots/Privacy_MainInsights.png)
+
 Contains the Sumo Logic Privacy Insights and GDPR Application
 
-See [Sumo Logic Documentation](https://help.sumologic.com/) for instructions on how to collect logs and metrics for use with content.
+Please see [Privacy Insights Documentation.pdf](https://github.com/SumoLogic/sumologic-content/blob/master/Privacy-Insights%26GDPR/Privacy%20Insights%20Documentation.pdf) for instructions
 
-To use the content:
+## Additional Dashboards
 
-Download the raw JSON file(s) and search for (CTRL+F / CMD+F) "$$SourceCategory" to replace with your appropriate _sourceCategory.
+![Privacy_GenderMentions](Screenshots/Privacy_GenderMentions.png)
 
-Guidelines PLEASE READ:
+![Privacy_PoliticalMentions](Screenshots/Privacy_PoliticalMentions.png)
 
-To contribute to subfolders or create new subfolders here, please follow the standards below:
+![Privacy_PotentialBelgianIDs](Screenshots/Privacy_PotentialBelgianIDs.png)
 
-1. All application, dashboard and search content in .json format. Please use descriptive naming such as:
-   a. Company_TechnologyLine_ContentFunction. E.g. AWS_Kinesis_Errors.json or Sentinel_Vanguard_All.json
+![Privacy_PotentialEmails](Screenshots/Privacy_PotentialEmails.png)
 
-2. Relevant screenshot(s) in .png or equivalent format. Naming similar or equivalent to .json content it represents.
+![Privacy_PotentialGermanIDCards](Screenshots/Privacy_PotentialGermanIDCards.png)
 
-3. Create/update a README.md file (like this one) within the folder to track:
-   a. Link(s) to relevant 3rd party documentation to specify what types of data need to be collected for content to work.
+![Privacy_PotentialGermanPassports](Screenshots/Privacy_PotentialGermanPassports.png)
 
+![Privacy_PotentialSSNs](Screenshots/Privacy_PotentialSSNs.png)
+
+![Privacy_ReligiousMentions](Screenshots/Privacy_ReligiousMentions.png)
 
 2018/04/11 - Created
 
-  Added Privacy Insights Main Dashboard, accompanying 8 seed dashboards and Full Documentation - authors: Michael Halabi, Jason Hwa. Uploaded by: Jason Hwa
+Added Privacy Insights Main Dashboard, accompanying 8 seed dashboards and Full Documentation - authors: Michael Halabi, Jason Hwa. Uploaded by: Jason Hwa
