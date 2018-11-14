@@ -1,8 +1,8 @@
-# Sumo Logic for Cisco
+# Sumo Logic for Cisco Meraki
 
 ![Cisco_Meraki](Meraki/Screenshots/Cisco_Meraki.png)
 
-Contains all Cisco technology and product lines for which Sumo Logic has content for.
+Contains all Cisco Meraki technology and product lines for which Sumo Logic has content for.
 
 See [Sumo Logic Documentation](https://help.sumologic.com/) for instructions on how to collect logs and metrics for use with content.
 
