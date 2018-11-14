@@ -1,6 +1,6 @@
 # SonicWall
 
-![SonicWall Overview Dashboard](https://raw.githubusercontent.com/SumoLogic/sumologic-content/master/SonicWall/Screenshots/sonicwall_overview.png)
+![sonicwall_overview](Screenshots/sonicwall_overview.png)
 
 This is a dashboard and parser for SonicWall appliances. 
 
@@ -24,7 +24,7 @@ Update $$SonicWall to `_sourceCategory=yourSourceCategory`
 
 
 Sumo Logic Threat Intelligence panel(s):
-update $$SonicWall to `_sourceCategory=yourSourceCategory`
+update `$$SonicWall` to `_sourceCategory=yourSourceCategory`
 
 
 ### Import App
