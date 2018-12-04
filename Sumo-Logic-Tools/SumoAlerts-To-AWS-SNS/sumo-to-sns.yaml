@@ -1,0 +1,165 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'Creates a stack for an API Gateway endpoint for messages to get pushed to SNS through Lambda'
+Metadata:
+  AWS::CloudFormation::Interface:
+    ParameterGroups:
+      -
+        Label:
+          default: "SNS Subscription Endpoints"
+        Parameters:
+          - EmailAddress
+          - PhoneNumber
+    ParameterLabels:
+      EmailAddress:
+        default: "Email Address"
+      PhoneNumber:
+        default: "Phone Number"
+Parameters:
+  EmailAddress:
+    Type: String
+  PhoneNumber:
+    Type: String
+    Description: "Enter the full phone number including the country code (1 for US)."
+Conditions:
+  EmailCondition: !Not [ !Equals [!Ref EmailAddress, ""] ]
+  PhoneCondition: !Not [ !Equals [!Ref PhoneNumber, ""] ]
+Resources:
+  SumoLambdaToSNS:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        ZipFile: |
+            import os
+            import boto3
+            import json
+
+            client = boto3.client('sns')
+
+            def lambda_handler(event, context):
+                default = "Sumo Logic alert triggered"
+                subject = event['Subject']
+                email_body = event['Email_Message']
+                sms = event['SMS_Message']
+
+                client = boto3.client('sns')
+                response = client.publish(
+                    TargetArn=os.environ['TOPIC_ARN'],
+                    Message=json.dumps({'default': default,
+                        'sms': sms,
+                        'email': email_body}),
+                    MessageStructure='json',
+                    Subject=subject
+                )
+      Handler: 'index.lambda_handler'
+      Role: !GetAtt LambdaExecutionRole.Arn
+      Runtime: 'python3.6'
+      Environment:
+        Variables:
+          TOPIC_ARN: !Ref 'SumoSNSTopic'
+  APIInvokePermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName:
+        Fn::GetAtt:
+          - SumoLambdaToSNS
+          - Arn
+      Action: lambda:InvokeFunction
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ''
+          - - 'arn:aws:execute-api:'
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Ref: SumoAPIGatewayRestApi
+            - "/*/*/*"
+  LambdaExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      Path: "/"
+      ManagedPolicyArns:
+        - "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+        - "arn:aws:iam::aws:policy/AmazonSNSFullAccess"
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service:
+            - lambda.amazonaws.com
+          Action:
+          - sts:AssumeRole
+  SumoSNSTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      DisplayName: SumoAlert
+      TopicName: SumoAlert
+  SumoSNSSubscriptionEmail:
+    Type: AWS::SNS::Subscription
+    Condition: EmailCondition
+    Properties:
+      Endpoint: !Ref EmailAddress
+      Protocol: email
+      TopicArn: !Ref 'SumoSNSTopic'
+  SumoSNSSubscriptionSMS:
+    Type: AWS::SNS::Subscription
+    Condition: PhoneCondition
+    Properties:
+      Endpoint: !Ref PhoneNumber
+      Protocol: sms
+      TopicArn: !Ref 'SumoSNSTopic'
+  SumoAPIGatewayRestApi:
+    Type: AWS::ApiGateway::RestApi
+    Properties:
+      Name: "SumoAPIGatewayRestApi"
+  SumoAPIGatewayMethod:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      AuthorizationType: "AWS_IAM"
+      HttpMethod: "POST"
+      ResourceId:
+        Fn::GetAtt:
+          - "SumoAPIGatewayRestApi"
+          - "RootResourceId"
+      RestApiId:
+        Ref: "SumoAPIGatewayRestApi"
+      MethodResponses:
+      - StatusCode: 200
+        ResponseModels: { "application/json": "Empty" }
+      Integration:
+        Type: "AWS"
+        IntegrationHttpMethod: "POST"
+        IntegrationResponses:
+        - StatusCode: 200
+        Uri:  
+          Fn::Join:
+            - ''
+            - - 'arn:aws:apigateway:'
+              - Ref: AWS::Region
+              - ":lambda:path/2015-03-31/functions/"
+              - Fn::GetAtt:
+                - SumoLambdaToSNS
+                - Arn
+              - "/invocations"
+  SumoLambdaUser:
+    Type: AWS::IAM::User
+    Properties: 
+      ManagedPolicyArns:
+        - "arn:aws:iam::aws:policy/AmazonAPIGatewayInvokeFullAccess"
+      UserName: "SumoLambdaUser"
+  SumoAPIDeployment:
+    Type: AWS::ApiGateway::Deployment
+    Properties:
+      Description: CFN deployment
+      RestApiId:
+        Ref: SumoAPIGatewayRestApi
+      StageName: "Prod"
+    DependsOn:
+    - SumoLambdaToSNS
+    - APIInvokePermission
+    - LambdaExecutionRole
+    - SumoSNSTopic
+    - SumoAPIGatewayRestApi
+    - SumoAPIGatewayMethod
