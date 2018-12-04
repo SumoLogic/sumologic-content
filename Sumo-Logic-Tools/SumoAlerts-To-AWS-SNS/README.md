@@ -1,5 +1,7 @@
 # Sumo Logic Alerts to SNS
 
+### NOTE: This CloudFormation template is community supported and no guarantees are made by Sumo Logic!
+
 This is a CloudFormation template that creates different resources to allow for Sumo Logic to send alerts to SNS.
 
 Since SNS can be used to deliver to a variety of services and endpoints, this extends Sumo's notification functionality. For example, it can send an alert to multiple emails and phone numbers by creating more subscriptions for the SNS topic. 
