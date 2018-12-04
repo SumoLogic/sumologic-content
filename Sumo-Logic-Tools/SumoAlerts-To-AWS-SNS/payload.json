@@ -1,0 +1,5 @@
+{
+	"Subject" : "Sumo Logic Alert: {{NumRawResults}} results for {{SearchName}}",
+	"Email_Message" : "Sumo Logic has sent an alert for {{SearchName}}. \nSearch URL: {{SearchQueryUrl}}\nDescription: {{SearchDescription}}\nQuery: {{SearchQuery}}\nTime Range: {{TimeRange}}\nFire Time: {{FireTime}}\n\nNumber of Results: {{NumRawResults}}\nAggregate Results: {{AggregateResultsJson}}",
+	"SMS_Message" : "Sumo alert for {{SearchName}} returned {{NumRawResults}} results"
+}
