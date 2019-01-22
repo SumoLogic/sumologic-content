@@ -1,9 +1,21 @@
+# Sumo Logic for Barracuda
+
+![BarracudaNetworks-WAF-Overview.png](Barracuda_WAF/Screenshots/BarracudaNetworks-WAF-Overview.png)
+
 Contains all Barracuda Networks technology and product lines for which Sumo Logic has content for.
 
 See [Sumo Logic Documentation](https://help.sumologic.com/) for instructions on how to collect logs and metrics for use with content.
 
 To use the content:
-Download the raw JSON file(s) and search for (CTRL+F / CMD+F) "$$Barracuda_WAAF" to replace with "_sourceCategory=yourSourceCategory".
+Download the raw JSON file(s) and search for (CTRL+F / CMD+F) `$$Barracuda_WAAF` to replace with `_sourceCategory=yourSourceCategory`
+
+## Additional Dashboards
+
+![BarracudaNetworks-WAF-Locations](Barracuda_WAF/Screenshots/BarracudaNetworks-WAF-Locations.png)
+
+![BarracudaNetworks-WAF-Visitors](Barracuda_WAF/Screenshots/BarracudaNetworks-WAF-Visitors.png)
+
+![BarracudaNetworks-WAF-WebServer_Ops](Barracuda_WAF/Screenshots/BarracudaNetworks-WAF-WebServer_Ops.png)
 
 Guidelines PLEASE READ:
 

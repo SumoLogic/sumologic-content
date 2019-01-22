@@ -1,12 +1,7 @@
-#Sumo Logic for MimeCast
+# Sumo Logic for MimeCast
 
-![MimeCast Audit Dashboard](https://raw.githubusercontent.com/SumoLogic/sumologic-content/master/MimeCast/Screenshots/Screenshot-MimeCast-Audit.png)
+![Screenshot-MimeCast-Audit](Screenshots/Screenshot-MimeCast-Audit.png)
 
-![MimeCast Mail Transfer Agent Dashboard Figure 1](https://raw.githubusercontent.com/SumoLogic/sumologic-content/master/MimeCast/Screenshots/Screenshot-MimeCast-MTA1.png)
-
-![MimeCast Mail Transfer Agent Dashboard Figure 2](https://raw.githubusercontent.com/SumoLogic/sumologic-content/master/MimeCast/Screenshots/Screenshot-MimeCast-MTA2.png)
-
-![MimeCast Mail Transfer Agent Dashboard Figure 3](https://raw.githubusercontent.com/SumoLogic/sumologic-content/master/MimeCast/Screenshots/Screenshot-MimeCast-MTA3.png)
 
 Contains all MimeCast product lines for which Sumo Logic has content for.
 
@@ -33,6 +28,14 @@ To contribute to subfolders or create new subfolders here, please follow the sta
 
 For more information, see MimeCast documentation here:
 [MimeCast logs](https://www.mimecast.com/developer/documentation/get-siem-logs/)
+
+## Additional Dashboards
+
+![Screenshot-MimeCast-MTA1](Screenshots/Screenshot-MimeCast-MTA1.png)
+
+![Screenshot-MimeCast-MTA2](Screenshots/Screenshot-MimeCast-MTA2.png)
+
+![Screenshot-MimeCast-MTA3](Screenshots/Screenshot-MimeCast-MTA3.png)
 
 2018/06/05 - Updated
 
