@@ -1,4 +1,6 @@
-# Juniper Firewall
+# Sumo Logic for Juniper Firewall
+
+![Screenshot-Juniper-Overview](Screenshots/Screenshot-Juniper-Overview.png)
 
 This is an app for the Juniper Firewall. It contains dashboard for an overview, accepted traffic, denied traffic, and threats per the Sumo Logic Integrated Threat Intelligence. 
 
@@ -21,8 +23,16 @@ This dashboard relies upon the IP Scheduled View in the [Threat Intel Quick Anal
 
 Update source categories to the appropriate one(s):
 
-Replace $$Juniper with "_sourceCategory=yourSourceCategory"
+Replace `$$Juniper` with `_sourceCategory=yourSourceCategory`
 
 ### Import App
 
 Once imported, the app should automatically be setup to query against Juniper Firewall logs. 
+
+## Additional Dashboards
+
+![Screenshot-Juniper-Accepted-Traffic](Screenshots/Screenshot-Juniper-Accepted-Traffic.png)
+
+![Screenshot-Juniper-Denied-Traffic](Screenshots/Screenshot-Juniper-Denied-Traffic.png)
+
+![Screenshot-Juniper-Threat-Intelligence](Screenshots/Screenshot-Juniper-Threat-Intelligence.png)

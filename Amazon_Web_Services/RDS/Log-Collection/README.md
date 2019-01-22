@@ -1,4 +1,4 @@
-# RDS Log Ingestion Script (UNTESTED/BETA/WORK IN PROGRESS)
+# RDS Log Ingestion Script (Beta)
 
 **Disclaimer**: This script is still being tested, and it is community supported.
 
