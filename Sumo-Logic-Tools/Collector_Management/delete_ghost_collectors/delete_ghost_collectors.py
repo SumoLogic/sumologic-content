@@ -2,8 +2,10 @@
 import json
 import requests
 import getpass
-import datetime
+from datetime import datetime
 import sys
+import traceback
+
 #API_URL = "https://api.sumologic.com/api/v1/collectors"
 #API_URL = "https://api.us2.sumologic.com/api/v1/collectors"
 #API_URL = "https://api.eu.sumologic.com/api/v1/collectors"
@@ -37,13 +39,23 @@ def main():
     else:
       print("Invalid Deployment - " + DEPLOYMENT)
       sys.exit(1)
-
-    #get the epoch time for deletion based on "now" - hours offline.
-    time = int(datetime.datetime.now().strftime("%s")) * 1000
+    
+    print ("API_URL = " + API_URL)
+    try:      
+      #get the epoch time for deletion based on "now" - hours offline.
+      epoch_time = datetime.utcfromtimestamp(0)
+      now_utc = datetime.utcnow()
+      time = (now_utc - epoch_time).total_seconds() * 1000
+      # print ("time = ", time)
+    except Exception:
+      print("Something went wrong -> could not get epoch time...")
+      traceback.print_exc()
+      sys.exit(1)  
+    #OFFLINE in milliseconds 
     o_millis = int(OFFLINE) * 60 * 60 * 1000
     delete_time = time - int(o_millis)
-    s = int(delete_time) / 1000.0
-    v_date = datetime.datetime.fromtimestamp(s).strftime('%Y-%m-%d %H:%M:%S')
+    s = int(delete_time) / 1000
+    v_date = datetime.fromtimestamp(s).strftime("%m/%d/%Y, %H:%M:%S")
     print("Checking for Collectors offline since: " + str(v_date))
     # Get our list of Collectors from Sumo Logic.
     collectorlist = requests.get(API_URL, auth=(ACCESSID, ACCESSKEY), verify=False)
@@ -53,14 +65,15 @@ def main():
       if collector['alive'] is False and collector['lastSeenAlive'] <= delete_time:
         id=str(collector['id'])
         a = int(collector['lastSeenAlive']) / 1000.0
-        af = datetime.datetime.fromtimestamp(a).strftime('%Y-%m-%d %H:%M:%S')
+        af = datetime.fromtimestamp(a).strftime('%Y-%m-%d %H:%M:%S')
         termOut = "Offline Collector: '" + collector['name'] + "' Last seen alive on: " + af
         if (AUDIT == "n"):
           requests.delete(API_URL+"/"+id, auth=(ACCESSID, ACCESSKEY), verify=False)
           termOut += " --- DELETED"
         print(termOut)
-  except:
+  except Exception:
     print("Something went wrong -> could not delete ghost collectors...")
+    traceback.print_exc()
     sys.exit(1)
 if __name__ == "__main__":
     sys.exit(main())
