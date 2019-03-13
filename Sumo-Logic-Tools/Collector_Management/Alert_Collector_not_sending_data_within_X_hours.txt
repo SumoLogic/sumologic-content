@@ -9,8 +9,7 @@ _index=sumologic_volume _sourceCategory="collector_volume"
 | formatDate(fromMillis(most_recent),"yyyy/MM/dd HH:mm:ss") as most_recent_time 
 | toMillis(now()) as currentTime 
 | formatDate(fromMillis(currentTime),"yyyy/MM/dd HH:mm:ss") as search_time 
-//| where (currentTime-most_recent) > 18000000 // Threshold setting is milliseconds - currently set to 5 hours
-| where (currentTime-most_recent) > 604800000 // Threshold setting is milliseconds - currently set to 7 days
+| where (currentTime-most_recent) > 18000000 // Threshold setting is milliseconds - currently set to 5 hours
 | fields most_recent_time,total_in_mb,collector
 | format ("%s has not sent data for at least 5 hours", collector) as collector_status // The "5 hours" is equivalent to the previous Threshold setting in milliseconds
 | fields -collector

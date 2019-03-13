@@ -55,7 +55,6 @@ def main():
     o_millis = int(OFFLINE) * 60 * 60 * 1000
     delete_time = time - int(o_millis)
     s = int(delete_time) / 1000
-    print ("s = " + str(s))
     v_date = datetime.fromtimestamp(s).strftime("%m/%d/%Y, %H:%M:%S")
     print("Checking for Collectors offline since: " + str(v_date))
     # Get our list of Collectors from Sumo Logic.
