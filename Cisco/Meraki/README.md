@@ -1,6 +1,6 @@
 # Sumo Logic for Cisco Meraki
 
-![Cisco_Meraki](Meraki/Screenshots/Cisco_Meraki.png)
+![Cisco_Meraki](Screenshots/Cisco_Meraki.png)
 
 Contains all Cisco Meraki technology and product lines for which Sumo Logic has content for.
 
