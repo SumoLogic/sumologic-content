@@ -21,8 +21,8 @@ import requests
 
 
 def get_siem_logs():
-    app_id = 'fa25890c-fcf9-498e-ba05-0f994adfe510'
-    app_key = '67c8deb1-39b2-44a1-8013-9155d7b06fd8'
+    app_id = 'replace_with_app_id'
+    app_key = 'replace_with_app_key'
     
     request_id = str(uuid.uuid4())
     hdr_date = datetime.datetime.utcnow().strftime("%a, %d %b %Y %H:%M:%S") + " UTC"
