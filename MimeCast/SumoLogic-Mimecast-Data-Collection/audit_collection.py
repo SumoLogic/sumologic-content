@@ -20,8 +20,8 @@ import requests
 
 
 def get_audit_logs(start, end):
-    app_id = 'replace_with_app_id'
-    app_key = 'replace_with_app_key'
+    app_id = 'replace_with_access_id'
+    app_key = 'replace_with_access_key'
 
     request_id = str(uuid.uuid4())
     hdr_date = datetime.datetime.utcnow().strftime("%a, %d %b %Y %H:%M:%S") + " UTC"
