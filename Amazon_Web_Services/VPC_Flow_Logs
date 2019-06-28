@@ -1,0 +1,13 @@
+_sourceCategory=*/aws/vpcflowlogs
+// Tagging (Optional)
+| "network" as tag
+// Metadata: Source Name (Vendor)
+| parse regex field=_sourceName "AWSLogs/(?<aws_account_id>\d+)/\w+/(?<region>[^\/]+)/"
+// Event Field Extractions: Vendor (AWS) https://docs.aws.amazon.com/vpc/latest/userguide/flow-logs.html  Dashes converted to underscores
+| parse "* * * * * * * * * * * * * *" as version,account_id,interface_id,srcaddr,dstaddr,srcport,dstport,protocol,packets,bytes,start,end,action,log_status
+// Event Field Extraction: CIM
+| parse regex "\S+ \S+ \S+ (?<src_ip>\S+) (?<dest_ip>\S+) (?<src_port>\S+) (?<dest_port>\S+) (?<protocol>\S+) (?<packets>\S+) (?<bytes>\S+) (?<start_time>\S+) (?<end_time>\S+) (?<action>\S+) \S+"
+| end_time - start_time as duration
+| fields - start_time, end_time
+| if(action="ACCEPT","allowed",if(action="REJECT","blocked",action)) as action
+// EOF
