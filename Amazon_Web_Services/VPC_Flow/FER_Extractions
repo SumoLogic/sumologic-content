@@ -1,0 +1,13 @@
+_sourceCategory=*aws/s3audit
+// Tagging (Optional)
+| "web" as tag
+// Event Field Extractions: Vendor (https://docs.aws.amazon.com/AmazonS3/latest/dev/LogFormat.html)
+| parse regex "^(?<bucket_owner>\S+) (?<bucket>\S+) \S+ \S+ (?<remote_ip>\S+) (?<requester>\S+) (?<request_id>\S+) (?<operation>\S+) (?<key>\S+) \"(?<request_uri>[^\"]+)\" (?<http_status>\S+) (?<error_code>\S+) (?<bytes_sent>\S+) (?<object_size>\S+) (?<total_time>\S+) (?<turn_around_time>\S+) \"(?<referrer>[^\"])\" \"(?<user_agent>[^\"]+)\" (?<version_id>\S+) (?<host_id>\S+) (?<signature_version>\S+) (?<cipher_suite>\S+) (?<authentication_type>\S+) (?<host_header>\S+) (?<tls_version>\S+)" nodrop
+// Additional AWS Information
+| parse regex "arn:aws:iam::(?<aws_account_id>\d+):user/(?<aws_user>\S+)" nodrop
+// Event Field Extractions: CIM
+| parse regex "^\S+ \S+ \S+ \S+ (?<src_ip>\S+) (?<requester>\S+) \S+ \S+ \S+ \"(?<request>[^\"]+)\" (?<status>\S+) \S+ (?<bytes_sent>\S+) \S+ (?<duration>\S+) \S+ \"(?<http_referrer>[^\"])\" \"(?<http_user_agent>[^\"]+)\" \S+ \S+ \S+ \S+ \S+ \S+ \S+" nodrop
+| parse regex field=requester "arn:aws:iam::\d+:user/(?<user>\S+)" nodrop
+| parse regex field=request "(?<http_method>\S+) (?<uri_path>[^?\s]+)(?<uri_query>[^#\s]+)?" nodrop
+| fields -request, requester
+// EOF
