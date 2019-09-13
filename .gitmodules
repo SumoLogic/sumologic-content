@@ -1,0 +1,3 @@
+[submodule "sumologictoolbox"]
+	path = sumologictoolbox
+	url = https://github.com/voltaire321/sumologictoolbox.git
