@@ -1,0 +1,365 @@
+{
+    "type": "FolderSyncDefinition",
+    "name": "GCP - Cloud Run",
+    "description": "",
+    "children": [
+        {
+            "type": "MewboardSyncDefinition",
+            "name": "GCP - Cloud Run",
+            "description": "",
+            "title": "GCP - Cloud Run",
+            "rootPanel": {
+                "id": null,
+                "key": "panel921171eeb9b57b4f",
+                "title": "",
+                "visualSettings": "",
+                "keepVisualSettingsConsistentWithParent": true,
+                "panelType": "ContainerPanel",
+                "layout": {
+                    "layoutType": "Grid",
+                    "layoutStructures": [
+                        {
+                            "key": "panelpane-ca9c4f2dbe103b47",
+                            "structure": "{\"height\":9,\"width\":8,\"x\":0,\"y\":0}"
+                        },
+                        {
+                            "key": "panelpane-dc259e9591ead848",
+                            "structure": "{\"height\":9,\"width\":8,\"x\":8,\"y\":0}"
+                        },
+                        {
+                            "key": "panelpane-eb1a6b5da69c994f",
+                            "structure": "{\"height\":9,\"width\":8,\"x\":16,\"y\":0}"
+                        },
+                        {
+                            "key": "panelpane-df121b08a4f5cb4e",
+                            "structure": "{\"height\":8,\"width\":8,\"x\":0,\"y\":9}"
+                        },
+                        {
+                            "key": "panelpane-bef6bc07a3751a4b",
+                            "structure": "{\"height\":8,\"width\":8,\"x\":8,\"y\":9}"
+                        },
+                        {
+                            "key": "panelpane-4a6e1f13a24bdb48",
+                            "structure": "{\"height\":8,\"width\":8,\"x\":16,\"y\":9}"
+                        },
+                        {
+                            "key": "panelpane-452a9c3ba56e8a4f",
+                            "structure": "{\"height\":8,\"width\":8,\"x\":0,\"y\":17}"
+                        },
+                        {
+                            "key": "panelpane-2604a1c2a935a84b",
+                            "structure": "{\"height\":8,\"width\":24,\"x\":0,\"y\":25}"
+                        },
+                        {
+                            "key": "panelpane-c58ae93a99bd5b4f",
+                            "structure": "{\"height\":8,\"width\":4,\"x\":16,\"y\":17}"
+                        },
+                        {
+                            "key": "panelpane-570de465a53a584c",
+                            "structure": "{\"height\":8,\"width\":4,\"x\":20,\"y\":17}"
+                        },
+                        {
+                            "key": "panelpane-e6ee8ae78126ea42",
+                            "structure": "{\"height\":8,\"width\":8,\"x\":8,\"y\":17}"
+                        }
+                    ]
+                },
+                "panels": [
+                    {
+                        "id": null,
+                        "key": "panelpane-ca9c4f2dbe103b47",
+                        "title": "Request Count by Service",
+                        "visualSettings": "{\"general\":{\"type\":\"bar\"}}",
+                        "keepVisualSettingsConsistentWithParent": true,
+                        "panelType": "SumoSearchPanel",
+                        "queries": [
+                            {
+                                "queryString": "cluster={{Cluster}} namespace={{namespace}} pod=*  %\"pod_labels_serving.knative.dev/service\"=*\n| json  \"log.httpRequest.latency\", \"log.httpRequest.protocol\", \"log.httpRequest.remoteIp\", \"log.httpRequest.requestMethod\", \"log.httpRequest.requestUrl\", \"log.httpRequest.responseSize\", \"log.httpRequest.status\", \"log.httpRequest.userAgent\" , \"time\" as latency, protocol, remote_ip, request_method, request_url, response_size, status, user_agent, timestamp \n| parse regex field=deployment \"(?<service>.+?)-.+\"\n| where !isNull(service)\n| count by service\n| sort by _count",
+                                "queryType": "Logs",
+                                "queryKey": "A",
+                                "metricsQueryMode": null,
+                                "metricsQueryData": null
+                            }
+                        ],
+                        "description": "",
+                        "timeRange": null,
+                        "timerange": null,
+                        "coloringRules": null,
+                        "linkedDashboardAccessKeys": []
+                    },
+                    {
+                        "id": null,
+                        "key": "panelpane-dc259e9591ead848",
+                        "title": "Requests - One Day Comparison",
+                        "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"table\",\"fontSize\":17},\"title\":{\"fontSize\":17}}",
+                        "keepVisualSettingsConsistentWithParent": true,
+                        "panelType": "SumoSearchPanel",
+                        "queries": [
+                            {
+                                "queryString": "cluster={{Cluster}} namespace={{namespace}} pod=*  %\"pod_labels_serving.knative.dev/service\"=*\n| json  \"log.httpRequest.latency\", \"log.httpRequest.protocol\", \"log.httpRequest.remoteIp\", \"log.httpRequest.requestMethod\", \"log.httpRequest.requestUrl\", \"log.httpRequest.responseSize\", \"log.httpRequest.status\", \"log.httpRequest.userAgent\" , \"time\" as latency, protocol, remote_ip, request_method, request_url, response_size, status, user_agent, timestamp nodrop\n| parse regex field=deployment \"(?<service>.+?)-.+\"\n| where !isNull(service)\n| count by service\n| sort by _count\n| compare with timeshift 1d",
+                                "queryType": "Logs",
+                                "queryKey": "A",
+                                "metricsQueryMode": null,
+                                "metricsQueryData": null
+                            }
+                        ],
+                        "description": "",
+                        "timeRange": null,
+                        "timerange": null,
+                        "coloringRules": null,
+                        "linkedDashboardAccessKeys": []
+                    },
+                    {
+                        "id": null,
+                        "key": "panelpane-eb1a6b5da69c994f",
+                        "title": "Avg Latency (ms) by Request URL",
+                        "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"table\",\"fontSize\":17}}",
+                        "keepVisualSettingsConsistentWithParent": true,
+                        "panelType": "SumoSearchPanel",
+                        "queries": [
+                            {
+                                "queryString": "cluster={{Cluster}} namespace={{namespace}} pod=*  %\"pod_labels_serving.knative.dev/service\"=*\n| json  \"log.httpRequest.latency\", \"log.httpRequest.protocol\", \"log.httpRequest.remoteIp\", \"log.httpRequest.requestMethod\", \"log.httpRequest.requestUrl\", \"log.httpRequest.responseSize\", \"log.httpRequest.status\", \"log.httpRequest.userAgent\" , \"time\" as latency, protocol, remote_ip, request_method, request_url, response_size, status, user_agent, timestamp nodrop\n| parse regex field=deployment \"(?<service>.+?)-.+\"\n| where !isNull(service)\n| where !isNull(latency)\n| parse regex field=latency \"(?<latency>[0-9].+)s\"\n| number(latency) * 1000 as latency\n| avg(latency) as avg_latency_ms by request_url \n| sort by avg_latency_ms desc\n| limit 10",
+                                "queryType": "Logs",
+                                "queryKey": "A",
+                                "metricsQueryMode": null,
+                                "metricsQueryData": null
+                            }
+                        ],
+                        "description": "",
+                        "timeRange": null,
+                        "timerange": null,
+                        "coloringRules": null,
+                        "linkedDashboardAccessKeys": []
+                    },
+                    {
+                        "id": null,
+                        "key": "panelpane-df121b08a4f5cb4e",
+                        "title": "Traffic Volume and Bytes Served",
+                        "visualSettings": "{}",
+                        "keepVisualSettingsConsistentWithParent": true,
+                        "panelType": "SumoSearchPanel",
+                        "queries": [
+                            {
+                                "queryString": "cluster={{Cluster}} namespace={{namespace}} pod=*  %\"pod_labels_serving.knative.dev/service\"=*\n| json  \"log.httpRequest.latency\", \"log.httpRequest.protocol\", \"log.httpRequest.remoteIp\", \"log.httpRequest.requestMethod\", \"log.httpRequest.requestUrl\", \"log.httpRequest.responseSize\", \"log.httpRequest.status\", \"log.httpRequest.userAgent\" , \"time\" as latency, protocol, remote_ip, request_method, request_url, response_size, status, user_agent, timestamp nodrop\n| parse regex field=deployment \"(?<service>.+?)-.+\"\n| where !isNull(service)\n| timeslice 1m\n| (response_size/1024/1024) as mbytes\n|  count as hits, sum(mbytes) as mbytes by _timeslice \n| sort _timeslice asc",
+                                "queryType": "Logs",
+                                "queryKey": "A",
+                                "metricsQueryMode": null,
+                                "metricsQueryData": null
+                            }
+                        ],
+                        "description": "",
+                        "timeRange": null,
+                        "timerange": null,
+                        "coloringRules": null,
+                        "linkedDashboardAccessKeys": []
+                    },
+                    {
+                        "id": null,
+                        "key": "panelpane-bef6bc07a3751a4b",
+                        "title": "Request Count by Service",
+                        "visualSettings": "{\"general\":{\"mode\":\"timeSeries\",\"displayType\":\"smooth\",\"markerSize\":\"5\",\"markerType\":\"circle\"},\"color\":{\"family\":\"scheme5\"}}",
+                        "keepVisualSettingsConsistentWithParent": true,
+                        "panelType": "SumoSearchPanel",
+                        "queries": [
+                            {
+                                "queryString": "cluster={{Cluster}} namespace={{namespace}} pod=*  %\"pod_labels_serving.knative.dev/service\"=*\n| json  \"log.httpRequest.latency\", \"log.httpRequest.protocol\", \"log.httpRequest.remoteIp\", \"log.httpRequest.requestMethod\", \"log.httpRequest.requestUrl\", \"log.httpRequest.responseSize\", \"log.httpRequest.status\", \"log.httpRequest.userAgent\" , \"time\" as latency, protocol, remote_ip, request_method, request_url, response_size, status, user_agent, timestamp nodrop\n| parse regex field=deployment \"(?<service>.+?)-.+\"\n| where !isNull(service)\n| timeslice 1h\n| count by _timeslice,service  \n| transpose row _timeslice column service\n| fillmissing timeslice(1h)",
+                                "queryType": "Logs",
+                                "queryKey": "A",
+                                "metricsQueryMode": null,
+                                "metricsQueryData": null
+                            }
+                        ],
+                        "description": "",
+                        "timeRange": null,
+                        "timerange": null,
+                        "coloringRules": null,
+                        "linkedDashboardAccessKeys": []
+                    },
+                    {
+                        "id": null,
+                        "key": "panelpane-4a6e1f13a24bdb48",
+                        "title": "Top 10 Request URLs",
+                        "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"bar\",\"markerSize\":8,\"markerType\":\"circle\",\"fillOpacity\":1,\"displayType\":\"default\"},\"xy\":{\"xDimension\":[],\"yDimension\":[],\"zDimension\":[]},\"color\":{\"family\":\"scheme7\"}}",
+                        "keepVisualSettingsConsistentWithParent": true,
+                        "panelType": "SumoSearchPanel",
+                        "queries": [
+                            {
+                                "queryString": "cluster={{Cluster}} namespace={{namespace}} pod=*  %\"pod_labels_serving.knative.dev/service\"=*\n| json  \"log.httpRequest.latency\", \"log.httpRequest.protocol\", \"log.httpRequest.remoteIp\", \"log.httpRequest.requestMethod\", \"log.httpRequest.requestUrl\", \"log.httpRequest.responseSize\", \"log.httpRequest.status\", \"log.httpRequest.userAgent\" , \"time\" as latency, protocol, remote_ip, request_method, request_url, response_size, status, user_agent, timestamp nodrop\n| parse regex field=deployment \"(?<service>.+?)-.+\"\n| where !isNull(service)\n| count by request_url \n| sort by _count\n| limit 10",
+                                "queryType": "Logs",
+                                "queryKey": "A",
+                                "metricsQueryMode": null,
+                                "metricsQueryData": null
+                            }
+                        ],
+                        "description": "",
+                        "timeRange": null,
+                        "timerange": null,
+                        "coloringRules": null,
+                        "linkedDashboardAccessKeys": []
+                    },
+                    {
+                        "id": null,
+                        "key": "panelpane-452a9c3ba56e8a4f",
+                        "title": "Latency (ms) by Service",
+                        "visualSettings": "{}",
+                        "keepVisualSettingsConsistentWithParent": true,
+                        "panelType": "SumoSearchPanel",
+                        "queries": [
+                            {
+                                "queryString": "cluster=* namespace=* pod=*  %\"pod_labels_serving.knative.dev/service\"=*\n| json  \"log.httpRequest.latency\", \"log.httpRequest.protocol\", \"log.httpRequest.remoteIp\", \"log.httpRequest.requestMethod\", \"log.httpRequest.requestUrl\", \"log.httpRequest.responseSize\", \"log.httpRequest.status\", \"log.httpRequest.userAgent\" , \"time\" as latency, protocol, remote_ip, request_method, request_url, response_size, status, user_agent, timestamp nodrop\n| parse regex field=deployment \"(?<service>.+?)-.+\"\n| where !isNull(service)\n| where !isNull(latency)\n| parse regex field=latency \"(?<latency>[0-9].+)s\"\n| number(latency) * 1000 as latency\n| timeslice 1h\n| avg(latency) by _timeslice, service\n| transpose row _timeslice column service\n| fillmissing timeslice(1h)",
+                                "queryType": "Logs",
+                                "queryKey": "A",
+                                "metricsQueryMode": null,
+                                "metricsQueryData": null
+                            }
+                        ],
+                        "description": "",
+                        "timeRange": null,
+                        "timerange": null,
+                        "coloringRules": null,
+                        "linkedDashboardAccessKeys": []
+                    },
+                    {
+                        "id": null,
+                        "key": "panelpane-2604a1c2a935a84b",
+                        "title": "Responses Over Time",
+                        "visualSettings": "{\"general\":{\"mode\":\"timeSeries\",\"type\":\"column\",\"lineDashType\":\"solid\",\"markerType\":\"none\"},\"color\":{\"family\":\"scheme3\"}}",
+                        "keepVisualSettingsConsistentWithParent": true,
+                        "panelType": "SumoSearchPanel",
+                        "queries": [
+                            {
+                                "queryString": "cluster={{Cluster}} namespace={{namespace}} pod=*  %\"pod_labels_serving.knative.dev/service\"=*\n| json  \"log.httpRequest.latency\", \"log.httpRequest.protocol\", \"log.httpRequest.remoteIp\", \"log.httpRequest.requestMethod\", \"log.httpRequest.requestUrl\", \"log.httpRequest.responseSize\", \"log.httpRequest.status\", \"log.httpRequest.userAgent\" , \"time\" as latency, protocol, remote_ip, request_method, request_url, response_size, status_code, user_agent, timestamp nodrop\n| parse regex field=deployment \"(?<service>.+?)-.+\"\n| where !isNull(service)\n| if(status_code matches \"2*\", 1, 0) as successes \n| if(status_code matches \"3*\", 1, 0) as redirects \n| if(status_code matches \"4*\", 1, 0) as client_errors \n| if(status_code matches \"5*\", 1, 0) as server_errors \n| timeslice by 1h \n| sum(successes) as successes, sum(client_errors) as client_errors,  sum(redirects) as redirects, sum(server_errors) as server_errors by _timeslice\n| sort by _timeslice asc",
+                                "queryType": "Logs",
+                                "queryKey": "A",
+                                "metricsQueryMode": null,
+                                "metricsQueryData": null
+                            }
+                        ],
+                        "description": "",
+                        "timeRange": null,
+                        "timerange": null,
+                        "coloringRules": null,
+                        "linkedDashboardAccessKeys": []
+                    },
+                    {
+                        "id": null,
+                        "key": "panelpane-c58ae93a99bd5b4f",
+                        "title": "Request Method",
+                        "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"pie\",\"fillOpacity\":1,\"innerRadius\":26,\"maxNumOfSlices\":10,\"startAngle\":-90},\"color\":{\"family\":\"scheme4\"}}",
+                        "keepVisualSettingsConsistentWithParent": true,
+                        "panelType": "SumoSearchPanel",
+                        "queries": [
+                            {
+                                "queryString": "cluster={{Cluster}} namespace={{namespace}} pod=*  %\"pod_labels_serving.knative.dev/service\"=*\n| json  \"log.httpRequest.latency\", \"log.httpRequest.protocol\", \"log.httpRequest.remoteIp\", \"log.httpRequest.requestMethod\", \"log.httpRequest.requestUrl\", \"log.httpRequest.responseSize\", \"log.httpRequest.status\", \"log.httpRequest.userAgent\" , \"time\" as latency, protocol, remote_ip, request_method, request_url, response_size, status, user_agent, timestamp nodrop\n| parse regex field=deployment \"(?<service>.+?)-.+\"\n| where !isNull(request_method)\n| count by request_method\n| sort by _count",
+                                "queryType": "Logs",
+                                "queryKey": "A",
+                                "metricsQueryMode": null,
+                                "metricsQueryData": null
+                            }
+                        ],
+                        "description": "",
+                        "timeRange": null,
+                        "timerange": null,
+                        "coloringRules": null,
+                        "linkedDashboardAccessKeys": []
+                    },
+                    {
+                        "id": null,
+                        "key": "panelpane-570de465a53a584c",
+                        "title": "Non 2** Response Codes",
+                        "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"pie\"}}",
+                        "keepVisualSettingsConsistentWithParent": true,
+                        "panelType": "SumoSearchPanel",
+                        "queries": [
+                            {
+                                "queryString": "cluster={{Cluster}} namespace={{namespace}} pod=*  %\"pod_labels_serving.knative.dev/service\"=*\n| json  \"log.httpRequest.latency\", \"log.httpRequest.protocol\", \"log.httpRequest.remoteIp\", \"log.httpRequest.requestMethod\", \"log.httpRequest.requestUrl\", \"log.httpRequest.responseSize\", \"log.httpRequest.status\", \"log.httpRequest.userAgent\" , \"time\" as latency, protocol, remote_ip, request_method, request_url, response_size, status_code, user_agent, timestamp nodrop\n| parse regex field=deployment \"(?<service>.+?)-.+\"\n| where !isNull(status_code)\n| where !(status_code matches \"2*\") \n| count as count by status_code \n| sort by count",
+                                "queryType": "Logs",
+                                "queryKey": "A",
+                                "metricsQueryMode": null,
+                                "metricsQueryData": null
+                            }
+                        ],
+                        "description": "",
+                        "timeRange": null,
+                        "timerange": null,
+                        "coloringRules": null,
+                        "linkedDashboardAccessKeys": []
+                    },
+                    {
+                        "id": null,
+                        "key": "panelpane-e6ee8ae78126ea42",
+                        "title": "User Agent",
+                        "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"table\",\"fontSize\":17}}",
+                        "keepVisualSettingsConsistentWithParent": true,
+                        "panelType": "SumoSearchPanel",
+                        "queries": [
+                            {
+                                "queryString": "cluster={{Cluster}} namespace={{namespace}} pod=*  %\"pod_labels_serving.knative.dev/service\"=*\n| json  \"log.httpRequest.latency\", \"log.httpRequest.protocol\", \"log.httpRequest.remoteIp\", \"log.httpRequest.requestMethod\", \"log.httpRequest.requestUrl\", \"log.httpRequest.responseSize\", \"log.httpRequest.status\", \"log.httpRequest.userAgent\" , \"time\" as latency, protocol, remote_ip, request_method, request_url, response_size, status, user_agent, timestamp nodrop\n| parse regex field=deployment \"(?<service>.+?)-.+\"\n| where !isNull(user_agent)\n| count by user_agent \n| sort by _count",
+                                "queryType": "Logs",
+                                "queryKey": "A",
+                                "metricsQueryMode": null,
+                                "metricsQueryData": null
+                            }
+                        ],
+                        "description": "",
+                        "timeRange": null,
+                        "timerange": null,
+                        "coloringRules": null,
+                        "linkedDashboardAccessKeys": []
+                    }
+                ],
+                "variables": [
+                    {
+                        "id": null,
+                        "name": "Cluster",
+                        "displayName": null,
+                        "defaultValue": "*",
+                        "sourceDefinition": {
+                            "variableSourceType": "MagellanMetadataVariableSourceDefinition",
+                            "filter": "",
+                            "key": "cluster"
+                        },
+                        "allowMultiSelect": false,
+                        "includeAllOption": true,
+                        "hideFromUI": false
+                    },
+                    {
+                        "id": null,
+                        "name": "namespace",
+                        "displayName": null,
+                        "defaultValue": "*",
+                        "sourceDefinition": {
+                            "variableSourceType": "MagellanMetadataVariableSourceDefinition",
+                            "filter": "",
+                            "key": "namespace"
+                        },
+                        "allowMultiSelect": false,
+                        "includeAllOption": true,
+                        "hideFromUI": false
+                    }
+                ],
+                "coloringRules": []
+            },
+            "theme": "light",
+            "topologyLabelMap": {
+                "data": {
+                    "cluster": [
+                        "*"
+                    ],
+                    "namespace": [
+                        "*"
+                    ]
+                }
+            },
+            "refreshInterval": 0,
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "RelativeTimeRangeBoundary",
+                    "relativeTime": "-6h"
+                },
+                "to": null
+            }
+        }
+    ]
+}
