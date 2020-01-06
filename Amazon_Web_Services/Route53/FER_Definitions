@@ -1,0 +1,8 @@
+_sourceCategory=*aws/route53 // Formatted for lambda source.
+// Tagging (Optional)
+| "network-resolution-dns" as tag
+// Event Field Extractions: Vendor (AWS) https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/query-logs.html - Dashes converted to underscores
+| parse regex "\"message\":\"(?<log_format>\S+) \S+ (?<hosted_zone_id>\S+) (?<query_name>\S+) (?<query_type>\S+) (?<response_code>\S+) (?<protocol>\S+) (?<edge_location>\S+) (?<resolver_ip>\S+) (?<client_subnet>[^\"]+)\""
+// Event Field Extractions: CIM
+| parse regex "\"message\":\"\S+ \S+ \S+ (?<query>\S+) (?<query_type>\S+) (?<reply_code>\S+) (?<transport>\S+) \S+ (?<src_ip>\S+) [^\"]+\""
+// EOF
