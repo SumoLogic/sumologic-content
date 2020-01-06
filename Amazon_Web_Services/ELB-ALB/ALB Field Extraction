@@ -1,0 +1,15 @@
+_sourceCategory=*/aws/alb
+| "web" as tag // Optional metadata
+// https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/access-log-collection.html
+// Metadata: Source Name (Vendor)
+| parse regex field=_sourceName "AWSLogs/(?<aws_account_id>\d+)/elasticloadbalancing/(?<region>[^\/]+)/\d+/\d+/\d+/\d+_elasticloadbalancing_[^_]+_(?<load_balancer_name>[^_]+)_\w+_(?<lb_ip_address>[^_]+)"
+// Event Field Extractions: Vendor (AWS) - Dashes converted to underscores
+| parse regex "^(?<type>\S+) \S+ (?<elb>\S+) (?<client>\S+) (?<target>\S+) (?<request_processing_time>\S+) (?<target_processing_time>\S+) (?<response_processing_time>\S+) (?<elb_status_code>\S+) (?<target_status_code>\S+) (?<received_bytes>\S+) (?<sent_bytes>\S+) \"(?<request>[^\"]+)\" \"(?<user_agent>[^\"]+)\" (?<ssl_cipher>\S+) (?<ssl_protocol>\S+) (?<target_group_am>\S+) (?<trace_id>\S+) \"(?<domain_name>[^\"]+)\" \"(?<chosen_cert_arn>[^\"]+)\" (?<matched_rule_priority>\S+) (?<request_creation_time>\S+) \"(?<actions_executed>\S+)\" \"(?<redirect_url>[^\"]+)\" \"(?<error_reason>[^\"]+)\""
+| parse regex field=target "(?<client_ip>[^:]+):(?<client_port>\d+)" nodrop
+| parse regex field=target "(?<target_ip>[^:]+):(?<target_port>\d+)" nodrop
+// Event Field Extractions: CIM
+| parse regex "^\S+ \S+ \S+ (?<src>\S+) (?<dest>\S+) \S+ \S+ (?<duration>\S+) (?<status>\S+) \S+ (?<bytes_in>\S+) (?<bytes_out>\S+) \"(?<request>[^\"]+)\" \"(?<http_user_agent>[^\"]+)\" \S+ \S+ \S+ \S+ \"[^\"]+\" \"[^\"]+\" \S+ \S+ \"\S+\" \"[^\"]+\" \"[^\"]+\""
+| parse regex field=src "(?<src_ip>[^:]+):(?<src_port>\d+)" nodrop
+| parse regex field=dest "(?<dest_ip>[^:]+):(?<dest_port>\d+)" nodrop
+| parse regex field=request "(?<http_method>\S+) (?<uri_path>[^?\s]+)(?:(?<uri_query>\S+))?" nodrop
+// EOF
