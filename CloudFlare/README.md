@@ -1,4 +1,4 @@
-# Sumo Logic for CLoudFlare
+# Sumo Logic for CloudFlare
 
 ![CloudFlare%20-%20Overview](Screenshots/CloudFlare%20-%20Overview.png)
 
