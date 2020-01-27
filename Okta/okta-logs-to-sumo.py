@@ -3,8 +3,13 @@ import sys
 import json
 import re
 import boto3
-from botocore.vendored import requests
+import urllib3
 
+# Initialise the urllib3 pool manager, as we need it for all execution paths on
+# this function.
+# TODO: investigate how this persists in Lambda as it's outside the calling
+# function
+HTTP = urllib3.PoolManager()
 
 def load_configuration():
     """Read the configuration from the environment variables and return as a
@@ -52,10 +57,10 @@ def get_okta_logs(url, okta_api_key):
     okta_headers = {'Authorization': 'SSWS ' + okta_api_key}
 
     # Get the messages from the Okta API
-    okta_api_response = requests.get(url, headers=okta_headers)
+    okta_api_response = HTTP.request('GET', url, headers=okta_headers)
 
-    # Parse the JSON content
-    okta_msgs = okta_api_response.json()
+    # Parse the JSON content to single line messages
+    okta_msgs = json.loads(okta_api_response.data.decode('utf8'))
     okta_msgs = map(json.dumps, okta_msgs)
     okta_msgs = list(map(str, okta_msgs))
 
@@ -131,12 +136,12 @@ def lambda_handler(event=None, context=None):
 
         try:
             # Push the data to sumo logic
-            requests.post(config['SLEU_SUMO_COLLECTOR'], data=data, timeout=5.0)
+            HTTP.request('POST', config['SLEU_SUMO_COLLECTOR'], body=data, timeout=5)
 
             # Record the continuation URL in DynamoDB for a warm restart
             record_continuation_url(config, database, okta_url)
 
-        except requests.exceptions.Timeout as error:
+        except Exception as error:
             # TODO: This needs to capture more/all error conditions from the POST
             # Attempt to send the data to sumo failed in the timeout specified.
             # So we need to abort at this point and not record the continuation
@@ -144,7 +149,3 @@ def lambda_handler(event=None, context=None):
             sys.stderr.write("ERROR: Sending data to Sumo Logic timed out, aborting.\n")
             sys.stderr.write(str(error))
             sys.exit(2)
-
-    # We're done
-    return
-
