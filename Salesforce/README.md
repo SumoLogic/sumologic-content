@@ -49,7 +49,7 @@ In the AWS console go to AWS Systems Manager then select the Parameter Store. Cr
 
 **AWS Lambda**
 
-* Go to AWS Lambda “Layers” and create a new layer. Select “upload a .zip file” that contains the `requests` Python library (need to add how to do this). Select Python 3.8 for the runtime. 
+* Go to AWS Lambda “Layers” and create a new layer. Select “upload a .zip file” and upload the `lambda_layer.zip` file in this directory. Select Python 3.8 for the runtime. 
 * Create a new Lambda function with name “sumo_sfdc_upload” with runtime Python 3.8. Create a new execution role with basic lambda permissions. Copy-paste the code here for the function code. Add the layer to the function that was just created.
 * Create the following environment variables.
   * accessToken
