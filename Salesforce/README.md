@@ -13,7 +13,7 @@ Create a new hosted collector and create an HTTP source for the collector. When 
 In the AWS console go to AWS Systems Manager then select the Parameter Store. Create the following parameters.
 
 1. Sumo Logic HTTP data source
-  * Name: sumo_collector_url
+  * Name: `sumo_collector_url`
   * Tier: Standard
   * Type: SecureString
   * KMS Key Source: My current account
@@ -21,13 +21,13 @@ In the AWS console go to AWS Systems Manager then select the Parameter Store. Cr
   * Value: URL of the Sumo Logic HTTP data source
 
 2. SFDC Latest Timestamp
-  * Name: sfdc_latest_timestamp
+  * Name: `sfdc_latest_timestamp`
   * Tier: Standard
   * Type: String
   * Value: Current time in `yyyy-MM-dd'T'HH:mm:ss'Z'` format e.g. `2020-01-08T08:36:53Z`
 
 3. SFDC Access Token
-  * Name: sfdc_access_token
+  * Name: `sfdc_access_token`
   * Tier: Standard
   * Type: SecureString
   * KMS Key Source: My current account
@@ -35,7 +35,7 @@ In the AWS console go to AWS Systems Manager then select the Parameter Store. Cr
   * Value: HTTP Bearer token for accessing the SFDC API for your account
 
 4. SFDC Refresh Token
-  * Name: sfdc_refresh_token
+  * Name: `sfdc_refresh_token`
   * Tier: Standard
   * Type: SecureString
   * KMS Key Source: My current account
@@ -44,7 +44,7 @@ In the AWS console go to AWS Systems Manager then select the Parameter Store. Cr
 
 
 5. SFDC-Sumo Lambda Client ID
-* Name: sfdc_sumo_client_id
+* Name: `sfdc_sumo_client_id`
   * Tier: Standard
   * Type: SecureString
   * KMS Key Source: My current account
@@ -56,16 +56,16 @@ In the AWS console go to AWS Systems Manager then select the Parameter Store. Cr
 * Go to AWS Lambda “Layers” and create a new layer. Select “upload a .zip file” and upload the `lambda_layer.zip` file in this directory. Select Python 3.8 for the runtime. 
 * Create a new Lambda function with name “sumo_sfdc_upload” with runtime Python 3.8. Create a new execution role with basic lambda permissions. Copy-paste the code here for the function code. Add the layer to the function that was just created.
 * Create the following environment variables.
-  * accessToken
-    * Value: sfdc_access_token
-  * clientId
-    * Value: sfdc_sumo_client_id
-  * latestTimestamp
-    * Value: sfdc_latest_timestamp
-  * sumoCollectorUrl
-    * Value: sumo_collector_url
-  * refreshToken
-    * Value: sfdc_refresh_token
+  * `accessToken`
+    * Value: `sfdc_access_token`
+  * `clientId`
+    * Value: `sfdc_sumo_client_id`
+  * `latestTimestamp`
+    * Value: `sfdc_latest_timestamp`
+  * `sumoCollectorUrl`
+    * Value: `sumo_collector_url`
+  * `refreshToken`
+    * Value: `sfdc_refresh_token`
     
 Increase the timeout to 1 minute and save.
 
