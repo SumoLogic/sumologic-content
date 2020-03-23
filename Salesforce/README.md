@@ -1,5 +1,9 @@
 # SFDC Logs to Sumo
 
+**Prerequisites**
+* Create a Connected App in your SFDC app for this lambda function: https://help.salesforce.com/articleView?id=connected_app_create.htm&type=5
+* Once the Connected App is created, follow this OAuth flow to get an `access_token` and `refresh_token`: https://help.salesforce.com/articleView?id=remoteaccess_oauth_web_server_flow.htm&type=5
+
 **Sumo Setup**
 
 Create a new hosted collector and create an HTTP source for the collector. When creating the source, under “Advanced Options for Logs”, “Timestamp Format”, select “Specify a format” and enter `yyyyMMddHHmmss.SSS` for the format; leave the “Timestamp locator” empty.
