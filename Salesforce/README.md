@@ -1,8 +1,8 @@
 # SFDC Logs to Sumo
 
 **Prerequisites**
-* Create a Connected App in your SFDC app for this lambda function: https://help.salesforce.com/articleView?id=connected_app_create.htm&type=5
-* Once the Connected App is created, follow this OAuth flow to get an `access_token` and `refresh_token`: https://help.salesforce.com/articleView?id=remoteaccess_oauth_web_server_flow.htm&type=5
+* [Create a Connected](https://help.salesforce.com/articleView?id=connected_app_create.htm&type=5) App in your SFDC app for this lambda function.
+* Once the Connected App is created, follow [this OAuth flow](https://help.salesforce.com/articleView?id=remoteaccess_oauth_web_server_flow.htm&type=5) to get an `access_token` and `refresh_token`. 
 
 **Sumo Setup**
 
