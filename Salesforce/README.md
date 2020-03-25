@@ -67,7 +67,7 @@ In the AWS console go to AWS Systems Manager then select the Parameter Store. Cr
   * `refreshToken`
     * Value: `sfdc_refresh_token`
     
-Increase the timeout to 15 minutes and save.
+Increase the timeout to 15 minutes and save. Scheduling the Lambda is done in AWS Cloudwatch - see the bottom of this page. 
 
 **AWS IAM**
 
