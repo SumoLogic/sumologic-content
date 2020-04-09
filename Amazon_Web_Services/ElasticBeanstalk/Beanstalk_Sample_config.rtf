@@ -1,0 +1,215 @@
+# This will automatically install the Sumo Logic collector on AWS Elastic
+# Beanstalk instances.
+
+commands:
+  01-download-sumo-installer:
+    command: | 
+      wget "https://collectors.us2.sumologic.com/rest/download/linux/64" -O /tmp/SumoCollector.sh
+      sudo chmod +x /tmp/SumoCollector.sh
+  02-install-jq:
+    command: sudo yum install jq -y
+  03-install-sumo:
+    command: |
+      SUMO_SECRET=$(aws secretsmanager get-secret-value --region us-east-1 --secret-id sumo-logic --query SecretString --output text)
+      ACCESS_ID=$(echo $SUMO_SECRET | jq -r .accessid)
+      ACCESS_KEY=$(echo $SUMO_SECRET | jq -r .accesskey)
+      COLLECTOR_NAME=dev-$(/opt/elasticbeanstalk/bin/get-config container -k environment_name)
+      sudo /tmp/SumoCollector.sh -q -Vsumo.accessid=$ACCESS_ID -Vsumo.accesskey=$ACCESS_KEY -VsyncSources=/etc/sumo-sources.json -Vcollector.name=$COLLECTOR_NAME -Vephemeral=true
+  04-clean-up:
+    command: |
+      rm -f /tmp/SumoCollector.sh
+      sudo yum remove jq -y
+
+files:
+  "/etc/sumo-sources.json":
+    mode: "000744"
+    owner: root
+    group: root
+    content: |
+      {
+        "api.version":"v1",
+        "sources":[{
+          "name":"beanstalk-error",
+          "category":"dev/linux/system",
+          "automaticDateParsing":true,
+          "multilineProcessingEnabled":true,
+          "useAutolineMatching":true,
+          "forceTimeZone":true,
+          "timeZone":"America/Denver",
+          "filters":[],
+          "encoding":"UTF-8",
+          "fields":{
+
+          },
+          "pathExpression":"/var/log/httpd/elasticbeanstalk-error_log",
+          "blacklist":[],
+          "sourceType":"LocalFile"
+        },{
+          "name":"boot",
+          "category":"dev/linux/system",
+          "automaticDateParsing":true,
+          "multilineProcessingEnabled":true,
+          "useAutolineMatching":true,
+          "forceTimeZone":true,
+          "timeZone":"America/Denver",
+          "filters":[],
+          "encoding":"UTF-8",
+          "fields":{
+
+          },
+          "pathExpression":"/var/log/boot.log",
+          "blacklist":[],
+          "sourceType":"LocalFile"
+        },{
+          "name":"catalina",
+          "category":"dev/web/tomcat",
+          "automaticDateParsing":true,
+          "multilineProcessingEnabled":true,
+          "useAutolineMatching":true,
+          "forceTimeZone":true,
+          "timeZone":"America/Denver",
+          "filters":[],
+          "encoding":"UTF-8",
+          "fields":{
+
+          },
+          "pathExpression":"/var/log/tomcat8/catalina.out",
+          "blacklist":[],
+          "sourceType":"LocalFile"
+        },{
+          "name":"cron",
+          "category":"dev/linux/system",
+          "automaticDateParsing":true,
+          "multilineProcessingEnabled":true,
+          "useAutolineMatching":true,
+          "forceTimeZone":true,
+          "timeZone":"America/Denver",
+          "filters":[],
+          "encoding":"UTF-8",
+          "fields":{
+
+          },
+          "pathExpression":"/var/log/cron",
+          "blacklist":[],
+          "sourceType":"LocalFile"
+        },{
+          "name":"host metrics",
+          "category":"dev/linux/hostmetrics",
+          "automaticDateParsing":false,
+          "multilineProcessingEnabled":false,
+          "useAutolineMatching":false,
+          "contentType":"HostMetrics",
+          "forceTimeZone":true,
+          "timeZone":"America/Denver",
+          "filters":[],
+          "cutoffTimestamp":0,
+          "encoding":"UTF-8",
+          "fields":{
+
+          },
+          "interval":60000,
+          "metrics":["CPU_User","CPU_Sys","CPU_Nice","CPU_Idle","CPU_IOWait","CPU_Irq","CPU_SoftIrq","CPU_Stolen","CPU_LoadAvg_1min","CPU_LoadAvg_5min","CPU_LoadAvg_15min","CPU_Total","Mem_Total","Mem_Used","Mem_Free","Mem_ActualFree","Mem_ActualUsed","Mem_UsedPercent","Mem_FreePercent","Mem_PhysicalRam","TCP_InboundTotal","TCP_OutboundTotal","TCP_Established","TCP_Listen","TCP_Idle","TCP_Closing","TCP_CloseWait","TCP_Close","TCP_TimeWait","Net_InPackets","Net_OutPackets","Net_InBytes","Net_OutBytes","Disk_Reads","Disk_ReadBytes","Disk_Writes","Disk_WriteBytes","Disk_Queue","Disk_InodesAvailable","Disk_Used","Disk_UsedPercent","Disk_Available"],
+          "sourceType":"SystemStats"
+        },{
+          "name":"maillog",
+          "category":"dev/linux/system",
+          "automaticDateParsing":true,
+          "multilineProcessingEnabled":true,
+          "useAutolineMatching":true,
+          "forceTimeZone":true,
+          "timeZone":"America/Denver",
+          "filters":[],
+          "encoding":"UTF-8",
+          "fields":{
+
+          },
+          "pathExpression":"/var/log/maillog",
+          "blacklist":[],
+          "sourceType":"LocalFile"
+        },{
+          "name":"messages",
+          "category":"dev/linux/system",
+          "automaticDateParsing":true,
+          "multilineProcessingEnabled":true,
+          "useAutolineMatching":true,
+          "forceTimeZone":true,
+          "timeZone":"America/Denver",
+          "filters":[],
+          "encoding":"UTF-8",
+          "fields":{
+
+          },
+          "pathExpression":"/var/log/messages",
+          "blacklist":[],
+          "sourceType":"LocalFile"
+        },{
+          "name":"portal",
+          "category":"dev/app/portal",
+          "automaticDateParsing":true,
+          "multilineProcessingEnabled":true,
+          "useAutolineMatching":true,
+          "forceTimeZone":true,
+          "timeZone":"America/Denver",
+          "filters":[],
+          "encoding":"UTF-8",
+          "fields":{
+
+          },
+          "pathExpression":"/var/log/tomcat8/portal.log",
+          "blacklist":[],
+          "sourceType":"LocalFile"
+        },{
+          "name":"secure",
+          "category":"dev/linux/system",
+          "automaticDateParsing":true,
+          "multilineProcessingEnabled":true,
+          "useAutolineMatching":true,
+          "forceTimeZone":true,
+          "timeZone":"America/Denver",
+          "filters":[],
+          "encoding":"UTF-8",
+          "fields":{
+
+          },
+          "pathExpression":"/var/log/secure",
+          "blacklist":[],
+          "sourceType":"LocalFile"
+        },{
+          "name":"spooler",
+          "category":"dev/linux/system",
+          "automaticDateParsing":true,
+          "multilineProcessingEnabled":true,
+          "useAutolineMatching":true,
+          "forceTimeZone":true,
+          "timeZone":"America/Denver",
+          "filters":[],
+          "encoding":"UTF-8",
+          "fields":{
+
+          },
+          "pathExpression":"/var/log/spooler",
+          "blacklist":[],
+          "sourceType":"LocalFile"
+        },{
+          "name":"ossec-hids",
+          "category":"dev/linux/ossec",
+          "automaticDateParsing":true,
+          "multilineProcessingEnabled":true,
+          "useAutolineMatching":true,
+          "forceTimeZone":true,
+          "timeZone":"America/Denver",
+          "filters":[],
+          "encoding":"UTF-8",
+          "fields":{
+
+          },
+          "pathExpression":"/var/ossec/logs/alerts/alerts.log",
+          "blacklist":[],
+          "sourceType":"LocalFile"
+        }]
+      }
+
+container_commands:
+  start_sumo:
+    command: sudo /sbin/service collector start
+    ignoreErrors: true
