@@ -1,0 +1,40 @@
+Changelog for SumoToolBox
+
+01-30-2020  0.5-beta
+
+*Added FER tab with support for Field Extraction Rule copy/backup/restore (find/replace/copy buttons are disabled and will be implemented in a future release.
+*Added splash screen logo
+*Added "Settings" menu with ability to change logging level for debugging purposes.
+*Added Icons to Content Pane
+*Added ability to copy multiple sources to multiple target get_collectors
+*Switched from Darkstyle Theme to qtmodern due to bugs in Darkstyle
+*Switched from pyqt5 to qtpy
+
+03-01-2020 0.5.1-beta
+
+*fixed bug that kept more than one selected item from being copied in the content pane
+*fixed bug that limited the number of collectors displayed to 1000
+*fixed bug required you to click "OK" each time a set of sources was copied to a collector when copying to multiple collectors
+*added search feature to collector list
+*renamed "collectors" method to "get_collectors" in sumologic.py
+*added "get_collectors_sync" synchronous method to sumologic.py
+
+03-09-2020 0.6
+
+*major code refactor. Each tab (except for search) is now it's own class and imports it's own tab layout. This makes the
+project much more modular and easier to work on. The main class is nicely trimmed down. This should also make it
+much simpler for people to contribute functionality to the project in the future.
+
+*The project directory structure has changed as a result of the refactor. The modules folder now contains all the additional
+modules and classes. If you're looking for sumologic.py to use as a python SDK it's now in the "modules" folder.
+
+*Added scheduled view support in it's own tab (currently scheduled views are set to start "now"-ish when they are created (through
+copying or restoring.) If you want to set them to retroactively process older data you'll need to edit them in the SumoLogic UI
+after they are copied/restored.
+
+*Changed the tab visual style to make it beautiful :-)
+*Added tooltips
+
+
+
+
