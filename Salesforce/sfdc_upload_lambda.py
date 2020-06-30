@@ -43,12 +43,30 @@ def httpGet(url):
 
 	return requests.get(url, headers=getAuthHeader())
 
+def mySplit(s):
+	l = []
+	length = len(s)
+	start = 0 
+	end = 0
+	while end <= length:
+		if end == length:
+			l.append(s[start:end])
+			break
+		if s[end] == ',' and s[end-1] == '"' and s[end+1] == '"':
+			l.append(s[start:end])
+			start = end+1
+			end = start
+
+		end += 1
+
+	return l
+
 def uploadLogsToSumo(log_ids):
 	for log_id in log_ids:
 		url = f"{globs["sfdc_url"]}sobjects/EventLogFile/{log_id}/LogFile"
 		response = httpGet(url)
 
-		lines = list(map(lambda splitLine: list(map(lambda s: s[1:-1], splitLine)), list(map(lambda ln: ln.split(','), response.text.splitlines()))))
+		lines = list(map(lambda splitLine: list(map(lambda s: s[1:-1], splitLine)), list(map(lambda ln: mySplit(ln), response.text.splitlines()))))
 		column_names = lines[0]
 		payload = ""
 		for line in lines[1:]:
