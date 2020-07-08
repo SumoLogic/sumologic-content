@@ -92,8 +92,21 @@ All dashboards and queries contain a `pre` and a `post` filter (search parameter
 ## Installation
 1. Download `microsoft-sysmon.json`
 2. Using a text editor, search for the string `**TO_REPLACE**` and replace with the source category for Sysmon data (for example: `prod/windows/*`).
-3. Import content in Sumologic library
-4. Enjoy!
+3. Before importing content, you need to create the IOC lookup by running the following command:
+```* | limit 1
+| "127.0.0.1" as ioc
+// ioc_type: IP, DOMAIN, SHA256, MD5
+// DOMAIN entries should be in lowercase
+// SHA265 and MD5 can be in lowercase or uppercase (but not both)
+| "IP" as ioc_type
+| "Custom" as ioc_source
+| "This is a for testing only" as ioc_description
+| count ioc, ioc_type, ioc_source, ioc_description
+| fields -_count
+| save shared/threat_hunting/iocs
+```
+4. Import content in Sumologic library
+5. Enjoy!
 
 ### Threat Hunting
 In order to use the custom Threat Hunting dashboard, IOCs must be added into the lookup `shared/threat_hunting/iocs`.
