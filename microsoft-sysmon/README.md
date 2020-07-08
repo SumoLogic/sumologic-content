@@ -1,4 +1,4 @@
-# SYMON
+# SYSMON
 
 ## References
 * Sysmon source and documentation: https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon
