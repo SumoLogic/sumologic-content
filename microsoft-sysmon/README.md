@@ -4,7 +4,7 @@
 * Sysmon source and documentation: https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon
 
 ## Content
-The Sysmon package `SYSMON_V1.json1` contains individual queries and dashboards for the following:
+The Sysmon package `microsoft-sysmon.json` contains individual queries and dashboards for the following:
 * All Sysmon event IDs (1 to 255), including 22 (DNSEvent) and 23 (FileDelete) introduced recently
 * Threat Intel correlation (via Crowdstrike Threat Intel feed)
 * Threat Hunting (via custom lookup for IP, DOMAIN and file HASH)
@@ -90,7 +90,7 @@ All dashboards and queries contain a `pre` and a `post` filter (search parameter
         * Threat Intel - Sysmon - 22: DNSEvent (DNS query)
 
 ## Installation
-1. Download `SYSMON_V1.json1`
+1. Download `microsoft-sysmon.json`
 2. Using a text editor, search for the string `**TO_REPLACE**` and replace with the source category for Sysmon data (for example: `prod/windows/*`).
 3. Import content in Sumologic library
 4. Enjoy!
