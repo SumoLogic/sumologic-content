@@ -116,3 +116,16 @@ IOC type must be: `IP`, `DOMAIN`, `SHA256` or `MD5`.
 2. To add a new entry into that lookup, open the query called `2- Add new entry in IOCS lookup (shared/threat_hunting/iocs)`
 3. To list the content of the lookup, open the query called `3- List content of IOCS lookup (shared/threat_hunting/iocs)`
 
+### Screenshots
+![alt text](screenshots/sysmon_events_overview_dashboard.png)
+
+![alt text](screenshots/sysmon_threat_overview_dashboard.png)
+
+![alt text](screenshots/sysmon_threat_intel_dashboard.png)
+
+![alt text](screenshots/sysmon_dns_event_dashboard.png)
+
+![alt text](screenshots/sysmon_network_connection_dashboard.png)
+
+![alt text](screenshots/sysmon_network_connection_parameters_query.png)
+
