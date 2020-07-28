@@ -4,13 +4,7 @@
 
 This is an app for Netflow. It contains a dashboard calculating key netflow statistics. 
 
-Netflow logs are collected using a fluentd netflow plugin and then forwarded to a 
-
-Additional documentation from Heroku on required logging:
-
-* [HTTP Routing - Heroku Router Log Format](https://devcenter.heroku.com/articles/http-routing#heroku-router-log-format)
-* [Heroku Labs: log-runtime-metrics](https://devcenter.heroku.com/articles/log-runtime-metrics)
-
+Netflow logs are collected using a fluentd netflow plugin and then forwarded to an HTTP collector on Sumo Logic's side.
 
 ## Fluentd Setup for Netflow Collection
 1. [Install fluentd](https://docs.fluentd.org/installation/before-install)
