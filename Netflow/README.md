@@ -11,7 +11,7 @@ Netflow logs are collected using a fluentd netflow plugin and then forwarded to 
 2. Install one of the following fluentd input sources to handle collection of netflow data. Each are recommended from Fluentd's docs, but the latter seems to be receiving more frequent updates. [fluent-plugin-netflow](https://github.com/repeatedly/fluent-plugin-netflow) or [fluent-plugin-netflowipfix](https://github.com/yvesbd/fluent-plugin-netflowipfix)
 3. Install the [SumoLogic fluentd output plugin](https://github.com/SumoLogic/fluentd-output-sumologic)
 4. Create a hosted collector in SumoLogic and add an HTTP source
-5. Modify the fluentd config file to reference the new input/output plugins (sample config shown below)
+5. Modify the fluentd config file to reference the new input/output plugins (sample config shown below for netflowipfix)
 6. Restart the fluentd agent after updating the config file
 
 ```
