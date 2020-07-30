@@ -9,7 +9,7 @@
             "name": "Top 10 IPs by Data Ingress",
             "viewerType": "table",
             "detailLevel": 2,
-            "queryString": "$$Netflow\n| json field=_raw\"out_bytes\",\"ipv4_dst_addr\"\n| count by ipv4_dst_addr, out_bytes\n| sort by out_bytes\n| limit 10\n| fields - _count",
+            "queryString": "_sourceCategory=test/netflow\n| json field=_raw\"out_bytes\",\"ipv4_dst_addr\"\n| count by ipv4_dst_addr, out_bytes\n| sort by out_bytes\n| limit 10\n| fields - _count",
             "metricsQueries": [],
             "timeRange": {
                 "type": "BeginBoundedTimeRange",
@@ -32,33 +32,10 @@
             "queryParameters": []
         },
         {
-            "name": "Requests by Protocol",
-            "viewerType": "pie",
-            "detailLevel": 2,
-            "queryString": "$$Netflow\n| json field=_raw \"protocol\"\n| lookup id,name from shared/network-protocol on id=protocol\n| count by name\n| top 10 name by _count",
-            "metricsQueries": [],
-            "timeRange": {
-                "type": "BeginBoundedTimeRange",
-                "from": {
-                    "type": "RelativeTimeRangeBoundary",
-                    "relativeTime": "-1h"
-                },
-                "to": null
-            },
-            "x": 1,
-            "y": 6,
-            "width": 10,
-            "height": 5,
-            "properties": "{\"version\":3,\"settings\":{\"table\":{\"version\":2,\"configuration\":{\"textTruncationMode\":\"none\",\"fontSize\":\"medium\",\"fontSizeOverride\":null,\"tableState\":null}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"colors\":{\"index\":2,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"colors\":{\"index\":2,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{\"_count\":{\"chartType\":\"column\",\"yAxis\":0}},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"pie\":{\"chartType\":\"pie\",\"version\":3,\"configuration\":{\"donutMode\":true,\"colors\":{\"index\":2,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"label\":{\"truncationMode\":\"middle\"},\"showSliceBorders\":true,\"maxNumOfPieSlices\":\"10\"}}},\"boxplot\":{\"chartType\":\"boxplot\",\"version\":1,\"configuration\":{\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"}},\"yAxis\":{\"title\":null,\"min\":null,\"max\":null}}},\"map\":{\"chartType\":\"map\",\"version\":1,\"configuration\":{\"maptype\":\"cluster\"}},\"svv\":{\"version\":2,\"configuration\":{\"colorOverride\":null,\"backgroundColorEnabled\":false,\"noDataBehavior\":{\"enabled\":false,\"color\":\"#cccccc\",\"value\":null,\"isString\":null},\"valueType\":{\"number\":{\"showNumber\":true,\"unit\":null,\"colorsByValueRange\":null},\"boolean\":{\"trueColor\":\"#6aa84f\",\"falseColor\":\"#cc0000\"}},\"labels\":{\"prefix\":{\"enabled\":false,\"text\":\"\",\"align\":\"left\"},\"postfix\":{\"enabled\":false,\"text\":\"\",\"align\":\"right\"}}}},\"sankey\":{\"version\":1,\"configuration\":{}},\"text\":{\"version\":1,\"configuration\":{\"text\":null}},\"metrics\":{\"version\":2,\"configuration\":{\"blockSettings\":{},\"viewType\":\"timeline\",\"zoom\":\"xy\",\"yAxis\":{\"defaults\":[{\"name\":\"\"},{\"name\":\"\"}],\"custom\":[{},{}]},\"xAxis\":{\"scrubber\":true},\"outliers\":{\"enabled\":true,\"top\":1,\"scope\":\"Chart\",\"cyclicality\":false,\"threshold\":7,\"autoShowBand\":true},\"colorFamily\":\"METRIC_DEFAULT\"}},\"common\":{\"version\":1,\"configuration\":{\"drilldown\":{\"fallback\":{\"target\":{\"id\":null,\"name\":null,\"enabled\":null}}}}}}}",
-            "id": "8096608",
-            "desiredQuantizationInSecs": 0,
-            "queryParameters": []
-        },
-        {
             "name": "Unique Traffic Sources",
             "viewerType": "svv",
             "detailLevel": 2,
-            "queryString": "$$Netflow\n| json field=_raw \"ipv4_src_addr\" as src_ip\n| count_distinct(src_ip)",
+            "queryString": "_sourceCategory=test/netflow\n| json field=_raw \"ipv4_src_addr\" as src_ip\n| count_distinct(src_ip)",
             "metricsQueries": [],
             "timeRange": {
                 "type": "BeginBoundedTimeRange",
@@ -81,7 +58,7 @@
             "name": "Top 10 Destination Ports",
             "viewerType": "pie",
             "detailLevel": 2,
-            "queryString": "$$Netflow\n| json field=_raw \"l4_dst_port\" as dst_port\n| count by dst_port\n| top 10 dst_port by _count",
+            "queryString": "_sourceCategory=test/netflow\n| json field=_raw \"l4_dst_port\" as dst_port\n| count by dst_port\n| top 10 dst_port by _count",
             "metricsQueries": [],
             "timeRange": {
                 "type": "BeginBoundedTimeRange",
@@ -104,7 +81,7 @@
             "name": "Unique Traffic Destinations",
             "viewerType": "svv",
             "detailLevel": 2,
-            "queryString": "$$Netflow\n| json field=_raw \"ipv4_dst_addr\" as dst_ip\n| count_distinct(dst_ip)",
+            "queryString": "_sourceCategory=test/netflow\n| json field=_raw \"ipv4_dst_addr\" as dst_ip\n| count_distinct(dst_ip)",
             "metricsQueries": [],
             "timeRange": {
                 "type": "BeginBoundedTimeRange",
@@ -127,7 +104,7 @@
             "name": "Top 10 Destination IPs",
             "viewerType": "bar",
             "detailLevel": 2,
-            "queryString": "$$Netflow\n| json field=_raw \"ipv4_dst_addr\" as dst_ip\n| count by dst_ip\n| sort by _count\n| limit 10",
+            "queryString": "_sourceCategory=test/netflow\n| json field=_raw \"ipv4_dst_addr\" as dst_ip\n| count by dst_ip\n| sort by _count\n| limit 10",
             "metricsQueries": [],
             "timeRange": {
                 "type": "BeginBoundedTimeRange",
@@ -150,7 +127,7 @@
             "name": "Flow Record Outliers by Total Bytes per Minute",
             "viewerType": "line",
             "detailLevel": 2,
-            "queryString": "$$Netflow \n| json field=_raw \"in_bytes\"\n| json field=_raw \"out_bytes\"\n| timeslice 1m\n| in_bytes + out_bytes as total_bytes\n| count _timeslice\n//| transpose row _timeslice column total_bytes\n| outlier _count window=5,threshold=3,consecutive=2,direction=+",
+            "queryString": "_sourceCategory=test/netflow \n| json field=_raw \"in_bytes\"\n| json field=_raw \"out_bytes\"\n| timeslice 1m\n| in_bytes + out_bytes as total_bytes\n| count _timeslice\n//| transpose row _timeslice column total_bytes\n| outlier _count window=5,threshold=3,consecutive=2,direction=+",
             "metricsQueries": [],
             "timeRange": {
                 "type": "BeginBoundedTimeRange",
@@ -173,7 +150,7 @@
             "name": "Flow Records per Protocol per Minute",
             "viewerType": "column",
             "detailLevel": 0,
-            "queryString": "$$Netflow\n| json field=_raw \"protocol\"\n| timeslice 1m\n| lookup id,name from shared/network-protocol on id=protocol\n| count name, _timeslice\n| transpose row _timeslice column name",
+            "queryString": "_sourceCategory=test/netflow\n| json field=_raw \"protocol\"\n| timeslice 1m\n| lookup Keyword from https://s3.amazonaws.com/sumologic-app-data/protocol-numbers.csv on protocol=Decimal\n| count Keyword, _timeslice\n| transpose row _timeslice column Keyword",
             "metricsQueries": [],
             "timeRange": {
                 "type": "BeginBoundedTimeRange",
@@ -196,7 +173,7 @@
             "name": "Top 10 IPs by Data Egress",
             "viewerType": "table",
             "detailLevel": 2,
-            "queryString": "$$Netflow\n| json field=_raw\"out_bytes\",\"ipv4_src_addr\"\n| count by ipv4_src_addr, out_bytes\n| sort by out_bytes\n| limit 10\n| fields - _count",
+            "queryString": "_sourceCategory=test/netflow\n| json field=_raw\"out_bytes\",\"ipv4_src_addr\"\n| count by ipv4_src_addr, out_bytes\n| sort by out_bytes\n| limit 10\n| fields - _count",
             "metricsQueries": [],
             "timeRange": {
                 "type": "BeginBoundedTimeRange",
@@ -216,10 +193,33 @@
             "queryParameters": []
         },
         {
+            "name": "Requests by Protocol",
+            "viewerType": "pie",
+            "detailLevel": 2,
+            "queryString": "_sourceCategory=test/netflow\n| json field=_raw \"protocol\"\n| lookup Keyword from https://s3.amazonaws.com/sumologic-app-data/protocol-numbers.csv on protocol=Decimal\n| count by Keyword\n| top 10 Keyword by _count",
+            "metricsQueries": [],
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "RelativeTimeRangeBoundary",
+                    "relativeTime": "-1h"
+                },
+                "to": null
+            },
+            "x": 1,
+            "y": 6,
+            "width": 10,
+            "height": 5,
+            "properties": "{\"version\":3,\"settings\":{\"table\":{\"version\":2,\"configuration\":{\"textTruncationMode\":\"none\",\"fontSize\":\"medium\",\"fontSizeOverride\":null,\"tableState\":null}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"colors\":{\"index\":2,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"colors\":{\"index\":2,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{\"_count\":{\"chartType\":\"column\",\"yAxis\":0}},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"pie\":{\"chartType\":\"pie\",\"version\":3,\"configuration\":{\"donutMode\":true,\"colors\":{\"index\":2,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"label\":{\"truncationMode\":\"middle\"},\"showSliceBorders\":true,\"maxNumOfPieSlices\":\"10\"}}},\"boxplot\":{\"chartType\":\"boxplot\",\"version\":1,\"configuration\":{\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"}},\"yAxis\":{\"title\":null,\"min\":null,\"max\":null}}},\"map\":{\"chartType\":\"map\",\"version\":1,\"configuration\":{\"maptype\":\"cluster\"}},\"svv\":{\"version\":2,\"configuration\":{\"colorOverride\":null,\"backgroundColorEnabled\":false,\"noDataBehavior\":{\"enabled\":false,\"color\":\"#cccccc\",\"value\":null,\"isString\":null},\"valueType\":{\"number\":{\"showNumber\":true,\"unit\":null,\"colorsByValueRange\":null},\"boolean\":{\"trueColor\":\"#6aa84f\",\"falseColor\":\"#cc0000\"}},\"labels\":{\"prefix\":{\"enabled\":false,\"text\":\"\",\"align\":\"left\"},\"postfix\":{\"enabled\":false,\"text\":\"\",\"align\":\"right\"}}}},\"sankey\":{\"version\":1,\"configuration\":{}},\"text\":{\"version\":1,\"configuration\":{\"text\":null}},\"metrics\":{\"version\":2,\"configuration\":{\"blockSettings\":{},\"viewType\":\"timeline\",\"zoom\":\"xy\",\"yAxis\":{\"defaults\":[{\"name\":\"\"},{\"name\":\"\"}],\"custom\":[{},{}]},\"xAxis\":{\"scrubber\":true},\"outliers\":{\"enabled\":true,\"top\":1,\"scope\":\"Chart\",\"cyclicality\":false,\"threshold\":7,\"autoShowBand\":true},\"colorFamily\":\"METRIC_DEFAULT\"}},\"common\":{\"version\":1,\"configuration\":{\"drilldown\":{\"fallback\":{\"target\":{\"id\":null,\"name\":null,\"enabled\":null}}}}}}}",
+            "id": "8096608",
+            "desiredQuantizationInSecs": 0,
+            "queryParameters": []
+        },
+        {
             "name": "Top 10 Source IPs",
             "viewerType": "bar",
             "detailLevel": 2,
-            "queryString": "$$Netflow\n| json field=_raw \"ipv4_src_addr\" as src_ip\n| count by src_ip\n| sort by _count\n| limit 10",
+            "queryString": "_sourceCategory=test/netflow\n| json field=_raw \"ipv4_src_addr\" as src_ip\n| count by src_ip\n| sort by _count\n| limit 10",
             "metricsQueries": [],
             "timeRange": {
                 "type": "BeginBoundedTimeRange",
