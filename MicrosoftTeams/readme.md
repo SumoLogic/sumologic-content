@@ -28,4 +28,4 @@ If you didn't ingest Microsoft logs yet, please follow our [help](https://help.s
 # Update Source Categories
 Update source categories:
 
-Microsoft Teams: Update $o365 to _sourceCategory=yourSourceCategory
+Microsoft Teams: Update $o365 to yourSourceCategory
