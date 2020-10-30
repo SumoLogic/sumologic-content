@@ -1,0 +1,354 @@
+{
+    "type": "DashboardV2SyncDefinition",
+    "name": "Microsoft Teams Dashboard -Security-",
+    "description": "",
+    "title": "Microsoft Teams Dashboard -Security-",
+    "rootPanel": null,
+    "theme": "Light",
+    "topologyLabelMap": {
+        "data": {}
+    },
+    "refreshInterval": 0,
+    "timeRange": {
+        "type": "BeginBoundedTimeRange",
+        "from": {
+            "type": "RelativeTimeRangeBoundary",
+            "relativeTime": "-15m"
+        },
+        "to": null
+    },
+    "layout": {
+        "layoutType": "Grid",
+        "layoutStructures": [
+            {
+                "key": "panel71FF0FC5A65CAA4F",
+                "structure": "{\"height\":6,\"width\":16,\"x\":8,\"y\":0}"
+            },
+            {
+                "key": "panel4680B380985B0B4D",
+                "structure": "{\"height\":6,\"width\":16,\"x\":8,\"y\":24}"
+            },
+            {
+                "key": "panelF8A2465B9F52584A",
+                "structure": "{\"height\":6,\"width\":16,\"x\":8,\"y\":6}"
+            },
+            {
+                "key": "panel381541FF8038A844",
+                "structure": "{\"height\":6,\"width\":8,\"x\":0,\"y\":24}"
+            },
+            {
+                "key": "panel811D61429F92EB4E",
+                "structure": "{\"height\":6,\"width\":16,\"x\":8,\"y\":30}"
+            },
+            {
+                "key": "panelPANE-0AB4494684CF894B",
+                "structure": "{\"height\":6,\"width\":8,\"x\":0,\"y\":12}"
+            },
+            {
+                "key": "panel84EBC1D6B77CEA47",
+                "structure": "{\"height\":6,\"width\":8,\"x\":0,\"y\":6}"
+            },
+            {
+                "key": "panel59D7C8B0A95FD947",
+                "structure": "{\"height\":6,\"width\":8,\"x\":0,\"y\":18}"
+            },
+            {
+                "key": "panel27A0B42399D4494C",
+                "structure": "{\"height\":6,\"width\":16,\"x\":8,\"y\":12}"
+            },
+            {
+                "key": "panel071F4A2B8F98A84F",
+                "structure": "{\"height\":6,\"width\":8,\"x\":0,\"y\":30}"
+            },
+            {
+                "key": "panelPANE-26AE341CA5FA7842",
+                "structure": "{\"height\":6,\"width\":8,\"x\":0,\"y\":0}"
+            },
+            {
+                "key": "panelD489A5AB8D904A4A",
+                "structure": "{\"height\":6,\"width\":16,\"x\":8,\"y\":18}"
+            }
+        ]
+    },
+    "panels": [
+        {
+            "id": "E3F1F0288DC92B13",
+            "key": "panel71FF0FC5A65CAA4F",
+            "title": "Top 10 audit operation",
+            "visualSettings": "{\"title\":{\"fontSize\":16},\"general\":{\"type\":\"bar\",\"displayType\":\"default\",\"outlierBandColor\":\"#FDECF5\",\"outlierBandMarkerColor\":\"#F032A9\",\"outlierBandFillOpacity\":0.5,\"outlierBandLineThickness\":2,\"outlierBandMarkerSize\":10,\"outlierBandMarkerType\":\"triangle\",\"outlierBandLineDashType\":\"solid\",\"outlierBandDisplayType\":\"default\",\"fillOpacity\":1,\"mode\":\"distribution\"},\"axes\":{\"axisX\":{\"title\":\"\",\"titleFontSize\":11,\"labelFontSize\":10},\"axisY\":{\"title\":\"\",\"titleFontSize\":11,\"labelFontSize\":12,\"logarithmic\":false,\"gridColor\":\"#dde4e9\"}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"bottom\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":false,\"wrap\":true},\"color\":{\"family\":\"scheme9\"},\"series\":{},\"overrides\":[]}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "queryString": "_sourcecategory = \"$o365\" \"MicrosoftTeams\"\n| json \"Workload\"\n| where Workload = \"MicrosoftTeams\"\n| json field=_raw \"Operation\"\n| where !(Operation =\"TeamsSessionStarted\")\n| count by Operation\n| sort by -_count",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null
+                }
+            ],
+            "description": "",
+            "timeRange": {
+                "type": "CompleteLiteralTimeRange",
+                "rangeName": "yesterday"
+            },
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": "4680B380985B0B4D",
+            "key": "panel4680B380985B0B4D",
+            "title": "User login time to Teams",
+            "visualSettings": "{\"general\":{\"mode\":\"timeSeries\",\"type\":\"column\"},\"series\":{},\"overrides\":[]}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "queryString": "_sourcecategory = \"$o365\" \"MicrosoftTeams\"\n| json \"Workload\"\n| json field=_raw \"Operation\"\n| json field=_raw \"UserId\" as user\n| where Workload = \"MicrosoftTeams\"\n| where Operation = \"TeamsSessionStarted\"\n| timeslice 1h\n| count by _timeslice",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null
+                }
+            ],
+            "description": "",
+            "timeRange": {
+                "type": "CompleteLiteralTimeRange",
+                "rangeName": "yesterday"
+            },
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": "F8A2465B9F52584A",
+            "key": "panelF8A2465B9F52584A",
+            "title": "Audit Event location",
+            "visualSettings": "{\"general\":{\"mode\":\"map\",\"type\":\"map\"},\"series\":{}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "queryString": "_sourcecategory = \"$o365\" \"MicrosoftTeams\"\n| json field=_raw \"ClientIP\"\n| lookup latitude, longitude, country_name from geo://location on ip = ClientIP\n| count by latitude, longitude, country_name, ClientIP\n",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null
+                }
+            ],
+            "description": "",
+            "timeRange": {
+                "type": "CompleteLiteralTimeRange",
+                "rangeName": "yesterday"
+            },
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": "381541FF8038A844",
+            "key": "panel381541FF8038A844",
+            "title": "Channel audit activity by Teams",
+            "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"pie\"},\"series\":{}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "queryString": "_sourcecategory = \"$o365\" \"MicrosoftTeams\"\n| json field=_raw \"TeamName\"\n| count TeamName \n| top 10 TeamName by _count",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null
+                }
+            ],
+            "description": "",
+            "timeRange": {
+                "type": "CompleteLiteralTimeRange",
+                "rangeName": "yesterday"
+            },
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": "811D61429F92EB4E",
+            "key": "panel811D61429F92EB4E",
+            "title": "Recently added channels",
+            "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"table\"},\"series\":{}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "queryString": "_sourcecategory = \"$o365\" \"MicrosoftTeams\"\n| json \"Workload\"\n| json field=_raw \"Operation\"\n| json field=_raw \"ChannelName\"\n| where Workload = \"MicrosoftTeams\"\n| where Operation = \"ChannelAdded\"\n| formatDate(_messageTime, \"MM/dd/yyyy HH:mm:ss:SSS\") as messageDate\n| count by messageDate, ChannelName\n| sort by messageDate",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null
+                }
+            ],
+            "description": "",
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "RelativeTimeRangeBoundary",
+                    "relativeTime": "-1w"
+                },
+                "to": null
+            },
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": "0AB4494684CF894B",
+            "key": "panelPANE-0AB4494684CF894B",
+            "title": "Thread Infomation",
+            "visualSettings": "{\"general\":{\"mode\":\"singleValueMetrics\",\"type\":\"svp\",\"displayType\":\"default\",\"outlierBandColor\":\"#FDECF5\",\"outlierBandMarkerColor\":\"#F032A9\",\"outlierBandFillOpacity\":0.5,\"outlierBandLineThickness\":2,\"outlierBandMarkerSize\":10,\"outlierBandMarkerType\":\"triangle\",\"outlierBandLineDashType\":\"solid\",\"outlierBandDisplayType\":\"default\"},\"title\":{\"fontSize\":16},\"svp\":{\"option\":\"Count\",\"label\":\"\",\"useBackgroundColor\":true,\"useNoData\":false,\"noDataString\":\"No Thread\",\"hideData\":false,\"hideLabel\":false,\"rounding\":2,\"valueFontSize\":24,\"labelFontSize\":14,\"thresholds\":[{\"from\":0,\"to\":1,\"color\":\"#98ECA9\"},{\"from\":1,\"to\":10,\"color\":\"#F2DA73\"},{\"from\":11,\"to\":null,\"color\":\"#FFB5B5\"}],\"sparkline\":{\"show\":false,\"color\":\"#222D3B\"},\"gauge\":{\"show\":false,\"min\":0,\"max\":100,\"showThreshold\":false,\"showThresholdMarker\":false}},\"series\":{}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "queryString": "_sourcecategory = \"$o365\" \"MicrosoftTeams\"\n| json \"Workload\"\n| json field=_raw \"ClientIP\" \n| where Workload = \"MicrosoftTeams\"\n| where ClientIP != \"0.0.0.0\" and ClientIP != \"127.0.0.1\"\n| lookup type, actor, raw, threatlevel as malicious_confidence from sumo://threat/cs on threat=ClientIP\n| where type=\"ip_address\"  and malicious_confidence = \"high\"\n| json field=raw \"labels[*].name\" as label_name \n| replace(label_name, \"\\\\/\",\"->\") as label_name\n| replace(label_name, \"\\\"\",\" \") as label_name\n| count by ",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null
+                }
+            ],
+            "description": "",
+            "timeRange": {
+                "type": "CompleteLiteralTimeRange",
+                "rangeName": "yesterday"
+            },
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": "84EBC1D6B77CEA47",
+            "key": "panel84EBC1D6B77CEA47",
+            "title": "International Access",
+            "visualSettings": "{\"general\":{\"mode\":\"singleValueMetrics\",\"type\":\"svp\",\"displayType\":\"default\",\"outlierBandColor\":\"#FDECF5\",\"outlierBandMarkerColor\":\"#F032A9\",\"outlierBandFillOpacity\":0.5,\"outlierBandLineThickness\":2,\"outlierBandMarkerSize\":10,\"outlierBandMarkerType\":\"triangle\",\"outlierBandLineDashType\":\"solid\",\"outlierBandDisplayType\":\"default\"},\"title\":{\"fontSize\":16},\"svp\":{\"option\":\"Count\",\"label\":\"\",\"useBackgroundColor\":true,\"useNoData\":false,\"noDataString\":\"No access\",\"hideData\":false,\"hideLabel\":false,\"rounding\":2,\"valueFontSize\":24,\"labelFontSize\":14,\"thresholds\":[{\"from\":0,\"to\":1,\"color\":\"#98ECA9\"},{\"from\":1,\"to\":10,\"color\":\"#F2DA73\"},{\"from\":11,\"to\":null,\"color\":\"#FFB5B5\"}],\"sparkline\":{\"show\":false,\"color\":\"#222D3B\"},\"gauge\":{\"show\":false,\"min\":0,\"max\":100,\"showThreshold\":false,\"showThresholdMarker\":false}},\"series\":{}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "queryString": "_sourcecategory = \"$o365\" \"MicrosoftTeams\"\n| json field=_raw \"ClientIP\"\n| lookup latitude, longitude, country_name from geo://location on ip = ClientIP\n| count by latitude, longitude, country_name\n| where !(country_name matches \"Japan\")\n| where !(isNull(country_name))\n| count by country_name",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null
+                }
+            ],
+            "description": "",
+            "timeRange": {
+                "type": "CompleteLiteralTimeRange",
+                "rangeName": "yesterday"
+            },
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": "59D7C8B0A95FD947",
+            "key": "panel59D7C8B0A95FD947",
+            "title": "Late Night & Early Morning  users",
+            "visualSettings": "{\"general\":{\"mode\":\"singleValueMetrics\",\"type\":\"svp\",\"displayType\":\"default\",\"outlierBandColor\":\"#FDECF5\",\"outlierBandMarkerColor\":\"#F032A9\",\"outlierBandFillOpacity\":0.5,\"outlierBandLineThickness\":2,\"outlierBandMarkerSize\":10,\"outlierBandMarkerType\":\"triangle\",\"outlierBandLineDashType\":\"solid\",\"outlierBandDisplayType\":\"default\"},\"title\":{\"fontSize\":16},\"svp\":{\"option\":\"Count\",\"label\":\"users\",\"useBackgroundColor\":true,\"useNoData\":false,\"noDataString\":\"No users\",\"hideData\":false,\"hideLabel\":false,\"rounding\":2,\"valueFontSize\":24,\"labelFontSize\":14,\"thresholds\":[{\"from\":0,\"to\":1,\"color\":\"#98ECA9\"},{\"from\":1,\"to\":10,\"color\":\"#F2DA73\"},{\"from\":11,\"to\":null,\"color\":\"#FFB5B5\"}],\"sparkline\":{\"show\":false,\"color\":\"#222D3B\"},\"gauge\":{\"show\":false,\"min\":0,\"max\":100,\"showThreshold\":false,\"showThresholdMarker\":false}},\"series\":{}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "queryString": "_sourcecategory = \"$o365\" \"MicrosoftTeams\"\n| json \"Workload\"\n| json field=_raw \"Operation\"\n| json field=_raw \"UserId\" as user\n| where Workload = \"MicrosoftTeams\"\n| where Operation = \"TeamsSessionStarted\"\n| timeslice 1h\n| formatDate(_messageTime, \"HH\") as hour\n| num(hour)\n| if(hour < 8, \"1\", if (20 < hour, \"1\",  \"0\")) as overtime\n| where overtime matches \"1\"\n| count by user",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null
+                }
+            ],
+            "description": "",
+            "timeRange": {
+                "type": "CompleteLiteralTimeRange",
+                "rangeName": "yesterday"
+            },
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": "27A0B42399D4494C",
+            "key": "panel27A0B42399D4494C",
+            "title": "Known IOC",
+            "visualSettings": "{\"general\":{\"mode\":\"timeSeries\",\"type\":\"table\"},\"series\":{}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "queryString": "_sourcecategory = \"$o365\" \"MicrosoftTeams\"\n| json field=_raw \"ClientIP\"\n| where ClientIP != \"0.0.0.0\" and ClientIP != \"127.0.0.1\"\n| count as ClientIP\n| lookup type, actor, raw, threatlevel as malicious_confidence from sumo://threat/cs on threat=ClientIP\n| json field=raw \"labels[*].name\" as label_name \n| replace(label_name, \"\\\\/\",\"->\") as label_name\n| replace(label_name, \"\\\"\",\" \") as label_name\n| where  type=\"ip_address\" and !isNull(malicious_confidence)\n| if (isEmpty(actor), \"Unassigned\", actor) as Actor\n| count by ClientIP, malicious_confidence, Actor, label_name",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null
+                }
+            ],
+            "description": "",
+            "timeRange": {
+                "type": "CompleteLiteralTimeRange",
+                "rangeName": "yesterday"
+            },
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": "071F4A2B8F98A84F",
+            "key": "panel071F4A2B8F98A84F",
+            "title": "Top 5 users",
+            "visualSettings": "{\"general\":{\"type\":\"bar\",\"displayType\":\"stacked\",\"outlierBandColor\":\"#FDECF5\",\"outlierBandMarkerColor\":\"#F032A9\",\"outlierBandFillOpacity\":0.5,\"outlierBandLineThickness\":2,\"outlierBandMarkerSize\":10,\"outlierBandMarkerType\":\"triangle\",\"outlierBandLineDashType\":\"solid\",\"outlierBandDisplayType\":\"default\",\"fillOpacity\":1,\"mode\":\"timeSeries\"},\"axes\":{\"axisX\":{\"title\":\"user\",\"titleFontSize\":11,\"labelFontSize\":9},\"axisY\":{\"title\":\"\",\"titleFontSize\":11,\"logarithmic\":false,\"gridColor\":\"#dde4e9\",\"labelFontSize\":14}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"bottom\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":false,\"wrap\":true},\"color\":{\"family\":\"scheme9\"},\"series\":{},\"title\":{\"fontSize\":16},\"overrides\":[]}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "queryString": "_sourcecategory = \"$o365\" \"MicrosoftTeams\"\n| json \"Workload\"\n| json field=_raw \"Operation\"\n| json field=_raw \"UserId\" as user\n| parse field=user \"*@\" as user\n| where Workload = \"MicrosoftTeams\"\n| where !(Operation = \"TeamsSessionStarted\")\n| count by user, Operation\n| filter user in (sum(_count) by user | sort by _sum | limit 5)\n| transpose row user column Operation",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null
+                }
+            ],
+            "description": "",
+            "timeRange": {
+                "type": "CompleteLiteralTimeRange",
+                "rangeName": "yesterday"
+            },
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": "26AE341CA5FA7842",
+            "key": "panelPANE-26AE341CA5FA7842",
+            "title": "Untitled",
+            "visualSettings": "{\"general\":{\"mode\":\"TextPanel\",\"type\":\"text\",\"displayType\":\"default\",\"outlierBandColor\":\"#FDECF5\",\"outlierBandMarkerColor\":\"#F032A9\",\"outlierBandFillOpacity\":0.5,\"outlierBandLineThickness\":2,\"outlierBandMarkerSize\":10,\"outlierBandMarkerType\":\"triangle\",\"outlierBandLineDashType\":\"solid\",\"outlierBandDisplayType\":\"default\"},\"title\":{\"fontSize\":16},\"series\":{},\"text\":{\"format\":\"markdown\"}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "TextPanel",
+            "text": "This is the Microsoft Teams security dashboard contained within the Office365 Audit log. (Does not include user activity other than login number of users)\n\n* Added channel/members/connector\n* Changed setting/role\n* Created team\n* Deleted org/app/channel/team/app\n* Removed connector/members/tab\n* Uninstalled app\n* Updated app\n* User signed in to Teams"
+        },
+        {
+            "id": "D489A5AB8D904A4A",
+            "key": "panelD489A5AB8D904A4A",
+            "title": "Late Night & Early Morning logins (Copy)",
+            "visualSettings": "{\"general\":{\"mode\":\"timeSeries\",\"type\":\"table\"},\"series\":{}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "queryString": "_sourcecategory = \"$o365\" \"MicrosoftTeams\"\n| json \"Workload\"\n| json field=_raw \"Operation\"\n| json field=_raw \"UserId\" as user\n| parse field=user \"*@\" as user\n| where Workload = \"MicrosoftTeams\"\n| where Operation = \"TeamsSessionStarted\"\n| timeslice 1h\n| formatDate(_messageTime, \"HH\") as hour\n| num(hour)\n| if(hour < 8, \"1\", if (20 < hour, \"1\",  \"0\")) as overtime\n| where overtime matches \"1\"\n| count by _timeslice, user \n| fields - _count\n| sort by +_timeslice",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null
+                }
+            ],
+            "description": "",
+            "timeRange": {
+                "type": "CompleteLiteralTimeRange",
+                "rangeName": "yesterday"
+            },
+            "coloringRules": null,
+            "linkedDashboards": []
+        }
+    ],
+    "variables": [],
+    "coloringRules": []
+}
