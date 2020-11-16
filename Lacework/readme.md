@@ -20,7 +20,7 @@ If you aren't already sending your Lacework alerts to Sumo Logic, you can follow
 
 # Dashboard Setup
 
-Download the json content for the dashboard,[stored here](Applications_and_Dashboards/Lacework_Alerts_Overview.json)
+Download the json content for the dashboard, [stored here](Applications_and_Dashboards/Lacework_Alerts_Overview.json)
 
 Open the .json file in a text editor of your choosing replace the value of `_sourceCategory=*lacework*` to the value you have setup in your Sumo Logic account.
 
