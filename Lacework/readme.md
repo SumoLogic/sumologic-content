@@ -22,6 +22,6 @@ If you aren't already sending your Lacework alerts to Sumo Logic, you can follow
 
 Download the json content for the dashboard,[stored here](Applications_and_Dashboards/Lacework_Alerts_Overview.json)
 
-Open the .json file in a text editor of your choosing replace the value of `_sourceCategory=*lacework*` to the value you have setup in your Sumo Logic account.
+Open the .json file in a text editor of your choosing and replace the string of `$$lacework` to the value you have setup in your Sumo Logic account.
 
 Import the dashboard into your Library. [Follow the steps here.](https://help.sumologic.com/05Search/Library/Export-and-Import-Content-in-the-Library#import-content-in-the-library)
