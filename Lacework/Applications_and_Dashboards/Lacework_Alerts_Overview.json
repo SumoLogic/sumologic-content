@@ -56,7 +56,7 @@
             "panelType": "SumoSearchPanel",
             "queries": [
                 {
-                    "queryString": "_sourceCategory=$$lacework\n| json field=_raw \"event_title\"\n| json field=_raw \"event_description\"\n| json field=_raw \"event_severity\" as sev\n| json field=_raw \"event_type\"\n| json field=_raw \"event_source\"\n| where sev matches \"{{sev}}\"\n| count by event_title, sev\n| sort by _count",
+                    "queryString": "$$lacework\n| json field=_raw \"event_title\"\n| json field=_raw \"event_description\"\n| json field=_raw \"event_severity\" as sev\n| json field=_raw \"event_type\"\n| json field=_raw \"event_source\"\n| where sev matches \"{{sev}}\"\n| count by event_title, sev\n| sort by _count",
                     "queryType": "Logs",
                     "queryKey": "A",
                     "metricsQueryMode": null,
@@ -84,7 +84,7 @@
             "panelType": "SumoSearchPanel",
             "queries": [
                 {
-                    "queryString": "_sourceCategory=$$lacework\n| json field=_raw \"event_title\"\n| json field=_raw \"event_description\"\n| json field=_raw \"event_severity\" as sev\n| where sev matches \"{{sev}}\"\n| json field=_raw \"event_type\"\n| json field=_raw \"event_source\"\n| count by sev\n| sort by _count",
+                    "queryString": "$$lacework\n| json field=_raw \"event_title\"\n| json field=_raw \"event_description\"\n| json field=_raw \"event_severity\" as sev\n| where sev matches \"{{sev}}\"\n| json field=_raw \"event_type\"\n| json field=_raw \"event_source\"\n| count by sev\n| sort by _count",
                     "queryType": "Logs",
                     "queryKey": "A",
                     "metricsQueryMode": null,
@@ -112,7 +112,7 @@
             "panelType": "SumoSearchPanel",
             "queries": [
                 {
-                    "queryString": "_sourceCategory=$$lacework\n| json field=_raw \"event_title\"\n| json field=_raw \"event_description\"\n| json field=_raw \"event_severity\" as sev\n| json field=_raw \"event_type\"\n| json field=_raw \"event_source\" as source\n| where sev matches \"{{sev}}\"\n\n| count by source\n| sort by _count",
+                    "queryString": "$$lacework\n| json field=_raw \"event_title\"\n| json field=_raw \"event_description\"\n| json field=_raw \"event_severity\" as sev\n| json field=_raw \"event_type\"\n| json field=_raw \"event_source\" as source\n| where sev matches \"{{sev}}\"\n\n| count by source\n| sort by _count",
                     "queryType": "Logs",
                     "queryKey": "A",
                     "metricsQueryMode": null,
@@ -140,7 +140,7 @@
             "panelType": "SumoSearchPanel",
             "queries": [
                 {
-                    "queryString": "_sourceCategory=$$lacework\n| json field=_raw \"event_title\"\n| json field=_raw \"event_description\"\n| json field=_raw \"event_severity\" as sev\n| json field=_raw \"event_type\"\n| json field=_raw \"event_source\"\n| where sev matches \"{{sev}}\"\n| timeslice 1d\n| count by sev, _timeslice\n| transpose row _timeslice column sev",
+                    "queryString": "$$lacework\n| json field=_raw \"event_title\"\n| json field=_raw \"event_description\"\n| json field=_raw \"event_severity\" as sev\n| json field=_raw \"event_type\"\n| json field=_raw \"event_source\"\n| where sev matches \"{{sev}}\"\n| timeslice 1d\n| count by sev, _timeslice\n| transpose row _timeslice column sev",
                     "queryType": "Logs",
                     "queryKey": "A",
                     "metricsQueryMode": null,
@@ -168,7 +168,7 @@
             "panelType": "SumoSearchPanel",
             "queries": [
                 {
-                    "queryString": "_sourceCategory=$$lacework\n| json field=_raw \"event_title\"\n| json field=_raw \"event_description\"\n| json field=_raw \"event_severity\" as sev\n| json field=_raw \"event_type\" as type\n| json field=_raw \"event_source\" as source\n| where sev matches \"{{sev}}\"\n| json field=_raw \"lacework_account\"\n| count by type, sev\n| sort by _count\n",
+                    "queryString": "$$lacework\n| json field=_raw \"event_title\"\n| json field=_raw \"event_description\"\n| json field=_raw \"event_severity\" as sev\n| json field=_raw \"event_type\" as type\n| json field=_raw \"event_source\" as source\n| where sev matches \"{{sev}}\"\n| json field=_raw \"lacework_account\"\n| count by type, sev\n| sort by _count\n",
                     "queryType": "Logs",
                     "queryKey": "A",
                     "metricsQueryMode": null,
@@ -196,7 +196,7 @@
             "panelType": "SumoSearchPanel",
             "queries": [
                 {
-                    "queryString": "_sourceCategory=$$lacework\n| json field=_raw \"event_title\"\n| json field=_raw \"event_description\" as description\n| json field=_raw \"event_severity\" as sev\n| json field=_raw \"event_type\" as type\n| json field=_raw \"event_source\"\n| json field=_raw \"event_link\" as link\n| where sev matches \"*\"\n| tourl(link, description) as description\n|   description  as %\"description (Click links to investigate in Lacework Console)\"\n| count by %\"description (Click links to investigate in Lacework Console)\", event_title, sev, type\n| fields - _count\n\n| sort by sev asc\n",
+                    "queryString": "$$lacework\n| json field=_raw \"event_title\"\n| json field=_raw \"event_description\" as description\n| json field=_raw \"event_severity\" as sev\n| json field=_raw \"event_type\" as type\n| json field=_raw \"event_source\"\n| json field=_raw \"event_link\" as link\n| where sev matches \"*\"\n| tourl(link, description) as description\n|   description  as %\"description (Click links to investigate in Lacework Console)\"\n| count by %\"description (Click links to investigate in Lacework Console)\", event_title, sev, type\n| fields - _count\n\n| sort by sev asc\n",
                     "queryType": "Logs",
                     "queryKey": "A",
                     "metricsQueryMode": null,
