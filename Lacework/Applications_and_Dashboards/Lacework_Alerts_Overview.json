@@ -1,0 +1,235 @@
+{
+    "type": "DashboardV2SyncDefinition",
+    "name": "Lacework Alerts Overview",
+    "description": "",
+    "title": "Lacework Alerts Overview",
+    "rootPanel": null,
+    "theme": "Light",
+    "topologyLabelMap": {
+        "data": {}
+    },
+    "refreshInterval": 0,
+    "timeRange": {
+        "type": "BeginBoundedTimeRange",
+        "from": {
+            "type": "RelativeTimeRangeBoundary",
+            "relativeTime": "-1d"
+        },
+        "to": null
+    },
+    "layout": {
+        "layoutType": "Grid",
+        "layoutStructures": [
+            {
+                "key": "panel720080EC8414794E",
+                "structure": "{\"height\":8,\"width\":11,\"x\":0,\"y\":0}"
+            },
+            {
+                "key": "panel19E38DB09E01884E",
+                "structure": "{\"height\":8,\"width\":8,\"x\":8,\"y\":8}"
+            },
+            {
+                "key": "panel2642112C9765794A",
+                "structure": "{\"height\":8,\"width\":8,\"x\":0,\"y\":8}"
+            },
+            {
+                "key": "panelC3D24447BFF9EB41",
+                "structure": "{\"height\":8,\"width\":13,\"x\":11,\"y\":0}"
+            },
+            {
+                "key": "panelD8288D4D987ED945",
+                "structure": "{\"height\":8,\"width\":8,\"x\":16,\"y\":8}"
+            },
+            {
+                "key": "panel9CAA8CC8B00E4B4A",
+                "structure": "{\"height\":13,\"width\":24,\"x\":0,\"y\":16}"
+            }
+        ]
+    },
+    "panels": [
+        {
+            "id": "D11FFF277C809767",
+            "key": "panel720080EC8414794E",
+            "title": "Count of Events",
+            "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"table\"},\"series\":{}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "queryString": "_sourceCategory=*lacework*\n| json field=_raw \"event_title\"\n| json field=_raw \"event_description\"\n| json field=_raw \"event_severity\" as sev\n| json field=_raw \"event_type\"\n| json field=_raw \"event_source\"\n| where sev matches \"{{sev}}\"\n| count by event_title, sev\n| sort by _count",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null
+                }
+            ],
+            "description": "",
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "RelativeTimeRangeBoundary",
+                    "relativeTime": "-1d"
+                },
+                "to": null
+            },
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": "19E38DB09E01884E",
+            "key": "panel19E38DB09E01884E",
+            "title": "Count of Severity",
+            "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"pie\"},\"series\":{}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "queryString": "_sourceCategory=*lacework*\n| json field=_raw \"event_title\"\n| json field=_raw \"event_description\"\n| json field=_raw \"event_severity\" as sev\n| where sev matches \"{{sev}}\"\n| json field=_raw \"event_type\"\n| json field=_raw \"event_source\"\n| count by sev\n| sort by _count",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null
+                }
+            ],
+            "description": "",
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "RelativeTimeRangeBoundary",
+                    "relativeTime": "-1d"
+                },
+                "to": null
+            },
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": "2642112C9765794A",
+            "key": "panel2642112C9765794A",
+            "title": "Count of Events by Source",
+            "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"bar\"},\"series\":{},\"overrides\":[]}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "queryString": "_sourceCategory=*lacework*\n| json field=_raw \"event_title\"\n| json field=_raw \"event_description\"\n| json field=_raw \"event_severity\" as sev\n| json field=_raw \"event_type\"\n| json field=_raw \"event_source\" as source\n| where sev matches \"{{sev}}\"\n\n| count by source\n| sort by _count",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null
+                }
+            ],
+            "description": "",
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "RelativeTimeRangeBoundary",
+                    "relativeTime": "-1w"
+                },
+                "to": null
+            },
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": "C3D24447BFF9EB41",
+            "key": "panelC3D24447BFF9EB41",
+            "title": "Severity Over Time",
+            "visualSettings": "{\"general\":{\"mode\":\"timeSeries\",\"type\":\"line\"},\"series\":{},\"overrides\":[]}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "queryString": "_sourceCategory=*lacework*\n| json field=_raw \"event_title\"\n| json field=_raw \"event_description\"\n| json field=_raw \"event_severity\" as sev\n| json field=_raw \"event_type\"\n| json field=_raw \"event_source\"\n| where sev matches \"{{sev}}\"\n| timeslice 1d\n| count by sev, _timeslice\n| transpose row _timeslice column sev",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null
+                }
+            ],
+            "description": "",
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "RelativeTimeRangeBoundary",
+                    "relativeTime": "-1w"
+                },
+                "to": null
+            },
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": "D8288D4D987ED945",
+            "key": "panelD8288D4D987ED945",
+            "title": "Count of Type,Sev",
+            "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"table\"},\"series\":{}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "queryString": "_sourceCategory=*lacework*\n| json field=_raw \"event_title\"\n| json field=_raw \"event_description\"\n| json field=_raw \"event_severity\" as sev\n| json field=_raw \"event_type\" as type\n| json field=_raw \"event_source\" as source\n| where sev matches \"{{sev}}\"\n| json field=_raw \"lacework_account\"\n| count by type, sev\n| sort by _count\n",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null
+                }
+            ],
+            "description": "",
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "RelativeTimeRangeBoundary",
+                    "relativeTime": "-1d"
+                },
+                "to": null
+            },
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": "9CAA8CC8B00E4B4A",
+            "key": "panel9CAA8CC8B00E4B4A",
+            "title": "Detailed Alerts with Links to Lacework Console",
+            "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"table\"},\"series\":{}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "queryString": "_sourceCategory=*lacework*\n| json field=_raw \"event_title\"\n| json field=_raw \"event_description\" as description\n| json field=_raw \"event_severity\" as sev\n| json field=_raw \"event_type\" as type\n| json field=_raw \"event_source\"\n| json field=_raw \"event_link\" as link\n| where sev matches \"*\"\n| tourl(link, description) as description\n|   description  as %\"description (Click links to investigate in Lacework Console)\"\n| count by %\"description (Click links to investigate in Lacework Console)\", event_title, sev, type\n| fields - _count\n\n| sort by sev asc\n",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null
+                }
+            ],
+            "description": "",
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "RelativeTimeRangeBoundary",
+                    "relativeTime": "-1d"
+                },
+                "to": null
+            },
+            "coloringRules": null,
+            "linkedDashboards": []
+        }
+    ],
+    "variables": [
+        {
+            "id": "24131918B899889B",
+            "name": "sev",
+            "displayName": null,
+            "defaultValue": "*",
+            "sourceDefinition": {
+                "variableSourceType": "CsvVariableSourceDefinition",
+                "values": "1,2,3,4,5"
+            },
+            "allowMultiSelect": false,
+            "includeAllOption": true,
+            "hideFromUI": false
+        }
+    ],
+    "coloringRules": []
+}
