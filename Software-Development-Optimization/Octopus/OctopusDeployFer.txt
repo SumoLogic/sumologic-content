@@ -1,0 +1,21 @@
+SDO - Octopus Deploy
+--------------------
+_sourceCategory="devops/octopus" and _collector="HTTP Collector - Devops"
+"deploy" as event_type
+| json field=_raw "Payload.Event.Category" as status
+| json field=_raw "Payload.Subscription.EventNotificationSubscription.WebhookHeaderValue" as project_group
+| json field=_raw "Payload.Event.Occurred" as datetime
+| json field=_raw "Payload.ServerAuditUri" as link
+| parse regex  field=datetime  "^(?<datetime_s>.+)\." 
+| parseDate(datetime_s,"yyyy-MM-dd'T'HH:mm:ss","Etc/GMT") as datetime_epoch
+| json field=_raw "Payload.Event.Message", "Payload.Event.MessageHtml" as message, msg_html
+| parse regex field=msg_html "Projects-\d+'>(?<repository_name>[^<]+)</a>\s*release.+Releases-\d+'>(?<target_branch>[^<]+)</a>\s*to.+Environments-\d+'>(?<environment_name>[^<]+)"
+| parse regex field=repository_name "(?<team>\w+)-" | repository_name as service
+| if (status="DeploymentSucceeded","Success",status) as status
+| if (status="DeploymentFailed","Failed",status) as status
+| parse regex field =msg_html "Projects-.+?>(?<project_name>.+?)<"
+| parse regex field =msg_html "Releases-.+?>(?<release_name>.+?)<"
+| concat (project_name,"-",release_name) as trace_id
+| fields event_type,status,datetime,link,datetime_epoch,message,repository_name,target_branch,environment_name,team,service, project_group, msg_html, trace_id
+
+
