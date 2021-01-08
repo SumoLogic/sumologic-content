@@ -1,0 +1,56 @@
+SDO - ADO Issues Closed
+-----------------------
+_sourceCategory=devops/ADO/boards
+json "eventType",  "resource._links.html.href", "resource.workItemId", "$['resource']['revision']['fields']['System.WorkItemType']", "$['resource']['revision']['fields']['System.TeamProject']",  "$['resource']['revision']['fields']['System.State']","$['resource']['revision']['fields']['Microsoft.VSTS.Common.Priority']",  "$['resource']['revision']['fields']['System.CreatedDate']", "$['resource']['revision']['fields']['System.Title']"    as issue_event_type, link, issue_key, issue_type, project_name, issue_status, priority, dateTime, title
+| parseDate(datetime, "yyyy-MM-dd'T'HH:mm:ss","UTC") as datetime_epoch
+| json field=_raw "$['resource']['fields']['Microsoft.VSTS.Common.ClosedDate']['newValue']" as closeddate
+| parseDate(closeddate, "yyyy-MM-dd'T'HH:mm:ss","UTC") as closeddate_epoch
+| "Complete" as issue_status
+| "issue_closed" as event_type 
+| title as issue_title
+
+
+
+
+SDO - ADO Issues Created
+-------------------------
+_sourceCategory=devops/ADO/boards
+json "eventType",  "resource._links.html.href", "resource.id", "$['resource']['fields']['System.WorkItemType']", "$['resource']['fields']['System.TeamProject']",  "$['resource']['fields']['System.State']","$['resource']['fields']['Microsoft.VSTS.Common.Priority']",  "createdDate", "$['resource']['fields']['System.Title']"  as issue_event_type, link, issue_key, issue_type, project_name, issue_status, priority, datetime, title
+| parseDate(dateTime, "yyyy-MM-dd'T'HH:mm:ss", "UTC") as datetime_epoch
+| "issue" as event_type
+
+
+
+SDO - ADO Pull Request
+----------------------
+_sourceCategory = devops/ADO/repos
+json field=_raw "eventType"
+| where eventType matches "git.pullrequest*"
+//| json field=_raw "resource.mergeStatus"
+| json "eventType", "resource.title", "createdDate", "resource.closedDate", "resource.repository.name", "resource.status" , "resource.url", "resource.lastMergeSourceCommit.commitId", "resource.targetRefName", "resource.createdBy.displayName", "resource.repository.project.name", "resource.reviewers[0].displayName" as action, title, dateTime, closeddate ,repository_name,  merge, link, commit_id, target_branch ,user, service, reviewers nodrop
+| parseDate(dateTime, "yyyy-MM-dd'T'HH:mm:ss", "UTC") as dateTime_epoch
+| if(action matches "*merged" and merge matches "completed", "merged", if(action matches "*merged" and merge matches "active", "declined", if (action matches "*created", "created", "other"  ))) as status
+| if (status="merged", parseDate(closeddate, "yyyy-MM-dd'T'HH:mm:ss","UTC") , 000000000 ) as closeddate_epoch
+| toLong(closeddate_epoch)
+| "pull_request" as event_type
+
+
+
+
+SDO - ADO Push
+--------------
+_sourceCategory=devops/ADO/repos
+json field=_raw "eventType"  
+| where eventType="git.push"
+| json "eventType", "message.text" , "detailedMessage.text", "resource.date","00000000" ,  "resource.repository.name" ,"resource.commits[0].url" , "resource.commits[0].commitId", "resource.refUpdates[0].name" ,"resource.pushedBy.displayName","resource.repository.project.name" as action, title, message, dateTime, closeddate ,repository_name, link, commit_id, target_branch ,user, service nodrop
+| parseDate(dateTime, "yyyy-MM-dd'T'HH:mm:ss", "UTC") as dateTime_epoch
+| "N/A" as reviewers
+| "merged" as status
+| "push" as event_type
+| fields event_type, closeddate_epoch, commit_id, datetime_epoch, link, repository_name, reviewers, service, status, target_branch, title, user
+
+
+
+
+
+

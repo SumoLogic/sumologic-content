@@ -1,0 +1,96 @@
+SDO - Gitlabs Push
+-------------------
+_sourceCategory=tools/gitlab
+json field=_raw "object_kind"
+| where object_kind = "push"
+| json  "event_name", "checkout_sha", "user_name", "ref", "commits[0].url" , "commits[0].timestamp" , "commits[0].message" , "commits[0].title" , "repository.name", "project.path_with_namespace" as event_name, commit_id, user, target_branch, link, datetime, message, title, repository_name, project_name
+| parse regex field=link "(?<base_link>.+\/commit/)"
+| concat (base_link, commit_id) as link
+| parse regex field=project_name "(?<team>.+)\/.+"
+| team as group
+| repository_name as service
+| "merged" as status
+| parseDate(dateTime, "yyyy-MM-dd'T'HH:mm:ss") as dateTime_epoch
+| "push" as event_type
+| fields event_type, commit_id, user, target_branch, link, message, title, repository_name, project_name, service, status, dateTime_epoch, team, group
+
+
+
+SDO - Gitlab Build
+-------------------
+_sourceCategory="tools/gitlab" %"x-gitlab-event"="Pipeline Hook" "\"tag\":false"
+json field=_raw "object_kind"
+| json field=_raw "object_attributes.tag" as tag
+| where tag="false"
+| json field=_raw "object_attributes.source" as source
+| where source !="schedule"
+| json "object_attributes.id", "object_attributes.sha", "object_attributes.detailed_status", "object_attributes.ref", "commit.message",  "commit.title", "user.name", "project.path_with_namespace", "commit.url", "project.name", "object_attributes.duration", "object_attributes.created_at" as id, commit_id, status, target_branch, message, title, user, project_namespace, link, repository_name, duration, dateTime 
+| parseDate(datetime, "yyyy-MM-dd HH:mm:ss", "UTC") as dateTime_epoch
+| where status in ("passed", "failed") 
+| parse regex field=project_namespace "(?<team>.+)\/.+"
+| team as group
+| repository_name as service
+| repository_name as pipeline_name
+| commit_id as trace_id
+| parse regex field = link "(?<base_link>.+)\/commit"
+| concat(base_link,"/pipelines/", id) as link1
+| if (status matches "passed", "Success", if(status matches "failed", "Failure", status)) as status 
+| "build" as event_type
+| fields event_type, id ,trace_id,link, link1 ,datetime_epoch, status, commit_id, target_branch, message, title, user, service, team, duration, repository_name, group, project_namespace, pipeline_name
+
+
+
+SDO - Gitlab Deploy
+--------------------
+_sourceCategory="tools/gitlab" %"x-gitlab-event"="Pipeline Hook" "\"tag\":true"
+json field=_raw "object_kind"
+| json field=_raw "object_attributes.tag" as tag
+| where tag="true"
+| json field=_raw "object_attributes.detailed_status" as  status
+| where status in ("passed", "failed") 
+| json "object_attributes.id", "object_attributes.sha", "object_attributes.detailed_status", "object_attributes.ref", "commit.message",  "commit.title", "user.name", "project.path_with_namespace", "commit.url", "project.name", "object_attributes.duration", "object_attributes.created_at" as id, commit_id, status, target_branch, message, title, user, project_namespace, link, repository_name, duration, dateTime 
+| json "object_attributes.finished_at" as deploy_time
+| parseDate(deploy_time, "yyyy-MM-dd HH:mm:ss", "UTC") as deploy_time_epoch
+| json  "commit.timestamp" as merge_time
+| parseDate(merge_time, "yyyy-MM-dd'T'HH:mm:ss", "UTC") as merge_time_epoch
+| parseDate(datetime, "yyyy-MM-dd HH:mm:ss", "UTC") as dateTime_epoch
+| parse regex field=project_namespace "(?<team>.+)\/.+"
+| repository_name as service
+| repository_name as pipeline_name
+| team as group
+| commit_id as trace_id
+| parse regex field = link "(?<base_link>.+)\/commit"
+| concat(base_link,"/pipelines/", id) as link
+| if (status matches "passed", "Success", if(status matches "failed", "Failure", status)) as status 
+| "deploy" as event_type
+| fields event_type, id ,trace_id,link ,datetime_epoch, merge_time_epoch , deploy_time_epoch , status, commit_id, target_branch, message, title, user, service, duration, repository_name, team, group, project_namespace, pipeline_name
+
+
+
+SDO - Pull Requests Gitlab
+--------------------------
+_sourceCategory=tools/gitlab %"x-gitlab-event"="Merge Request Hook"
+json field=_raw "object_kind" 
+| where object_kind = "merge_request"
+| json "user.name", "event_type",  "project.path_with_namespace",  "object_attributes.created_at",  "object_attributes.description",  "object_attributes.merge_status", "object_attributes.target_branch",  "object_attributes.updated_at",  "object_attributes.url", "object_attributes.title",  "object_attributes.last_commit.id",  "object_attributes.state", "object_attributes.action", "repository.name" as user, event_type, team, datetime, message, status, target_branch, updated_at, link, title, commit_id, state, action, repository_name
+| parse regex field=team "(?<team>.+)\/.+"
+| team as group
+| json field=_raw "assignees[0].name" as reviewers nodrop
+| parseDate(dateTime, "yyyy-MM-dd HH:mm:ss", "UTC") as dateTime_epoch
+| parseDate(updated_at, "yyyy-MM-dd HH:mm:ss", "UTC") as closeddate_epoch
+| repository_name as service
+| if (state matches "opened", "created", if(state matches "merged", "merged", if(state matches "closed", "declined", "other"))) as status 
+| "pull_request" as event_type
+| fields event_type, user, service, team, status, message, title, target_branch, link, commit_id, repository_name, dateTime_epoch, closeddate_epoch, reviewers, group
+
+
+
+SDO - Stage Execution
+-----------------------
+_sourceCategory="tools/gitlab" %"x-gitlab-event"="Job Hook"
+json "build_name" , "build_stage" , "sha", "build_id", "build_status", "build_duration",  "build_finished_at",  "build_failure_reason",  "pipeline_id",  "project_name",  "project_id" , "commit.message", "user.name", "commit.finished_at",  "repository.name" as build_name, stage_name, commit_id, stage_id, status ,stage_duration, dateTime,failure_reason, pipeline_id, project_name,project_id , message, user, commit_time, repository_name nodrop
+| repository_name as pipeline_name
+| parse regex field=project_name "(?<team>.+)\/.+"
+| team as group
+| where status in ("success", "failed")
+| "pipeline_stage_executions" as event_type
