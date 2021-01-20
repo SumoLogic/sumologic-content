@@ -1,6 +1,6 @@
 SDO - Gitlabs Push
 -------------------
-_sourceCategory=tools/gitlab
+_sourceCategory=<REPLACE_FOO>
 json field=_raw "object_kind"
 | where object_kind = "push"
 | json  "event_name", "checkout_sha", "user_name", "ref", "commits[0].url" , "commits[0].timestamp" , "commits[0].message" , "commits[0].title" , "repository.name", "project.path_with_namespace" as event_name, commit_id, user, target_branch, link, datetime, message, title, repository_name, project_name
@@ -18,7 +18,7 @@ json field=_raw "object_kind"
 
 SDO - Gitlab Build
 -------------------
-_sourceCategory="tools/gitlab" %"x-gitlab-event"="Pipeline Hook" "\"tag\":false"
+_sourceCategory=<REPLACE_FOO> %"x-gitlab-event"="Pipeline Hook" "\"tag\":false"
 json field=_raw "object_kind"
 | json field=_raw "object_attributes.tag" as tag
 | where tag="false"
@@ -42,7 +42,7 @@ json field=_raw "object_kind"
 
 SDO - Gitlab Deploy
 --------------------
-_sourceCategory="tools/gitlab" %"x-gitlab-event"="Pipeline Hook" "\"tag\":true"
+_sourceCategory=<REPLACE_FOO> %"x-gitlab-event"="Pipeline Hook" "\"tag\":true"
 json field=_raw "object_kind"
 | json field=_raw "object_attributes.tag" as tag
 | where tag="true"
@@ -69,7 +69,7 @@ json field=_raw "object_kind"
 
 SDO - Pull Requests Gitlab
 --------------------------
-_sourceCategory=tools/gitlab %"x-gitlab-event"="Merge Request Hook"
+_sourceCategory=<REPLACE_FOO> %"x-gitlab-event"="Merge Request Hook"
 json field=_raw "object_kind" 
 | where object_kind = "merge_request"
 | json "user.name", "event_type",  "project.path_with_namespace",  "object_attributes.created_at",  "object_attributes.description",  "object_attributes.merge_status", "object_attributes.target_branch",  "object_attributes.updated_at",  "object_attributes.url", "object_attributes.title",  "object_attributes.last_commit.id",  "object_attributes.state", "object_attributes.action", "repository.name" as user, event_type, team, datetime, message, status, target_branch, updated_at, link, title, commit_id, state, action, repository_name
@@ -87,7 +87,7 @@ json field=_raw "object_kind"
 
 SDO - Stage Execution
 -----------------------
-_sourceCategory="tools/gitlab" %"x-gitlab-event"="Job Hook"
+_sourceCategory=<REPLACE_FOO> %"x-gitlab-event"="Job Hook"
 json "build_name" , "build_stage" , "sha", "build_id", "build_status", "build_duration",  "build_finished_at",  "build_failure_reason",  "pipeline_id",  "project_name",  "project_id" , "commit.message", "user.name", "commit.finished_at",  "repository.name" as build_name, stage_name, commit_id, stage_id, status ,stage_duration, dateTime,failure_reason, pipeline_id, project_name,project_id , message, user, commit_time, repository_name nodrop
 | repository_name as pipeline_name
 | parse regex field=project_name "(?<team>.+)\/.+"

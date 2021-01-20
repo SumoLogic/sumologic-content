@@ -1,6 +1,6 @@
 SDO - Octopus Deploy
 --------------------
-_sourceCategory="devops/octopus" and _collector="HTTP Collector - Devops"
+_sourceCategory=<REPLACE_FOO> and _collector="HTTP Collector - Devops"
 "deploy" as event_type
 | json field=_raw "Payload.Event.Category" as status
 | json field=_raw "Payload.Subscription.EventNotificationSubscription.WebhookHeaderValue" as project_group
