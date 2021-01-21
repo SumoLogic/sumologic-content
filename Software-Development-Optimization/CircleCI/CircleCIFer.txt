@@ -1,6 +1,6 @@
 SDO - CircleCI - Builds
 -----------------------
-_sourcecategory=prd/circleci/prod/job-collector
+_sourcecategory=<REPLACE_FOO>
 json "job_name" as event_type
 | where event_type matches "*package_and_store_artefact*"
 | json "vcs_revision",  "author_email", "build_url", "subject", "author_date", "body", "status", "branch", "reponame", "workflows.workflow_name"  as trace_id, user, link, title, datetime, message, status, target_branch, repository_name, environment_name
@@ -16,7 +16,7 @@ json "job_name" as event_type
 
 SDO - CircleCI - Deployments
 -----------------------------
-_sourcecategory=prd/circleci/prod/job-collector
+_sourcecategory=<REPLACE_FOO>
 json "job_name" as event_type
 | where event_type matches "*deploy*"
 | json "vcs_revision",  "author_email", "all_commit_details[0].commit_url", "subject", "author_date", "body", "status", "branch", "reponame", "workflows.workflow_name"  as trace_id, user, link, title, datetime, message, status, target_branch, repository_name, environment_name
