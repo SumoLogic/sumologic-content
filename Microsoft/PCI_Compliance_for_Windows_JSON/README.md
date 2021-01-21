@@ -6,7 +6,7 @@ This is an updated version of the [PCI Compliance for Windows app](https://help.
 
 ### Setup Collection
 
-This app only requires a [standard Windows Event source(s)](https://help.sumologic.com/03Send-Data/Sources/01Sources-for-Installed-Collectors/Local-Windows-Event-Log-Source) configured for the JSON-formatted event logs by selected **Collect using JSON format** in the _Event Format_ section. 
+This app only requires a [standard Windows Event source(s)](https://help.sumologic.com/03Send-Data/Sources/01Sources-for-Installed-Collectors/Local-Windows-Event-Log-Source) configured for the JSON-formatted event logs by selecting **Collect using JSON format** in the _Event Format_ section. 
 
 ### Modify Dashboard JSON
 
@@ -15,4 +15,4 @@ Prior to importing the app, find and replace all instances of _\_sourceCategory=
 
 ### Import App
 
-Import your modified version of the JSON file into Sumo Logic.
+[Import your modified version of the JSON file into Sumo Logic](https://help.sumologic.com/05Search/Library/Export-and-Import-Content-in-the-Library#Import_Content_in_the_Library).
