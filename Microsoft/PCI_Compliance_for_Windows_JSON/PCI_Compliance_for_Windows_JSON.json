@@ -1,0 +1,981 @@
+{
+    "type": "FolderSyncDefinition",
+    "name": "PCI Compliance for Windows JSON",
+    "description": "",
+    "children": [
+        {
+            "type": "DashboardV2SyncDefinition",
+            "name": "Windows JSON - PCI Req 02, 08, 10 - Account, User, System Monitoring",
+            "description": "",
+            "title": "Windows JSON - PCI Req 02, 08, 10 - Account, User, System Monitoring",
+            "rootPanel": null,
+            "theme": "Light",
+            "topologyLabelMap": {
+                "data": {}
+            },
+            "refreshInterval": 0,
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "RelativeTimeRangeBoundary",
+                    "relativeTime": "-1d"
+                },
+                "to": null
+            },
+            "layout": {
+                "layoutType": "Grid",
+                "layoutStructures": [
+                    {
+                        "key": "panel5F6C189681488B43",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":0,\"y\":1}"
+                    },
+                    {
+                        "key": "panelA29DA2C09FAB4A44",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":12,\"y\":1}"
+                    },
+                    {
+                        "key": "panelF0128E1094C11841",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":12,\"y\":7}"
+                    },
+                    {
+                        "key": "panel392C58DBA1EE6942",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":0,\"y\":7}"
+                    },
+                    {
+                        "key": "panel835230598D68EB4E",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":12,\"y\":13}"
+                    },
+                    {
+                        "key": "panelD40B818C9B0DCB44",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":0,\"y\":13}"
+                    },
+                    {
+                        "key": "panel72E2813D8B5BA84A",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":0,\"y\":19}"
+                    },
+                    {
+                        "key": "panel458AF140A4D1FA49",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":12,\"y\":19}"
+                    },
+                    {
+                        "key": "panel966BA70BA5DDD946",
+                        "structure": "{\"height\":6,\"width\":24,\"x\":0,\"y\":25}"
+                    },
+                    {
+                        "key": "panelC1FAB2D492D6B840",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":12,\"y\":31}"
+                    },
+                    {
+                        "key": "panel8C565370B591CB43",
+                        "structure": "{\"height\":6,\"width\":24,\"x\":0,\"y\":37}"
+                    },
+                    {
+                        "key": "panelPANE-7A71B1E0BC3FCA47",
+                        "structure": "{\"height\":1,\"width\":24,\"x\":0,\"y\":0}"
+                    },
+                    {
+                        "key": "panelCB52A204A8933B40",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":0,\"y\":31}"
+                    }
+                ]
+            },
+            "panels": [
+                {
+                    "id": "FC2B91ABE9A4D701",
+                    "key": "panel5F6C189681488B43",
+                    "title": "User Account Created",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\",\"type\":\"table\"},\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "queryString": "_sourceCategory=windows/events _sourceName=Security 4720\n| json \"EventID\"\n| json \"Computer\" nodrop\n| json \"Message\" as msg_summary nodrop\n| json \"EventData.SubjectUserName\" as src_user nodrop\n| json \"EventData.SubjectDomainName\" as src_domain nodrop\n| json \"EventData.TargetUserName\" as dest_user nodrop\n| json \"EventData.TargetDomainName\" as dest_domain nodrop\n| Computer as dest_host\n| fields dest_host, dest_user, dest_domain, src_user, src_domain, EventID, msg_summary\n| timeslice 1s\n| count as eventCount by _timeslice, dest_host, dest_user, dest_domain, src_user, src_domain, EventID, msg_summary\n| where EventID=\"4720\"\n| sort by _timeslice",
+                            "queryType": "Logs",
+                            "queryKey": "A",
+                            "metricsQueryMode": null,
+                            "metricsQueryData": null
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": {
+                        "type": "BeginBoundedTimeRange",
+                        "from": {
+                            "type": "RelativeTimeRangeBoundary",
+                            "relativeTime": "-1d"
+                        },
+                        "to": null
+                    },
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": "A29DA2C09FAB4A44",
+                    "key": "panelA29DA2C09FAB4A44",
+                    "title": "User Account Deleted",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\",\"type\":\"table\"},\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "queryString": "_sourceCategory=windows/events _sourceName=Security 4726\n| json \"EventID\"\n| json \"Computer\" nodrop\n| json \"Message\" as msg_summary nodrop\n| json \"EventData.SubjectUserName\" as src_user nodrop\n| json \"EventData.SubjectDomainName\" as src_domain nodrop\n| json \"EventData.TargetUserName\" as dest_user nodrop\n| json \"EventData.TargetDomainName\" as dest_domain nodrop\n| Computer as dest_host\n| fields dest_host, dest_user, dest_domain, src_user, src_domain, EventID, msg_summary\n| timeslice 1s\n| count as eventCount by _timeslice, dest_host, dest_user, dest_domain, src_user, src_domain, EventID, msg_summary\n| where EventID=\"4726\"\n| sort by _timeslice",
+                            "queryType": "Logs",
+                            "queryKey": "A",
+                            "metricsQueryMode": null,
+                            "metricsQueryData": null
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": {
+                        "type": "BeginBoundedTimeRange",
+                        "from": {
+                            "type": "RelativeTimeRangeBoundary",
+                            "relativeTime": "-1d"
+                        },
+                        "to": null
+                    },
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": "F0128E1094C11841",
+                    "key": "panelF0128E1094C11841",
+                    "title": "User Account Disabled",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\",\"type\":\"table\"},\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "queryString": "_sourceCategory=windows/events _sourceName=Security 4725\n| json \"EventID\"\n| json \"Computer\" nodrop\n| json \"Message\" as msg_summary nodrop\n| json \"EventData.SubjectUserName\" as src_user nodrop\n| json \"EventData.SubjectDomainName\" as src_domain nodrop\n| json \"EventData.TargetUserName\" as dest_user nodrop\n| json \"EventData.TargetDomainName\" as dest_domain nodrop\n| Computer as dest_host\n| where EventID=\"4725\"\n| fields dest_host, dest_user, dest_domain, src_user, src_domain, EventID, msg_summary\n| fields -_raw\n| timeslice 1s\n| count as eventCount by _timeslice, dest_host, dest_user, dest_domain, src_user, src_domain, EventID, msg_summary\n| sort by _timeslice",
+                            "queryType": "Logs",
+                            "queryKey": "A",
+                            "metricsQueryMode": null,
+                            "metricsQueryData": null
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": {
+                        "type": "BeginBoundedTimeRange",
+                        "from": {
+                            "type": "RelativeTimeRangeBoundary",
+                            "relativeTime": "-1d"
+                        },
+                        "to": null
+                    },
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": "392C58DBA1EE6942",
+                    "key": "panel392C58DBA1EE6942",
+                    "title": "User Account Enabled",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\",\"type\":\"table\"},\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "queryString": "_sourceCategory=windows/events _sourceName=Security 4722\n| json \"EventID\"\n| json \"Computer\" nodrop\n| json \"Message\" as msg_summary nodrop\n| json \"EventData.SubjectUserName\" as src_user nodrop\n| json \"EventData.SubjectDomainName\" as src_domain nodrop\n| json \"EventData.TargetUserName\" as dest_user nodrop\n| json \"EventData.TargetDomainName\" as dest_domain nodrop\n| Computer as dest_host\n| where EventID=\"4722\"\n| fields dest_host, dest_user, dest_domain, src_user, src_domain, EventID, msg_summary\n| fields -_raw\n| timeslice 1s\n| count as eventCount by _timeslice, dest_host, dest_user, dest_domain, src_user, src_domain, EventID, msg_summary\n| sort by _timeslice",
+                            "queryType": "Logs",
+                            "queryKey": "A",
+                            "metricsQueryMode": null,
+                            "metricsQueryData": null
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": {
+                        "type": "BeginBoundedTimeRange",
+                        "from": {
+                            "type": "RelativeTimeRangeBoundary",
+                            "relativeTime": "-1d"
+                        },
+                        "to": null
+                    },
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": "835230598D68EB4E",
+                    "key": "panel835230598D68EB4E",
+                    "title": "Actions by Privileged Accounts",
+                    "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"table\"},\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "queryString": "_sourceCategory=windows/events _sourceName=Security\n| json \"EventID\"\n| json \"Computer\" nodrop\n| json \"Message\" as msg_summary nodrop\n| json \"EventData.SubjectUserName\" as src_user nodrop\n| json \"EventData.SubjectDomainName\" as src_domain nodrop\n| json \"EventData.TargetUserName\" as dest_user nodrop\n| json \"EventData.TargetDomainName\" as dest_domain nodrop\n| json \"EventData.UserWorkstations\" as src_host nodrop\n| Computer as dest_host\n| src_user as %\"Source User\" | dest_user as %\"Target User\" | dest_host as %\"Target Host\" \n| format(\"%S\",src_user) as %\"Source User\" | format(\"%S\",dest_user) as %\"Target User\"\n| fields EventID, msg_summary, src_host, %\"Source User\", %\"Target Host\", %\"Target User\"\n| where (%\"Source User\" in (\"ROOT\",\"ADMIN\",\"ADMINISTRATOR\")) or (%\"Target User\" in (\"ROOT\",\"ADMIN\",\"ADMINISTRATOR\")) \n| count as %\"Count\" by EventID, %\"Source User\", %\"Target Host\", %\"Target User\" | sort by Count\n",
+                            "queryType": "Logs",
+                            "queryKey": "A",
+                            "metricsQueryMode": null,
+                            "metricsQueryData": null
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": {
+                        "type": "BeginBoundedTimeRange",
+                        "from": {
+                            "type": "RelativeTimeRangeBoundary",
+                            "relativeTime": "-1d"
+                        },
+                        "to": null
+                    },
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": "D40B818C9B0DCB44",
+                    "key": "panelD40B818C9B0DCB44",
+                    "title": "User Account Locked",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\",\"type\":\"table\"},\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "queryString": "_sourceCategory=windows/events _sourceName=Security (4740 or 644)\n| json \"EventID\"\n| json \"Computer\" nodrop\n| json \"Message\" as msg_summary nodrop\n| json \"EventData.SubjectUserName\" as src_user nodrop\n| json \"EventData.SubjectDomainName\" as src_domain nodrop\n| json \"EventData.TargetUserName\" as dest_user nodrop\n| json \"EventData.TargetDomainName\" as dest_domain nodrop\n| Computer as dest_host\n| fields dest_host, dest_user, src_user, src_domain, EventID, msg_summary\n| fields -_raw\n| timeslice 1s\n| count as eventCount by _timeslice, dest_host, dest_user, src_user, src_domain, EventID, msg_summary\n| where EventID in (\"4740\", \"644\")\n| sort by _timeslice",
+                            "queryType": "Logs",
+                            "queryKey": "A",
+                            "metricsQueryMode": null,
+                            "metricsQueryData": null
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": {
+                        "type": "BeginBoundedTimeRange",
+                        "from": {
+                            "type": "RelativeTimeRangeBoundary",
+                            "relativeTime": "-1d"
+                        },
+                        "to": null
+                    },
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": "72E2813D8B5BA84A",
+                    "key": "panel72E2813D8B5BA84A",
+                    "title": "Tampering Audit Logs",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\",\"type\":\"table\"},\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "queryString": "_sourceCategory=windows/events  (_sourceName=Security or _sourceName=System) (1102 or 517 or 104)\n| json \"EventID\"\n| json \"Computer\" nodrop\n| json \"Message\" as msg_summary nodrop\n| json \"UserData.LogFileCleared.SubjectUserName\" as src_user nodrop\n| json \"UserData.LogFileCleared.SubjectDomainName\" as src_domain nodrop\n| Computer as dest_host\n| fields dest_host, src_user, src_domain, EventID, msg_summary\n| fields -_raw\n| where EventID in (\"1102\", \"517\", \"104\")\n| timeslice 1s\n| count as eventCount by _timeslice, dest_host, src_user, src_domain, EventID, msg_summary\n| sort by _timeslice",
+                            "queryType": "Logs",
+                            "queryKey": "A",
+                            "metricsQueryMode": null,
+                            "metricsQueryData": null
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": {
+                        "type": "BeginBoundedTimeRange",
+                        "from": {
+                            "type": "RelativeTimeRangeBoundary",
+                            "relativeTime": "-1d"
+                        },
+                        "to": null
+                    },
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": "458AF140A4D1FA49",
+                    "key": "panel458AF140A4D1FA49",
+                    "title": "System Time Change",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\",\"type\":\"table\"}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "queryString": "_sourceCategory=windows/events ((_sourceName=Security 4616) or (_sourceName=System (35 or 37) ))\n| json \"EventID\"\n| json \"Computer\" nodrop\n| json \"Message\" as msg_summary nodrop\n| json \"EventData.SubjectUserName\" as src_user nodrop\n| json \"EventData.SubjectDomainName\" as src_domain nodrop\n| Computer as dest_host\n| where EventID in (\"4616\", \"35\", \"37\") \n| if (msg_summary=\"The system time was changed\" and src_user <> \"LOCAL SERVICE\" and src_domain <> \"NT AUTHORITY\", \"Critical\", \"Low\") as Severity\n| fields dest_host, src_user, src_domain, Severity, EventID, msg_summary\n| fields -_raw\n| timeslice 1s\n| count as eventCount by _timeslice, dest_host, src_user, src_domain, Severity, EventID, msg_summary\n| sort by Severity asc, _timeslice",
+                            "queryType": "Logs",
+                            "queryKey": "A",
+                            "metricsQueryMode": null,
+                            "metricsQueryData": null
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": {
+                        "type": "BeginBoundedTimeRange",
+                        "from": {
+                            "type": "RelativeTimeRangeBoundary",
+                            "relativeTime": "-1d"
+                        },
+                        "to": null
+                    },
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": "966BA70BA5DDD946",
+                    "key": "panel966BA70BA5DDD946",
+                    "title": "Policy Changes",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\",\"type\":\"table\"}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "queryString": "_sourceCategory=windows/events (_sourceName=Security or _sourceName=System) (\"Audit Policy Change\" or \"System audit policy was changed\" or *policy*change*)\n| json \"EventID\"\n| json \"Computer\" nodrop\n| json \"Message\" as msg_summary nodrop\n| json \"Keywords\" as msg_type nodrop\n| json \"EventData.SubjectUserName\" as src_user nodrop\n| json \"EventData.SubjectDomainName\" as src_domain nodrop\n| json \"EventData.TargetUserName\" as dest_user nodrop\n| json \"EventData.TargetDomainName\" as dest_domain nodrop\n| Computer as dest_host\n| where EventID in (\"4902\", \"4904\", \"4905\", \"4906\", \"4907\", \"4912\", \"4715\", \"4717\", \"4719\" ) or msg_summary=\"System audit policy was changed\" or msg_summary matches \"*policy*change*\" or msg_summary matches \"*Policy*Change*\"\n| if (msg_type matches \"*Success\",\"Change/Configuration/Policy/Success\", if (msg_type matches \"*Fail*\", \"Change/Configuration/Policy/Failure\", \"Change/Configuration/Policy/Attempt\")) as classification\n| fields dest_host, src_user, src_domain, classification, EventID, msg_summary\n| timeslice 1s\n| count as eventCount by _timeslice, dest_host, src_user, src_domain, classification, EventID, msg_summary\n| sort by _timeslice",
+                            "queryType": "Logs",
+                            "queryKey": "A",
+                            "metricsQueryMode": null,
+                            "metricsQueryData": null
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": {
+                        "type": "BeginBoundedTimeRange",
+                        "from": {
+                            "type": "RelativeTimeRangeBoundary",
+                            "relativeTime": "-1d"
+                        },
+                        "to": null
+                    },
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": "C1FAB2D492D6B840",
+                    "key": "panelC1FAB2D492D6B840",
+                    "title": "Service Stopped",
+                    "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"table\"}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "queryString": "_sourceCategory=windows/events _sourceName=System 7036 \"stopped state\"\n| json \"EventID\"\n| json \"Computer\" nodrop\n| json \"Message\" as msg_summary nodrop\n| json \"EventData.SubjectUserName\" as src_user nodrop\n| json \"EventData.SubjectDomainName\" as src_domain nodrop\n| parse regex field=msg_summary \"The (?<service>\\w.+?) service entered the (?<state>\\w+) state\" nodrop\n| Computer as dest_host\n| where EventID=\"7036\"\n| count as eventCount, first(_messagetime) as latest, last(_messagetime) as earliest by service, dest_host, state | latest as _timeslice\n| fields _timeslice, dest_host, service, state, latest, earliest, eventCount\n| where state=\"stopped\"\n| formatDate(fromMillis(latest),\"yyyy/MM/dd HH:mm:ss Z\") as %\"LatestTime\" \n| formatDate(fromMillis(earliest),\"yyyy/MM/dd HH:mm:ss Z\") as %\"EarliestTime\" \n| fields -latest, earliest\n| sort by _timeslice",
+                            "queryType": "Logs",
+                            "queryKey": "A",
+                            "metricsQueryMode": null,
+                            "metricsQueryData": null
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": {
+                        "type": "BeginBoundedTimeRange",
+                        "from": {
+                            "type": "RelativeTimeRangeBoundary",
+                            "relativeTime": "-1d"
+                        },
+                        "to": null
+                    },
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": "8C565370B591CB43",
+                    "key": "panel8C565370B591CB43",
+                    "title": "Service Execution Trend",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\",\"type\":\"line\"}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "queryString": "_sourceCategory=windows/events _sourceName=System 7036\n| json \"EventID\"\n| json \"Computer\" nodrop\n| json \"Message\" as msg_summary nodrop\n| json \"EventData.SubjectUserName\" as src_user nodrop\n| json \"EventData.SubjectDomainName\" as src_domain nodrop\n| parse regex field=msg_summary \"The (?<service>\\w.+?) service entered the (?<state>\\w+) state\" nodrop\n| Computer as dest_host\n| where EventID=\"7036\"\n| fields EventID, dest_host, msg_summary, service, state\n| timeslice 1h \n| count by _timeslice, service\n| transpose row _timeslice column service",
+                            "queryType": "Logs",
+                            "queryKey": "A",
+                            "metricsQueryMode": null,
+                            "metricsQueryData": null
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": {
+                        "type": "BeginBoundedTimeRange",
+                        "from": {
+                            "type": "RelativeTimeRangeBoundary",
+                            "relativeTime": "-1d"
+                        },
+                        "to": null
+                    },
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": "7A71B1E0BC3FCA47",
+                    "key": "panelPANE-7A71B1E0BC3FCA47",
+                    "title": "Account, User, System Monitoring",
+                    "visualSettings": "{\"general\":{\"mode\":\"TextPanel\",\"type\":\"text\",\"displayType\":\"default\"},\"series\":{},\"text\":{\"backgroundColor\":\"#8be2ff\",\"textColor\":\"black\"},\"title\":{\"fontSize\":20}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "TextPanel",
+                    "text": ""
+                },
+                {
+                    "id": "CB52A204A8933B40",
+                    "key": "panelCB52A204A8933B40",
+                    "title": "System Restarted",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\",\"type\":\"table\"}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "queryString": "_sourceCategory=windows/events _sourceName=Security 4608\n| json \"EventID\"\n| json \"Computer\" nodrop\n| json \"Message\" as msg_summary nodrop\n| json \"EventData.SubjectUserName\" as src_user nodrop\n| json \"EventData.SubjectDomainName\" as src_domain nodrop\n| json \"EventData.TargetUserName\" as dest_user nodrop\n| json \"EventData.TargetDomainName\" as dest_domain nodrop\n| Computer as dest_host\n| fields dest_host, msg_summary, EventID\n| timeslice 1s\n| count as eventCount by _timeslice, dest_host, msg_summary, EventID\n| where EventID=\"4608\"\n| sort by _timeslice",
+                            "queryType": "Logs",
+                            "queryKey": "A",
+                            "metricsQueryMode": null,
+                            "metricsQueryData": null
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": {
+                        "type": "BeginBoundedTimeRange",
+                        "from": {
+                            "type": "RelativeTimeRangeBoundary",
+                            "relativeTime": "-1d"
+                        },
+                        "to": null
+                    },
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                }
+            ],
+            "variables": [],
+            "coloringRules": []
+        },
+        {
+            "type": "DashboardV2SyncDefinition",
+            "name": "Windows JSON - PCI Req 02, 10 - Login Activity",
+            "description": "",
+            "title": "Windows JSON - PCI Req 02, 10 - Login Activity",
+            "rootPanel": null,
+            "theme": "Light",
+            "topologyLabelMap": {
+                "data": {}
+            },
+            "refreshInterval": 0,
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "RelativeTimeRangeBoundary",
+                    "relativeTime": "-15m"
+                },
+                "to": null
+            },
+            "layout": {
+                "layoutType": "Grid",
+                "layoutStructures": [
+                    {
+                        "key": "panelE8F9E6E2A16BA94D",
+                        "structure": "{\"height\":8,\"width\":7,\"x\":0,\"y\":1}"
+                    },
+                    {
+                        "key": "panelE59A7E54B58DCA4F",
+                        "structure": "{\"height\":8,\"width\":17,\"x\":7,\"y\":1}"
+                    },
+                    {
+                        "key": "panel8445185E94221942",
+                        "structure": "{\"height\":9,\"width\":7,\"x\":0,\"y\":9}"
+                    },
+                    {
+                        "key": "panel550AE5F69D123B45",
+                        "structure": "{\"height\":9,\"width\":17,\"x\":7,\"y\":9}"
+                    },
+                    {
+                        "key": "panelPANE-3AD2D379890F5A40",
+                        "structure": "{\"height\":1,\"width\":24,\"x\":0,\"y\":0}"
+                    }
+                ]
+            },
+            "panels": [
+                {
+                    "id": "68D296595767F751",
+                    "key": "panelE8F9E6E2A16BA94D",
+                    "title": "Successful Logins",
+                    "visualSettings": "{\"general\":{\"mode\":\"singleValueMetrics\",\"type\":\"svp\"},\"series\":{},\"svp\":{\"label\":\"\",\"noDataString\":\"No Successful Logins\"}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "queryString": "_sourceCategory=windows/events _sourceName=Security 4624\n| json \"EventID\"\n| json \"Computer\" nodrop\n| json \"Message\" as msg_summary nodrop\n| json \"EventData.SubjectUserName\" as src_user nodrop\n| json \"EventData.SubjectDomainName\" as src_domain nodrop\n| json \"EventData.TargetUserName\" as dest_user nodrop\n| json \"EventData.TargetDomainName\" as dest_domain nodrop\n| json \"EventData.IpPort\" as src_port nodrop\n| json \"EventData.IpAddress\" as src_ip nodrop\n| json \"EventData.LogonType\" as logon_type nodrop\n| json \"EventData.WorkstationName\" as src_host nodrop\n| Computer as dest_host\n| where EventID=\"4624\" \n| fields dest_host, dest_user, dest_domain, src_host, src_ip, src_user, src_domain, src_port, logon_type, EventID, msg_summary\n| fields -_raw\n| count as eventCount\n",
+                            "queryType": "Logs",
+                            "queryKey": "A",
+                            "metricsQueryMode": null,
+                            "metricsQueryData": null
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": {
+                        "type": "BeginBoundedTimeRange",
+                        "from": {
+                            "type": "RelativeTimeRangeBoundary",
+                            "relativeTime": "-1d"
+                        },
+                        "to": null
+                    },
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": "E59A7E54B58DCA4F",
+                    "key": "panelE59A7E54B58DCA4F",
+                    "title": "Successful Logins",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\",\"type\":\"table\"}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "queryString": "_sourceCategory=windows/events _sourceName=Security 4624\n| json \"EventID\"\n| json \"Computer\" nodrop\n| json \"Message\" as msg_summary nodrop\n| json \"EventData.SubjectUserName\" as src_user nodrop\n| json \"EventData.SubjectDomainName\" as src_domain nodrop\n| json \"EventData.TargetUserName\" as dest_user nodrop\n| json \"EventData.TargetDomainName\" as dest_domain nodrop\n| json \"EventData.IpPort\" as src_port nodrop\n| json \"EventData.IpAddress\" as src_ip nodrop\n| json \"EventData.LogonType\" as logon_type nodrop\n| json \"EventData.WorkstationName\" as src_host nodrop\n| Computer as dest_host\n| where EventID=\"4624\" \n| fields dest_host, dest_user, dest_domain, src_host, src_ip, src_user, src_domain, src_port, logon_type, EventID, msg_summary\n| fields -_raw\n| timeslice 1s\n| count as eventCount by _timeslice, dest_host, dest_user, dest_domain, src_host, src_ip, src_user, src_domain, src_port, logon_type, msg_summary, EventID\n| sort by _timeslice",
+                            "queryType": "Logs",
+                            "queryKey": "A",
+                            "metricsQueryMode": null,
+                            "metricsQueryData": null
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": {
+                        "type": "BeginBoundedTimeRange",
+                        "from": {
+                            "type": "RelativeTimeRangeBoundary",
+                            "relativeTime": "-1d"
+                        },
+                        "to": null
+                    },
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": "8445185E94221942",
+                    "key": "panel8445185E94221942",
+                    "title": "Failed Logins",
+                    "visualSettings": "{\"general\":{\"mode\":\"singleValueMetrics\",\"type\":\"svp\"},\"series\":{},\"svp\":{\"label\":\"\",\"noDataString\":\"No Failed Logins\"}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "queryString": "_sourceCategory=windows/events _sourceName=Security (4625 or 4768 or 4771 or 4776)\n| parse regex \"Failure Information:\\s+Failure Reason:\\s+(?<fail_reason>[^.\\r]+?)[.\\r]\" nodrop \n| parse regex \"Logfile = \\\"Security\\\";[\\s\\S]+?Client Address:\\s+(?<src_ip>[^\\r]+?)\\r[\\s\\S]+?Client Port:\\s+?(?<src_port>[\\d-]+)\" nodrop \n| parse regex \"Logfile = \\\"Security\\\";[\\s\\S]+?Source Network Address:\\s+(?<src_ip>[^\\r]+?)\\r[\\s\\S]+?Source Port:\\s+?(?<src_port>[\\d-]+)\" nodrop \n| parse regex \"Logfile = \\\"Security\\\";[\\s\\S]+?Account Name:\\s+(?<src_user>[^\\r]+?)\\r\" nodrop | parse regex \"Logfile = \\\"Security\\\";[\\s\\S]+?Subject[\\s\\S]+?Account Name:\\s+(?<src_user>[^\\r]+?)\\r[\\s\\S]+?Account Domain:\\s+(?<src_domain>[^\\r\\\"]+?)\\r[\\s\\S]+?Account Name:\\s+(?<dest_user>[^\\r]+?)\\r[\\s\\S]+?Account Domain:\\s+(?<dest_domain>[^\\r\\\"]+?)\\r\" nodrop \n| parse regex \"Result Code:\\s+(?<result_code>[^\\r]+)\\r\" nodrop \n| parse \"Type = \\\"*\\\";\" as type nodrop\n| parse regex \"Logon Account:\\s+(?<src_user>[^\\r]+?)\\r[\\s\\S]+?Source Workstation:\\s+(?<src_host>[^\\r]+?)\\r[\\s\\S]+?Error Code:\\s+(?<error_code>[^\\r\\\"]+?)(?:\\r|\\\";)\" nodrop | parse regex \"Failure Code:\\s+(?<failure_code>[^\\r]+)\\r\" nodrop | parse regex \"Logfile = \\\"Security\\\";[\\s\\S]+?Workstation Name:\\s+(?<src_host>[^\\r]+?)\\r[\\s\\S]+?Source Network Address:\\s+(?<src_ip>[^\\r]+?)\\r[\\s\\S]+?Source Port:\\s+?(?<src_port>[\\d-]+)\" nodrop\n| json \"EventID\" nodrop\n| json \"Computer\" nodrop\n| json \"Message\" as msg_summary nodrop\n| json \"EventData.SubjectUserName\" as src_user nodrop\n| json \"EventData.SubjectDomainName\" as src_domain nodrop\n| json \"EventData.TargetUserName\" as dest_user nodrop\n| json \"EventData.TargetDomainName\" as dest_domain nodrop\n| json \"EventData.IpPort\" as src_port nodrop\n| json \"EventData.IpAddress\" as src_ip nodrop\n| json \"EventData.LogonType\" as logon_type nodrop\n| json \"EventData.WorkstationName\" as src_host nodrop\n| json \"EventData.FailureReason\" as failure_reason\n| Computer as dest_host\n| where EventID in (\"4625\", \"4771\") or (EventID=\"4768\" and result_code !=\"0x0\") or (EventID=\"4776\" and error_code !=\"0x0\")\n| fields dest_host, dest_user, dest_domain, src_host, src_ip, src_port, src_user, src_domain, logon_type, type, fail_reason, result_code, failure_code, error_code, EventID, msg_summary\n| fields -_raw\n| if (dest_domain=\"Failure Information:\", \"\", dest_domain) as dest_domain\n| if (isEmpty(src_host), src_ip, src_host) as src_host\n| count as eventCount",
+                            "queryType": "Logs",
+                            "queryKey": "A",
+                            "metricsQueryMode": null,
+                            "metricsQueryData": null
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": {
+                        "type": "BeginBoundedTimeRange",
+                        "from": {
+                            "type": "RelativeTimeRangeBoundary",
+                            "relativeTime": "-1d"
+                        },
+                        "to": null
+                    },
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": "550AE5F69D123B45",
+                    "key": "panel550AE5F69D123B45",
+                    "title": "Failed Logins",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\",\"type\":\"table\"}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "queryString": "_sourceCategory=windows/events _sourceName=Security (4625 or 4768 or 4771 or 4776)\n| parse regex \"Failure Information:\\s+Failure Reason:\\s+(?<fail_reason>[^.\\r]+?)[.\\r]\" nodrop \n| parse regex \"Logfile = \\\"Security\\\";[\\s\\S]+?Client Address:\\s+(?<src_ip>[^\\r]+?)\\r[\\s\\S]+?Client Port:\\s+?(?<src_port>[\\d-]+)\" nodrop \n| parse regex \"Logfile = \\\"Security\\\";[\\s\\S]+?Source Network Address:\\s+(?<src_ip>[^\\r]+?)\\r[\\s\\S]+?Source Port:\\s+?(?<src_port>[\\d-]+)\" nodrop \n| parse regex \"Logfile = \\\"Security\\\";[\\s\\S]+?Account Name:\\s+(?<src_user>[^\\r]+?)\\r\" nodrop | parse regex \"Logfile = \\\"Security\\\";[\\s\\S]+?Subject[\\s\\S]+?Account Name:\\s+(?<src_user>[^\\r]+?)\\r[\\s\\S]+?Account Domain:\\s+(?<src_domain>[^\\r\\\"]+?)\\r[\\s\\S]+?Account Name:\\s+(?<dest_user>[^\\r]+?)\\r[\\s\\S]+?Account Domain:\\s+(?<dest_domain>[^\\r\\\"]+?)\\r\" nodrop \n| parse regex \"Result Code:\\s+(?<result_code>[^\\r]+)\\r\" nodrop \n| parse \"Type = \\\"*\\\";\" as type nodrop\n| parse regex \"Logon Account:\\s+(?<src_user>[^\\r]+?)\\r[\\s\\S]+?Source Workstation:\\s+(?<src_host>[^\\r]+?)\\r[\\s\\S]+?Error Code:\\s+(?<error_code>[^\\r\\\"]+?)(?:\\r|\\\";)\" nodrop | parse regex \"Failure Code:\\s+(?<failure_code>[^\\r]+)\\r\" nodrop | parse regex \"Logfile = \\\"Security\\\";[\\s\\S]+?Workstation Name:\\s+(?<src_host>[^\\r]+?)\\r[\\s\\S]+?Source Network Address:\\s+(?<src_ip>[^\\r]+?)\\r[\\s\\S]+?Source Port:\\s+?(?<src_port>[\\d-]+)\" nodrop\n| json \"EventID\" nodrop\n| json \"Computer\" nodrop\n| json \"Message\" as msg_summary nodrop\n| json \"EventData.SubjectUserName\" as src_user nodrop\n| json \"EventData.SubjectDomainName\" as src_domain nodrop\n| json \"EventData.TargetUserName\" as dest_user nodrop\n| json \"EventData.TargetDomainName\" as dest_domain nodrop\n| json \"EventData.IpPort\" as src_port nodrop\n| json \"EventData.IpAddress\" as src_ip nodrop\n| json \"EventData.LogonType\" as logon_type nodrop\n| json \"EventData.WorkstationName\" as src_host nodrop\n| json \"EventData.FailureReason\" as failure_reason\n| Computer as dest_host\n| where EventID in (\"4625\", \"4771\") or (EventID=\"4768\" and result_code !=\"0x0\") or (EventID=\"4776\" and error_code !=\"0x0\")\n| fields dest_host, dest_user, dest_domain, src_host, src_ip, src_port, src_user, src_domain, logon_type, type, fail_reason, result_code, failure_code, error_code, EventID, msg_summary\n| fields -_raw\n| if (dest_domain=\"Failure Information:\", \"\", dest_domain) as dest_domain\n| if (isEmpty(src_host), src_ip, src_host) as src_host\n| timeslice 1s\n| count as eventCount by _timeslice, dest_host, dest_user, dest_domain, src_host, src_ip, src_user, src_domain, src_port, logon_type, fail_reason, msg_summary, EventID, result_code, failure_code, error_code\n| sort by _timeslice",
+                            "queryType": "Logs",
+                            "queryKey": "A",
+                            "metricsQueryMode": null,
+                            "metricsQueryData": null
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": {
+                        "type": "BeginBoundedTimeRange",
+                        "from": {
+                            "type": "RelativeTimeRangeBoundary",
+                            "relativeTime": "-1d"
+                        },
+                        "to": null
+                    },
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": "3AD2D379890F5A40",
+                    "key": "panelPANE-3AD2D379890F5A40",
+                    "title": "Login - Success or Failures",
+                    "visualSettings": "{\"general\":{\"mode\":\"TextPanel\",\"type\":\"text\",\"displayType\":\"default\"},\"series\":{},\"title\":{\"fontSize\":20},\"text\":{\"backgroundColor\":\"#8be2ff\",\"textColor\":\"black\"}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "TextPanel",
+                    "text": ""
+                }
+            ],
+            "variables": [],
+            "coloringRules": []
+        },
+        {
+            "type": "DashboardV2SyncDefinition",
+            "name": "Windows JSON - PCI Req 06 - Windows Updates Activity",
+            "description": "",
+            "title": "Windows JSON - PCI Req 06 - Windows Updates Activity",
+            "rootPanel": null,
+            "theme": "Light",
+            "topologyLabelMap": {
+                "data": {}
+            },
+            "refreshInterval": 0,
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "RelativeTimeRangeBoundary",
+                    "relativeTime": "-1w"
+                },
+                "to": null
+            },
+            "layout": {
+                "layoutType": "Grid",
+                "layoutStructures": [
+                    {
+                        "key": "panel52BF720B881A4B43",
+                        "structure": "{\"height\":7,\"width\":24,\"x\":0,\"y\":0}"
+                    },
+                    {
+                        "key": "panel014843C79C58C841",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":0,\"y\":7,\"minHeight\":3,\"minWidth\":3}"
+                    },
+                    {
+                        "key": "panel8725627788DB4A4F",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":12,\"y\":7,\"minHeight\":3,\"minWidth\":3}"
+                    },
+                    {
+                        "key": "panel14F68F2ABC8AE845",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":0,\"y\":13,\"minHeight\":3,\"minWidth\":3}"
+                    },
+                    {
+                        "key": "panel9015DCD6BAEAD940",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":12,\"y\":13,\"minHeight\":3,\"minWidth\":3}"
+                    }
+                ]
+            },
+            "panels": [
+                {
+                    "id": "13106DED20517073",
+                    "key": "panel52BF720B881A4B43",
+                    "title": "All Windows Updates",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\",\"type\":\"table\"}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "queryString": "_sourceCategory=windows/events _sourceName=System (19 or 20)\n| json \"EventID\"\n| json \"Computer\" nodrop\n| json \"Message\" as msg_summary nodrop\n| json \"EventData.SubjectUserName\" as src_user nodrop\n| json \"EventData.SubjectDomainName\" as src_domain nodrop\n| json \"EventData.TargetUserName\" as dest_user nodrop\n| json \"EventData.TargetDomainName\" as dest_domain nodrop\n| parse field=msg_summary \"Installation Successful: Windows successfully installed the following update: *\" as Update nodrop\n| parse field=msg_summary \"Installation Failure: Windows failed to install the following update with error *: *\" as errorCode, Update nodrop\n| Computer as dest_host\n| where EventID in (\"19\", \"20\")\n| if(msg_summary matches \"Installation Failure*\", \"Update/Failure\", if (msg_summary matches \"Installation Successful*\", \"Update/Success\", \"Update/Attempt\")) as %\"Installation Status\"\n| fields -_raw \n| Computer as %\"Destination Host\"\n| parse field=Update \"(*)\" as kbnum nodrop \n| timeslice 1s\n| count by _timeslice, %\"Destination Host\", update, %\"Installation Status\", errorCode, src_user, src_domain, EventID, kbnum",
+                            "queryType": "Logs",
+                            "queryKey": "A",
+                            "metricsQueryMode": null,
+                            "metricsQueryData": null
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": {
+                        "type": "BeginBoundedTimeRange",
+                        "from": {
+                            "type": "RelativeTimeRangeBoundary",
+                            "relativeTime": "-1w"
+                        },
+                        "to": null
+                    },
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": "014843C79C58C841",
+                    "key": "panel014843C79C58C841",
+                    "title": "Recent Windows Update Failures",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\",\"type\":\"table\"}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "queryString": "_sourceCategory=windows/events _sourceName=System (19 or 20)\n| json \"EventID\"\n| json \"Computer\" nodrop\n| json \"Message\" as msg_summary nodrop\n| json \"EventData.SubjectUserName\" as src_user nodrop\n| json \"EventData.SubjectDomainName\" as src_domain nodrop\n| json \"EventData.TargetUserName\" as dest_user nodrop\n| json \"EventData.TargetDomainName\" as dest_domain nodrop\n| parse field=msg_summary \"Installation Successful: Windows successfully installed the following update: *\" as Update nodrop\n| parse field=msg_summary \"Installation Failure: Windows failed to install the following update with error *: *\" as errorCode, Update nodrop\n| Computer as dest_host\n| where EventID in (\"19\", \"20\")\n| if(msg_summary matches \"Installation Failure*\", \"Update/Failure\", if (msg_summary matches \"Installation Successful*\", \"Update/Success\", \"Update/Attempt\")) as %\"Installation Status\"\n| fields -_raw\n| Computer as %\"Destination Host\"\n| timeslice 1s\n| withtime %\"Installation Status\" \n| most_recent(%\"Installation Status_withtime\") as %\"LastStatus\" by %\"Destination Host\", update, _timeslice\n| parse field=Update \"(*)\" as kbnum nodrop\n| where %\"LastStatus\"=\"Update/Failure\"",
+                            "queryType": "Logs",
+                            "queryKey": "A",
+                            "metricsQueryMode": null,
+                            "metricsQueryData": null
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": {
+                        "type": "BeginBoundedTimeRange",
+                        "from": {
+                            "type": "RelativeTimeRangeBoundary",
+                            "relativeTime": "-1w"
+                        },
+                        "to": null
+                    },
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": "8725627788DB4A4F",
+                    "key": "panel8725627788DB4A4F",
+                    "title": "Windows Update Trend",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\",\"type\":\"column\"}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "queryString": "_sourceCategory=windows/events _sourceName=System (19 or 20)\n| json \"EventID\"\n| json \"Computer\" nodrop\n| json \"Message\" as msg_summary nodrop\n| json \"EventData.SubjectUserName\" as src_user nodrop\n| json \"EventData.SubjectDomainName\" as src_domain nodrop\n| json \"EventData.TargetUserName\" as dest_user nodrop\n| json \"EventData.TargetDomainName\" as dest_domain nodrop\n| parse field=msg_summary \"Installation Successful: Windows successfully installed the following update: *\" as Update nodrop\n| parse field=msg_summary \"Installation Failure: Windows failed to install the following update with error *: *\" as errorCode, Update nodrop\n| Computer as dest_host\n| where EventID in (\"19\", \"20\")\n| if(msg_summary matches \"Installation Failure*\", \"Update/Failure\", if (msg_summary matches \"Installation Successful*\", \"Update/Success\", \"Update/Attempt\")) as %\"Installation Status\"\n| fields -_raw\n| Computer as %\"Destination Host\"\n| timeslice 1s\n| withtime %\"Installation Status\" \n| most_recent(%\"Installation Status_withtime\") as %\"LastStatus\" by %\"Destination Host\", update, _timeslice\n| parse field=Update \"(*)\" as kbnum nodrop\n| count_distinct(%\"Destination Host\") by LastStatus, _timeslice\n| transpose row _timeslice column LastStatus",
+                            "queryType": "Logs",
+                            "queryKey": "A",
+                            "metricsQueryMode": null,
+                            "metricsQueryData": null
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": {
+                        "type": "BeginBoundedTimeRange",
+                        "from": {
+                            "type": "RelativeTimeRangeBoundary",
+                            "relativeTime": "-1w"
+                        },
+                        "to": null
+                    },
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": "14F68F2ABC8AE845",
+                    "key": "panel14F68F2ABC8AE845",
+                    "title": "Windows Update Summary by Host",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\",\"type\":\"table\"}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "queryString": "_sourceCategory=windows/events _sourceName=System (19 or 20)\n| json \"EventID\"\n| json \"Computer\" nodrop\n| json \"Message\" as msg_summary nodrop\n| json \"EventData.SubjectUserName\" as src_user nodrop\n| json \"EventData.SubjectDomainName\" as src_domain nodrop\n| json \"EventData.TargetUserName\" as dest_user nodrop\n| json \"EventData.TargetDomainName\" as dest_domain nodrop\n| parse field=msg_summary \"Installation Successful: Windows successfully installed the following update: *\" as Update nodrop\n| parse field=msg_summary \"Installation Failure: Windows failed to install the following update with error *: *\" as errorCode, Update nodrop\n| Computer as dest_host\n| where EventID in (\"19\", \"20\")\n| if(msg_summary matches \"Installation Failure*\", \"Update/Failure\", if (msg_summary matches \"Installation Successful*\", \"Update/Success\", \"Update/Attempt\")) as %\"Installation Status\"\n| fields -_raw\n| Computer as %\"Destination Host\"\n| timeslice 1s\n| withtime %\"Installation Status\" \n| most_recent(%\"Installation Status_withtime\") as %\"LastStatus\" by %\"Destination Host\", update, _timeslice\n| parse field=Update \"(*)\" as kbnum nodrop\n| count by %\"Destination Host\", %\"LastStatus\"\n| transpose row %\"Destination Host\" column %\"LastStatus\"",
+                            "queryType": "Logs",
+                            "queryKey": "A",
+                            "metricsQueryMode": null,
+                            "metricsQueryData": null
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": {
+                        "type": "BeginBoundedTimeRange",
+                        "from": {
+                            "type": "RelativeTimeRangeBoundary",
+                            "relativeTime": "-1w"
+                        },
+                        "to": null
+                    },
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": "9015DCD6BAEAD940",
+                    "key": "panel9015DCD6BAEAD940",
+                    "title": "Windows Update Summary",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\",\"type\":\"table\"}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "queryString": "_sourceCategory=windows/events _sourceName=System (19 or 20)\n| json \"EventID\"\n| json \"Computer\" nodrop\n| json \"Message\" as msg_summary nodrop\n| json \"EventData.SubjectUserName\" as src_user nodrop\n| json \"EventData.SubjectDomainName\" as src_domain nodrop\n| json \"EventData.TargetUserName\" as dest_user nodrop\n| json \"EventData.TargetDomainName\" as dest_domain nodrop\n| parse field=msg_summary \"Installation Successful: Windows successfully installed the following update: *\" as Update nodrop\n| parse field=msg_summary \"Installation Failure: Windows failed to install the following update with error *: *\" as errorCode, Update nodrop\n| Computer as dest_host\n| where EventID in (\"19\", \"20\")\n| if(msg_summary matches \"Installation Failure*\", \"Update/Failure\", if (msg_summary matches \"Installation Successful*\", \"Update/Success\", \"Update/Attempt\")) as %\"Installation Status\"\n| fields -_raw\n| Computer as %\"Destination Host\"\n| timeslice 1s\n| withtime %\"Installation Status\" \n| most_recent(%\"Installation Status_withtime\") as %\"LastStatus\" by %\"Destination Host\", update, _timeslice\n| parse field=Update \"(*)\" as kbnum nodrop\n| count_distinct(%\"Destination Host\") as %\"Hosts\" by LastStatus, update\n| transpose row update column LastStatus",
+                            "queryType": "Logs",
+                            "queryKey": "A",
+                            "metricsQueryMode": null,
+                            "metricsQueryData": null
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": {
+                        "type": "BeginBoundedTimeRange",
+                        "from": {
+                            "type": "RelativeTimeRangeBoundary",
+                            "relativeTime": "-1w"
+                        },
+                        "to": null
+                    },
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                }
+            ],
+            "variables": [],
+            "coloringRules": []
+        },
+        {
+            "type": "DashboardV2SyncDefinition",
+            "name": "Windows JSON - PCI Req 08 - Other User Activity",
+            "description": "",
+            "title": "Windows JSON - PCI Req 08 - Other User Activity",
+            "rootPanel": null,
+            "theme": "Light",
+            "topologyLabelMap": {
+                "data": {}
+            },
+            "refreshInterval": 0,
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "RelativeTimeRangeBoundary",
+                    "relativeTime": "-4w2d"
+                },
+                "to": null
+            },
+            "layout": {
+                "layoutType": "Grid",
+                "layoutStructures": [
+                    {
+                        "key": "panelF4F5892091B9FA4E",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":0,\"y\":0}"
+                    },
+                    {
+                        "key": "panel4A06D231BE41F841",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":12,\"y\":0}"
+                    },
+                    {
+                        "key": "panelA6FFEDE8A3636B46",
+                        "structure": "{\"height\":12,\"width\":12,\"x\":0,\"y\":6}"
+                    },
+                    {
+                        "key": "panelC8C063E4A565384A",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":12,\"y\":6}"
+                    },
+                    {
+                        "key": "panel330F27E9A199FA49",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":12,\"y\":12}"
+                    }
+                ]
+            },
+            "panels": [
+                {
+                    "id": "8F87A16D88E3255D",
+                    "key": "panelF4F5892091B9FA4E",
+                    "title": "User Account Password Changes",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\",\"type\":\"table\"},\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "queryString": "_sourceCategory=windows/events _sourceName=Security 4723\n| json \"EventID\"\n| json \"Computer\" nodrop\n| json \"Message\" as msg_summary nodrop\n| json \"EventData.SubjectUserName\" as src_user nodrop\n| json \"EventData.SubjectDomainName\" as src_domain nodrop\n| json \"EventData.TargetUserName\" as dest_user nodrop\n| json \"EventData.TargetDomainName\" as dest_domain nodrop\n| Computer as dest_host\n| where EventID = \"4723\"\n| timeslice 1s\n| count as eventCount by _timeslice, dest_user, dest_domain, src_user, src_domain, msg_summary, EventID\n| sort by _timeslice",
+                            "queryType": "Logs",
+                            "queryKey": "A",
+                            "metricsQueryMode": null,
+                            "metricsQueryData": null
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": {
+                        "type": "BeginBoundedTimeRange",
+                        "from": {
+                            "type": "RelativeTimeRangeBoundary",
+                            "relativeTime": "-4w2d"
+                        },
+                        "to": null
+                    },
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": "4A06D231BE41F841",
+                    "key": "panel4A06D231BE41F841",
+                    "title": "User Account Password Reset",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\",\"type\":\"table\"}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "queryString": "_sourceCategory=windows/events _sourceName=Security 4724\n| json \"EventID\"\n| json \"Computer\" nodrop\n| json \"Message\" as msg_summary nodrop\n| json \"EventData.SubjectUserName\" as src_user nodrop\n| json \"EventData.SubjectDomainName\" as src_domain nodrop\n| json \"EventData.TargetUserName\" as dest_user nodrop\n| json \"EventData.TargetDomainName\" as dest_domain nodrop\n| Computer as dest_host\n| where EventID = \"4724\"\n| timeslice 1s\n| count as eventCount by _timeslice, dest_user, dest_domain, src_user, src_domain, msg_summary, EventID\n| sort by _timeslice",
+                            "queryType": "Logs",
+                            "queryKey": "A",
+                            "metricsQueryMode": null,
+                            "metricsQueryData": null
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": {
+                        "type": "BeginBoundedTimeRange",
+                        "from": {
+                            "type": "RelativeTimeRangeBoundary",
+                            "relativeTime": "-4w2d"
+                        },
+                        "to": null
+                    },
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": "A6FFEDE8A3636B46",
+                    "key": "panelA6FFEDE8A3636B46",
+                    "title": "Excessive Failed Access Attempts",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\",\"type\":\"table\"}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "queryString": "_sourceCategory=windows/events _sourceName=Security (4625 or 4768 or 4771 or 4776)\n| parse regex \"Failure Information:\\s+Failure Reason:\\s+(?<fail_reason>[^.\\r]+?)[.\\r]\" nodrop \n| parse regex \"Logfile = \\\"Security\\\";[\\s\\S]+?Client Address:\\s+(?<src_ip>[^\\r]+?)\\r[\\s\\S]+?Client Port:\\s+?(?<src_port>[\\d-]+)\" nodrop \n| parse regex \"Logfile = \\\"Security\\\";[\\s\\S]+?Source Network Address:\\s+(?<src_ip>[^\\r]+?)\\r[\\s\\S]+?Source Port:\\s+?(?<src_port>[\\d-]+)\" nodrop \n| parse regex \"Logfile = \\\"Security\\\";[\\s\\S]+?Account Name:\\s+(?<src_user>[^\\r]+?)\\r\" nodrop | parse regex \"Logfile = \\\"Security\\\";[\\s\\S]+?Subject[\\s\\S]+?Account Name:\\s+(?<src_user>[^\\r]+?)\\r[\\s\\S]+?Account Domain:\\s+(?<src_domain>[^\\r\\\"]+?)\\r[\\s\\S]+?Account Name:\\s+(?<dest_user>[^\\r]+?)\\r[\\s\\S]+?Account Domain:\\s+(?<dest_domain>[^\\r\\\"]+?)\\r\" nodrop \n| parse regex \"Result Code:\\s+(?<result_code>[^\\r]+)\\r\" nodrop \n| parse \"Type = \\\"*\\\";\" as type nodrop\n| parse regex \"Logon Account:\\s+(?<src_user>[^\\r]+?)\\r[\\s\\S]+?Source Workstation:\\s+(?<src_host>[^\\r]+?)\\r[\\s\\S]+?Error Code:\\s+(?<error_code>[^\\r\\\"]+?)(?:\\r|\\\";)\" nodrop | parse regex \"Failure Code:\\s+(?<failure_code>[^\\r]+)\\r\" nodrop | parse regex \"Logfile = \\\"Security\\\";[\\s\\S]+?Workstation Name:\\s+(?<src_host>[^\\r]+?)\\r[\\s\\S]+?Source Network Address:\\s+(?<src_ip>[^\\r]+?)\\r[\\s\\S]+?Source Port:\\s+?(?<src_port>[\\d-]+)\" nodrop\n| json \"EventID\" nodrop\n| json \"Computer\" nodrop\n| json \"Message\" as msg_summary nodrop\n| json \"EventData.SubjectUserName\" as src_user nodrop\n| json \"EventData.SubjectDomainName\" as src_domain nodrop\n| json \"EventData.TargetUserName\" as dest_user nodrop\n| json \"EventData.TargetDomainName\" as dest_domain nodrop\n| json \"EventData.IpPort\" as src_port nodrop\n| json \"EventData.IpAddress\" as src_ip nodrop\n| json \"EventData.LogonType\" as logon_type nodrop\n| json \"EventData.WorkstationName\" as src_host nodrop\n| json \"EventData.FailureReason\" as failure_reason\n| Computer as dest_host\n| where EventID in (\"4625\", \"4771\") or (EventID=\"4768\" and result_code !=\"0x0\") or (EventID=\"4776\" and error_code !=\"0x0\")\n| if (dest_domain=\"Failure Information:\", \"\", dest_domain) as dest_domain\n| if (isEmpty(src_host), src_ip, src_host) as src_host\n| src_user as %\"Source User\" | dest_host as %\"Target Host\" | dest_user as %\"Target User\" | src_host as %\"Source Host\" \n| timeslice 5m\n| count as %\"Attempts\" by _timeslice, %\"Source Host\", %\"Source User\", src_domain, %\"Target Host\", %\"Target User\", dest_domain\n| format(\"Excessive (%d) login failures observed\", %\"Attempts\") as message\n| 3 as threshold\n| where %\"Attempts\" > threshold\n| sort by _timeslice, %\"Attempts\"\n| fields -threshold, %\"Attempts\"",
+                            "queryType": "Logs",
+                            "queryKey": "A",
+                            "metricsQueryMode": null,
+                            "metricsQueryData": null
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": {
+                        "type": "BeginBoundedTimeRange",
+                        "from": {
+                            "type": "RelativeTimeRangeBoundary",
+                            "relativeTime": "-4w2d"
+                        },
+                        "to": null
+                    },
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": "C8C063E4A565384A",
+                    "key": "panelC8C063E4A565384A",
+                    "title": "User Account Unlocked",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\",\"type\":\"table\"}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "queryString": "_sourceCategory=windows/events _sourceName=Security 4767\n| json \"EventID\"\n| json \"Computer\" nodrop\n| json \"Message\" as msg_summary nodrop\n| json \"EventData.SubjectUserName\" as src_user nodrop\n| json \"EventData.SubjectDomainName\" as src_domain nodrop\n| json \"EventData.TargetUserName\" as dest_user nodrop\n| json \"EventData.TargetDomainName\" as dest_domain nodrop\n| Computer as dest_host\n| where EventID=\"4767\"\n| timeslice 1s\n| count as eventCount by _timeslice, dest_host, src_user, src_domain, dest_user, dest_domain, msg_summary, EventID\n| sort by _timeslice",
+                            "queryType": "Logs",
+                            "queryKey": "A",
+                            "metricsQueryMode": null,
+                            "metricsQueryData": null
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": {
+                        "type": "BeginBoundedTimeRange",
+                        "from": {
+                            "type": "RelativeTimeRangeBoundary",
+                            "relativeTime": "-4w2d"
+                        },
+                        "to": null
+                    },
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": "330F27E9A199FA49",
+                    "key": "panel330F27E9A199FA49",
+                    "title": "User Account Disabled, Not Deleted Over 1 Day",
+                    "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"table\"}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "queryString": "_sourceCategory=windows/events _sourceName=Security (4726 or 4725)\n| json \"EventID\"\n| json \"Computer\" nodrop\n| json \"Message\" as msg_summary nodrop\n| json \"EventData.SubjectUserName\" as src_user nodrop\n| json \"EventData.SubjectDomainName\" as src_domain nodrop\n| json \"EventData.TargetUserName\" as dest_user nodrop\n| json \"EventData.TargetDomainName\" as dest_domain nodrop\n| Computer as dest_host\n| where EventID in (\"4725\",\"4726\")\n| withtime msg_summary | withtime _messagetime\n| most_recent(msg_summary_withtime) as action, most_recent(_messagetime_withtime) as m_time by dest_host, dest_user\n| formatDate(fromMillis(m_time), \"MM-dd-yyyy HH:mm:ss:SSS z\") as event_time\n| 1000*60*60*24 as Oneday\n| 1 as threshold \n| num(threshold) as threshold\n| ((toMillis(now())-m_time)/oneday) as since_days | format(\"%.2f\", since_days) as since_days_str\n| concat (\"User account was disabled \", since_days_str, \" days ago, but not yet deleted.\") as Remark\n| where !(action matches \"*user account was deleted*\")\n| where since_days >= threshold\n| sort by since_days\n| fields - m_time, Oneday, since_days_str, action, since_days, threshold",
+                            "queryType": "Logs",
+                            "queryKey": "A",
+                            "metricsQueryMode": null,
+                            "metricsQueryData": null
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": {
+                        "type": "BeginBoundedTimeRange",
+                        "from": {
+                            "type": "RelativeTimeRangeBoundary",
+                            "relativeTime": "-4w2d"
+                        },
+                        "to": null
+                    },
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                }
+            ],
+            "variables": [],
+            "coloringRules": []
+        }
+    ]
+}
