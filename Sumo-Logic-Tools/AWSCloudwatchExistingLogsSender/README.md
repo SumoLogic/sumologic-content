@@ -1,4 +1,10 @@
-# Prerequisites
+# AWSCloudwatchExistingLogsSender
+
+This script downloads existing log files from a given AWS CloudWatch log group withing a start and end interval. It generates a shell script which can be used to ingest the downloaded files into Sumo Logic.
+
+Note - The script hasn't been tested for very large file sizes and very long time range. It is recommended to use it for smaller intervals.
+
+## Prerequisites
 
 * Linux machine with Python 3 installed
 * Install and setup boto 3  https://pypi.org/project/boto3/
@@ -14,7 +20,7 @@
       
       export SUMO_HTTP_ENDPOINT="https://collectors.sumologic.com/receiver/v1/http/<token>"
 
-# Downloading the files
+## Downloading the files
 
 Run the below command replacing loggroup, start epoch milliseconds and end epoch milliseconds.
 
@@ -32,16 +38,16 @@ Check whether file size is less than 1MB, if not then break the file and update 
 
 Note down the number of files
 
-# Sending the files
+## Sending the files
 
     sh send_to_sumo.sh >> send_to_sumo_log.txt 2>&1
 
 To verify whether all files are sent successfully grep for "We are completely uploaded and fine" line in log file.It should match the number of files.
 
-# Cleanup
+## Cleanup
     rm -r download_log.txt  send_to_sumo_log.txt cwlogsdump send_to_sumo_*.sh
 
-# Sample log
+## Sample log
 Note here ingestionTime is replaced with id to keep the log format consistent
 
 ``` json
