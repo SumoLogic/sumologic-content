@@ -1,0 +1,327 @@
+{
+    "type": "DashboardV2SyncDefinition",
+    "name": "Code Scanning Alert",
+    "description": "",
+    "title": "Code Scanning Alert",
+    "theme": "Dark",
+    "topologyLabelMap": {
+        "data": {}
+    },
+    "refreshInterval": 0,
+    "timeRange": {
+        "type": "BeginBoundedTimeRange",
+        "from": {
+            "type": "RelativeTimeRangeBoundary",
+            "relativeTime": "-15m"
+        },
+        "to": null
+    },
+    "layout": {
+        "layoutType": "Grid",
+        "layoutStructures": [
+            {
+                "key": "panelPANE-CBF481828F373A48",
+                "structure": "{\"height\":6,\"width\":8,\"x\":0,\"y\":3}"
+            },
+            {
+                "key": "panel415A3A45BD87D94C",
+                "structure": "{\"height\":6,\"width\":8,\"x\":8,\"y\":3}"
+            },
+            {
+                "key": "panelPANE-72D89930BBC71943",
+                "structure": "{\"height\":10,\"width\":24,\"x\":0,\"y\":9}"
+            },
+            {
+                "key": "panel050129019B9B2943",
+                "structure": "{\"height\":6,\"width\":8,\"x\":16,\"y\":3}"
+            },
+            {
+                "key": "panelPANE-AD488F6487DECB45",
+                "structure": "{\"height\":3,\"width\":8,\"x\":0,\"y\":0}"
+            },
+            {
+                "key": "panelPANE-A3443EEEA9BFEA49",
+                "structure": "{\"height\":3,\"width\":8,\"x\":8,\"y\":0}"
+            },
+            {
+                "key": "panelPANE-3B081EE8A5DA7843",
+                "structure": "{\"height\":3,\"width\":8,\"x\":16,\"y\":0}"
+            }
+        ]
+    },
+    "panels": [
+        {
+            "id": null,
+            "key": "panelPANE-CBF481828F373A48",
+            "title": "Alert Found/Fixed Ratio",
+            "visualSettings": "{\"general\":{\"mode\":\"timeSeries\",\"type\":\"line\",\"displayType\":\"default\",\"markerSize\":5,\"lineDashType\":\"solid\",\"markerType\":\"none\",\"lineThickness\":1},\"title\":{\"fontSize\":14},\"axes\":{\"axisX\":{\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12,\"logarithmic\":false},\"axisY2\":{\"hideLabels\":true}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"bottom\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":false,\"wrap\":true},\"color\":{\"family\":\"Categorical Default\"},\"series\":{\"A__count\":{\"visible\":false},\"B__count\":{\"visible\":false},\"A_Created\":{\"visible\":false},\"B_Fixed\":{\"visible\":true}},\"overrides\":[{\"series\":[\"Created\"],\"queries\":[],\"properties\":{\"color\":\"#bf2121\",\"visible\":true}},{\"series\":[\"Fixed\"],\"queries\":[],\"properties\":{\"color\":\"#f2da73\"}}]}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "(_sourcecategory=<GITHUB_SOURCE_CATEGORY>)\n| %\"x-github-event\" as type\n| where type matches \"*_alert\"\n| where action matches \"create*\"\n| timeslice 1w\n| count by _timeslice\n| sort by _timeslice asc\n| accum _count as Created",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message"
+                },
+                {
+                    "transient": false,
+                    "queryString": "(_sourcecategory=<GITHUB_SOURCE_CATEGORY>)\n| %\"x-github-event\" as type\n| where type matches \"*_alert\"\n| where action matches \"fix*\"\n| timeslice 1w\n| count by _timeslice\n| sort by _timeslice asc\n| accum _count as Fixed",
+                    "queryType": "Logs",
+                    "queryKey": "B",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message"
+                }
+            ],
+            "description": "",
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "RelativeTimeRangeBoundary",
+                    "relativeTime": "-4w2d"
+                },
+                "to": null
+            },
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panel415A3A45BD87D94C",
+            "title": "Commit/Alert Ratio",
+            "visualSettings": "{\"general\":{\"mode\":\"timeSeries\",\"type\":\"line\",\"displayType\":\"default\",\"markerSize\":5,\"lineDashType\":\"solid\",\"markerType\":\"none\",\"lineThickness\":1},\"title\":{\"fontSize\":14},\"axes\":{\"axisX\":{\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12,\"logarithmic\":false},\"axisY2\":{\"hideLabels\":true}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"bottom\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":false,\"wrap\":true},\"color\":{\"family\":\"Categorical Default\"},\"series\":{\"A__count\":{\"visible\":false}},\"overrides\":[{\"series\":[\"Created\"],\"queries\":[],\"properties\":{\"color\":\"#bf2121\",\"visible\":true}},{\"series\":[\"Fixed\"],\"queries\":[],\"properties\":{\"color\":\"#f2da73\"}}]}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "((_sourcecategory=<GITHUB_SOURCE_CATEGORY>))\n| %\"x-github-event\" as type\n| where type matches \"*_alert\"\n| where %\"x-github-event\" = \"code_scanning_alert\"\n| timeslice 1w\n| count by _timeslice\n| sort by _timeslice asc\n| accum _count as Code_Scanning_Alerts",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message"
+                },
+                {
+                    "transient": false,
+                    "queryString": "((_sourcecategory=<GITHUB_SOURCE_CATEGORY>))\n| %\"x-github-event\" as type\n| where type matches \"*_alert\"\n| where %\"x-github-event\" = \"push\"\n| timeslice 1w\n| count by _timeslice\n| sort by _timeslice asc\n| accum _count as Pushes",
+                    "queryType": "Logs",
+                    "queryKey": "B",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message"
+                }
+            ],
+            "description": "",
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "RelativeTimeRangeBoundary",
+                    "relativeTime": "-4w2d"
+                },
+                "to": null
+            },
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panelPANE-72D89930BBC71943",
+            "title": "Fixed Alerts",
+            "visualSettings": "{\"title\":{\"fontSize\":14},\"axes\":{\"axisX\":{\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12,\"logarithmic\":false}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"bottom\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":false,\"wrap\":true},\"series\":{},\"general\":{\"type\":\"table\",\"displayType\":\"default\",\"paginationPageSize\":100,\"fontSize\":12,\"mode\":\"timeSeries\"}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "(_sourcecategory=<GITHUB_SOURCE_CATEGORY>)\n| %\"x-github-event\" as type\n| where type contains \"_alert\"\n| where action matches \"fix*\"\n| json field=_raw \"repository.name\" as Repository\n| json field=_raw \"alert.tool.name\" as Tool\n| json field=_raw \"alert.html_url\" as %\"Alert URL\"\n| json field=_raw \"alert.created_at\" as created_at\n| json field=_raw \"alert.fixed_at\" as fixed_at\n| count by fixed_at, created_at, %\"Alert URL\", Tool, Repository\n| parseDate(created_at, \"yyyy-MM-dd'T'HH:mm:ss'Z'\") as created_at\n| parseDate(fixed_at, \"yyyy-MM-dd'T'HH:mm:ss'Z'\") as fixed_at\n////| formatDate(now(), \"yyyy-MM-dd'T'HH:mm:ss'Z'\") as today\n////| now() as currentTime\n| fixed_at - created_at as duration\n| (duration / 1000) % 60 as seconds\n| (duration / (1000 * 60)) % 60 as minutes\n| (duration / (1000 * 60 * 60)) % 24 as hours\n| (duration / (86400000))  as days\n| round(seconds) | round(minutes) | round(hours) | round(days)\n| concat(days, \"+\", hours, \":\", minutes, \":\", seconds) as %\"Time to Resolution\"\n//| formatDate(toLong(created_at), \"yyyy-MM-dd'T'HH:mm:ss'Z'\") as created_at\n//| formatDate(toLong(fixed_at), \"yyyy-MM-dd'T'HH:mm:ss'Z'\") as fixed_at\n//| formatDate(toLong(%\"Time to Resolution\"), \"MM-dd'+'HH:mm:ss\") as %\"Time to Resolution\"\n| fields Repository, Tool, %\"Alert URL\", %\"Time to Resolution\"\n| where Repository matches \"{{Repositories}}\"",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message"
+                }
+            ],
+            "description": "",
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "RelativeTimeRangeBoundary",
+                    "relativeTime": "-4w2d"
+                },
+                "to": null
+            },
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panel050129019B9B2943",
+            "title": "New Alerts by Tool",
+            "visualSettings": "{\"title\":{\"fontSize\":14},\"axes\":{\"axisX\":{\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12,\"logarithmic\":false}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"right\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":false,\"wrap\":true},\"series\":{},\"general\":{\"type\":\"column\",\"displayType\":\"default\",\"fillOpacity\":1,\"mode\":\"timeSeries\"},\"color\":{\"family\":\"Categorical Default\"},\"overrides\":[]}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "(_sourcecategory=<GITHUB_SOURCE_CATEGORY>)\n| %\"x-github-event\" as type\n| where type matches \"*_alert\"\n| where action matches \"create*\"\n| json field=_raw \"alert.tool.name\" as Tool\n| timeslice 1w\n| count by _timeslice, Tool\n| transpose row _timeslice column Tool",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message"
+                }
+            ],
+            "description": "",
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "RelativeTimeRangeBoundary",
+                    "relativeTime": "-4w2d"
+                },
+                "to": null
+            },
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panelPANE-AD488F6487DECB45",
+            "title": "Created",
+            "visualSettings": "{\"general\":{\"mode\":\"singleValueMetrics\",\"type\":\"svp\",\"displayType\":\"default\"},\"title\":{\"fontSize\":14},\"svp\":{\"option\":\"Latest\",\"label\":\"\",\"useBackgroundColor\":false,\"useNoData\":false,\"noDataString\":\"No data\",\"hideData\":false,\"hideLabel\":false,\"rounding\":2,\"valueFontSize\":24,\"labelFontSize\":14,\"thresholds\":[{\"from\":null,\"to\":null,\"color\":\"#16943E\"},{\"from\":null,\"to\":null,\"color\":\"#DFBE2E\"},{\"from\":null,\"to\":null,\"color\":\"#BF2121\"}],\"sparkline\":{\"show\":false,\"color\":\"#222D3B\"},\"gauge\":{\"show\":false,\"min\":0,\"max\":100,\"showThreshold\":false,\"showThresholdMarker\":false}},\"series\":{},\"legend\":{\"enabled\":false}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "(_sourcecategory=<GITHUB_SOURCE_CATEGORY>) (*alert and create*)\n| %\"x-github-event\" as type\n| where type matches \"*_alert\"\n| where action matches \"create*\"\n| count",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message"
+                }
+            ],
+            "description": "",
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "RelativeTimeRangeBoundary",
+                    "relativeTime": "-4w2d"
+                },
+                "to": null
+            },
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panelPANE-A3443EEEA9BFEA49",
+            "title": "Fixed",
+            "visualSettings": "{\"general\":{\"mode\":\"singleValueMetrics\",\"type\":\"svp\",\"displayType\":\"default\"},\"title\":{\"fontSize\":14},\"svp\":{\"option\":\"Latest\",\"label\":\"\",\"useBackgroundColor\":false,\"useNoData\":false,\"noDataString\":\"No data\",\"hideData\":false,\"hideLabel\":false,\"rounding\":2,\"valueFontSize\":24,\"labelFontSize\":14,\"thresholds\":[{\"from\":null,\"to\":null,\"color\":\"#16943E\"},{\"from\":null,\"to\":null,\"color\":\"#DFBE2E\"},{\"from\":null,\"to\":null,\"color\":\"#BF2121\"}],\"sparkline\":{\"show\":false,\"color\":\"#222D3B\"},\"gauge\":{\"show\":false,\"min\":0,\"max\":100,\"showThreshold\":false,\"showThresholdMarker\":false}},\"series\":{},\"legend\":{\"enabled\":false}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "(_sourcecategory=<GITHUB_SOURCE_CATEGORY>) (*alert AND fix*)\n| %\"x-github-event\" as type\n| where type contains \"_alert\"\n| where action matches \"fix*\"\n| count",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message"
+                }
+            ],
+            "description": "",
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "RelativeTimeRangeBoundary",
+                    "relativeTime": "-4w2d"
+                },
+                "to": null
+            },
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panelPANE-3B081EE8A5DA7843",
+            "title": "Reopened",
+            "visualSettings": "{\"general\":{\"mode\":\"singleValueMetrics\",\"type\":\"svp\",\"displayType\":\"default\"},\"title\":{\"fontSize\":14},\"svp\":{\"option\":\"Latest\",\"label\":\"\",\"useBackgroundColor\":false,\"useNoData\":false,\"noDataString\":\"No data\",\"hideData\":false,\"hideLabel\":false,\"rounding\":2,\"valueFontSize\":24,\"labelFontSize\":14,\"thresholds\":[{\"from\":null,\"to\":null,\"color\":\"#16943E\"},{\"from\":null,\"to\":null,\"color\":\"#DFBE2E\"},{\"from\":null,\"to\":null,\"color\":\"#BF2121\"}],\"sparkline\":{\"show\":false,\"color\":\"#222D3B\"},\"gauge\":{\"show\":false,\"min\":0,\"max\":100,\"showThreshold\":false,\"showThresholdMarker\":false}},\"series\":{},\"legend\":{\"enabled\":false}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "(_sourcecategory=<GITHUB_SOURCE_CATEGORY>) (*alert AND reopen*)\n| %\"x-github-event\" as type\n| where type matches \"*_alert\"\n| where action matches \"reopen*\"\n| count",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message"
+                }
+            ],
+            "description": "",
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "RelativeTimeRangeBoundary",
+                    "relativeTime": "-4w2d"
+                },
+                "to": null
+            },
+            "coloringRules": null,
+            "linkedDashboards": []
+        }
+    ],
+    "variables": [
+        {
+            "id": null,
+            "name": "Repositories",
+            "displayName": "Repositories",
+            "defaultValue": "*",
+            "sourceDefinition": {
+                "variableSourceType": "LogQueryVariableSourceDefinition",
+                "query": "(_sourcecategory=<GITHUB_SOURCE_CATEGORY>)\n| json field=_raw \"repository.name\" as Repositories\n| count by Repositories",
+                "field": "Repositories"
+            },
+            "allowMultiSelect": false,
+            "includeAllOption": true,
+            "hideFromUI": false,
+            "valueType": "Any"
+        }
+    ],
+    "coloringRules": []
+}
