@@ -1,0 +1,303 @@
+{
+    "type": "DashboardV2SyncDefinition",
+    "name": "Advanced Security Overview",
+    "description": "",
+    "title": "Advanced Security Overview",
+    "theme": "Dark",
+    "topologyLabelMap": {
+        "data": {}
+    },
+    "refreshInterval": 0,
+    "timeRange": {
+        "type": "BeginBoundedTimeRange",
+        "from": {
+            "type": "RelativeTimeRangeBoundary",
+            "relativeTime": "-15m"
+        },
+        "to": null
+    },
+    "layout": {
+        "layoutType": "Grid",
+        "layoutStructures": [
+            {
+                "key": "panel20FE177283551B40",
+                "structure": "{\"height\":9,\"width\":24,\"x\":0,\"y\":6}"
+            },
+            {
+                "key": "panel43632E8091CF2842",
+                "structure": "{\"height\":6,\"width\":6,\"x\":0,\"y\":0}"
+            },
+            {
+                "key": "panelAA6650C1B5CD6946",
+                "structure": "{\"height\":6,\"width\":6,\"x\":6,\"y\":0}"
+            },
+            {
+                "key": "panel9E617D029947D945",
+                "structure": "{\"height\":6,\"width\":6,\"x\":12,\"y\":0}"
+            },
+            {
+                "key": "panelEC781E3BACBDBB46",
+                "structure": "{\"height\":6,\"width\":6,\"x\":18,\"y\":0}"
+            },
+            {
+                "key": "panel8C7245039688DA40",
+                "structure": "{\"height\":9,\"width\":12,\"x\":0,\"y\":15}"
+            },
+            {
+                "key": "panel23C439E985CD0A4D",
+                "structure": "{\"height\":9,\"width\":12,\"x\":12,\"y\":15}"
+            }
+        ]
+    },
+    "panels": [
+        {
+            "id": null,
+            "key": "panel20FE177283551B40",
+            "title": "Alert Details",
+            "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"table\"},\"series\":{}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "(_sourcecategory=<GITHUB_SOURCE_CATEGORY>)\n| %\"x-github-event\" as type\n| where type contains \"_alert\"\n| json field=_raw \"alert.rule.name\" as reason\n| json field=_raw \"alert.rule.id\" as id\n| json field=_raw \"alert.rule.security_severity_level\" as severity\n| json field=_raw \"alert.created_at\" as created_at\n| json field=_raw \"repository.name\" as repository_name\n| action as status\n| count by created_at, status, severity, type, id, reason, repository_name\n| parseDate(created_at, \"yyyy-MM-dd'T'HH:mm:ss'Z'\") as created_at\n| formatDate(now(), \"yyyy-MM-dd'T'HH:mm:ss'Z'\") as today\n| now() as currentTime\n| currentTime - created_at as age\n| formatDate(toLong(created_at), \"yyyy-MM-dd'T'HH:mm:ss'Z'\") as created_at\n| formatDate(toLong(age), \"dd'+'HH:mm:ss\") as age\n| fields repository_name, reason, id, type, severity, status, created_at, age\n| where repository_name matches \"{{Repositories}}\"",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message"
+                }
+            ],
+            "description": "",
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "RelativeTimeRangeBoundary",
+                    "relativeTime": "-4w2d"
+                },
+                "to": null
+            },
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panel43632E8091CF2842",
+            "title": "Open Alerts By Severity",
+            "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"pie\",\"innerRadius\":\"0%\"},\"series\":{},\"color\":{\"family\":\"Diverging 2\"},\"legend\":{\"enabled\":false,\"fontSize\":12},\"title\":{\"fontSize\":14}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "(_sourcecategory=<GITHUB_SOURCE_CATEGORY>)\n| %\"x-github-event\" as type\n| where type matches \"*_alert\"\n| where action contains \"open\"\n| json field=_raw \"alert.rule.security_severity_level\" as severity\n| count by severity\n",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message"
+                }
+            ],
+            "description": "",
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "RelativeTimeRangeBoundary",
+                    "relativeTime": "-4w2d"
+                },
+                "to": null
+            },
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panelAA6650C1B5CD6946",
+            "title": "Open Alerts By Repository ",
+            "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"pie\",\"innerRadius\":\"0%\"},\"series\":{},\"color\":{\"family\":\"Diverging 2\"},\"legend\":{\"enabled\":false,\"wrap\":false}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "(_sourcecategory=<GITHUB_SOURCE_CATEGORY>)\n| %\"x-github-event\" as type\n| where type matches \"*_alert\"\n| where action contains \"open\"\n| json field=_raw \"repository.name\" as repository_name\n| count by repository_name",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message"
+                }
+            ],
+            "description": "",
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "RelativeTimeRangeBoundary",
+                    "relativeTime": "-4w2d"
+                },
+                "to": null
+            },
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panel9E617D029947D945",
+            "title": "Open Alerts By Type",
+            "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"pie\",\"innerRadius\":\"0%\"},\"series\":{},\"legend\":{\"enabled\":false}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "(_sourcecategory=<GITHUB_SOURCE_CATEGORY>)\n| %\"x-github-event\" as type\n| where type matches \"*_alert\"\n| where action contains \"open\"\n| count by type",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message"
+                }
+            ],
+            "description": "",
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "RelativeTimeRangeBoundary",
+                    "relativeTime": "-4w2d"
+                },
+                "to": null
+            },
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panelEC781E3BACBDBB46",
+            "title": "Resolved Alert Count",
+            "visualSettings": "{\"general\":{\"mode\":\"singleValueMetrics\",\"type\":\"svp\"},\"series\":{},\"svp\":{\"label\":\"\"}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "(_sourcecategory=<GITHUB_SOURCE_CATEGORY>)\n| %\"x-github-event\" as type\n| where type matches \"*_alert\"\n| where action matches \"resolve*\"\n//| json field=_raw \"alert.rule.security_severity_level\" as severity\n| count\n",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message"
+                }
+            ],
+            "description": "",
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "RelativeTimeRangeBoundary",
+                    "relativeTime": "-4w2d"
+                },
+                "to": null
+            },
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panel8C7245039688DA40",
+            "title": "Alerts by Severity",
+            "visualSettings": "{\"series\":{},\"legend\":{\"enabled\":false,\"fontSize\":12},\"title\":{\"fontSize\":14},\"general\":{\"type\":\"table\",\"displayType\":\"default\",\"paginationPageSize\":10,\"fontSize\":12,\"mode\":\"distribution\"},\"overrides\":[]}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "(_sourcecategory=<GITHUB_SOURCE_CATEGORY>)\n| %\"x-github-event\" as type\n| where type matches \"*_alert\"\n| json field=_raw \"repository.name\" as repository_name\n| json field=_raw \"alert.rule.security_severity_level\" as severity\n| where !(severity matches \"low\") \n| count by repository_name, severity\n| transpose row repository_name column severity\n",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message"
+                }
+            ],
+            "description": "",
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "RelativeTimeRangeBoundary",
+                    "relativeTime": "-4w2d"
+                },
+                "to": null
+            },
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panel23C439E985CD0A4D",
+            "title": "Alerts by Repo",
+            "visualSettings": "{\"series\":{},\"legend\":{\"enabled\":false,\"fontSize\":12},\"title\":{\"fontSize\":14},\"general\":{\"type\":\"table\",\"displayType\":\"default\",\"paginationPageSize\":10,\"fontSize\":12,\"mode\":\"distribution\"},\"overrides\":[]}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "(_sourcecategory=<GITHUB_SOURCE_CATEGORY>)\n| %\"x-github-event\" as type\n| where type matches \"*_alert\"\n| json field=_raw \"repository.name\" as repository_name\n| json field=_raw \"alert.tool.name\" as tool_name\n| count by repository_name, tool_name\n| transpose row repository_name column tool_name\n\n\n",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message"
+                }
+            ],
+            "description": "",
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "RelativeTimeRangeBoundary",
+                    "relativeTime": "-4w2d"
+                },
+                "to": null
+            },
+            "coloringRules": null,
+            "linkedDashboards": []
+        }
+    ],
+    "variables": [
+        {
+            "id": null,
+            "name": "Repositories",
+            "displayName": "Repositories",
+            "defaultValue": "*",
+            "sourceDefinition": {
+                "variableSourceType": "LogQueryVariableSourceDefinition",
+                "query": "(_sourcecategory=<GITHUB_SOURCE_CATEGORY>)\n| json field=_raw \"repository.name\" as Repositories\n| count by Repositories",
+                "field": "Repositories"
+            },
+            "allowMultiSelect": false,
+            "includeAllOption": true,
+            "hideFromUI": false,
+            "valueType": "Any"
+        }
+    ],
+    "coloringRules": []
+}
