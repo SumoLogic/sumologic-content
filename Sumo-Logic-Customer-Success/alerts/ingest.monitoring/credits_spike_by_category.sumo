@@ -1,0 +1,36 @@
+/*
+This search can be used in an hourly or daily alert to notify if credits use per category is outside of expected norms
+Tune the last line based on your requirements for your environment.
+Create this as a scheduled search to email/webhook etc for example once a day for -24h or for more sensitive alerting say every 3h for -3h
+*/
+_index=sumologic_volume _sourcecategory=sourcecategory_and_tier_volume
+| parse regex "(?<data>\{[^\{]+\})" multi
+| json field=data "field","dataTier","sizeInBytes" as sourceCategory, dataTier, bytes
+| bytes/1Gi as gbytes 
+| sum(gbytes) as gbytes by dataTier,sourceCategory
+
+// these are typical credits rates check your contract
+| 20 as credit_rate
+| if(datatier = "CSE",25,credit_rate) as credit_rate
+| if(datatier = "Infrequent",.4,credit_rate) as credit_rate
+| if(datatier = "Frequent",9,credit_rate) as credit_rate
+| gbytes * credit_rate as credits
+
+// compare with previous 3 time periods at same time
+| compare timeshift 7d 3 avg
+
+// this handles nulls for new or removed categories
+| if(isNull(gbytes), "GONE", "") as state 
+| if(isNull(gbytes), 0, gbytes) as gbytes 
+| if(isNull(gbytes_21d_avg), "NEW", state) as state 
+| if(isNull(gbytes_21d_avg), 0, gbytes_21d_avg) as gbytes_21d_avg 
+
+// what is the change delta as a percentage vs baseline
+| ((gbytes - gbytes_21d_avg) / gbytes) * 100 as pct_increase 
+
+// Use this if you want to alert 
+// typically in a schedules search setup where then alert on events (rows) > 0
+
+// this line is for your thresholds to get notified
+// consider tuning the  min size clause for your environment.
+| where (pct_increase > 50 or state = "NEW" ) and ( credits > 20  or gbytes > 1)
