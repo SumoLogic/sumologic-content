@@ -1,0 +1,396 @@
+{
+    "type": "DashboardV2SyncDefinition",
+    "name": "SentinelOne - New",
+    "description": "",
+    "title": "SentinelOne - New",
+    "theme": "Dark",
+    "topologyLabelMap": {
+        "data": {}
+    },
+    "refreshInterval": 0,
+    "timeRange": {
+        "type": "BeginBoundedTimeRange",
+        "from": {
+            "type": "RelativeTimeRangeBoundary",
+            "relativeTime": "-4w2d"
+        },
+        "to": null
+    },
+    "layout": {
+        "layoutType": "Grid",
+        "layoutStructures": [
+            {
+                "key": "panel3af1980989fae847",
+                "structure": "{\"width\":6,\"height\":5,\"x\":0,\"y\":0}"
+            },
+            {
+                "key": "panelf50dad868e0d0a4b",
+                "structure": "{\"width\":6,\"height\":5,\"x\":6,\"y\":0}"
+            },
+            {
+                "key": "panelfad3d9809f033842",
+                "structure": "{\"width\":6,\"height\":5,\"x\":12,\"y\":0}"
+            },
+            {
+                "key": "panel5ad15934bb59bb41",
+                "structure": "{\"width\":6,\"height\":5,\"x\":18,\"y\":0}"
+            },
+            {
+                "key": "panel65f614f9bf1db847",
+                "structure": "{\"width\":8,\"height\":6,\"x\":0,\"y\":4}"
+            },
+            {
+                "key": "panelec6841b2be7b8b41",
+                "structure": "{\"width\":16,\"height\":6,\"x\":8,\"y\":4}"
+            },
+            {
+                "key": "panel0a5270c4b6dc8840",
+                "structure": "{\"width\":8,\"height\":6,\"x\":0,\"y\":9}"
+            },
+            {
+                "key": "panel8680a61ea369b84c",
+                "structure": "{\"width\":8,\"height\":6,\"x\":8,\"y\":9}"
+            },
+            {
+                "key": "panelfc6e979285aeda4e",
+                "structure": "{\"width\":8,\"height\":6,\"x\":16,\"y\":9}"
+            },
+            {
+                "key": "panel204ea54e80dac840",
+                "structure": "{\"width\":15,\"height\":6,\"x\":0,\"y\":14}"
+            },
+            {
+                "key": "panel24c69468b95fe944",
+                "structure": "{\"width\":9,\"height\":6,\"x\":15,\"y\":14}"
+            }
+        ]
+    },
+    "panels": [
+        {
+            "id": null,
+            "key": "panelfc6e979285aeda4e",
+            "title": "Most events per PC",
+            "visualSettings": "{\"title\":{\"fontSize\":12},\"series\":{},\"general\":{\"type\":\"table\",\"fontSize\":12,\"mode\":\"timeSeries\"},\"thresholdsSettings\":{\"fillRemainingGreen\":false,\"showThresholds\":false,\"thresholds\":{\"warning\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":80},\"critical\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":100}}}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_source=\"SentinelOne\"\n| parse \"fileName=*|\" as file_name\n| parse \"eventDesc=New active threat - machine *|\" as machine_name\n| count_distinct(machine_name) by file_name \n| top 15 file_name by _count_distinct",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Manual",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": null
+                }
+            ],
+            "description": null,
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panel8680a61ea369b84c",
+            "title": "Threats Quarantined by Machine",
+            "visualSettings": "{\"title\":{\"fontSize\":12},\"series\":{},\"general\":{\"type\":\"table\",\"fontSize\":12,\"mode\":\"timeSeries\"},\"thresholdsSettings\":{\"fillRemainingGreen\":false,\"showThresholds\":false,\"thresholds\":{\"warning\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":80},\"critical\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":100}}}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_source=\"SentinelOne\" \"quarantine\"\n| parse \"threatClassification=*|\" as threat_type\n| parse \"sourceHostName=*|\" as machine_name\n| timeslice 1d\n| count by _timeslice,machine_name,threat_type\n| sort by machine_name asc",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Manual",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": null
+                }
+            ],
+            "description": null,
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panel5ad15934bb59bb41",
+            "title": "By Threat Type",
+            "visualSettings": "{\"title\":{\"fontSize\":14},\"general\":{\"type\":\"pie\",\"displayType\":\"default\",\"fillOpacity\":1,\"startAngle\":270,\"innerRadius\":\"30%\",\"maxNumOfSlices\":\"10\",\"mode\":\"distribution\"},\"color\":{\"family\":\"Categorical Default\"},\"axes\":{\"axisX\":{\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"titleFontSize\":12,\"labelFontSize\":12}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"right\"}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_source=\"SentinelOne\"\n| parse \"threatClassification=*|\" as threat_type\n| parse \"machine *|\" as machine_name\n| count_distinct(machine_name) by threat_type",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Manual",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": null
+                }
+            ],
+            "description": null,
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panel65f614f9bf1db847",
+            "title": "New Active Threat by Machine",
+            "visualSettings": "{\"title\":{\"fontSize\":12},\"series\":{},\"general\":{\"type\":\"table\",\"fontSize\":12,\"mode\":\"timeSeries\"},\"thresholdsSettings\":{\"fillRemainingGreen\":false,\"showThresholds\":false,\"thresholds\":{\"warning\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":80},\"critical\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":100}}}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_source=\"SentinelOne\" \"New active threat\"\n| parse \"threatClassification=*|\" as threat_type\n| parse \"machine *|\" as machine_name\n| timeslice 1d\n| count by _timeslice,machine_name,threat_type\n| sort by machine_name asc\n",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Manual",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": null
+                }
+            ],
+            "description": null,
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panel0a5270c4b6dc8840",
+            "title": "Threats Killed by Machine",
+            "visualSettings": "{\"title\":{\"fontSize\":12},\"series\":{},\"general\":{\"type\":\"table\",\"fontSize\":12,\"mode\":\"timeSeries\"},\"thresholdsSettings\":{\"fillRemainingGreen\":false,\"showThresholds\":false,\"thresholds\":{\"warning\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":80},\"critical\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":100}}}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_source=\"SentinelOne\" \"kill\"\n| parse \"threatClassification=*|\" as threat_type\n| parse \"sourceHostName=*|\" as machine_name\n| timeslice 1d\n| count by _timeslice,machine_name,threat_type\n| sort by machine_name asc",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Manual",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": null
+                }
+            ],
+            "description": null,
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panelf50dad868e0d0a4b",
+            "title": "Active Threats",
+            "visualSettings": "{\"title\":{\"fontSize\":14},\"general\":{\"type\":\"svp\",\"displayType\":\"default\",\"mode\":\"singleValueMetrics\"},\"svp\":{\"option\":\"Latest\",\"label\":\"\",\"useBackgroundColor\":false,\"useNoData\":false,\"noDataString\":\"No data\",\"hideData\":false,\"hideLabel\":false,\"rounding\":2,\"valueFontSize\":24,\"labelFontSize\":14,\"thresholds\":[{\"from\":\"0\",\"to\":\".1\",\"color\":\"#33ca34\"},{\"from\":\".11\",\"to\":\"10000\",\"color\":\"#ff4141\"},{\"from\":null,\"to\":null,\"color\":\"#BF2121\"}],\"sparkline\":{\"show\":false,\"color\":\"#222D3B\"},\"gauge\":{\"show\":false,\"min\":0,\"max\":100,\"showThreshold\":false,\"showThresholdMarker\":false}}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_source=\"SentinelOne\"\n| parse \"eventDesc=*|\" as eventDesc\n| eventDesc matches \"New active threat*\" OR eventDesc matches \"New Suspicious threat detected*\" ? 1 : 0 as active \n| eventDesc=\"Threat marked as resolved\" ? 1 : 0 as resolved\n| eventDesc=\"Quarantine performed successfully\" ? 1 : 0 as mitigated\n| sum(active) as active, sum(resolved) as resolved, sum(mitigated) as mitigated\n| active-mitigated as Active_Threats\n| fields Active_Threats",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Manual",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": null
+                }
+            ],
+            "description": null,
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panel3af1980989fae847",
+            "title": "Total Unresolved Threats",
+            "visualSettings": "{\"title\":{\"fontSize\":14},\"general\":{\"type\":\"svp\",\"displayType\":\"default\",\"mode\":\"singleValueMetrics\"},\"svp\":{\"option\":\"Latest\",\"label\":\"\",\"useBackgroundColor\":false,\"useNoData\":false,\"noDataString\":\"No data\",\"hideData\":false,\"hideLabel\":false,\"rounding\":2,\"valueFontSize\":24,\"labelFontSize\":14,\"thresholds\":[{\"from\":\"0\",\"to\":\".1\",\"color\":\"#33ca34\"},{\"from\":\".11\",\"to\":\"1000000\",\"color\":\"#ff4141\"},{\"from\":null,\"to\":null,\"color\":\"#BF2121\"}],\"sparkline\":{\"show\":false,\"color\":\"#222D3B\"},\"gauge\":{\"show\":false,\"min\":0,\"max\":100,\"showThreshold\":false,\"showThresholdMarker\":false}}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_source=\"SentinelOne\"\n| parse \"eventDesc=*|\" as eventDesc\n| eventDesc matches \"New active threat*\" OR eventDesc matches \"New Suspicious threat detected*\" ? 1 : 0 as active \n| eventDesc=\"Threat marked as resolved\" ? 1 : 0 as resolved\n| sum(active) as active, sum(resolved) as resolved\n| active-resolved as active_unresolved\n| fields active_unresolved\n",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Manual",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": null
+                }
+            ],
+            "description": null,
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panelfad3d9809f033842",
+            "title": "Threats Mitigated",
+            "visualSettings": "{\"title\":{\"fontSize\":14},\"general\":{\"type\":\"svp\",\"displayType\":\"default\",\"mode\":\"singleValueMetrics\"},\"svp\":{\"option\":\"Latest\",\"label\":\"\",\"useBackgroundColor\":false,\"useNoData\":false,\"noDataString\":\"No data\",\"hideData\":false,\"hideLabel\":false,\"rounding\":2,\"valueFontSize\":24,\"labelFontSize\":14,\"thresholds\":[{\"from\":\"0\",\"to\":\".1\",\"color\":\"#33ca34\"},{\"from\":\".11\",\"to\":\"1000\",\"color\":\"#ff4141\"},{\"from\":null,\"to\":null,\"color\":\"#BF2121\"}],\"sparkline\":{\"show\":false,\"color\":\"#222D3B\"},\"gauge\":{\"show\":false,\"min\":0,\"max\":100,\"showThreshold\":false,\"showThresholdMarker\":false}}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_source=\"SentinelOne\"\n| parse \"eventDesc=*|\" as eventDesc\n| eventDesc matches \"New active threat*\" OR eventDesc matches \"New Suspicious threat detected*\" ? 1 : 0 as active \n| eventDesc=\"Threat marked as resolved\" ? 1 : 0 as resolved\n| eventDesc=\"Quarantine performed successfully\" ? 1 : 0 as mitigated\n| sum(active) as active, sum(resolved) as resolved, sum(mitigated) as mitigated\n| mitigated-resolved as Threats_Mitigated\n| fields Threats_Mitigated",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Manual",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": null
+                }
+            ],
+            "description": null,
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panel24c69468b95fe944",
+            "title": "New Suspicious file",
+            "visualSettings": "{\"title\":{\"fontSize\":12},\"series\":{},\"general\":{\"type\":\"table\",\"fontSize\":12,\"mode\":\"timeSeries\"},\"thresholdsSettings\":{\"fillRemainingGreen\":false,\"showThresholds\":false,\"thresholds\":{\"warning\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":80},\"critical\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":100}}}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_source=\"SentinelOne\" \"Suspicious\"\n| parse \"fileName=*|\" as file_name\n| parse \"sourceHostName=*|\" as machine_name\n| timeslice 1d\n| count by _timeslice, machine_name,file_name\n| sort by machine_name asc",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Manual",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": null
+                }
+            ],
+            "description": null,
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "EpochTimeRangeBoundary",
+                    "epochMillis": 1539638074000
+                },
+                "to": {
+                    "type": "EpochTimeRangeBoundary",
+                    "epochMillis": 1542230074000
+                }
+            },
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panel204ea54e80dac840",
+            "title": "New File Threats",
+            "visualSettings": "{\"title\":{\"fontSize\":12},\"series\":{},\"general\":{\"type\":\"table\",\"fontSize\":12,\"mode\":\"timeSeries\"},\"thresholdsSettings\":{\"fillRemainingGreen\":false,\"showThresholds\":false,\"thresholds\":{\"warning\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":80},\"critical\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":100}}}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_source=\"SentinelOne\" \"New active threat\"\n| parse \"filePath=*|\" as file_path\n| parse \"eventDesc=New active threat - machine *|\" as machine_name\n| parse \"fileName=*|\" as file_name\n| parse \"sourceUserName=*|\" as user\n| count machine_name,file_path,file_name,user",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Manual",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": null
+                }
+            ],
+            "description": null,
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "LiteralTimeRangeBoundary",
+                    "rangeName": "today"
+                },
+                "to": null
+            },
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panelec6841b2be7b8b41",
+            "title": "Threats Resolved",
+            "visualSettings": "{\"title\":{\"fontSize\":12},\"series\":{},\"general\":{\"type\":\"table\",\"fontSize\":12,\"mode\":\"timeSeries\"},\"thresholdsSettings\":{\"fillRemainingGreen\":false,\"showThresholds\":false,\"thresholds\":{\"warning\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":80},\"critical\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":100}}}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_source=\"SentinelOne\" \"Threat marked as resolved\"\n| parse \"filePath=*|\" as file_path\n| timeslice 1d\n| count by _timeslice, file_path",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Manual",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": null
+                }
+            ],
+            "description": null,
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "EpochTimeRangeBoundary",
+                    "epochMillis": 1541964910000
+                },
+                "to": {
+                    "type": "EpochTimeRangeBoundary",
+                    "epochMillis": 1542224110000
+                }
+            },
+            "coloringRules": null,
+            "linkedDashboards": []
+        }
+    ],
+    "variables": [],
+    "coloringRules": []
+}
