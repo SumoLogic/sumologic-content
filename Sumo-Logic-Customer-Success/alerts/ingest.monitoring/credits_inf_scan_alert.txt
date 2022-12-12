@@ -1,0 +1,24 @@
+// this query can be scheduled daily to alert if users infrequent scans are over agreed limits
+// Users should review the credit rate in this query vs their contract and tune the where thresholds on last two lines of the query.
+
+_view=sumologic_search_usage_per_query  
+analytics_tier=*infrequent* 
+| json field =scanned_bytes_breakdown "Infrequent" as scan_inf  
+| ((query_end_time - query_start_time ) /1000 / 60 ) as range_minutes
+| count as queries,  sum(retrieved_message_count) as retrieved_events,avg(range_minutes) as range_minutes,avg(scanned_partition_count) as partitions, sum(scan_inf) as scan_inf by user_name,query //,session_id
+
+// this is a typical UOM check your contract for your rate
+| (scan_inf/1024/1024/1024 )* 0.016 as credits //| fields -bytes
+
+| fields -scan_inf
+| credits/queries as cr_per_query
+| total credits as credits_total_user by user_name
+| total credits as total_credits 
+
+| sort cr_per_query
+
+| 100 as cr_max_user
+| 500 as cr_max_org
+
+// tune these thresholds based on your environment and plan
+| where credits_total_user > cr_max_user or total_credits > cr_max_org
