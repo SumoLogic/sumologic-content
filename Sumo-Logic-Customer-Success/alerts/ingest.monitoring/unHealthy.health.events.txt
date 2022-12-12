@@ -10,6 +10,8 @@ _index=sumologic_system_events "Health-Change" unhealthy
 
 // use this to filter on resources you want to include in alerting
 // for example if you have auto scaled installed collectors you would want to exclude those here
+// A list of all possible health events can be found in documentation. 
+// There is one docs site per sumo instance for example au (all instance docs are identical): 
 // https://service.au.sumologic.com/audit/docs/#tag/Health-Events-(System)
 
 // EXAMPLE: include or exclude  certain know collectors or sources
