@@ -5,15 +5,6 @@ For instructions on how to collect logs and metrics for use with content, please
 
 For more information, see Aruba documentation on [Aruba logging](http://www.arubanetworks.com/techdocs/ArubaOS_64x_WebHelp/Content/ArubaFrameStyles/Management_Utilities/Configuring_Logging.htm)
 
-
-## Dashboards
-
-![ArubaWireless-Controller-AuthMgr](ArubaWireless_Controller/Screenshots/ArubaWireless-Controller-AuthMgr.png)
-
-![ArubaWireless-Controller-WMSModule](ArubaWireless_Controller/Screenshots/ArubaWireless-Controller-WMSModule.png)
-
-![ArubaWireless-TACACS](ArubaWireless_TACACS/Screenshots/ArubaWireless-TACACS.png)
-
 To use the content:
 - Download the JSON file(s).
 - Find/replace all Source Categories within the JSON with your own Source Category (Ex: sourceCategory=yourSourceCategory).
