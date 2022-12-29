@@ -1,4 +1,4 @@
-#Amazon Web Services
+# Amazon Web Services
 Sumo Logic Community Content built for AWS products that are not published to the [App Catalog](https://help.sumologic.com/docs/integrations/).
 
 See [Sumo Logic Documentation](https://help.sumologic.com/) for instructions on how to collect logs and metrics for use with content.
