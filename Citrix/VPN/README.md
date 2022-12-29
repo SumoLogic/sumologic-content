@@ -1,10 +1,12 @@
-# Netscaler VPN Dashboard
+# Sumo Logic for Citrix Netscaler VPN
+Sumo Logic Community Content built for Citrix Netscaler VPN that is not yet published to the [App Catalog](https://help.sumologic.com/docs/integrations/).
 
-This folder contains a pre-built dashboard for Netscaler VPN logs.
+For instructions on how to collect logs and metrics for use with content, please see [Sumo Logic Documentation](https://help.sumologic.com/docs/send-data/).
 
-**Installing in Your Sumo Logic Account**
+### To use the content:
+- Download the JSON file(s).
+- Find/replace all Source Categories within the JSON with your own Source Category (Ex: sourceCategory=yourSourceCategory).
+- Import the content to your desired folder location in Sumo Logic.
 
-1. Open the file `Netscaler_VPN_Monitoring.json` in a text editor. 
-2. Replace all instances of `<NETSCALER_SOURCE_CATEGORY>` with the Source Category for your Netscaler logs. 
-3. Copy the contents of the edited `Netscaler_VPN_Monitoring.json` file.
-4. Open your Sumo Logic account and follow the instructions [here](https://help.sumologic.com/05Search/Library/Export-and-Import-Content-in-the-Library#import-content-in-the-library) for importing content into your account.
+### To upload your own content:
+Please see [Sumo Logic Community Ecosystem Apps FAQs](https://help.sumologic.com/docs/integrations/community-ecosystem-apps/#faq).
