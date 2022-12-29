@@ -1,47 +1,6 @@
-Contains all AWS technology and product lines for which Sumo Logic has content for.
+#Amazon Web Services
+Sumo Logic Community Content built for AWS products that are not published to the [App Catalog](https://help.sumologic.com/docs/integrations/).
 
 See [Sumo Logic Documentation](https://help.sumologic.com/) for instructions on how to collect logs and metrics for use with content.
 
-Guidelines PLEASE READ:
-
-To contribute to subfolders or create new subfolders here, please follow the standards below:
-
-1. All application, dashboard and search content in .json format. Please use descriptive naming such as:
-   a. Company_TechnologyLine_ContentFunction. E.g. AWS_Kinesis_Errors.json or Sentinel_Vanguard_All.json
-
-2. Relevant screenshot(s) in .png or equivalent format. Naming similar or equivalent to .json content it represents.
-   a. More than 1 screenshot? Please create a "Screenshots" folder.
-
-3. Create/update a README.md file (like this one) within the folder to track:
-   a. Technology and product lines, authors, versions, etc.
-   b. Link(s) to relevant 3rd party documentation to specify what types of data need to be collected for content to work.
-
-2017/12/04 - Updated:
-
-  Kinesis - Collect:
-  - AWS Cloudtrail Audit Logs (Kinesis API calls are stored here)
-  - AWS Kinesis Cloudwatch Metrics
-  For more information, see AWS's documentation on Kinesis Metrics here:
-  [AWS Kinesis Metrics and Dimensions](http://docs.aws.amazon.com/streams/latest/dev/monitoring-with-cloudwatch.html)
-
-  Lambda - Collect:
-  - AWS Cloudwatch Metrics
-  For more information, see AWS's documentation here:
-  [AWS Lambda Metrics and Dimensions](http://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/lam-metricscollected.html)
-
-  RDS - Collect:
-  - AWS Cloudtrail Audit Logs (RDS API calls are stored here)
-  - AWS RDS Cloudwatch Metrics
-  For more information, see AWS's documentation on RDS Metrics here:
-  [AWS RDS Metrics and Dimensions](http://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/rds-metricscollected.html)
-
-  SNS - Collect:
-  - AWS Cloudwatch Metrics
-  For more information, see AWS's documentation here:
-  [AWS SNS Metrics and Dimensions](http://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/sns-metricscollected.html)
-
-  SQS - Collect:
-  - AWS Cloudtrail Audit Logs (SQS API calls are stored here)
-  - AWS SQS Cloudwatch Metrics
-  For more information, see AWS's documentation on SQS Metrics here:
-  [AWS SQS Metrics and Dimensions](http://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/sqs-metricscollected.html)
+To upload your own content please see [Sumo Logic Community Ecosystem Apps FAQs](https://help.sumologic.com/docs/integrations/community-ecosystem-apps/#faq).
