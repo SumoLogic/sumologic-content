@@ -12,3 +12,5 @@ For more information, see Aruba documentation on [Aruba logging](http://www.arub
 
 ### To upload your own content:
 Please see [Sumo Logic Community Ecosystem Apps FAQs](https://help.sumologic.com/docs/integrations/community-ecosystem-apps/#faq).
+
+Author: Jason Hwa
