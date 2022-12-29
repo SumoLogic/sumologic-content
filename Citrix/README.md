@@ -1,32 +1,12 @@
 # Sumo Logic for Citrix
+Sumo Logic Community Content built for Citrix products that are not yet published to the [App Catalog](https://help.sumologic.com/docs/integrations/).
 
-![Citrix_XenServer_logs](XenServer/Screenshots/Citrix_XenServer_Logs.png)
+For instructions on how to collect logs and metrics for use with content, please see [Sumo Logic Documentation](https://help.sumologic.com/docs/send-data/). For more information, see Citrix documentation at [Citrix XenServer logging](https://xenserver.org/partners/developing-products-for-xenserver/20-dev-hints/90-xs-log-debug-understand.html)
 
-Contains all Citrix technology and product lines for which Sumo Logic has content for.
+### To use the content:
+- Download the JSON file(s).
+- Find/replace all Source Categories within the JSON with your own Source Category (Ex: sourceCategory=yourSourceCategory).
+- Import the content to your desired folder location in Sumo Logic.
 
-See [Sumo Logic Documentation](https://help.sumologic.com/) for instructions on how to collect logs and metrics for use with content.
-
-To use this application, replace `$$XenServer` with your `_sourceCategory=yourSourceCategory` in the Citrix_XenServer_Logs.json file.
-
-
-
-Guidelines PLEASE READ:
-
-To contribute to subfolders or create new subfolders here, please follow the standards below:
-
-1. All application, dashboard and search content in .json format. Please use descriptive naming such as:
-   a. Company_TechnologyLine_ContentFunction. E.g. AWS_Kinesis_Errors.json or Sentinel_Vanguard_All.json
-
-2. Relevant screenshot(s) in .png or equivalent format. Naming similar or equivalent to .json content it represents.
-   a. More than 1 screenshot? Please create a "Screenshots" folder.
-
-3. Create/update a README.md file (like this one) within the folder to track:
-   a. Technology and product lines, authors, versions, etc.
-   b. Link(s) to relevant 3rd party documentation to specify what types of data need to be collected for content to work.
-
-2017/12/04 - Updated:
-
-  XenServer - Collect:
-  - Citrix XenServer Logs
-  For more information, see Citrix documentation here:
-  [Citrix XenServer logging](https://xenserver.org/partners/developing-products-for-xenserver/20-dev-hints/90-xs-log-debug-understand.html)
+### To upload your own content:
+Please see [Sumo Logic Community Ecosystem Apps FAQs](https://help.sumologic.com/docs/integrations/community-ecosystem-apps/#faq).
