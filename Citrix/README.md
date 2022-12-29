@@ -1,7 +1,7 @@
 # Sumo Logic for Citrix
 Sumo Logic Community Content built for Citrix products that are not yet published to the [App Catalog](https://help.sumologic.com/docs/integrations/).
 
-For instructions on how to collect logs and metrics for use with content, please see [Sumo Logic Documentation](https://help.sumologic.com/docs/send-data/). For more information, see Citrix documentation at [Citrix XenServer logging](https://xenserver.org/partners/developing-products-for-xenserver/20-dev-hints/90-xs-log-debug-understand.html)
+For instructions on how to collect logs and metrics for use with content, please see [Sumo Logic Documentation](https://help.sumologic.com/docs/send-data/).
 
 ### To use the content:
 - Download the JSON file(s).
