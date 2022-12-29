@@ -5,7 +5,11 @@ For instructions on how to collect logs and metrics for use with content, please
 
 This Sumo Logic app is a collection of 3 dashboards that utilizes Sourcefire logs. It gives insights into allowed and blocked traffic. Portions of the app relies on a scheduled view for the integrated Threat Intelligence.
 
-![Cisco-Sourcefire-Overview](Cisco-Sourcefire-Overview.png)
+![Cisco-Sourcefire-Overview](Screenshots/Cisco-Sourcefire-Overview.png)
+
+![Cisco-Sourcefire--Blocked-Traffic](Screenshots/Cisco-Sourcefire-Blocked-Traffic.png)
+
+![Cisco-Sourcefire--Allowed-Traffic](Screenshots/Cisco-Sourcefire-Allowed-Traffic.png)
 
 ### To use the content:
 - Download the JSON file(s).
