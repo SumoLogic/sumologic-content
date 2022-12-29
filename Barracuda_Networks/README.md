@@ -1,38 +1,12 @@
-# Sumo Logic for Barracuda
+# Sumo Logic for Barracuda Networks
+ Sumo Logic Community Content built for Barracuda Networks not yet published to the [App Catalog](https://help.sumologic.com/docs/integrations/).
 
-![BarracudaNetworks-WAF-Overview.png](Barracuda_WAF/Screenshots/BarracudaNetworks-WAF-Overview.png)
+For instructions on how to collect logs and metrics for use with content, please see [Sumo Logic Documentation](https://help.sumologic.com/docs/send-data/). For more information, see Barracuda documentation at [Barracuda logging](https://campus.barracuda.com/product/webapplicationfirewall/doc/4259935/how-to-configure-syslog-and-other-logs/)
 
-Contains all Barracuda Networks technology and product lines for which Sumo Logic has content for.
+### To use the content:
+- Download the JSON file(s).
+- Find/replace all Source Categories within the JSON with your own Source Category (Ex: sourceCategory=yourSourceCategory).
+- Import the content to your desired folder location in Sumo Logic.
 
-See [Sumo Logic Documentation](https://help.sumologic.com/) for instructions on how to collect logs and metrics for use with content.
-
-To use the content:
-Download the raw JSON file(s) and search for (CTRL+F / CMD+F) `$$Barracuda_WAAF` to replace with `_sourceCategory=yourSourceCategory`
-
-## Additional Dashboards
-
-![BarracudaNetworks-WAF-Locations](Barracuda_WAF/Screenshots/BarracudaNetworks-WAF-Locations.png)
-
-![BarracudaNetworks-WAF-Visitors](Barracuda_WAF/Screenshots/BarracudaNetworks-WAF-Visitors.png)
-
-![BarracudaNetworks-WAF-WebServer_Ops](Barracuda_WAF/Screenshots/BarracudaNetworks-WAF-WebServer_Ops.png)
-
-Guidelines PLEASE READ:
-
-To contribute to subfolders or create new subfolders here, please follow the standards below:
-
-1. All application, dashboard and search content in .json format. Please use descriptive naming such as:
-   a. Company_TechnologyLine_ContentFunction. E.g. AWS_Kinesis_Errors.json or Sentinel_Vanguard_All.json
-
-2. Relevant screenshot(s) in .png or equivalent format. Naming similar or equivalent to .json content it represents.
-
-3. Create/update a README.md file (like this one) within the folder to track:
-   a. Technology and product lines, authors, versions, etc.
-   b. Link(s) to relevant 3rd party documentation to specify what types of data need to be collected for content to work.
-
-For more information, see Barracuda documentation here:
-[Barracuda logging](https://campus.barracuda.com/product/webapplicationfirewall/doc/4259935/how-to-configure-syslog-and-other-logs/)
-
-2018/04/10 - Updated
-
-  Added Barracuda Full Dashboard Application - author: Jason Hwa
+### To upload your own content:
+Please see [Sumo Logic Community Ecosystem Apps FAQs](https://help.sumologic.com/docs/integrations/community-ecosystem-apps/#faq).
