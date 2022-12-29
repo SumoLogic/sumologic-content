@@ -1,0 +1,22 @@
+// use this query to generate a scheduled search alert or monitor 
+// you can use the resource_name as an alertgroup in Alert Grouping in monitors to generate one alert per resource
+_index=sumologic_system_events "Health-Change" unhealthy 
+| json field=_raw "status" 
+| json "eventType", "resourceIdentity.id" as eventType , resourceId 
+| json field=_raw "details.error" as error
+| json field=_raw "details.trackerId" as trackerid
+| json field=_raw "resourceIdentity.name" as resource_name
+| max(_messagetime) as _messagetime,count by  trackerid,error,resource_name,eventtype
+
+// use this to filter on resources you want to include in alerting
+// for example if you have auto scaled installed collectors you would want to exclude those here
+// A list of all possible health events can be found in documentation. 
+// There is one docs site per sumo instance for example au (all instance docs are identical): 
+// https://service.au.sumologic.com/audit/docs/#tag/Health-Events-(System)
+
+// EXAMPLE: include or exclude  certain know collectors or sources
+// | where resource_name matches /(?i)include_regular_expression/
+// | where !(resource_name matches /(?i)exclude_regular_expression/)
+
+// EXAMPLE: exclude some installed collector events that can be very chatty in larger environments using auto scaling.
+// | where ! (error IN ("Installed collector and its sources are offline","File Collection Error","Failed to connect to the event channel"))
