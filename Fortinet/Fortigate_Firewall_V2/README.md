@@ -1,7 +1,7 @@
 # Sumo Logic for Fortinet Fortigate Firewall
 Sumo Logic Community Content built for Fortigate Firewall that is not yet published to the [App Catalog](https://help.sumologic.com/docs/integrations/).
 
-For instructions on how to collect logs and metrics for use with content, please see [Sumo Logic Documentation](https://help.sumologic.com/docs/send-data/).
+For instructions on how to collect logs and metrics for use with content, please see [Sumo Logic Documentation](https://help.sumologic.com/docs/send-data/). More details on collection are provided below.
 
 ![Overview](Screenshots/FortiGate%20Firewalls%20-%20Overview.png)
 
