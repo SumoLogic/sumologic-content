@@ -1,13 +1,12 @@
-# Github Advanced Security/Code Scanning Alert Dashbard
-This folder contains a pre-built dashboard for Github security and code scanning logs.
+# Sumo Logic for Github Advanced Security/Code Scanning Alert
+Sumo Logic Community Content built for Google Cloud Run that has not been published to the [App Catalog](https://help.sumologic.com/docs/integrations/).
 
-#### Ingesting Your Gibhub logs into Sumo Logic
+For instructions on how to collect logs and metrics for use with content, please see [Sumo Logic Documentation](https://help.sumologic.com/docs/send-data/). See [GitHub Collection](https://help.sumologic.com/docs/integrations/app-development/github/#collecting-logs-for-github).
 
-For information on collecting your Github logs in Sumo Logic, refer to our documentation [here](https://help.sumologic.com/07Sumo-Logic-Apps/08App_Development/GitHub/01Collect-Logs-for-the-GitHub-App).
+### To use the content:
+- Download the JSON file(s).
+- Find/replace all Source Categories within the JSON with your own Source Category (Ex: sourceCategory=yourSourceCategory).
+- [Import](https://help.sumologic.com/docs/get-started/library/#import-content) the content to your desired folder location in Sumo Logic.
 
-#### Installing in Your Sumo Logic Account
-
-1. Open the json file in a text editor.
-2. Replace all instances of <GITHUB_SOURCE_CATEGORY> with the Source Category for your Github logs.
-3. Copy the contents of the edited json file.
-4. Open your Sumo Logic account and follow the instructions [here](https://help.sumologic.com/01Start-Here/Library/Export-and-Import-Content-in-the-Library#import-content-in-the-library) for importing content into your account
+### To upload your own content:
+Please see [Sumo Logic Community Ecosystem Apps FAQs](https://help.sumologic.com/docs/integrations/community-ecosystem-apps/#faq).
