@@ -1,8 +1,6 @@
 # Sumo Logic for Fortinet Fortigate Firewall
 Sumo Logic Community Content built for Fortigate Firewall that is not yet published to the [App Catalog](https://help.sumologic.com/docs/integrations/).
 
-For instructions on how to collect logs and metrics for use with content, please see [Sumo Logic Documentation](https://help.sumologic.com/docs/send-data/). More details on collection are provided below.
-
 ![Overview](Screenshots/FortiGate%20Firewalls%20-%20Overview.png)
 
 ![Events](Screenshots/FortiGate%20Firewalls%20-%20Events.png)
@@ -13,7 +11,9 @@ For instructions on how to collect logs and metrics for use with content, please
 
 ![Traffic](Screenshots/FortiGate%20Firewalls%20-%20Traffic.png)
 
-### Collection
+### Collection:
+For instructions on how to collect logs and metrics for use with content, please see [Sumo Logic Documentation](https://help.sumologic.com/docs/send-data/).
+
 #### **Prerequisites**
 Configure your FortiGate Firewall to send its logs to a syslog server. FortiGate sends
 syslog on UDP port 514 by default, but you can set the protocol and port.
