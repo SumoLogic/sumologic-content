@@ -13,7 +13,7 @@ This app for contains a dashboard for an overview, CPU/memory performance, and r
 
 ![Heroku-Router](Screenshots/Heroku-Router.png)
 
-### Collection
+### Collection:
 Heroku logs are collected through [log drains](https://devcenter.heroku.com/articles/log-drains). Ideally, these logs should be forwarded to a [Sumo Logic HTTPS Source](https://help.sumologic.com/Send-Data/Sources/02Sources-for-Hosted-Collectors/HTTP-Source). 
 
 Additional documentation from Heroku on required logging:
