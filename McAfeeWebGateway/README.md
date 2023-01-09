@@ -1,19 +1,15 @@
 # Sumo Logic for McAfee Web Gateway
+Sumo Logic Community Content built for McAfee Web Gateway that is not published to the [App Catalog](https://help.sumologic.com/docs/integrations/).
 
 ![McAfeeWebGateway](Screenshots/McAfeeWebGateway.png)
 
-Contains all McAfee Web Gateway and product lines for which Sumo Logic has content for.
+### To use the content:
+- Download the JSON file(s).
+- Find/replace all Source Categories within the JSON with your own Source Category (Ex: sourceCategory=yourSourceCategory).
+- [Import](https://help.sumologic.com/docs/get-started/library/#import-content) the content to your desired folder location in Sumo Logic.
 
-See [Sumo Logic Documentation](https://help.sumologic.com/) for instructions on how to collect logs and metrics for use with content.
+### Collection:
+For instructions on how to collect logs and metrics for use with content, please see [Sumo Logic Documentation](https://help.sumologic.com/docs/send-data/). For more information, see McAfee Web Gateway's instruction here at [McAfee Web Gateway](https://www.mcafee.com/us/products/web-gateway.aspx). To configure Web Gateway to record access log data to syslog, follow the instruction [here](https://kc.mcafee.com/corporate/index?page=content&id=KB77988).
 
-For more information, see McAfee Web Gateway's instruction here:
-[McAfee Web Gateway](https://www.mcafee.com/us/products/web-gateway.aspx)
-
-*NOTE:* update `$$McAfeeWebGateway` with `_sourceCategory=yourSourceCategory`
-
-2018/04/24 - Updated:
-
-  Generic Product - Collect
-  - To configure Web Gateway to record access log data to syslog, follow the instruction [here](https://kc.mcafee.com/corporate/index?page=content&id=KB77988).
-
-  
+### To upload your own content:
+Please see [Sumo Logic Community Ecosystem Apps FAQs](https://help.sumologic.com/docs/integrations/community-ecosystem-apps/#faq).
