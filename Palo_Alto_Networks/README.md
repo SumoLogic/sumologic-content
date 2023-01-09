@@ -1,17 +1,15 @@
-Contains all Palo Alto Networks specific apps for which Sumo Logic has content for.
+# Sumo Logic for Palo Alto Networks
+Sumo Logic Community Content built for Palo Alto Networks that is not published to the [App Catalog](https://help.sumologic.com/docs/integrations/).
 
-See [Sumo Logic Documentation](https://help.sumologic.com/) for instructions on how to collect logs and metrics for use with content.
+For the most recent content around PAN in Sumo Logic, please see [here](https://help.sumologic.com/docs/integrations/security-threat-detection/palo-alto-networks-9/).
 
-Guidelines PLEASE READ:
+### To use the content:
+- Download the JSON file(s).
+- Find/replace all Source Categories within the JSON with your own Source Category (Ex: sourceCategory=yourSourceCategory).
+- [Import](https://help.sumologic.com/docs/get-started/library/#import-content) the content to your desired folder location in Sumo Logic.
 
-To contribute to subfolders or create new subfolders here, please follow the standards below:
+### Collection:
+For instructions on how to collect logs and metrics for use with content, please see [Sumo Logic Documentation](https://help.sumologic.com/docs/send-data/).
 
-1. All application, dashboard and search content in .json format. Please use descriptive naming such as:
-   a. Company_TechnologyLine_ContentFunction. E.g. AWS_Kinesis_Errors.json or Sentinel_Vanguard_All.json
-
-2. Relevant screenshot(s) in .png or equivalent format. Naming similar or equivalent to .json content it represents.
-   a. More than 1 screenshot? Please create a "Screenshots" folder.
-
-3. Create/update a README.md file (like this one) within the folder to track:
-   a. Technology and product lines, authors, versions, etc.
-   b. Link(s) to relevant 3rd party documentation to specify what types of data need to be collected for content to work.
+### To upload your own content:
+Please see [Sumo Logic Community Ecosystem Apps FAQs](https://help.sumologic.com/docs/integrations/community-ecosystem-apps/#faq).
