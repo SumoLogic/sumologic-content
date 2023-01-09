@@ -1,6 +1,8 @@
 # Sumo Logic for SentinelOne
 Sumo Logic Community Content built for SentinelOne that is not published to the [App Catalog](https://help.sumologic.com/docs/integrations/).
 
+![SentinelOne_Prototype](Screenshots/SentinelOne_NoSpecProduct_Logs.png)
+
 ### To use the content:
 - Download the JSON file(s).
 - Find/replace all Source Categories within the JSON with your own Source Category (Ex: sourceCategory=yourSourceCategory).
