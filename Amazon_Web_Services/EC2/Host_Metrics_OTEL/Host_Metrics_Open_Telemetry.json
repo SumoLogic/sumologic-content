@@ -1,0 +1,2735 @@
+{
+    "type": "FolderSyncDefinition",
+    "name": "Host Metrics (Open Telemetry)",
+    "description": "The Sumo Logic App for Host Metrics allows you to collect your host metrics using Sumo Logic distro for Open Telemetry and display them using predefined search queries and Dashboards. The App provides Dashboards to display analysis of host metrics metrics for cpu, disk, memory, network.",
+    "children": [
+        {
+            "type": "DashboardV2SyncDefinition",
+            "name": "1. AWS EC2 Metrics - Overview (Host Metrics) (OTEL) DONE",
+            "description": "The AWS EC2 Metrics - Overview dashboard provides at-a-glance information about a EC2 CPU, memory, network and disk usage.",
+            "title": "1. AWS EC2 Metrics - Overview (Host Metrics) (OTEL) DONE",
+            "theme": "Light",
+            "topologyLabelMap": {
+                "data": {
+                    "a8bd8c98bf4ec8c87078f9e2ea7c3088": [
+                        "aws/ec2"
+                    ],
+                    "namespace": [
+                        "aws/ec2"
+                    ],
+                    "region": [
+                        "*"
+                    ],
+                    "_sumo_domain_name": [
+                        "aws"
+                    ],
+                    "account": [
+                        "*"
+                    ]
+                }
+            },
+            "refreshInterval": 0,
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "RelativeTimeRangeBoundary",
+                    "relativeTime": "-1d"
+                },
+                "to": null
+            },
+            "layout": {
+                "layoutType": "Grid",
+                "layoutStructures": [
+                    {
+                        "key": "panelpane-b03ffbbdb0b59b4d",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":0,\"y\":24}"
+                    },
+                    {
+                        "key": "panelpane-73159cd48a30e84d",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":12,\"y\":24}"
+                    },
+                    {
+                        "key": "panelpane-7c0398e384ef0b4b",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":0,\"y\":30}"
+                    },
+                    {
+                        "key": "panelpane-2a01fd42b58b994e",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":12,\"y\":30}"
+                    },
+                    {
+                        "key": "panelpane-21f9df3286d4d843",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":0,\"y\":36}"
+                    },
+                    {
+                        "key": "panelpane-b0342f51a88b2a47",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":12,\"y\":36}"
+                    },
+                    {
+                        "key": "panelpane-2f4529faa0fcc94e",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":0,\"y\":42}"
+                    },
+                    {
+                        "key": "panelpane-909c4962a7e08843",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":12,\"y\":42}"
+                    },
+                    {
+                        "key": "panelpane-33b218968b91a845",
+                        "structure": "{\"height\":6,\"width\":5,\"x\":9,\"y\":12}"
+                    },
+                    {
+                        "key": "panelpane-481cfaaf957d7842",
+                        "structure": "{\"height\":6,\"width\":5,\"x\":14,\"y\":12}"
+                    },
+                    {
+                        "key": "panelpane-d3677624bfee3b41",
+                        "structure": "{\"height\":6,\"width\":5,\"x\":9,\"y\":18}"
+                    },
+                    {
+                        "key": "panelpane-cea7ffdeb458fb4e",
+                        "structure": "{\"height\":6,\"width\":5,\"x\":14,\"y\":18}"
+                    },
+                    {
+                        "key": "panelpane-33ac098a81186b4e",
+                        "structure": "{\"height\":6,\"width\":5,\"x\":19,\"y\":12}"
+                    },
+                    {
+                        "key": "panelpane-9d0a24618eef0a4e",
+                        "structure": "{\"height\":6,\"width\":5,\"x\":19,\"y\":18}"
+                    },
+                    {
+                        "key": "panelpane-1e29da5dbd267a45",
+                        "structure": "{\"height\":6,\"width\":9,\"x\":0,\"y\":12}"
+                    },
+                    {
+                        "key": "panelPANE-2061037A94244A4B",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":0,\"y\":0}"
+                    },
+                    {
+                        "key": "panelPANE-DE8ED3CB8CEBF849",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":12,\"y\":0}"
+                    },
+                    {
+                        "key": "panel2F40FE32B1ED8A48",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":0,\"y\":6}"
+                    },
+                    {
+                        "key": "panel092B86A6AF75C942",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":12,\"y\":6}"
+                    },
+                    {
+                        "key": "panelE292F5CA9886CA4E",
+                        "structure": "{\"height\":6,\"width\":9,\"x\":0,\"y\":18}"
+                    }
+                ]
+            },
+            "panels": [
+                {
+                    "id": null,
+                    "key": "panelpane-b03ffbbdb0b59b4d",
+                    "title": "Average CPU Idle per Hostname",
+                    "visualSettings": "{\"color\":{\"family\":\"scheme7\"},\"axes\":{\"axisY\":{\"title\":\"Average CPU Idle\"}},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"userProvidedChartType\":false,\"properties\":{\"name\":\"{{_sourcehost}}\"}}],\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "metric=system.cpu.time state=idle _sourcehost={{hostname}}| avg by _sourcehost ",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelpane-73159cd48a30e84d",
+                    "title": "Overall Average CPU Load (1m, 5m, 15m)",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\"},\"color\":{\"family\":\"scheme7\"},\"axes\":{\"axisY\":{\"title\":\"Average CPU Load\"}},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"userProvidedChartType\":false,\"properties\":{\"name\":\"1 Minute Average CPU Load\"}},{\"series\":[],\"queries\":[\"B\"],\"userProvidedChartType\":false,\"properties\":{\"name\":\"5 Minute Average CPU Load\"}},{\"series\":[],\"queries\":[\"C\"],\"userProvidedChartType\":false,\"properties\":{\"name\":\"15 Minute Average CPU Load\"}}],\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "_sourcehost={{hostname}} metric=system.cpu.load_average.1m  | avg by metric",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        },
+                        {
+                            "transient": false,
+                            "queryString": "_sourcehost={{hostname}} metric=system.cpu.load_average.5m  | avg by metric",
+                            "queryType": "Metrics",
+                            "queryKey": "B",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        },
+                        {
+                            "transient": false,
+                            "queryString": "_sourcehost={{hostname}} metric=system.cpu.load_average.15m  | avg by metric",
+                            "queryType": "Metrics",
+                            "queryKey": "C",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelpane-7c0398e384ef0b4b",
+                    "title": "Total Free System Memory per Hostname",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\"},\"color\":{\"family\":\"scheme7\"},\"axes\":{\"axisY\":{\"title\":\"Free Memory\"}},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"userProvidedChartType\":false,\"properties\":{\"name\":\"{{_sourcehost}}\"}}],\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "_sourcehost={{hostname}} metric=system.memory.usage state=free | sum by _sourcehost",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelpane-2a01fd42b58b994e",
+                    "title": "Total Used, Less Buffers and Cached Memory per Hostname",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\"},\"color\":{\"family\":\"scheme7\"},\"axes\":{\"axisY\":{\"title\":\"Used Memory\"}},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"userProvidedChartType\":false,\"properties\":{\"name\":\"{{_sourcehost}}\"}}],\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "_sourcehost={{hostname}} metric=system.memory.utilization  | sum by _sourcehost",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelpane-21f9df3286d4d843",
+                    "title": "Total Disk Reads/Writes per Hostname",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\"},\"color\":{\"family\":\"scheme7\"},\"axes\":{\"axisY\":{\"title\":\"Disk Used Bytes\"}},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"userProvidedChartType\":false,\"properties\":{\"name\":\"{{_sourcehost}}\"}}],\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "_sourcehost={{hostname}} metric=system.disk.merged  | sum by _sourcehost",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelpane-b0342f51a88b2a47",
+                    "title": "Disk Bytes Transferred per Hostname",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\"},\"axes\":{\"axisY\":{\"title\":\"Disk Available Bytes\"}},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"userProvidedChartType\":false,\"properties\":{\"name\":\"{{_sourcehost}}\"}}],\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "_sourceHost={{hostname}} metric=system.disk.io  | sum by _sourcehost ",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelpane-2f4529faa0fcc94e",
+                    "title": "Network InByte Rate per Hostname",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\"},\"color\":{\"family\":\"scheme7\"},\"axes\":{\"axisY\":{\"title\":\"Network InByte Rate\"}},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"userProvidedChartType\":false,\"properties\":{\"name\":\"{{_sourcehost}}\"}}],\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "_sourcehost={{hostname}} metric= system.network.io.receive | sum by _sourcehost | rate",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelpane-909c4962a7e08843",
+                    "title": "Network OutByte Rate per Hostname",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\"},\"legend\":{\"wrap\":true,\"enabled\":true},\"color\":{\"family\":\"scheme7\"},\"axes\":{\"axisY\":{\"title\":\"Network OutByte Rate\"}},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"userProvidedChartType\":false,\"properties\":{\"name\":\"{{_sourcehost}}\"}}],\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "_sourcehost={{hostname}} metric=system.network.io.transmit | sum by _sourcehost | rate",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelpane-33b218968b91a845",
+                    "title": "Average CPU Utilization",
+                    "visualSettings": "{\"general\":{\"type\":\"svp\"},\"svp\":{\"thresholds\":[{\"from\":0,\"to\":75,\"color\":\"#527b01\"},{\"from\":75,\"to\":85,\"color\":\"#b18209\"},{\"from\":85,\"to\":101,\"color\":\"#b63010\"}],\"sparkline\":{\"show\":false},\"gauge\":{\"show\":true},\"label\":\"% CPU Usage\",\"valueFontSize\":20,\"option\":\"Average\",\"labelFontSize\":8},\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "metric=system.cpu.utilization _sourcehost={{hostname}} state=user | eval _value * 100 |  avg",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelpane-481cfaaf957d7842",
+                    "title": "Average Memory Usage",
+                    "visualSettings": "{\"general\":{\"type\":\"svp\"},\"svp\":{\"option\":\"Latest\",\"label\":\"% Memory Usage\",\"thresholds\":[{\"from\":0,\"to\":75,\"color\":\"#527b01\"},{\"from\":75,\"to\":85,\"color\":\"#b18209\"},{\"from\":85,\"to\":101,\"color\":\"#b63010\"}],\"valueFontSize\":20,\"labelFontSize\":8,\"sparkline\":{\"show\":true,\"color\":\"#222D3B\"},\"gauge\":{\"show\":true}},\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "metric=system.memory.utilization and (state=cached  or state=used)| eval _value * 100| avg",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelpane-d3677624bfee3b41",
+                    "title": "Average Errors Encountered on Receive",
+                    "visualSettings": "{\"general\":{\"type\":\"svp\"},\"svp\":{\"option\":\"Average\",\"thresholds\":[{\"from\":null,\"to\":null,\"color\":\"#16943E\"},{\"from\":null,\"to\":null,\"color\":\"#DFBE2E\"},{\"from\":null,\"to\":null,\"color\":\"#BF2121\"}],\"label\":\"Connections\",\"valueFontSize\":24,\"labelFontSize\":16,\"sparkline\":{\"show\":true,\"color\":\"#222D3B\"},\"gauge\":{\"show\":false,\"min\":0,\"max\":100},\"rounding\":0},\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "metric=system.network.errors.receive _sourcehost={{hostname}} | avg",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelpane-cea7ffdeb458fb4e",
+                    "title": "Average Errors Encountered on Transmit",
+                    "visualSettings": "{\"general\":{\"type\":\"svp\"},\"svp\":{\"label\":\"Connections\",\"thresholds\":[{\"from\":null,\"to\":null,\"color\":\"#16943E\"},{\"from\":null,\"to\":null,\"color\":\"#DFBE2E\"},{\"from\":null,\"to\":null,\"color\":\"#BF2121\"}],\"valueFontSize\":24,\"labelFontSize\":16,\"sparkline\":{\"show\":true,\"color\":\"\"},\"rounding\":0},\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "metric=system.network.errors.transmit _sourcehost={{hostname}} | avg",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelpane-33ac098a81186b4e",
+                    "title": "Average Received Bytes",
+                    "visualSettings": "{\"general\":{\"type\":\"svp\"},\"svp\":{\"label\":\"MB\",\"thresholds\":[{\"from\":null,\"to\":null,\"color\":\"#16943E\"},{\"from\":null,\"to\":null,\"color\":\"#DFBE2E\"},{\"from\":null,\"to\":null,\"color\":\"#BF2121\"}],\"valueFontSize\":24,\"labelFontSize\":16,\"sparkline\":{\"show\":true,\"color\":\"\"}},\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "metric= system.network.io.receive _sourcehost={{hostname}} | avg | eval _value/1024/1024",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelpane-9d0a24618eef0a4e",
+                    "title": "Average Sent Bytes",
+                    "visualSettings": "{\"general\":{\"type\":\"svp\"},\"svp\":{\"label\":\"MB\",\"thresholds\":[{\"from\":null,\"to\":null,\"color\":\"#16943E\"},{\"from\":null,\"to\":null,\"color\":\"#DFBE2E\"},{\"from\":null,\"to\":null,\"color\":\"#BF2121\"}],\"valueFontSize\":24,\"labelFontSize\":16,\"sparkline\":{\"show\":true,\"color\":\"\"}},\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "metric=system.network.io.transmit _sourcehost={{hostname}} | avg | eval _value/1024/1024",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelpane-1e29da5dbd267a45",
+                    "title": "CPU Wait by Category",
+                    "visualSettings": "{\"title\":{\"fontSize\":14},\"general\":{\"type\":\"honeyComb\",\"displayType\":\"default\",\"mode\":\"honeyComb\"},\"honeyComb\":{\"thresholds\":[{\"from\":1,\"to\":10,\"color\":\"#98ECA9\"},{\"from\":10,\"to\":20,\"color\":\"#F2DA73\"},{\"from\":20,\"to\":400,\"color\":\"#FFB5B5\"}],\"shape\":\"hexagon\",\"groupBy\":[],\"aggregationType\":\"avg\"},\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "metric=system.cpu.utilization _sourcehost={{hostname}} state=wait  | avg by _sourcecategory | filter avg >= 0.01 | eval _value * 100",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelPANE-2061037A94244A4B",
+                    "title": "Instances with High CPU Utilization (low idle)",
+                    "visualSettings": "{\"title\":{\"fontSize\":14},\"axes\":{\"axisX\":{\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"titleFontSize\":12,\"labelFontSize\":12}},\"series\":{},\"general\":{\"type\":\"table\",\"displayType\":\"default\",\"paginationPageSize\":100,\"fontSize\":12,\"mode\":\"distribution\"},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"properties\":{\"name\":\"CPU Idle\"}}]}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "metric=system.cpu.utilization _sourcehost={{hostname}}  state=idle | filter latest <= 0.4 | eval _value * 100 | avg  by _sourcehost ",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelPANE-DE8ED3CB8CEBF849",
+                    "title": "Instances with High Memory Utilization",
+                    "visualSettings": "{\"general\":{\"mode\":\"honeyComb\",\"type\":\"honeyComb\",\"displayType\":\"default\",\"outlierBandColor\":\"#FDECF5\",\"outlierBandMarkerColor\":\"#F032A9\",\"outlierBandFillOpacity\":0.3,\"outlierBandLineThickness\":2,\"outlierBandMarkerSize\":10,\"outlierBandMarkerType\":\"triangle\"},\"title\":{\"fontSize\":16},\"honeyComb\":{\"thresholds\":[{\"from\":0,\"to\":90,\"color\":\"#75bf00\"},{\"from\":90,\"to\":95,\"color\":\"#f6c851\"},{\"from\":95,\"to\":200,\"color\":\"#f36644\"}],\"shape\":\"hexagon\",\"groupBy\":[],\"aggregationType\":\"latest\"},\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "metric=system.memory.utilization  _sourcehost={{hostname}} and (state=used or state=cached) | sum by _collector | eval _value * 100 | filter avg >= 80",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panel2F40FE32B1ED8A48",
+                    "title": "Instance CPU (user) Utilization ",
+                    "visualSettings": "{\"general\":{\"mode\":\"honeyComb\",\"type\":\"honeyComb\",\"displayType\":\"default\",\"outlierBandColor\":\"#FDECF5\",\"outlierBandMarkerColor\":\"#F032A9\",\"outlierBandFillOpacity\":0.3,\"outlierBandLineThickness\":2,\"outlierBandMarkerSize\":10,\"outlierBandMarkerType\":\"triangle\"},\"honeyComb\":{\"thresholds\":[{\"from\":0,\"to\":40,\"color\":\"#98eca9\"},{\"from\":40,\"to\":80,\"color\":\"#f6c851\"},{\"from\":80,\"to\":400,\"color\":\"#f36644\"}],\"shape\":\"hexagon\",\"groupBy\":[],\"aggregationType\":\"avg\"},\"title\":{\"fontSize\":16},\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "metric=system.cpu.utilization _sourcehost={{hostname}} state=user  | avg by _collector | topk(24, avg) by _collector  | eval _value * 100",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panel092B86A6AF75C942",
+                    "title": "Instance Memory (used) Utilization ",
+                    "visualSettings": "{\"general\":{\"mode\":\"honeyComb\",\"type\":\"honeyComb\",\"displayType\":\"default\",\"outlierBandColor\":\"#FDECF5\",\"outlierBandMarkerColor\":\"#F032A9\",\"outlierBandFillOpacity\":0.3,\"outlierBandLineThickness\":2,\"outlierBandMarkerSize\":10,\"outlierBandMarkerType\":\"triangle\"},\"title\":{\"fontSize\":16},\"honeyComb\":{\"thresholds\":[{\"from\":0,\"to\":50,\"color\":\"#98eca9\"},{\"from\":50,\"to\":80,\"color\":\"#f6c851\"},{\"from\":80,\"to\":400,\"color\":\"#f36644\"}],\"shape\":\"hexagon\",\"groupBy\":[{\"label\":\"metric\",\"value\":\"metric\"}],\"aggregationType\":\"avg\"},\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "metric=system.memory.utilization  _sourcehost={{hostname}} state=used | avg by _collector | topk(24, avg) by _collector | eval _value * 100",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelE292F5CA9886CA4E",
+                    "title": "Average CPU Utilization by Instance Type",
+                    "visualSettings": "{\"title\":{\"fontSize\":14},\"axes\":{\"axisX\":{\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"titleFontSize\":12,\"labelFontSize\":12,\"logarithmic\":false}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"bottom\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":false,\"wrap\":true},\"series\":{},\"general\":{\"type\":\"line\",\"displayType\":\"default\",\"markerSize\":5,\"lineDashType\":\"solid\",\"markerType\":\"none\",\"lineThickness\":1,\"mode\":\"timeSeries\"},\"color\":{\"family\":\"Categorical Default\"},\"overrides\":[]}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "metric=system.cpu.utilization _sourcehost={{hostname}} state=user | avg by _collector | topk(10, avg) by _collector ",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                }
+            ],
+            "variables": [
+                {
+                    "id": null,
+                    "name": "hostname",
+                    "displayName": "hostname",
+                    "defaultValue": "*",
+                    "sourceDefinition": {
+                        "variableSourceType": "MetadataVariableSourceDefinition",
+                        "filter": "",
+                        "key": "_sourcehost"
+                    },
+                    "allowMultiSelect": false,
+                    "includeAllOption": true,
+                    "hideFromUI": false,
+                    "valueType": "Any"
+                }
+            ],
+            "coloringRules": []
+        },
+        {
+            "type": "DashboardV2SyncDefinition",
+            "name": "1. AWS EC2 Metrics - Summary (Host Metrics) (OTEL) DONE",
+            "description": "The AWS EC2 Metrics - Summary dashboard provides at-a-glance information about a EC2 CPU, memory, network and disk usage.",
+            "title": "1. AWS EC2 Metrics - Summary (Host Metrics) (OTEL) DONE",
+            "theme": "Light",
+            "topologyLabelMap": {
+                "data": {
+                    "instanceid": [
+                        "*"
+                    ],
+                    "f5ef50254e45958882a2c1e37f528308": [
+                        "*"
+                    ],
+                    "namespace": [
+                        "aws/ec2"
+                    ],
+                    "region": [
+                        "*"
+                    ],
+                    "account": [
+                        "*"
+                    ]
+                }
+            },
+            "refreshInterval": 0,
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "RelativeTimeRangeBoundary",
+                    "relativeTime": "-1d"
+                },
+                "to": null
+            },
+            "layout": {
+                "layoutType": "Grid",
+                "layoutStructures": [
+                    {
+                        "key": "panelpane-b03ffbbdb0b59b4d",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":12,\"y\":5}"
+                    },
+                    {
+                        "key": "panelpane-73159cd48a30e84d",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":0,\"y\":5}"
+                    },
+                    {
+                        "key": "panelpane-7c0398e384ef0b4b",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":0,\"y\":11}"
+                    },
+                    {
+                        "key": "panelpane-2a01fd42b58b994e",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":12,\"y\":11}"
+                    },
+                    {
+                        "key": "panelpane-21f9df3286d4d843",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":0,\"y\":17}"
+                    },
+                    {
+                        "key": "panelpane-b0342f51a88b2a47",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":12,\"y\":17}"
+                    },
+                    {
+                        "key": "panelpane-909c4962a7e08843",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":12,\"y\":23}"
+                    },
+                    {
+                        "key": "panelpane-33b218968b91a845",
+                        "structure": "{\"height\":5,\"width\":4,\"x\":0,\"y\":0}"
+                    },
+                    {
+                        "key": "panelpane-481cfaaf957d7842",
+                        "structure": "{\"height\":5,\"width\":4,\"x\":4,\"y\":0}"
+                    },
+                    {
+                        "key": "panelpane-d3677624bfee3b41",
+                        "structure": "{\"height\":5,\"width\":4,\"x\":16,\"y\":0}"
+                    },
+                    {
+                        "key": "panelpane-cea7ffdeb458fb4e",
+                        "structure": "{\"height\":5,\"width\":4,\"x\":20,\"y\":0}"
+                    },
+                    {
+                        "key": "panelpane-33ac098a81186b4e",
+                        "structure": "{\"height\":5,\"width\":4,\"x\":8,\"y\":0}"
+                    },
+                    {
+                        "key": "panelpane-9d0a24618eef0a4e",
+                        "structure": "{\"height\":5,\"width\":4,\"x\":12,\"y\":0}"
+                    },
+                    {
+                        "key": "panel92B3F2A48B5DCA4F",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":0,\"y\":23}"
+                    }
+                ]
+            },
+            "panels": [
+                {
+                    "id": null,
+                    "key": "panelpane-b03ffbbdb0b59b4d",
+                    "title": "Average CPU Idle per Hostname",
+                    "visualSettings": "{\"color\":{\"family\":\"scheme7\"},\"axes\":{\"axisY\":{\"title\":\"Average CPU Idle\"}},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"userProvidedChartType\":false,\"properties\":{\"name\":\"{{_sourcehost}}\"}}],\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "metric=system.cpu.time state=idle _sourcehost={{hostname}}| avg by _sourcehost ",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelpane-73159cd48a30e84d",
+                    "title": "Overall Average CPU Load (1m, 5m, 15m)",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\"},\"color\":{\"family\":\"scheme7\"},\"axes\":{\"axisY\":{\"title\":\"Average CPU Load\"}},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"userProvidedChartType\":false,\"properties\":{\"name\":\"1 Minute Average CPU Load\"}},{\"series\":[],\"queries\":[\"B\"],\"userProvidedChartType\":false,\"properties\":{\"name\":\"5 Minute Average CPU Load\"}},{\"series\":[],\"queries\":[\"C\"],\"userProvidedChartType\":false,\"properties\":{\"name\":\"15 Minute Average CPU Load\"}}],\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "_sourcehost={{hostname}} metric=system.cpu.load_average.1m  | avg by metric",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        },
+                        {
+                            "transient": false,
+                            "queryString": "_sourcehost={{hostname}} metric=system.cpu.load_average.5m  | avg by metric",
+                            "queryType": "Metrics",
+                            "queryKey": "B",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        },
+                        {
+                            "transient": false,
+                            "queryString": "_sourcehost={{hostname}} metric=system.cpu.load_average.15m  | avg by metric",
+                            "queryType": "Metrics",
+                            "queryKey": "C",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelpane-7c0398e384ef0b4b",
+                    "title": "Total Free System Memory",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\"},\"color\":{\"family\":\"scheme7\"},\"axes\":{\"axisY\":{\"title\":\"Free Memory\"}},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"userProvidedChartType\":false,\"properties\":{\"name\":\"{{_sourcehost}}\"}}],\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "_sourcehost={{hostname}} metric= system.memory.usage state=free | sum by _sourcehost",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelpane-2a01fd42b58b994e",
+                    "title": "Total Used, Less Buffers and Cached Memory",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\"},\"color\":{\"family\":\"scheme7\"},\"axes\":{\"axisY\":{\"title\":\"Used Memory\"}},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"userProvidedChartType\":false,\"properties\":{\"name\":\"{{_sourcehost}}\"}}],\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "_sourcehost={{hostname}} metric= system.memory.usage state=used | sum by _sourcehost",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelpane-21f9df3286d4d843",
+                    "title": "Total Number of Reads/Writes",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\"},\"color\":{\"family\":\"scheme7\"},\"axes\":{\"axisY\":{\"title\":\"Disk Used Bytes\"}},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"userProvidedChartType\":false,\"properties\":{\"name\":\"{{_sourcehost}}\"}}],\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "_sourcehost={{hostname}} metric=system.disk.merged  | sum by _sourcehost",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelpane-b0342f51a88b2a47",
+                    "title": "Time disk spent activated",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\"},\"axes\":{\"axisY\":{\"title\":\"Disk Available Bytes\"}},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"userProvidedChartType\":false,\"properties\":{\"name\":\"{{_sourcehost}}\"}}],\"color\":{\"family\":\"scheme7\"},\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "_sourcehost={{hostname}} metric=system.disk.io_time  | sum by _sourcehost",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelpane-909c4962a7e08843",
+                    "title": "Network Packets Transmit",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\"},\"legend\":{\"wrap\":true,\"enabled\":true},\"color\":{\"family\":\"scheme7\"},\"axes\":{\"axisY\":{\"title\":\"Network OutByte Rate\"}},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"userProvidedChartType\":false,\"properties\":{\"name\":\"{{_sourcehost}}\"}}],\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "_sourcehost={{hostname}} metric=system.network.packets direction=transmit  | sum by _sourcehost | rate",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelpane-33b218968b91a845",
+                    "title": "Average CPU Utilization",
+                    "visualSettings": "{\"general\":{\"type\":\"svp\"},\"svp\":{\"thresholds\":[{\"from\":0,\"to\":75,\"color\":\"#527b01\"},{\"from\":75,\"to\":85,\"color\":\"#b18209\"},{\"from\":85,\"to\":101,\"color\":\"#b63010\"}],\"sparkline\":{\"show\":true,\"color\":\"#222D3B\"},\"gauge\":{\"show\":true,\"min\":0,\"max\":100},\"label\":\"% CPU Usage\",\"valueFontSize\":20,\"option\":\"Average\",\"labelFontSize\":8},\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "metric=system.cpu.utilization  _sourcehost={{hostname}} | avg",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelpane-481cfaaf957d7842",
+                    "title": "Memory Utilization",
+                    "visualSettings": "{\"general\":{\"type\":\"svp\"},\"svp\":{\"option\":\"Average\",\"label\":\"% Memory Usage\",\"thresholds\":[{\"from\":0,\"to\":75,\"color\":\"#527b01\"},{\"from\":75,\"to\":85,\"color\":\"#b18209\"},{\"from\":85,\"to\":101,\"color\":\"#b63010\"}],\"valueFontSize\":20,\"labelFontSize\":8,\"sparkline\":{\"show\":true,\"color\":\"#222D3B\"},\"gauge\":{\"show\":true}},\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "metric=system.memory.utilization  _sourcehost={{hostname}} | avg",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelpane-d3677624bfee3b41",
+                    "title": "Inbound Connection",
+                    "visualSettings": "{\"general\":{\"type\":\"svp\"},\"svp\":{\"option\":\"Average\",\"thresholds\":[{\"from\":null,\"to\":null,\"color\":\"#16943E\"},{\"from\":null,\"to\":null,\"color\":\"#DFBE2E\"},{\"from\":null,\"to\":null,\"color\":\"#BF2121\"}],\"label\":\"Connections\",\"valueFontSize\":24,\"labelFontSize\":16,\"sparkline\":{\"show\":true,\"color\":\"#222D3B\"},\"gauge\":{\"show\":false,\"min\":0,\"max\":100},\"rounding\":0},\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "metric=system.network.connections state=in _sourcehost={{hostname}} | avg",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelpane-cea7ffdeb458fb4e",
+                    "title": "Outbound Connections",
+                    "visualSettings": "{\"general\":{\"type\":\"svp\"},\"svp\":{\"label\":\"Connections\",\"thresholds\":[{\"from\":null,\"to\":null,\"color\":\"#16943E\"},{\"from\":null,\"to\":null,\"color\":\"#DFBE2E\"},{\"from\":null,\"to\":null,\"color\":\"#BF2121\"}],\"valueFontSize\":24,\"labelFontSize\":16,\"sparkline\":{\"show\":true,\"color\":\"\"},\"rounding\":0},\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "metric=system.network.connections state=out _sourcehost={{hostname}} | avg",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelpane-33ac098a81186b4e",
+                    "title": "Received Bytes",
+                    "visualSettings": "{\"general\":{\"type\":\"svp\"},\"svp\":{\"label\":\"MB\",\"thresholds\":[{\"from\":null,\"to\":null,\"color\":\"#16943E\"},{\"from\":null,\"to\":null,\"color\":\"#DFBE2E\"},{\"from\":null,\"to\":null,\"color\":\"#BF2121\"}],\"valueFontSize\":24,\"labelFontSize\":16,\"sparkline\":{\"show\":true,\"color\":\"\"},\"rounding\":1},\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "metric= system.network.io.receive | avg | eval _value/1024/1024",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelpane-9d0a24618eef0a4e",
+                    "title": "Sent Bytes",
+                    "visualSettings": "{\"general\":{\"type\":\"svp\"},\"svp\":{\"label\":\"MB\",\"thresholds\":[{\"from\":null,\"to\":null,\"color\":\"#16943E\"},{\"from\":null,\"to\":null,\"color\":\"#DFBE2E\"},{\"from\":null,\"to\":null,\"color\":\"#BF2121\"}],\"valueFontSize\":24,\"labelFontSize\":16,\"sparkline\":{\"show\":true,\"color\":\"\"},\"rounding\":1},\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "metric=system.network.io.transmit | avg | eval _value/1024/1024",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panel92B3F2A48B5DCA4F",
+                    "title": "Network Packets Received",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\"},\"color\":{\"family\":\"scheme7\"},\"axes\":{\"axisY\":{\"title\":\"Network InByte Rate\"}},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"userProvidedChartType\":false,\"properties\":{\"name\":\"{{_sourcehost}}\"}}],\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "_sourcehost={{hostname}} metric=system.network.packets direction=receive | sum by _sourcehost | rate",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                }
+            ],
+            "variables": [
+                {
+                    "id": null,
+                    "name": "hostname",
+                    "displayName": "hostname",
+                    "defaultValue": "*",
+                    "sourceDefinition": {
+                        "variableSourceType": "MetadataVariableSourceDefinition",
+                        "filter": "",
+                        "key": "_sourcehost"
+                    },
+                    "allowMultiSelect": false,
+                    "includeAllOption": true,
+                    "hideFromUI": false,
+                    "valueType": "Any"
+                }
+            ],
+            "coloringRules": []
+        },
+        {
+            "type": "DashboardV2SyncDefinition",
+            "name": "2. AWS EC2 Metrics - CPU (Host Metrics) (OTEL) DONE",
+            "description": "The AWS EC2 Metrics - CPU dashboard provides details information about a EC2 CPU usage.",
+            "title": "2. AWS EC2 Metrics - CPU (Host Metrics) (OTEL) DONE",
+            "theme": "Light",
+            "topologyLabelMap": {
+                "data": {
+                    "instanceid": [
+                        "*"
+                    ],
+                    "f5ef50254e45958882a2c1e37f528308": [
+                        "*"
+                    ],
+                    "namespace": [
+                        "aws/ec2"
+                    ],
+                    "region": [
+                        "*"
+                    ],
+                    "account": [
+                        "*"
+                    ]
+                }
+            },
+            "refreshInterval": 0,
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "RelativeTimeRangeBoundary",
+                    "relativeTime": "-1d"
+                },
+                "to": null
+            },
+            "layout": {
+                "layoutType": "Grid",
+                "layoutStructures": [
+                    {
+                        "key": "panelpane-faa47ec2a6e5d947",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":12,\"y\":6}"
+                    },
+                    {
+                        "key": "panelpane-c59320268cdb7a49",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":12,\"y\":0}"
+                    },
+                    {
+                        "key": "panelpane-88f4336192c38b49",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":0,\"y\":18}"
+                    },
+                    {
+                        "key": "panelpane-373635dab1b6b944",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":12,\"y\":18}"
+                    },
+                    {
+                        "key": "panelpane-1902994c9e385941",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":0,\"y\":6}"
+                    },
+                    {
+                        "key": "panelpane-29ddbf5e98aa884e",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":12,\"y\":12}"
+                    },
+                    {
+                        "key": "panelpane-46c987c099bacb4c",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":0,\"y\":12}"
+                    },
+                    {
+                        "key": "panel13BD1065B6C28848",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":0,\"y\":0,\"minHeight\":3,\"minWidth\":3}"
+                    }
+                ]
+            },
+            "panels": [
+                {
+                    "id": null,
+                    "key": "panelpane-faa47ec2a6e5d947",
+                    "title": "CPU Nice Time",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\"},\"color\":{\"family\":\"scheme7\"},\"axes\":{\"axisY\":{\"title\":\"Percentage\"}},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"userProvidedChartType\":false,\"properties\":{\"name\":\"{{_sourcehost}}\"}}],\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "_sourcehost={{hostname}} metric=system.cpu.time state=nice  | sum by _sourcehost",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelpane-c59320268cdb7a49",
+                    "title": "CPU System Time",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\"},\"color\":{\"family\":\"scheme7\"},\"axes\":{\"axisY\":{\"title\":\"Percentage\"}},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"userProvidedChartType\":false,\"properties\":{\"type\":\"line\",\"name\":\"{{_sourcehost}}\"}}],\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "_sourcehost={{hostname}} metric=system.cpu.time state=system | sum by _sourcehost",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelpane-88f4336192c38b49",
+                    "title": "CPU Time Servicing Interrupts",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\"},\"color\":{\"family\":\"scheme7\"},\"axes\":{\"axisY\":{\"title\":\"Percentage\"}},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"userProvidedChartType\":false,\"properties\":{\"name\":\"{{_sourcehost}}\"}}],\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "_sourcehost={{hostname}} metric=system.cpu.utilization  state=interrupt  | sum by _sourcehost",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelpane-373635dab1b6b944",
+                    "title": "CPU Time Servicing SoftIrqs",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\"},\"color\":{\"family\":\"scheme7\"},\"axes\":{\"axisY\":{\"title\":\"Percentage\"}},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"userProvidedChartType\":false,\"properties\":{\"name\":\"{{_sourcehost}}\"}}],\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "_sourcehost={{hostname}} metric=system.cpu.utilization  state=softirq   | sum by _sourcehost",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelpane-1902994c9e385941",
+                    "title": "CPU Idle Time",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\"},\"color\":{\"family\":\"scheme7\"},\"axes\":{\"axisY\":{\"title\":\"Percentage\"}},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"userProvidedChartType\":false,\"properties\":{\"name\":\"{{_sourcehost}}\"}}],\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "_sourcehost={{hostname}} metric=system.cpu.time state=idle  | sum by _sourcehost",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelpane-29ddbf5e98aa884e",
+                    "title": "CPU Involuntary Wait Time",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\"},\"color\":{\"family\":\"scheme7\"},\"axes\":{\"axisY\":{\"title\":\"Percentage\"}},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"userProvidedChartType\":false,\"properties\":{\"name\":\"{{_sourcehost}}\"}}],\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "_sourcehost={{hostname}} metric=system.cpu.utilization  state=steal  | sum by _sourcehost",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelpane-46c987c099bacb4c",
+                    "title": "CPU IO Wait Time",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\"},\"color\":{\"family\":\"scheme7\"},\"axes\":{\"axisY\":{\"title\":\"Percentage\"}},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"userProvidedChartType\":false,\"properties\":{\"name\":\"{{_sourcehost}}\"}}],\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "_sourcehost={{hostname}} metric=system.cpu.utilization  state=idle  | sum by _sourcehost",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panel13BD1065B6C28848",
+                    "title": "CPU User Time",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\"},\"color\":{\"family\":\"scheme7\"},\"axes\":{\"axisY\":{\"title\":\"Percentage\"}},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"userProvidedChartType\":false,\"properties\":{\"name\":\"{{_sourcehost}}\"}}],\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "_sourcehost={{hostname}} metric=system.cpu.time state=user | sum by _sourcehost ",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                }
+            ],
+            "variables": [
+                {
+                    "id": null,
+                    "name": "hostname",
+                    "displayName": "hostname",
+                    "defaultValue": "*",
+                    "sourceDefinition": {
+                        "variableSourceType": "MetadataVariableSourceDefinition",
+                        "filter": "",
+                        "key": "_sourcehost"
+                    },
+                    "allowMultiSelect": false,
+                    "includeAllOption": true,
+                    "hideFromUI": false,
+                    "valueType": "Any"
+                }
+            ],
+            "coloringRules": []
+        },
+        {
+            "type": "DashboardV2SyncDefinition",
+            "name": "3. AWS EC2 Metrics - Memory (Host Metrics) (OTEL) WIP",
+            "description": "The AWS EC2 Metrics - Memory dashboard provides details information about a EC2 memory usage.",
+            "title": "3. AWS EC2 Metrics - Memory (Host Metrics) (OTEL) WIP",
+            "theme": "Light",
+            "topologyLabelMap": {
+                "data": {
+                    "instanceid": [
+                        "*"
+                    ],
+                    "f5ef50254e45958882a2c1e37f528308": [
+                        "*"
+                    ],
+                    "namespace": [
+                        "aws/ec2"
+                    ],
+                    "region": [
+                        "*"
+                    ],
+                    "account": [
+                        "*"
+                    ]
+                }
+            },
+            "refreshInterval": 0,
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "RelativeTimeRangeBoundary",
+                    "relativeTime": "-1d"
+                },
+                "to": null
+            },
+            "layout": {
+                "layoutType": "Grid",
+                "layoutStructures": [
+                    {
+                        "key": "panelpane-efa308ec98ca9a47",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":0,\"y\":0}"
+                    },
+                    {
+                        "key": "panelpane-51fa4586b262ea45",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":12,\"y\":0}"
+                    },
+                    {
+                        "key": "panelpane-f40f828787debb4b",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":0,\"y\":6}"
+                    },
+                    {
+                        "key": "panelpane-f77ed3b9a7469a41",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":12,\"y\":6}"
+                    },
+                    {
+                        "key": "panelpane-14a8edc8a9082a44",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":0,\"y\":12}"
+                    },
+                    {
+                        "key": "panelpane-fd78c765b827f940",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":12,\"y\":12}"
+                    }
+                ]
+            },
+            "panels": [
+                {
+                    "id": null,
+                    "key": "panelpane-efa308ec98ca9a47",
+                    "title": "Total Memory Used",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\"},\"color\":{\"family\":\"scheme7\"},\"axes\":{\"axisY\":{\"title\":\"Bytes\"}},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"userProvidedChartType\":false,\"properties\":{\"type\":\"line\",\"name\":\"{{_sourcehost}}\"}}],\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "_sourcehost={{hostname}} metric=system.memory.usage state=used | sum by _sourcehost",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelpane-51fa4586b262ea45",
+                    "title": "Memory Free vs Used Percentage",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\"},\"color\":{\"family\":\"scheme7\"},\"axes\":{\"axisY\":{\"title\":\"Percentage\"}},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"userProvidedChartType\":false,\"properties\":{\"type\":\"line\",\"name\":\"Used Percent - {{_sourcehost}}\"}},{\"series\":[],\"queries\":[\"B\"],\"userProvidedChartType\":false,\"properties\":{\"type\":\"line\",\"name\":\"Free Percent - {{_sourcehost}}\"}}],\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "_sourcehost={{hostname}} metric=system.memory.utilization state=used | sum by _sourcehost",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        },
+                        {
+                            "transient": false,
+                            "queryString": "_sourcehost={{hostname}} metric=system.memory.utilization state=free | sum by _sourcehost",
+                            "queryType": "Metrics",
+                            "queryKey": "B",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelpane-f40f828787debb4b",
+                    "title": "Total Free, Buffers and Cached Memory",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\"},\"color\":{\"family\":\"scheme7\"},\"axes\":{\"axisY\":{\"title\":\"Bytes\"}},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"userProvidedChartType\":false,\"properties\":{\"name\":\"{{_sourcehost}}\"}}],\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "_sourcehost={{hostname}} metric=system.memory.usage state=free | sum by _sourcehost",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelpane-f77ed3b9a7469a41",
+                    "title": "Total Used, Less Buffers and Cached Memory",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\"},\"color\":{\"family\":\"scheme7\"},\"axes\":{\"axisY\":{\"title\":\"Bytes\"}},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"userProvidedChartType\":false,\"properties\":{\"name\":\"{{_sourcehost}}\"}}],\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "_sourcehost={{hostname}} metric=system.memory.usage state=used | sum by _sourcehost",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelpane-14a8edc8a9082a44",
+                    "title": "Total Free Memory",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\"},\"color\":{\"family\":\"scheme7\"},\"axes\":{\"axisY\":{\"title\":\"Bytes\"}},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"userProvidedChartType\":false,\"properties\":{\"type\":\"line\",\"name\":\"{{_sourcehost}}\"}}],\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "_sourcehost={{hostname}} metric=system.memory.usage state=free | sum by _sourcehost",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelpane-fd78c765b827f940",
+                    "title": "Total Used Memory",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\"},\"color\":{\"family\":\"scheme7\"},\"axes\":{\"axisY\":{\"title\":\"Bytes\"}},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"userProvidedChartType\":false,\"properties\":{\"type\":\"line\",\"name\":\"{{_sourcehost}}\"}}],\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "_sourcehost={{hostname}} metric=system.memory.usage state=used | sum by _sourcehost",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                }
+            ],
+            "variables": [
+                {
+                    "id": null,
+                    "name": "hostname",
+                    "displayName": "hostname",
+                    "defaultValue": "*",
+                    "sourceDefinition": {
+                        "variableSourceType": "MetadataVariableSourceDefinition",
+                        "filter": "",
+                        "key": "_sourcehost"
+                    },
+                    "allowMultiSelect": false,
+                    "includeAllOption": true,
+                    "hideFromUI": false,
+                    "valueType": "Any"
+                }
+            ],
+            "coloringRules": []
+        },
+        {
+            "type": "DashboardV2SyncDefinition",
+            "name": "4. AWS EC2 Metrics - Disk (Host Metrics) (OTEL)",
+            "description": "The AWS EC2 Metrics - Disk dashboard provides details information about a EC2 Disk usage.",
+            "title": "4. AWS EC2 Metrics - Disk (Host Metrics) (OTEL)",
+            "theme": "Light",
+            "topologyLabelMap": {
+                "data": {
+                    "instanceid": [
+                        "*"
+                    ],
+                    "f5ef50254e45958882a2c1e37f528308": [
+                        "*"
+                    ],
+                    "namespace": [
+                        "aws/ec2"
+                    ],
+                    "region": [
+                        "*"
+                    ],
+                    "account": [
+                        "*"
+                    ]
+                }
+            },
+            "refreshInterval": 0,
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "RelativeTimeRangeBoundary",
+                    "relativeTime": "-1d"
+                },
+                "to": null
+            },
+            "layout": {
+                "layoutType": "Grid",
+                "layoutStructures": [
+                    {
+                        "key": "panelpane-f5adc9cfa7ab084e",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":0,\"y\":6}"
+                    },
+                    {
+                        "key": "panelpane-fbbffe38bcd87a4d",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":12,\"y\":6}"
+                    },
+                    {
+                        "key": "panelpane-74ec11c0b1d21845",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":0,\"y\":12}"
+                    },
+                    {
+                        "key": "panelpane-972ecae0a835ab49",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":12,\"y\":12}"
+                    },
+                    {
+                        "key": "panelpane-e941049387bcc843",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":0,\"y\":18}"
+                    },
+                    {
+                        "key": "panelpane-24a34d858564ca43",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":12,\"y\":18}"
+                    },
+                    {
+                        "key": "panelPANE-7940D0AEBE753846",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":0,\"y\":0}"
+                    },
+                    {
+                        "key": "panelPANE-A8BE6B8FB2B93A44",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":12,\"y\":0}"
+                    }
+                ]
+            },
+            "panels": [
+                {
+                    "id": null,
+                    "key": "panelpane-f5adc9cfa7ab084e",
+                    "title": "Disk Used Bytes",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\"},\"color\":{\"family\":\"scheme7\"},\"axes\":{\"axisY\":{\"title\":\"Bytes\"}},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"userProvidedChartType\":false,\"properties\":{\"type\":\"line\",\"name\":\"instanceid={{instanceid}} DevName={{DevName}} DirName={{DirName}}\"}}]}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "account={{account}} region={{region}} instanceid={{instanceid}} namespace={{namespace}} metric=Disk_Used | sum by account, region, namespace, instanceid, dirname, devname",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Manual",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelpane-fbbffe38bcd87a4d",
+                    "title": "Disk Available Bytes",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\"},\"color\":{\"family\":\"scheme7\"},\"axes\":{\"axisY\":{\"title\":\"Bytes\"}},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"userProvidedChartType\":false,\"properties\":{\"type\":\"line\",\"name\":\"instanceid={{instanceid}} DevName={{DevName}} DirName={{DirName}}\"}}]}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "account={{account}} region={{region}} instanceid={{instanceid}} namespace={{namespace}} metric=Disk_Available | sum by account, region, namespace, instanceid, dirname, devname",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Manual",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelpane-74ec11c0b1d21845",
+                    "title": "Disk Read Rate",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\"},\"color\":{\"family\":\"scheme7\"},\"axes\":{\"axisY\":{\"title\":\"Rate\"}},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"userProvidedChartType\":false,\"properties\":{\"type\":\"line\",\"name\":\"{{instanceid}}\"}}]}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "account={{account}} region={{region}} instanceid={{instanceid}} namespace={{namespace}} metric=Disk_Reads | sum by instanceid | rate",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Manual",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelpane-972ecae0a835ab49",
+                    "title": "Disk Read Byte Rate",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\"},\"color\":{\"family\":\"scheme7\"},\"axes\":{\"axisY\":{\"title\":\"Byte Rate\"}},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"userProvidedChartType\":false,\"properties\":{\"type\":\"line\",\"name\":\"{{instanceid}}\"}}]}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "account={{account}} region={{region}} instanceid={{instanceid}} namespace={{namespace}} metric=Disk_ReadBytes | sum by instanceid | rate",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Manual",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelpane-e941049387bcc843",
+                    "title": "Disk Write Rate",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\"},\"color\":{\"family\":\"scheme7\"},\"axes\":{\"axisY\":{\"title\":\"Rate\"}},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"userProvidedChartType\":false,\"properties\":{\"type\":\"line\",\"name\":\"{{instanceid}}\"}}]}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "account={{account}} region={{region}} instanceid={{instanceid}} namespace={{namespace}} metric=Disk_Writes | sum by instanceid | rate",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Manual",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelpane-24a34d858564ca43",
+                    "title": "Disk Write Byte Rate",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\"},\"color\":{\"family\":\"scheme7\"},\"axes\":{\"axisY\":{\"title\":\"Byte Rate\"}},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"userProvidedChartType\":false,\"properties\":{\"type\":\"line\",\"name\":\"{{instanceid}}\"}}]}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "account={{account}} region={{region}} instanceid={{instanceid}} namespace={{namespace}} metric=Disk_WriteBytes | sum by instanceid | rate",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Manual",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelPANE-7940D0AEBE753846",
+                    "title": "File System Used Percent",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\",\"type\":\"line\",\"displayType\":\"default\",\"outlierBandColor\":\"#FDECF5\",\"outlierBandMarkerColor\":\"#F032A9\",\"outlierBandFillOpacity\":0.3,\"outlierBandLineThickness\":2,\"outlierBandMarkerSize\":10,\"outlierBandMarkerType\":\"triangle\",\"markerSize\":0,\"lineDashType\":\"solid\",\"markerType\":\"none\",\"lineThickness\":2},\"title\":{\"fontSize\":16},\"axes\":{\"axisX\":{\"title\":\"\",\"titleFontSize\":11,\"labelFontSize\":10},\"axisY\":{\"titleFontSize\":11,\"labelFontSize\":12,\"logarithmic\":false,\"gridColor\":\"#dde4e9\",\"title\":\"Percentage\"}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"bottom\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":false,\"wrap\":true},\"color\":{\"family\":\"scheme7\"},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"userProvidedChartType\":false,\"properties\":{\"type\":\"line\",\"name\":\"instanceid={{instanceid}} DevName={{DevName}} DirName={{DirName}}\"}}]}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "metric=Disk_UsedPercent account={{account}} region={{region}} instanceid={{instanceid}} namespace={{namespace}} | sum by account, region, namespace, instanceid, dirname, devname",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Manual",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelPANE-A8BE6B8FB2B93A44",
+                    "title": "Disk Queue Operations",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\",\"type\":\"line\",\"displayType\":\"default\",\"outlierBandColor\":\"#FDECF5\",\"outlierBandMarkerColor\":\"#F032A9\",\"outlierBandFillOpacity\":0.3,\"outlierBandLineThickness\":2,\"outlierBandMarkerSize\":10,\"outlierBandMarkerType\":\"triangle\",\"markerSize\":0,\"lineDashType\":\"solid\",\"markerType\":\"none\",\"lineThickness\":2},\"title\":{\"fontSize\":16},\"axes\":{\"axisX\":{\"title\":\"\",\"titleFontSize\":11,\"labelFontSize\":10},\"axisY\":{\"titleFontSize\":11,\"labelFontSize\":12,\"logarithmic\":false,\"gridColor\":\"#dde4e9\",\"title\":\"Operations\"}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"bottom\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":false,\"wrap\":true},\"color\":{\"family\":\"scheme7\"},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"userProvidedChartType\":false,\"properties\":{\"type\":\"line\",\"name\":\"instanceid={{instanceid}} DevName={{DevName}} DirName={{DirName}}\"}}]}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "metric=Disk_Queue account={{account}} region={{region}} instanceid={{instanceid}} namespace={{namespace}} | sum by account, region, namespace, instanceid, dirname, devname",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Manual",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                }
+            ],
+            "variables": [
+                {
+                    "id": null,
+                    "name": "account",
+                    "displayName": null,
+                    "defaultValue": "*",
+                    "sourceDefinition": {
+                        "variableSourceType": "MetadataVariableSourceDefinition",
+                        "filter": "",
+                        "key": "account"
+                    },
+                    "allowMultiSelect": false,
+                    "includeAllOption": true,
+                    "hideFromUI": false,
+                    "valueType": "Any"
+                },
+                {
+                    "id": null,
+                    "name": "region",
+                    "displayName": null,
+                    "defaultValue": "*",
+                    "sourceDefinition": {
+                        "variableSourceType": "MetadataVariableSourceDefinition",
+                        "filter": "account={{account}}",
+                        "key": "region"
+                    },
+                    "allowMultiSelect": false,
+                    "includeAllOption": true,
+                    "hideFromUI": false,
+                    "valueType": "Any"
+                },
+                {
+                    "id": null,
+                    "name": "namespace",
+                    "displayName": null,
+                    "defaultValue": "aws/ec2",
+                    "sourceDefinition": {
+                        "variableSourceType": "MetadataVariableSourceDefinition",
+                        "filter": "account={{account}} region={{region}}",
+                        "key": "namespace"
+                    },
+                    "allowMultiSelect": false,
+                    "includeAllOption": true,
+                    "hideFromUI": false,
+                    "valueType": "Any"
+                },
+                {
+                    "id": null,
+                    "name": "instanceid",
+                    "displayName": null,
+                    "defaultValue": "*",
+                    "sourceDefinition": {
+                        "variableSourceType": "MetadataVariableSourceDefinition",
+                        "filter": "account={{account}} region={{region}} namespace={{namespace}}",
+                        "key": "instanceid"
+                    },
+                    "allowMultiSelect": false,
+                    "includeAllOption": true,
+                    "hideFromUI": false,
+                    "valueType": "Any"
+                }
+            ],
+            "coloringRules": []
+        },
+        {
+            "type": "DashboardV2SyncDefinition",
+            "name": "5. AWS EC2 Metrics - Network (Host Metrics) (OTEL)",
+            "description": "The AWS EC2 Metrics - Network dashboard provides details information about a EC2 Network activities based on In and out packets, bytes.",
+            "title": "5. AWS EC2 Metrics - Network (Host Metrics) (OTEL)",
+            "theme": "Light",
+            "topologyLabelMap": {
+                "data": {
+                    "instanceid": [
+                        "*"
+                    ],
+                    "f5ef50254e45958882a2c1e37f528308": [
+                        "*"
+                    ],
+                    "namespace": [
+                        "aws/ec2"
+                    ],
+                    "region": [
+                        "*"
+                    ],
+                    "account": [
+                        "*"
+                    ]
+                }
+            },
+            "refreshInterval": 0,
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "RelativeTimeRangeBoundary",
+                    "relativeTime": "-1d"
+                },
+                "to": null
+            },
+            "layout": {
+                "layoutType": "Grid",
+                "layoutStructures": [
+                    {
+                        "key": "panelpane-aae783508eb33b4b",
+                        "structure": "{\"height\":9,\"width\":12,\"x\":0,\"y\":0}"
+                    },
+                    {
+                        "key": "panelpane-38312cc29dd88a45",
+                        "structure": "{\"height\":9,\"width\":12,\"x\":12,\"y\":0}"
+                    },
+                    {
+                        "key": "panelpane-256276e180045843",
+                        "structure": "{\"height\":9,\"width\":12,\"x\":0,\"y\":9}"
+                    },
+                    {
+                        "key": "panelpane-f0bf2577bbe6ba48",
+                        "structure": "{\"height\":9,\"width\":12,\"x\":12,\"y\":9}"
+                    }
+                ]
+            },
+            "panels": [
+                {
+                    "id": null,
+                    "key": "panelpane-aae783508eb33b4b",
+                    "title": "Network InPacket Rate",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\"},\"color\":{\"family\":\"scheme7\"},\"axes\":{\"axisY\":{\"title\":\"Rate\"}},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"userProvidedChartType\":false,\"properties\":{\"type\":\"line\",\"name\":\"{{instanceid}}\"}}]}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "account={{account}} region={{region}} instanceid={{instanceid}} namespace={{namespace}} metric=Net_InPackets | sum by instanceid | rate",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Manual",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelpane-38312cc29dd88a45",
+                    "title": "Network OutPacket Rate",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\"},\"color\":{\"family\":\"scheme7\"},\"axes\":{\"axisY\":{\"title\":\"Rate\"}},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"userProvidedChartType\":false,\"properties\":{\"type\":\"line\",\"name\":\"{{instanceid}}\"}}]}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "account={{account}} region={{region}} instanceid={{instanceid}} namespace={{namespace}} metric=Net_OutPackets | sum by instanceid | rate",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Manual",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelpane-256276e180045843",
+                    "title": "Network InByte Rate",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\"},\"color\":{\"family\":\"scheme7\"},\"axes\":{\"axisY\":{\"title\":\"Rate\"}},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"userProvidedChartType\":false,\"properties\":{\"type\":\"line\",\"name\":\"{{instanceid}}\"}}]}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "account={{account}} region={{region}} instanceid={{instanceid}} namespace={{namespace}} metric=Net_InBytes | sum by instanceid | rate",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Manual",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelpane-f0bf2577bbe6ba48",
+                    "title": "Network OutByte Rate",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\"},\"color\":{\"family\":\"scheme7\"},\"axes\":{\"axisY\":{\"title\":\"Rate\"}},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"userProvidedChartType\":false,\"properties\":{\"type\":\"line\",\"name\":\"{{instanceid}}\"}}]}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "account={{account}} region={{region}} instanceid={{instanceid}} namespace={{namespace}} metric=Net_OutBytes | sum by instanceid | rate",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Manual",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                }
+            ],
+            "variables": [
+                {
+                    "id": null,
+                    "name": "account",
+                    "displayName": null,
+                    "defaultValue": "*",
+                    "sourceDefinition": {
+                        "variableSourceType": "MetadataVariableSourceDefinition",
+                        "filter": "",
+                        "key": "account"
+                    },
+                    "allowMultiSelect": false,
+                    "includeAllOption": true,
+                    "hideFromUI": false,
+                    "valueType": "Any"
+                },
+                {
+                    "id": null,
+                    "name": "region",
+                    "displayName": null,
+                    "defaultValue": "*",
+                    "sourceDefinition": {
+                        "variableSourceType": "MetadataVariableSourceDefinition",
+                        "filter": "account={{account}}",
+                        "key": "region"
+                    },
+                    "allowMultiSelect": false,
+                    "includeAllOption": true,
+                    "hideFromUI": false,
+                    "valueType": "Any"
+                },
+                {
+                    "id": null,
+                    "name": "namespace",
+                    "displayName": null,
+                    "defaultValue": "aws/ec2",
+                    "sourceDefinition": {
+                        "variableSourceType": "MetadataVariableSourceDefinition",
+                        "filter": "account={{account}} region={{region}}",
+                        "key": "namespace"
+                    },
+                    "allowMultiSelect": false,
+                    "includeAllOption": true,
+                    "hideFromUI": false,
+                    "valueType": "Any"
+                },
+                {
+                    "id": null,
+                    "name": "instanceid",
+                    "displayName": null,
+                    "defaultValue": "*",
+                    "sourceDefinition": {
+                        "variableSourceType": "MetadataVariableSourceDefinition",
+                        "filter": "account={{account}} region={{region}} namespace={{namespace}}",
+                        "key": "instanceid"
+                    },
+                    "allowMultiSelect": false,
+                    "includeAllOption": true,
+                    "hideFromUI": false,
+                    "valueType": "Any"
+                }
+            ],
+            "coloringRules": []
+        },
+        {
+            "type": "DashboardV2SyncDefinition",
+            "name": "6. AWS EC2 Metrics - TCP (Host Metrics) (OTEL)",
+            "description": "The AWS EC2 Metrics - TCP dashboard provides details information about a EC2 connection details.",
+            "title": "6. AWS EC2 Metrics - TCP (Host Metrics) (OTEL)",
+            "theme": "Light",
+            "topologyLabelMap": {
+                "data": {
+                    "instanceid": [
+                        "*"
+                    ],
+                    "f5ef50254e45958882a2c1e37f528308": [
+                        "*"
+                    ],
+                    "namespace": [
+                        "aws/ec2"
+                    ],
+                    "region": [
+                        "*"
+                    ],
+                    "account": [
+                        "*"
+                    ]
+                }
+            },
+            "refreshInterval": 0,
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "RelativeTimeRangeBoundary",
+                    "relativeTime": "-1d"
+                },
+                "to": null
+            },
+            "layout": {
+                "layoutType": "Grid",
+                "layoutStructures": [
+                    {
+                        "key": "panelpane-17ee2e37b6eccb47",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":0,\"y\":0}"
+                    },
+                    {
+                        "key": "panelpane-c24a86f4a132b84c",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":12,\"y\":0}"
+                    },
+                    {
+                        "key": "panelpane-820b2a5db0d45848",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":0,\"y\":12}"
+                    },
+                    {
+                        "key": "panelpane-d8ac2293bd568940",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":12,\"y\":12}"
+                    },
+                    {
+                        "key": "panelpane-ef64ec5dbc991840",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":0,\"y\":18}"
+                    },
+                    {
+                        "key": "panelpane-35dcff5392216a4f",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":12,\"y\":18}"
+                    },
+                    {
+                        "key": "panelPANE-EC5685348CE70A41",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":0,\"y\":6}"
+                    },
+                    {
+                        "key": "panelPANE-B10542A88EB87840",
+                        "structure": "{\"height\":6,\"width\":12,\"x\":12,\"y\":6}"
+                    }
+                ]
+            },
+            "panels": [
+                {
+                    "id": null,
+                    "key": "panelpane-17ee2e37b6eccb47",
+                    "title": "Inbound Connections",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\"},\"color\":{\"family\":\"scheme7\"},\"axes\":{\"axisY\":{\"title\":\"Count\"}},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"userProvidedChartType\":false,\"properties\":{\"type\":\"line\",\"name\":\"{{instanceid}}\"}}]}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "account={{account}} region={{region}} instanceid={{instanceid}} namespace={{namespace}} metric=TCP_InboundTotal | sum by account, region, namespace, instanceid",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Manual",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelpane-c24a86f4a132b84c",
+                    "title": "Outbound Connections",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\"},\"color\":{\"family\":\"scheme7\"},\"axes\":{\"axisY\":{\"title\":\"Count\"}},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"userProvidedChartType\":false,\"properties\":{\"type\":\"line\",\"name\":\"{{instanceid}}\"}}]}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "account={{account}} region={{region}} instanceid={{instanceid}} namespace={{namespace}} metric=TCP_OutboundTotal | sum by account, region, namespace, instanceid",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Manual",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelpane-820b2a5db0d45848",
+                    "title": "Listen Connections",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\"},\"color\":{\"family\":\"scheme7\"},\"axes\":{\"axisY\":{\"title\":\"Count\"}},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"userProvidedChartType\":false,\"properties\":{\"type\":\"line\",\"name\":\"{{instanceid}}\"}}]}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "account={{account}} region={{region}} instanceid={{instanceid}} namespace={{namespace}} metric=TCP_Listen | sum by account, region, namespace, instanceid",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Manual",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelpane-d8ac2293bd568940",
+                    "title": "Established Connections",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\"},\"color\":{\"family\":\"scheme7\"},\"axes\":{\"axisY\":{\"title\":\"Count\"}},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"userProvidedChartType\":false,\"properties\":{\"type\":\"line\",\"name\":\"{{instanceid}}\"}}]}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "account={{account}} region={{region}} instanceid={{instanceid}} namespace={{namespace}} metric=TCP_Established | sum by account, region, namespace, instanceid",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Manual",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelpane-ef64ec5dbc991840",
+                    "title": "CloseWait Connections",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\"},\"color\":{\"family\":\"scheme7\"},\"axes\":{\"axisY\":{\"title\":\"Count\"}},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"userProvidedChartType\":false,\"properties\":{\"type\":\"line\",\"name\":\"{{instanceid}}\"}}]}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "account={{account}} region={{region}} instanceid={{instanceid}} namespace={{namespace}} metric=TCP_CloseWait ",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Manual",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelpane-35dcff5392216a4f",
+                    "title": "TimeWait Connections",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\"},\"color\":{\"family\":\"scheme7\"},\"axes\":{\"axisY\":{\"title\":\"Count\"}},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"userProvidedChartType\":false,\"properties\":{\"type\":\"line\",\"name\":\"{{instanceid}}\"}}]}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "account={{account}} region={{region}} instanceid={{instanceid}} namespace={{namespace}} metric=TCP_TimeWait | sum by account, region, namespace, instanceid",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Manual",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelPANE-EC5685348CE70A41",
+                    "title": "Idle Connections",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\",\"type\":\"line\",\"displayType\":\"default\",\"outlierBandColor\":\"#FDECF5\",\"outlierBandMarkerColor\":\"#F032A9\",\"outlierBandFillOpacity\":0.3,\"outlierBandLineThickness\":2,\"outlierBandMarkerSize\":10,\"outlierBandMarkerType\":\"triangle\",\"markerSize\":0,\"lineDashType\":\"solid\",\"markerType\":\"none\",\"lineThickness\":2},\"title\":{\"fontSize\":16},\"axes\":{\"axisX\":{\"title\":\"\",\"titleFontSize\":11,\"labelFontSize\":10},\"axisY\":{\"titleFontSize\":11,\"labelFontSize\":12,\"logarithmic\":false,\"gridColor\":\"#dde4e9\",\"title\":\"Count\"}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"bottom\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":false,\"wrap\":true},\"color\":{\"family\":\"scheme7\"},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"userProvidedChartType\":false,\"properties\":{\"type\":\"line\",\"name\":\"{{instanceid}}\"}}]}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "account={{account}} region={{region}} instanceid={{instanceid}} namespace={{namespace}} metric=TCP_Idle | sum by account, region, namespace, instanceid",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Manual",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelPANE-B10542A88EB87840",
+                    "title": "Close Connections",
+                    "visualSettings": "{\"general\":{\"mode\":\"timeSeries\",\"type\":\"line\",\"displayType\":\"default\",\"outlierBandColor\":\"#FDECF5\",\"outlierBandMarkerColor\":\"#F032A9\",\"outlierBandFillOpacity\":0.3,\"outlierBandLineThickness\":2,\"outlierBandMarkerSize\":10,\"outlierBandMarkerType\":\"triangle\",\"markerSize\":0,\"lineDashType\":\"solid\",\"markerType\":\"none\",\"lineThickness\":2},\"title\":{\"fontSize\":16},\"axes\":{\"axisX\":{\"title\":\"\",\"titleFontSize\":11,\"labelFontSize\":10},\"axisY\":{\"titleFontSize\":11,\"labelFontSize\":12,\"logarithmic\":false,\"gridColor\":\"#dde4e9\",\"title\":\"Count\"}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"bottom\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":false,\"wrap\":true},\"color\":{\"family\":\"scheme7\"},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"userProvidedChartType\":false,\"properties\":{\"type\":\"line\",\"name\":\"{{instanceid}}\"}}]}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "account={{account}} region={{region}} instanceid={{instanceid}} namespace={{namespace}} metric=TCP_Close | sum by account, region, namespace, instanceid",
+                            "queryType": "Metrics",
+                            "queryKey": "A",
+                            "metricsQueryMode": "Advanced",
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Manual",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                }
+            ],
+            "variables": [
+                {
+                    "id": null,
+                    "name": "account",
+                    "displayName": null,
+                    "defaultValue": "*",
+                    "sourceDefinition": {
+                        "variableSourceType": "MetadataVariableSourceDefinition",
+                        "filter": "",
+                        "key": "account"
+                    },
+                    "allowMultiSelect": false,
+                    "includeAllOption": true,
+                    "hideFromUI": false,
+                    "valueType": "Any"
+                },
+                {
+                    "id": null,
+                    "name": "region",
+                    "displayName": null,
+                    "defaultValue": "*",
+                    "sourceDefinition": {
+                        "variableSourceType": "MetadataVariableSourceDefinition",
+                        "filter": "account={{account}}",
+                        "key": "region"
+                    },
+                    "allowMultiSelect": false,
+                    "includeAllOption": true,
+                    "hideFromUI": false,
+                    "valueType": "Any"
+                },
+                {
+                    "id": null,
+                    "name": "namespace",
+                    "displayName": null,
+                    "defaultValue": "aws/ec2",
+                    "sourceDefinition": {
+                        "variableSourceType": "MetadataVariableSourceDefinition",
+                        "filter": "account={{account}} region={{region}}",
+                        "key": "namespace"
+                    },
+                    "allowMultiSelect": false,
+                    "includeAllOption": true,
+                    "hideFromUI": false,
+                    "valueType": "Any"
+                },
+                {
+                    "id": null,
+                    "name": "instanceid",
+                    "displayName": null,
+                    "defaultValue": "*",
+                    "sourceDefinition": {
+                        "variableSourceType": "MetadataVariableSourceDefinition",
+                        "filter": "account={{account}} region={{region}} namespace={{namespace}}",
+                        "key": "instanceid"
+                    },
+                    "allowMultiSelect": false,
+                    "includeAllOption": true,
+                    "hideFromUI": false,
+                    "valueType": "Any"
+                }
+            ],
+            "coloringRules": []
+        }
+    ]
+}
