@@ -8,7 +8,7 @@ Please note the following before using this content:
 
 1. Support for this content is provided by our community on a volunteer basis. Submit [GitHub Issues](https://github.com/SumoLogic/sumologic-content/issues) for bugs and enhancement requests.
 
-2. This content is separate from our official [App Catalog](https://help.sumologic.com/docs/integrations/) unless otherwise noted. The content here for material that not currently published to the [App Catalog](https://help.sumologic.com/docs/integrations/). Content that is published to the App Catalog or is no longer relevant will me migrated to the Retired Content folder in the repository.
+2. This content is separate from our official [App Catalog](https://help.sumologic.com/docs/integrations/) unless otherwise noted. The content here is material that is not currently published to the [App Catalog](https://help.sumologic.com/docs/integrations/). Content that is published to the App Catalog or is no longer relevant will me migrated to the Retired Content folder in this repository.
 
 ## Table of Contents
 - [Getting Started](#getting-started)
