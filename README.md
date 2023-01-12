@@ -1,4 +1,4 @@
-# Welcome to Sumo Logic's Community Content Repository!
+# Welcome to Sumo Logic's Community Ecosystem Content Repository!
 
 This repository and the content within it was created for anyone to use. The goal is to help reduce time to value and shed light on possibilities. Your contributions are welcome.
 
