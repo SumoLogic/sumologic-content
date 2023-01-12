@@ -87,3 +87,4 @@ This Field Extraction Rule (FER) is provided as an example to help you reduce yo
 ### To upload your own content:
 Please see [Sumo Logic Community Ecosystem Apps FAQs](https://help.sumologic.com/docs/integrations/community-ecosystem-apps/#faq).
 
+Creator: Duncan Raab (Sumo Logic)

@@ -17,3 +17,5 @@ For instructions on how to collect logs and metrics for use with content, please
 
 ### To upload your own content:
 Please see [Sumo Logic Community Ecosystem Apps FAQs](https://help.sumologic.com/docs/integrations/community-ecosystem-apps/#faq).
+
+Creator: Graham Watts (Sumo Logic)
