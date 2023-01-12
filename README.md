@@ -27,7 +27,7 @@ Please note the following before using this content:
 - [Import](https://help.sumologic.com/docs/get-started/library/#import-content) the content to your desired folder location in Sumo Logic.
 
 ## Contributing
-If you would like to contribute your own content to this repository and have our team review it for publishing, please follow the guidelines outlined in the [Sumo Logic Community Ecosystem Content Submission](https://forms.gle/KQBLBuMuUw85xtRi9) form.
+If you would like to contribute your own content to this repository and have our team review it for publishing, please follow the guidelines outlined in the [Sumo Logic Community Content Submission](https://forms.gle/KQBLBuMuUw85xtRi9) form.
 
 DEPRECATING:
 We follow the "fork-and-pull" Git workflow:
