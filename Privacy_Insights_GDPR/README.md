@@ -1,7 +1,7 @@
 # Sumo Logic for GDPR Privacy Insights
 Sumo Logic Community Content built for GDPR Privacy Insights that is not published to the [App Catalog](https://help.sumologic.com/docs/integrations/).
 
-Added Privacy Insights Main Dashboard, accompanying 8 seed dashboards
+Privacy Insights Main Dashboard, accompanying 8 seed dashboards
 
 ![Privacy_MainInsights](Screenshots/Privacy_MainInsights.png)
 
