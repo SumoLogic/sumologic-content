@@ -15,4 +15,7 @@ For instructions on how to collect logs, metrics, or traces for use with content
 ### To upload your own content:
 Please see [Sumo Logic Community Ecosystem Apps FAQs](https://help.sumologic.com/docs/integrations/community-ecosystem-apps/#faq).
 
+### To add a review to content:
+Please follow [How to add a review/rating to an app](https://help.sumologic.com/docs/integrations/community-ecosystem-apps/#how-do-i-add-a-reviewrating-to-an-app)
+
 Creator: Patrick Rush (Sumo Logic SE)
