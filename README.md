@@ -29,8 +29,9 @@ Please note the following before using this content:
 ## Contributing
 Please follow the guidelines outlined in the [Sumo Logic Community Content Submission](https://forms.gle/KQBLBuMuUw85xtRi9) form if you would like to contribute your own content to this repository and have our team review it for publishing.
 
-**Alternative Submission Process:**
-We follow the "fork-and-pull" Git workflow:
+**Alternative Submission:**
+
+Follow the "fork-and-pull" Git workflow:
 - **Fork** the repo on GitHub
 - **Clone** the project to your own machine
 - **Create** any new folders/subfolders necessary for your content
