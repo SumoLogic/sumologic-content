@@ -1,0 +1,1 @@
+# Sumo Logic OTEL Collection Scripts
