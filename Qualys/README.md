@@ -1,5 +1,5 @@
 # Sumo Logic for Qualys VMDR and Inventory
-Sumo Logic Community Content built for Proofpoint that is not published to the [App Catalog](https://help.sumologic.com/docs/integrations/).
+Sumo Logic Community Content built for Qualys VMDR and Inventory that is not published to the [App Catalog](https://help.sumologic.com/docs/integrations/).
 
 This App provides dashboards for Qualys Inventory, Detections, and Vulnerabilities from the Knowledgebase. This content assumes you are collecting everything from the [Qualys C2C Collector](https://help.sumologic.com/docs/send-data/hosted-collectors/cloud-to-cloud-integration-framework/qualys-vmdr-source/).
 
