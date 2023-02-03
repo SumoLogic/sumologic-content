@@ -42,3 +42,5 @@ Please provide a comment for this content by following the guidelines below:
 Code owners will review and merge your rating of the content to the repo.
 
 Please see [How to add a review/rating to an app](https://help.sumologic.com/docs/integrations/community-ecosystem-apps/#how-do-i-add-a-reviewrating-to-an-app) for more information.
+
+Creator: Jake Lee (Sumo Logic SE)
