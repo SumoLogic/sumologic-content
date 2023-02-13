@@ -1,10 +1,10 @@
 {
-  "reviewer":"[githubid/name]",
+  "reviewer":"[itsthepo/Brandon]",
   "ratings":{
-    "overall":"[ENTER NUMBER 0-5]",
-    "use-case":"[ENTER NUMBER 0-5]",
-    "design":"[ENTER NUMBER 0-5]",
-    "technical":"[ENTER NUMBER 0-5]"
+    "overall":"[4]",
+    "use-case":"[4]",
+    "design":"[4]",
+    "technical":"[4]"
   },
-  "review":"[EXAMPLE: This app is very useful for knowing x, y, and z. It would be great if the dashboards were broken out by use case instead of being one big dashboard.]"
+  "review":"[This app is great with the visualizations it provides, especially with pre-defined filters, nice touch. Is there a way to provide some OOTB searches that may help me derive more value (i.e., some queries I could use to troubleshoot an issue further that I identified on the dashboard?]"
 }
