@@ -1614,55 +1614,55 @@
                 "layoutStructures": [
                     {
                         "key": "panelec3aecb19a32a94b",
-                        "structure": "{\"width\":24,\"height\":4,\"x\":0,\"y\":0}"
+                        "structure": "{\"height\":4,\"width\":24,\"x\":0,\"y\":0}"
                     },
                     {
                         "key": "panel694ce84c872b584c",
-                        "structure": "{\"width\":12,\"height\":1,\"x\":0,\"y\":3}"
+                        "structure": "{\"height\":1,\"width\":12,\"x\":0,\"y\":4}"
                     },
                     {
                         "key": "panel53ca0cbdafb25a4e",
-                        "structure": "{\"width\":12,\"height\":1,\"x\":12,\"y\":3}"
+                        "structure": "{\"height\":1,\"width\":12,\"x\":12,\"y\":4}"
                     },
                     {
                         "key": "panel1f47e89b9d87fb48",
-                        "structure": "{\"width\":4,\"height\":6,\"x\":0,\"y\":4}"
+                        "structure": "{\"height\":6,\"width\":4,\"x\":0,\"y\":5}"
                     },
                     {
                         "key": "panelb23947b3a1c40a49",
-                        "structure": "{\"width\":4,\"height\":6,\"x\":4,\"y\":4}"
+                        "structure": "{\"height\":6,\"width\":4,\"x\":4,\"y\":5}"
                     },
                     {
                         "key": "panel4e631398bceaea49",
-                        "structure": "{\"width\":4,\"height\":6,\"x\":8,\"y\":4}"
+                        "structure": "{\"height\":6,\"width\":4,\"x\":8,\"y\":5}"
                     },
                     {
                         "key": "panel8aecfb44903da842",
-                        "structure": "{\"width\":4,\"height\":6,\"x\":12,\"y\":4}"
+                        "structure": "{\"height\":6,\"width\":4,\"x\":12,\"y\":5}"
                     },
                     {
                         "key": "panel532c3183bdd6d84c",
-                        "structure": "{\"width\":4,\"height\":6,\"x\":16,\"y\":4}"
+                        "structure": "{\"height\":6,\"width\":4,\"x\":16,\"y\":5}"
                     },
                     {
                         "key": "panel737d77538b4c3b4c",
-                        "structure": "{\"width\":4,\"height\":6,\"x\":20,\"y\":4}"
+                        "structure": "{\"height\":6,\"width\":4,\"x\":20,\"y\":5}"
                     },
                     {
                         "key": "panelb5344d9490858a4f",
-                        "structure": "{\"width\":12,\"height\":9,\"x\":0,\"y\":9}"
+                        "structure": "{\"height\":9,\"width\":12,\"x\":0,\"y\":11}"
                     },
                     {
                         "key": "panel5ba29022b92e9a41",
-                        "structure": "{\"width\":12,\"height\":9,\"x\":12,\"y\":9}"
+                        "structure": "{\"height\":9,\"width\":12,\"x\":12,\"y\":11}"
                     },
                     {
                         "key": "panel0e11a4b291e0ab4f",
-                        "structure": "{\"width\":12,\"height\":9,\"x\":0,\"y\":16}"
+                        "structure": "{\"height\":9,\"width\":12,\"x\":0,\"y\":20}"
                     },
                     {
                         "key": "panel7ec222148c0be842",
-                        "structure": "{\"width\":12,\"height\":9,\"x\":12,\"y\":16}"
+                        "structure": "{\"height\":9,\"width\":12,\"x\":12,\"y\":20}"
                     }
                 ]
             },
@@ -1788,10 +1788,10 @@
                     "id": null,
                     "key": "panel53ca0cbdafb25a4e",
                     "title": "Threats by Source IP",
-                    "visualSettings": "{\"title\":{\"fontSize\":14},\"general\":{\"type\":\"text\",\"displayType\":\"default\",\"mode\":\"TextPanel\"},\"legend\":{\"enabled\":false},\"text\":{\"format\":\"markdownV2\",\"fontSize\":14},\"series\":{}}",
+                    "visualSettings": "{\"title\":{\"fontSize\":14},\"general\":{\"type\":\"text\",\"displayType\":\"default\",\"mode\":\"TextPanel\"},\"legend\":{\"enabled\":false},\"series\":{},\"text\":{\"format\":\"markdownV2\",\"fontSize\":24,\"backgroundColor\":\"#005982\",\"textColor\":\"white\",\"showTitle\":false}}",
                     "keepVisualSettingsConsistentWithParent": true,
                     "panelType": "TextPanel",
-                    "text": ""
+                    "text": "Threats by Source IP"
                 },
                 {
                     "id": null,
@@ -1851,10 +1851,10 @@
                     "id": null,
                     "key": "panel694ce84c872b584c",
                     "title": "Threats by Destination IP",
-                    "visualSettings": "{\"title\":{\"fontSize\":14},\"general\":{\"type\":\"text\",\"displayType\":\"default\",\"mode\":\"TextPanel\"},\"legend\":{\"enabled\":false},\"text\":{\"format\":\"markdownV2\",\"fontSize\":14},\"series\":{}}",
+                    "visualSettings": "{\"title\":{\"fontSize\":14},\"general\":{\"type\":\"text\",\"displayType\":\"default\",\"mode\":\"TextPanel\"},\"legend\":{\"enabled\":false},\"series\":{},\"text\":{\"format\":\"markdownV2\",\"fontSize\":24,\"backgroundColor\":\"#005982\",\"textColor\":\"white\",\"showTitle\":false}}",
                     "keepVisualSettingsConsistentWithParent": true,
                     "panelType": "TextPanel",
-                    "text": ""
+                    "text": "Threats by Destination IP"
                 },
                 {
                     "id": null,

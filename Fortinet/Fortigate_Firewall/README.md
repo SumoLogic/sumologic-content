@@ -1,15 +1,15 @@
 # Sumo Logic for Fortinet Fortigate Firewall
 Sumo Logic Community Content built for Fortigate Firewall that is not yet published to the [App Catalog](https://help.sumologic.com/docs/integrations/).
 
-![Overview](Screenshots/FortiGate%20Firewalls%20-%20Overview.png)
+![Overview](Screenshots/overview.png)
 
-![Events](Screenshots/FortiGate%20Firewalls%20-%20Events.png)
+![Events](Screenshots/events.png)
 
-![System Performance](Screenshots/FortiGate%20Firewalls%20-%20System%20Performance.png)
+![System Performance](Screenshots/sys_performance.png)
 
-![Threat Analysis](Screenshots/FortiGate%20Firewalls%20-%20Threat%20Analysis.png)
+![Threat Analysis](Screenshots/threats.png)
 
-![Traffic](Screenshots/FortiGate%20Firewalls%20-%20Traffic.png)
+![Traffic](Screenshots/traffic.png)
 
 ### Collection:
 For instructions on how to collect logs and metrics for use with content, please see [Sumo Logic Documentation](https://help.sumologic.com/docs/send-data/).
