@@ -1,10 +1,10 @@
 {
-  "reviewer":"[githubid/name]",
+  "reviewer":"[wjakelee/Jake]",
   "ratings":{
-    "overall":"[ENTER NUMBER 0-5]",
-    "use-case":"[ENTER NUMBER 0-5]",
-    "design":"[ENTER NUMBER 0-5]",
-    "technical":"[ENTER NUMBER 0-5]"
+    "overall":3.5,
+    "use-case":3,
+    "design":4,
+    "technical":3.5
   },
-  "review":"[EXAMPLE: This app is very useful for knowing x, y, and z. It would be great if the dashboards were broken out by use case instead of being one big dashboard.]"
+  "review":"This is a nice starter dashboard for JAMF, but it could likely use some updates and more complex search analysis. Only provide so much information, so this was a nice start to a full-blown dashboard. It would also be nice to have some screenshots to look at prior to downloading/installing."
 }
