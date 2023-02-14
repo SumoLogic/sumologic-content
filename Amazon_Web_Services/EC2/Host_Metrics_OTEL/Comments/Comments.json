@@ -1,10 +1,10 @@
 {
-  "reviewer":"[githubid/name]",
+  "reviewer":"[githubid/wjakelee]",
   "ratings":{
-    "overall":"[ENTER NUMBER 0-5]",
-    "use-case":"[ENTER NUMBER 0-5]",
-    "design":"[ENTER NUMBER 0-5]",
-    "technical":"[ENTER NUMBER 0-5]"
+    "overall":4,
+    "use-case":5,
+    "design":5,
+    "technical":4
   },
-  "review":"[EXAMPLE: This app is very useful for knowing x, y, and z. It would be great if the dashboards were broken out by use case instead of being one big dashboard.]"
+  "review":"This App is very nice to have to replace the current AWS EC2 Host Metrics Dashboards when OTEL collectors are used instead of Sumo's traditional Installed Collectors. That being said, some of the search panels require adjustment depending on the type/version of the OS used."
 }
