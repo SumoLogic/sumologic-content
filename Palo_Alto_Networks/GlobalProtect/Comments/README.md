@@ -1,4 +1,4 @@
-### To add review/comment to content:
+# Comments
 Please provide a review/comment for this content by following the guidelines below:
 
 - Select the **Comments** folder.
