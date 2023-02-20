@@ -7,4 +7,14 @@
     "technical":"[ENTER NUMBER 0-5]"
   },
   "review":"[EXAMPLE: This app is very useful for knowing x, y, and z. It would be great if the dashboards were broken out by use case instead of being one big dashboard.]"
+},
+{
+  "reviewer":"[droonee/david rooney]",
+  "ratings":{
+    "overall":"4",
+    "use-case":"4",
+    "design":"5",
+    "technical":"4"
+  },
+  "review":"This app is very useful for gathering inventory of my assets within Qualys and tracking vulnerabilities at a high level. It would be great if the app content had out of the box searches that can be turned into monitors/alerts."
 }
