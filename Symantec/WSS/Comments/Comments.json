@@ -1,0 +1,10 @@
+{
+  "reviewer":"[wjakelee/jake lee]",
+  "ratings":{
+    "overall":4,
+    "use-case":4,
+    "design":4,
+    "technical":4.5
+  },
+  "review":"These dashboards give me some great insight into my Web Security. However, I think some of these dashboards could be restructured/arranged from a design perspective and perhaps provide some more steps on how to set up collection. Overall, the use cases are a great starting point to what I am looking for."
+}

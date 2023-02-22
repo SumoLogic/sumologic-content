@@ -1,0 +1,10 @@
+{
+  "reviewer":"[wjakelee/jake lee]",
+  "ratings":{
+    "overall":4.5,
+    "use-case":4.5,
+    "design":4,
+    "technical":4
+  },
+  "review":"This app gives me a nice breakdown of vulnerabilities by severity in my environment and provides nice info into the details of the findings. Sumo also has a Tenable.io source OOTB that makes collection seamless. It would be nice to be able to install this directly into my library, rather than having to download and import the json."
+}

@@ -1,0 +1,1 @@
+# Sumo Logic Installed Collector Scripts

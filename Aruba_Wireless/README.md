@@ -1,37 +1,40 @@
 # Sumo Logic for Aruba Wireless
+Sumo Logic Community Content built for Aruba Wireless products that are not yet published to the [App Catalog](https://help.sumologic.com/docs/integrations/).
 
-![ArubaWireless-Controller-AuthMgr](ArubaWireless_Controller/Screenshots/ArubaWireless-Controller-AuthMgr.png)
+### To use the content:
+- Download the JSON file(s).
+- Find/replace all Source Categories within the JSON with your own Source Category (Ex: sourceCategory=yourSourceCategory).
+- [Import](https://help.sumologic.com/docs/get-started/library/#import-content) the content to your desired folder location in Sumo Logic.
 
-Contains all Aruba Wireless technology and product lines for which Sumo Logic has content for.
+### Collection:
+For instructions on how to collect logs and metrics for use with content, please see [Sumo Logic Documentation](https://help.sumologic.com/docs/send-data/). For more information, see Aruba documentation on [Aruba logging](http://www.arubanetworks.com/techdocs/ArubaOS_64x_WebHelp/Content/ArubaFrameStyles/Management_Utilities/Configuring_Logging.htm)
 
-See [Sumo Logic Documentation](https://help.sumologic.com/) for instructions on how to collect logs and metrics for use with content.
+### To upload your own content:
+Please see [Sumo Logic Community Ecosystem Apps FAQs](https://help.sumologic.com/docs/integrations/community-ecosystem-apps/#faq).
 
-## Additional Dashboards
+### To add review/comment to content:
+Please provide a review/comment for this content by following the guidelines below:
 
-![ArubaWireless-Controller-WMSModule](ArubaWireless_Controller/Screenshots/ArubaWireless-Controller-WMSModule.png)
+- Select the **Comments** folder.
+- Open the **Comments.json** file.
+- Select Edit (pen icon).
+- Add a new line below the current comments, and paste in your review/comment using the following schema:
 
-![ArubaWireless-TACACS](ArubaWireless_TACACS/Screenshots/ArubaWireless-TACACS.png)
+        {
+            "reviewer":"[githubid/name]",
+            "ratings":{
+                "overall":4,
+                "use-case":5,
+                "design":4,
+                "technical":4
+            },
+            "review":"This app is very useful for knowing x, y, and z. It would be great if the dashboards were broken out by use case instead of being one big dashboard."
+        }
 
-To use the content:
 
-Download the raw JSON file(s) and search for (CTRL+F / CMD+F) "$$Aruba" to replace with  "sourceCategory=yourSourceCategory".
+- Select **Propose New Changes**.
+- Submit **Pull Request**.
 
-Guidelines PLEASE READ:
+Code owners will review and merge your comments on the content to the repo.
 
-To contribute to subfolders or create new subfolders here, please follow the standards below:
-
-1. All application, dashboard and search content in .json format. Please use descriptive naming such as:
-   a. Company_TechnologyLine_ContentFunction. E.g. AWS_Kinesis_Errors.json or Sentinel_Vanguard_All.json
-
-2. Relevant screenshot(s) in .png or equivalent format. Naming similar or equivalent to .json content it represents.
-
-3. Create/update a README.md file (like this one) within the folder to track:
-   a. Technology and product lines, authors, versions, etc.
-   b. Link(s) to relevant 3rd party documentation to specify what types of data need to be collected for content to work.
-
-For more information, see Aruba documentation here:
-[Aruba logging](http://www.arubanetworks.com/techdocs/ArubaOS_64x_WebHelp/Content/ArubaFrameStyles/Management_Utilities/Configuring_Logging.htm)
-
-2018/04/10 - Updated
-
-  Added Aruba Wireless Controller and TACACS dashboards - author: Jason Hwa
+Please see [How to add a review/comment to an app](https://help.sumologic.com/docs/integrations/community-ecosystem-apps/#how-do-i-add-a-reviewrating-to-an-app) for more information.

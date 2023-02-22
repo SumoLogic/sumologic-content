@@ -1,0 +1,10 @@
+{
+  "reviewer":"[wjakelee/Jake]",
+  "ratings":{
+    "overall":4,
+    "use-case":5,
+    "design":5,
+    "technical":4
+  },
+  "review":"This App is very nice to have to replace the current AWS EC2 Host Metrics Dashboards when OTEL collectors are used instead of Sumo's traditional Installed Collectors. That being said, some of the search panels require adjustment depending on the type/version of the OS used."
+}

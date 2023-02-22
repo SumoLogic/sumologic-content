@@ -1,0 +1,39 @@
+exporters:
+  sumologic:
+    auth:
+      authenticator: sumologic
+
+# Installation Token and state tracking log location
+extensions:
+  file_storage:
+    directory: /tmp
+  sumologic:
+    install_token: <<<<ENTER INSTALL TOKEN HERE>>>>
+    collector_name: Test OTEL Collector
+
+# "receivers" will be specifically the location of the data on the system
+# You can create multiple "filelog/..." receivers to break them up into different groups for enriching with appropriate metadata
+receivers:
+  filelog/systemlogs:
+    include:
+    - /var/log/auth.log*
+    include_file_name: false
+    include_file_path_resolved: false
+    start_at: beginning
+
+# "processors" will be used to help enrich your data. They are not tied directly to the receivers, and they can be joined with 1 or more datasets in your "service"
+processors:
+  resource/systemlogs:
+    attributes:
+    - key: _sourceCategory
+      value: <ENTER SOURCE CATEGORY>
+      action: insert
+
+# "service" will specify which data to use (receivers), how to normalize/enrich it (processors), and specify where your data will be sent (exporters) 
+service:
+  extensions: [sumologic]
+  pipelines:
+    logs/system:
+      receivers: [filelog/systemlogs]
+      processors: [resource/systemlogs]
+      exporters: [sumologic]

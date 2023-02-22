@@ -1,0 +1,10 @@
+{
+  "reviewer":"[wjakelee/Jake]",
+  "ratings":{
+    "overall":4,
+    "use-case":5,
+    "design":4,
+    "technical":4
+  },
+  "review":"This dashboard gives me a nice breakdown of the types of email threats we experience over time. It would be nice to have some alerts bundled with this App."
+}

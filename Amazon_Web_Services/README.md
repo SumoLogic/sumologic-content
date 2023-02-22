@@ -1,47 +1,40 @@
-Contains all AWS technology and product lines for which Sumo Logic has content for.
+# Sumo Logic for Amazon Web Services
+Sumo Logic Community Content built for AWS products that are not yet published to the [App Catalog](https://help.sumologic.com/docs/integrations/).
 
-See [Sumo Logic Documentation](https://help.sumologic.com/) for instructions on how to collect logs and metrics for use with content.
+### To use the content:
+- Download the JSON file(s).
+- Find/replace all Source Categories within the JSON with your own Source Category (Ex: sourceCategory=yourSourceCategory).
+- [Import](https://help.sumologic.com/docs/get-started/library/#import-content) the content to your desired folder location in Sumo Logic.
 
-Guidelines PLEASE READ:
+### Collection:
+For instructions on how to collect logs and metrics for use with content, please see [Sumo Logic Documentation](https://help.sumologic.com/docs/send-data/).
 
-To contribute to subfolders or create new subfolders here, please follow the standards below:
+### To upload your own content:
+Please see [Sumo Logic Community Ecosystem Apps FAQs](https://help.sumologic.com/docs/integrations/community-ecosystem-apps/#faq).
 
-1. All application, dashboard and search content in .json format. Please use descriptive naming such as:
-   a. Company_TechnologyLine_ContentFunction. E.g. AWS_Kinesis_Errors.json or Sentinel_Vanguard_All.json
+### To add review/comment to content:
+Please provide a review/comment for this content by following the guidelines below:
 
-2. Relevant screenshot(s) in .png or equivalent format. Naming similar or equivalent to .json content it represents.
-   a. More than 1 screenshot? Please create a "Screenshots" folder.
+- Select the **Comments** folder.
+- Open the **Comments.json** file.
+- Select Edit (pen icon).
+- Add a new line below the current comments, and paste in your review/comment using the following schema:
 
-3. Create/update a README.md file (like this one) within the folder to track:
-   a. Technology and product lines, authors, versions, etc.
-   b. Link(s) to relevant 3rd party documentation to specify what types of data need to be collected for content to work.
+        {
+            "reviewer":"[githubid/name]",
+            "ratings":{
+                "overall":4,
+                "use-case":5,
+                "design":4,
+                "technical":4
+            },
+            "review":"This app is very useful for knowing x, y, and z. It would be great if the dashboards were broken out by use case instead of being one big dashboard."
+        }
 
-2017/12/04 - Updated:
 
-  Kinesis - Collect:
-  - AWS Cloudtrail Audit Logs (Kinesis API calls are stored here)
-  - AWS Kinesis Cloudwatch Metrics
-  For more information, see AWS's documentation on Kinesis Metrics here:
-  [AWS Kinesis Metrics and Dimensions](http://docs.aws.amazon.com/streams/latest/dev/monitoring-with-cloudwatch.html)
+- Select **Propose New Changes**.
+- Submit **Pull Request**.
 
-  Lambda - Collect:
-  - AWS Cloudwatch Metrics
-  For more information, see AWS's documentation here:
-  [AWS Lambda Metrics and Dimensions](http://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/lam-metricscollected.html)
+Code owners will review and merge your comments on the content to the repo.
 
-  RDS - Collect:
-  - AWS Cloudtrail Audit Logs (RDS API calls are stored here)
-  - AWS RDS Cloudwatch Metrics
-  For more information, see AWS's documentation on RDS Metrics here:
-  [AWS RDS Metrics and Dimensions](http://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/rds-metricscollected.html)
-
-  SNS - Collect:
-  - AWS Cloudwatch Metrics
-  For more information, see AWS's documentation here:
-  [AWS SNS Metrics and Dimensions](http://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/sns-metricscollected.html)
-
-  SQS - Collect:
-  - AWS Cloudtrail Audit Logs (SQS API calls are stored here)
-  - AWS SQS Cloudwatch Metrics
-  For more information, see AWS's documentation on SQS Metrics here:
-  [AWS SQS Metrics and Dimensions](http://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/sqs-metricscollected.html)
+Please see [How to add a review/comment to an app](https://help.sumologic.com/docs/integrations/community-ecosystem-apps/#how-do-i-add-a-reviewrating-to-an-app) for more information.

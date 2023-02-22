@@ -1,28 +1,44 @@
-#Sumo Logic application for AWS/Billing Cloudwatch metrics
+# Sumo Logic for AWS Billing Cloudwatch Metrics
+Sumo Logic Community Content built for AWS Billing CW Metrics not yet published to the [App Catalog](https://help.sumologic.com/docs/integrations/).
 
-Contains Dashboards for AWS Billing Cloudwatch Metrics.
+This dashboard provides high level insights into your AWS billing. Alerts can be generated from these metrics in Sumo Logic.
 
-To use the content:
-1. Collect [AWS Cloudwatch Metrics](https://help.sumologic.com/03Send-Data/Sources/02Sources-for-Hosted-Collectors/Amazon_Web_Services/Amazon_CloudWatch_Source_for_Metrics) from the AWS/Billing namespace. Note: Ensure you have enabled billing alerts in your AWS account to get these metrics.
-2. Download the raw JSON file and search for (CTRL+F / CMD+F) "_sourceCategory=*" to replace with "_sourceCategory=yourSourceCategory"
+![AWS/Billing Cloudwatch Metrics](AWS_Billing_Dash.png)
 
-[This dashboard provides high level insights into your AWS billing. The "Total AWS Charges" and "Total AWS Charges per minute" panels All of these metrics can be alerted off of as well.](https://raw.githubusercontent.com/SumoLogic/sumologic-content/master/Amazon_Web_Services/AWS_Billing/AWS_Billing_Dash.png)
+### To use the content:
+- Download the JSON file(s).
+- Find/replace all Source Categories within the JSON with your own Source Category (Ex: sourceCategory=yourSourceCategory).
+- [Import](https://help.sumologic.com/docs/get-started/library/#import-content) the content to your desired folder location in Sumo Logic.
+
+### Collection
+For instructions on how to collect logs and metrics for use with content, please see [Sumo Logic Documentation](https://help.sumologic.com/docs/send-data/). See [Amazon CloudWatch Source for Metrics](https://help.sumologic.com/docs/send-data/hosted-collectors/amazon-aws/amazon-cloudwatch-source-metrics/) or [AWS Kinesis Firehose for Metrics Source](https://help.sumologic.com/docs/send-data/hosted-collectors/amazon-aws/aws-kinesis-firehose-metrics-source/).
+
+### To upload your own content:
+Please see [Sumo Logic Community Ecosystem Apps FAQs](https://help.sumologic.com/docs/integrations/community-ecosystem-apps/#faq).
+
+### To add review/comment to content:
+Please provide a review/comment for this content by following the guidelines below:
+
+- Select the **Comments** folder.
+- Open the **Comments.json** file.
+- Select Edit (pen icon).
+- Add a new line below the current comments, and paste in your review/comment using the following schema:
+
+        {
+            "reviewer":"[githubid/name]",
+            "ratings":{
+                "overall":4,
+                "use-case":5,
+                "design":4,
+                "technical":4
+            },
+            "review":"This app is very useful for knowing x, y, and z. It would be great if the dashboards were broken out by use case instead of being one big dashboard."
+        }
 
 
+- Select **Propose New Changes**.
+- Submit **Pull Request**.
 
+Code owners will review and merge your comments on the content to the repo.
 
-
-See [Sumo Logic Documentation](https://help.sumologic.com/) for instructions on how to collect logs and metrics for use with content.
-
-Guidelines PLEASE READ:
-
-To contribute to subfolders or create new subfolders here, please follow the standards below:
-
-1. All application, dashboard and search content in .json format. Please use descriptive naming such as:
-   a. Company_TechnologyLine_ContentFunction. E.g. AWS_Kinesis_Errors.json or Sentinel_Vanguard_All.json
-
-2. Relevant screenshot(s) in .png or equivalent format. Naming similar or equivalent to .json content it represents.
-
-3. Create/update a README.md file (like this one) within the folder to track:
-   a. Technology and product lines, authors, versions, etc.
-   b. Link(s) to relevant 3rd party documentation to specify what types of data need to be collected for content to work.
+Please see [How to add a review/comment to an app](https://help.sumologic.com/docs/integrations/community-ecosystem-apps/#how-do-i-add-a-reviewrating-to-an-app) for more information.

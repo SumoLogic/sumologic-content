@@ -1,0 +1,10 @@
+{
+  "reviewer":"itshepo/Brandon",
+  "ratings":{
+    "overall":"[4]",
+    "use-case":"[4]",
+    "design":"[5]",
+    "technical":"[4]"
+  },
+  "review":"[I think the app is solid, I think we may want to have a few panels that potentially use the outlier operation or maybe even logreduce keys to help provide insights for customers and show off our differentiators."
+}

@@ -1,0 +1,10 @@
+{
+  "reviewer":"[kparekh010/Kirti]",
+  "ratings":{
+    "overall":"3.5",
+    "use-case":"3.5",
+    "design":"4",
+    "technical":"3.5"
+  },
+  "review":"This is a good dashboard to have an overview into the cortex xdr app. This app provides visibility into the alerts by severity, category along with providing trends over time. I also have ability to filter with host name, host ip and alert id. There is also a scheduled search which can be setup to send as a signal to the CSE environment."
+}
