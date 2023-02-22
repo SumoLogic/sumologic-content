@@ -1,0 +1,10 @@
+{
+  "reviewer":"[wjakelee/Jake]",
+  "ratings":{
+    "overall":4.5,
+    "use-case":5,
+    "design":4,
+    "technical":5
+  },
+  "review":"This App gives me all of this insights I would need into my fortigate firewall logs. Some of the panels don't work for me, but I think its because I need to enable more logging on the fortigate side. This App also comes with some scheduled alerts you can set up."
+}
