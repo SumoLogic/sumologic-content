@@ -5,7 +5,7 @@ This App consists of up to 7 dashboards for Symantec WSS, including Overview, TL
 
 ![overview](Screenshots/overview.png)
 
-![tls_versions](Screenshots/tls.png)
+![tls_versions](Screenshots/tls_versions.png)
 
 ![category_details](Screenshots/category_details.png)
 
