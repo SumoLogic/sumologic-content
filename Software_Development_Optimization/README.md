@@ -1,4 +1,4 @@
-
+# Sumo Logic for Software Development Optimization
 
 If your DevOps pipeline has tools that are not supported by Out of the Box toolset of [Software Development Optimization Solution] (https://help.sumologic.com/Other_Solutions/Software_Development_Optimization_Solution/01_About_the_Software_Development_Optimization_Solution) then you can integrate your tool, and map it to the relevant schema model. 
 
