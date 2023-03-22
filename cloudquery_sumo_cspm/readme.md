@@ -1,7 +1,7 @@
 # Welcome please click one of the three cloud providers below 
 
-[AWS](/AWS)
+[AWS](/cloudquery_sumo_cspm/AWS/)
 
-[Azure](/Azure)
+[Azure](/cloudquery_sumo_cspm/Azure/)
 
-[GCP](/GCP)
+[GCP](/cloudquery_sumo_cspm/GCP/)
