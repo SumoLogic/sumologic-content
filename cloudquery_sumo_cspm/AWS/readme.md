@@ -79,7 +79,7 @@ cloudquery sync aws.yml postgressql.yml
 ```
 Example: 
 
-![alt text](/AWS/screenshots/cloudquery_execute.png)
+![alt text](/cloudquery_sumo_cspm/AWS/screenshots/cloudquery_execute.png)
 
 
 ## This section is how we correlate all the configuration and policy data together. The results of this highlight if the customer is compliant/non-compliant.
@@ -118,20 +118,20 @@ psql postgres://$user:$PASSWORD@$RDS_HOSTNAME:5432/postgres -c "select * from aw
 
 Example:
 
-![alt text](/AWS/screenshots/local_file_source.png)
+![alt text](/cloudquery_sumo_cspm/AWS/screenshots/local_file_source.png)
 
 - We can now see our data in sumo: 
 
-![alt text](/AWS/screenshots/data_in_sumo.png)
+![alt text](/cloudquery_sumo_cspm/AWS/screenshots/data_in_sumo.png)
 
 
 - Query / Begin to parse the data in Sumo:
 
-![alt text](/AWS/screenshots/query_parse_data.png)
+![alt text](/cloudquery_sumo_cspm/AWS/screenshots/query_parse_data.png)
 
 - An example (quick albiet) dashboard for CISv1.5: 
 
-![alt text](/AWS/screenshots/example_CIS_Framework_Dashboard.png)
+![alt text](/cloudquery_sumo_cspm/AWS/screenshots/example_CIS_Framework_Dashboard.png)
 
 
 *If we wanted to do additional things like inventory with the data, this can be easy as well leveraging the work grafana already did [here](https://github.com/cloudquery/cq-provider-aws/blob/main/dashboards/grafana/aws_asset_inventory.json) by leveraging their DB queries since they used the default installation.*
