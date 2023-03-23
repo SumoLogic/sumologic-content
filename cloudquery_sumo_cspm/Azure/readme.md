@@ -73,7 +73,7 @@ cloudquery sync azure.yml postgressql.yml
 ```
 Example: 
 
-![alt text](/cloudquery_sumo_cspm/Azure/screenshots/cloudquery_execute.png)
+![alt text](/CSPM/CloudQuery/Azure/screenshots/cloudquery_execute.png)
 
 
 ## This section is how we correlate all the configuration and policy data together. The results of this highlight if the customer is compliant/non-compliant.
@@ -100,7 +100,7 @@ psql postgres://postgres:pass@localhost:5432/postgres -f policy.sql
 psql postgres://$user:$PASSWORD@$RDS_HOSTNAME:5432/postgres -c "select * from azure_policy_results" --csv > hipaa_hitrust_v9.2.csv
 ```
 
-*I have attached an example of the raw CSV output [here](/Azure/results/hipaa_hitrust_v9.2.csv)
+*I have attached an example of the raw CSV output [here](/CSPM/CloudQuery/Azure/results/hipaa_hitrust_v9.2.csv)
 
 
 8.  Now get this data into Sumo! 
@@ -111,20 +111,20 @@ psql postgres://$user:$PASSWORD@$RDS_HOSTNAME:5432/postgres -c "select * from az
 
 Example:
 
-![alt text](/cloudquery_sumo_cspm/Azure/screenshots/local_file_source.png)
+![alt text](/CSPM/CloudQuery/Azure/screenshots/local_file_source.png)
 
 - We can now see our data in sumo: 
 
-![alt text](/cloudquery_sumo_cspm/Azure/screenshots/data_in_sumo.png)
+![alt text](/CSPM/CloudQuery/Azure/screenshots/data_in_sumo.png)
 
 
 - Query / Begin to parse the data in Sumo:
 
-![alt text](/cloudquery_sumo_cspm/Azure/screenshots/query_parse_data.png)
+![alt text](/CSPM/CloudQuery/Azure/screenshots/query_parse_data.png)
 
 - An example (quick albiet) dashboard for HIPAA Hi-Trust: 
 
-![alt text](/cloudquery_sumo_cspm/Azure/screenshots/example_HIPAA_Hi-trust.png)
+![alt text](/CSPM/CloudQuery/Azure/screenshots/example_HIPAA_Hi-trust.png)
 
 
 ## Thank you for taking the time to review this POC code and I hope that we can get this into Sumo quickly!
