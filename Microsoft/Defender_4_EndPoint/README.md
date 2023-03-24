@@ -1,4 +1,4 @@
-# Microsoft Defender for EndPoint
+# Sumo Logic Microsoft Defender for EndPoint
 
 Sumo Logic Community Content built for Defender for EndPoint that is not published to the [App Catalog](https://help.sumologic.com/docs/integrations/).
 
