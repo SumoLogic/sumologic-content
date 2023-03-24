@@ -2,7 +2,7 @@
 
 Sumo Logic Community Content built for Defender for EndPoint that is not published to the [App Catalog](https://help.sumologic.com/docs/integrations/).
 
-![emaiL_events](Screenshots/emailEvents_Dashboard.png)
+![emaiL_events](Screenshots/Defende4Endpoint_EmailEvents.png)
 
 ## To use the content
 
