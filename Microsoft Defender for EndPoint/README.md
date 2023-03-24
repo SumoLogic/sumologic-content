@@ -2,6 +2,8 @@
 
 Sumo Logic Community Content built for Defender for EndPoint that is not published to the [App Catalog](https://help.sumologic.com/docs/integrations/).
 
+![emaiL_events](Screenshots/emailEvents_Dashboard.png)
+
 ## To use the content
 
 - Download the JSON file(s) in the Dashboards & FERs directory
