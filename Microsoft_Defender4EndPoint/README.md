@@ -18,7 +18,7 @@ Microsoft Defender for Endpoint helps stop attacks, scales endpoint security res
 
 Microsoft Defender for Endpoint logs a wide variety of events, and each event has a different log schema. Event names are captured in the "category" field of each log message, with most of the event details captured in the "properties" section of each log. For specific details on the log schema for each event that Defender for Endpoint logs, please reference the [Defender Schema Information](https://learn.microsoft.com/en-us/microsoft-365/security/defender/advanced-hunting-schema-tables?view=o365-worldwide).
 
-To make searching across these logs easier and more efficient, install [Field Extraction Rules](https://help.sumologic.com/docs/manage/field-extractions/) using the parsing logic contained in the "Defender4EndPoint_FERS.txt" file in the "Dashboards & FERS" directory. For more details on how to create field extraction rules, please reference[Creating a Field Extraction Rule](https://help.sumologic.com/docs/manage/field-extractions/create-field-extraction-rule/).
+To make searching across these logs easier and more efficient, install [Field Extraction Rules](https://help.sumologic.com/docs/manage/field-extractions/) using the parsing logic contained in the "Defender4EndPoint_FERS.txt" file in the "Dashboards & FERS" directory. For more details on how to create field extraction rules, please reference [Creating a Field Extraction Rule](https://help.sumologic.com/docs/manage/field-extractions/create-field-extraction-rule/).
 
 ### To upload your own content
 
