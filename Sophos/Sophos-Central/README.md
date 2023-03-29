@@ -1,9 +1,9 @@
 # Sumo Logic for Sophos Central
 Sumo Logic Community Content built for Sophos Central that is not published to the [App Catalog](https://help.sumologic.com/docs/integrations/).
 
-This is an app for Sophos Central. It contains dashboard for a quick overview into your sophos central environment.
+This is a dashboard for Sophos Central. It contains dashboard for a quick overview into your sophos central environment.
 
-![Screenshot-Sophos-Central-Overview](/Screenshot/Screenshot-Sophos-Central-Overview.png)
+![Screenshot-Sophos-Central-Overview](Screenshot/Screenshot-Sophos-Central-Overview.png)
 
 ### To use the content:
 - Download the JSON file(s).
@@ -42,3 +42,5 @@ Please provide a review/comment for this content by following the guidelines bel
 Code owners will review and merge your comments on the content to the repo.
 
 Please see [How to add a review/comment to an app](https://help.sumologic.com/docs/integrations/community-ecosystem-apps/#how-do-i-add-a-reviewrating-to-an-app) for more information.
+
+[def]: Screenshot/Screenshot-Sophos-Central-Overview.png
