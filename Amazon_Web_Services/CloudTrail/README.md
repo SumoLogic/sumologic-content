@@ -2,8 +2,6 @@
 
 Sumo Logic Community Content built for AWS CloudTrail that is not published to the [App Catalog](https://help.sumologic.com/docs/integrations/).
 
-![UserActivity](Screenshots/AWS User Activity.png)
-
 ## To use the content
 
 - Download the JSON file(s).
@@ -19,6 +17,8 @@ For instructions on how to collect CloudTrail logs and to use with content, plea
 This dashboard was built to monitor AWS user activity and actions using CloudTrail data. The panels contained in this dashboard use a combination of custom-built queries and queries that are already available via the App Catalog dashboards for CloudTrail logs. This dashboard was built to easily filter on a user or event and immediately view the relevant details and trends.
 
 This dashboard was initially developed using Field Extraction Rule to parse out the relevant fields and allow for more efficient dashboard filtering. It is recommended that  Field Extractions Rules for CloudTrail can be found within the “FERs” directory.
+
+![UserActivity](Screenshots/AWSUserActivity.png)
 
 ### To upload your own content
 
