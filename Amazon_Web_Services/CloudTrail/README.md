@@ -16,7 +16,7 @@ For instructions on how to collect CloudTrail logs and to use with content, plea
 
 This dashboard was built to monitor AWS user activity and actions using CloudTrail data. The panels contained in this dashboard use a combination of custom-built queries and queries that are already available via the App Catalog dashboards for CloudTrail logs. This dashboard was built to easily filter on a user or event and immediately view the relevant details and trends.
 
-This dashboard was initially developed using Field Extraction Rule to parse out the relevant fields and allow for more efficient dashboard filtering. It is recommended that  Field Extractions Rules for CloudTrail can be found within the “FERs” directory.
+To make searching across these logs easier and more efficient, install Field Extraction Rules using the parsing logic contained in the "CloudTrail_FERS.txt" file in the "Dashboard & FERs" directory. For more details on how to create field extraction rules, please reference [Creating a Field Extraction Rule](https://help.sumologic.com/docs/manage/field-extractions/create-field-extraction-rule/).
 
 ![UserActivity](Screenshots/AWSUserActivity.png)
 
