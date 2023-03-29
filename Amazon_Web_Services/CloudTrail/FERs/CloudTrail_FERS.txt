@@ -1,0 +1,41 @@
+CloudTrail FERS
+
+
+//Event parsers - parsing statements related to the user events captured by CloudTrail
+| parse "\"eventSource\":\"*\"" as event_source nodrop 
+| parse "\"eventName\":\"*\"" as event_name nodrop
+| parse regex field=event_name "^(?:Create|Run)(?<resource_type>[A-Z][A-Za-z]+)" nodrop 
+| parse regex field=event_name "^(?:Delete)(?<resource_type>[A-Z][A-Za-z]+)" nodrop
+| parse regex field=event_name "^(?<event>[A-Z][a-z]+?)[A-Z]" nodrop
+| parse "\"eventType\":\"*\"" as event_Type nodrop 
+| parse "\"sourceIPAddress\":\"*\"" as src_ip nodrop 
+| json "readOnly","userIdentity.accessKeyId","requestID","eventID" as readOnly, aws_access_key, requestID, eventID nodrop
+
+//login parsers - parsing statements for login related events captured by CloudTrail
+| parse "\"userName\":\"*\"" as user nodrop
+| parse "\"principalId\":\"*\"" as principalId nodrop | parse field=principalId "*:*" as accesskeyId, user_temp nodrop
+| parse "\"arn\":\"*\"" as arn nodrop | parse field=arn "*:*:*::*:*" as f1, f2, f3, f4, user_arn nodrop | parse field=arn "*:*:*::*:*/*/*" as f1, f2, f3, f4, f5, role, f7 nodrop
+| if (isEmpty(user) and !isEmpty(user_temp), user_temp, user) as user
+| if (isEmpty(user), user_arn, user ) as user
+| parse "\"errorMessage\":\"*\"" as errorMessage nodrop 
+| parse "\"errorCode\":\"*\"" as errorCode nodrop 
+| parse "\"MFAUsed\":\"*\"" as mfaUsed nodrop 
+| parse "\"responseElements\":{\"ConsoleLogin\":\"*\"}" as loginResult nodrop
+
+//security group parsers - parsing statements for security group related events that are captured by CloudTrail
+| parse "\"roleName\":\"*\"" as roleName nodrop 
+| parse "\"portRange\":{\"from\":*,\"to\":*}" as from_port,to_port nodrop 
+| parse "\"fromPort\":*,\"toPort\":*," as from_Port,to_Port nodrop 
+| parse "\"cidrBlock\":\"*\"" as cidr_block nodrop 
+| parse "\"cidrIp\":\"*\"" as cidr_ip nodrop 
+| parse "\"egress\":*," as egress nodrop  
+| parse "\"ruleAction\":\"*\"" as rule_action nodrop 
+| parse "\"groupName\":\"*\"," as groupName nodrop 
+| parse "\"groupDescription\":\"*\"," as groupDescription nodrop 
+| parse "\"groupId\":\"*\"" as groupId nodrop 
+| parse regex field=event_name "SecurityGroup(?<direction>[A-Za-z]+)" nodrop
+
+
+//aws related parsers - parsering statements to identify the region and account the event occurred within
+| parse "\"awsRegion\":\"*\"" as aws_Region nodrop
+| json "recipientAccountId" as recipient_acc_id nodrop 
