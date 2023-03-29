@@ -2,6 +2,8 @@
 
 Sumo Logic Community Content built for AWS CloudTrail that is not published to the [App Catalog](https://help.sumologic.com/docs/integrations/).
 
+![UserActivity](Screenshots/AWS User Activity.png)
+
 ## To use the content
 
 - Download the JSON file(s).
