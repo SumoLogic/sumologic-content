@@ -1,0 +1,471 @@
+{
+    "type": "DashboardV2SyncDefinition",
+    "name": "Defender for Endpoint - Email Events (FERS)",
+    "description": "",
+    "title": "Defender for Endpoint - Email Events (FERS)",
+    "theme": "Dark",
+    "topologyLabelMap": {
+        "data": {}
+    },
+    "refreshInterval": 0,
+    "timeRange": {
+        "type": "BeginBoundedTimeRange",
+        "from": {
+            "type": "RelativeTimeRangeBoundary",
+            "relativeTime": "-1d"
+        },
+        "to": null
+    },
+    "layout": {
+        "layoutType": "Grid",
+        "layoutStructures": [
+            {
+                "key": "panelBE249B279494A94A",
+                "structure": "{\"height\":9,\"width\":8,\"x\":16,\"y\":20}"
+            },
+            {
+                "key": "panelB02F63AD9EF3E845",
+                "structure": "{\"height\":1,\"width\":24,\"x\":0,\"y\":0}"
+            },
+            {
+                "key": "panel6E959FDF9386D844",
+                "structure": "{\"height\":9,\"width\":3,\"x\":0,\"y\":20}"
+            },
+            {
+                "key": "panel106469F3A0FC5849",
+                "structure": "{\"height\":9,\"width\":9,\"x\":3,\"y\":20}"
+            },
+            {
+                "key": "panel0FDB85A6B0327A45",
+                "structure": "{\"height\":1,\"width\":24,\"x\":0,\"y\":19}"
+            },
+            {
+                "key": "panel9504B806A080A940",
+                "structure": "{\"height\":9,\"width\":24,\"x\":0,\"y\":10}"
+            },
+            {
+                "key": "panelPANE-192A6F149742AB4B",
+                "structure": "{\"height\":9,\"width\":4,\"x\":0,\"y\":1}"
+            },
+            {
+                "key": "panelAC851ADC8AED1B49",
+                "structure": "{\"height\":9,\"width\":13,\"x\":4,\"y\":1}"
+            },
+            {
+                "key": "panel43DD87A6A1D6494F",
+                "structure": "{\"height\":9,\"width\":7,\"x\":17,\"y\":1}"
+            },
+            {
+                "key": "panelPANE-604F56F8B2F2B84F",
+                "structure": "{\"height\":11,\"width\":24,\"x\":0,\"y\":38}"
+            },
+            {
+                "key": "panel6CED6902B28D1942",
+                "structure": "{\"height\":9,\"width\":4,\"x\":12,\"y\":20}"
+            },
+            {
+                "key": "panelEDEF5162B31C1A46",
+                "structure": "{\"height\":9,\"width\":4,\"x\":0,\"y\":29}"
+            },
+            {
+                "key": "panelA153C860B0203A46",
+                "structure": "{\"height\":9,\"width\":11,\"x\":13,\"y\":29}"
+            },
+            {
+                "key": "panel4EC50966B6C07940",
+                "structure": "{\"height\":9,\"width\":9,\"x\":4,\"y\":29}"
+            }
+        ]
+    },
+    "panels": [
+        {
+            "id": null,
+            "key": "panelBE249B279494A94A",
+            "title": "Phishing Events - Sender Locations",
+            "visualSettings": "{\"title\":{\"fontSize\":14},\"general\":{\"type\":\"map\",\"displayType\":\"default\",\"mode\":\"map\"},\"series\":{}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=*defender* \"Phish\"\n\n| where !(actionType matches \"Phish ZAP\" or actionType matches \"Malware ZAP\" or actionType matches \"Manual remediation\")\n| where recipientEmail matches \"{{Recipient_Email}}\" | where detection_methods matches \"{{Detection_Methods}}\"\n| lookup latitude, longitude from geo://location on ip = sender_ipaddress\n| count by latitude, longitude\n| sort by _count",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panelB02F63AD9EF3E845",
+            "title": "",
+            "visualSettings": "{\"general\":{\"mode\":\"TextPanel\",\"type\":\"text\",\"displayType\":\"default\"},\"title\":{\"fontSize\":14},\"series\":{},\"legend\":{\"enabled\":false},\"text\":{\"format\":\"markdownV2\",\"verticalAlignment\":\"center\",\"horizontalAlignment\":\"center\",\"backgroundColor\":\"#005982\",\"textColor\":\"white\",\"showTitle\":false}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "TextPanel",
+            "text": "ZAP Events"
+        },
+        {
+            "id": null,
+            "key": "panel6E959FDF9386D844",
+            "title": "Total Phishing Events",
+            "visualSettings": "{\"title\":{\"fontSize\":14},\"general\":{\"type\":\"svp\",\"displayType\":\"default\",\"mode\":\"singleValueMetrics\"},\"svp\":{\"option\":\"Sum\",\"unitify\":false,\"label\":\"Total\",\"useBackgroundColor\":false,\"useNoData\":false,\"noDataString\":\"No data\",\"hideData\":false,\"hideLabel\":false,\"rounding\":2,\"valueFontSize\":24,\"labelFontSize\":14,\"thresholds\":[{\"from\":null,\"to\":null,\"color\":\"#16943E\"},{\"from\":null,\"to\":null,\"color\":\"#DFBE2E\"},{\"from\":null,\"to\":null,\"color\":\"#BF2121\"}],\"sparkline\":{\"show\":true,\"color\":\"#222D3B\"},\"gauge\":{\"show\":false}},\"series\":{}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=*defender* \"Phish\"\n\n| where !(actionType matches \"Phish ZAP\" or actionType matches \"Malware ZAP\" or actionType matches \"Manual remediation\")\n| where threatTypes matches \"*Phish*\"\n| where recipientEmail matches \"{{Recipient_Email}}\" | where detection_methods matches \"{{Detection_Methods}}\"\n| timeslice 1m \n| count as Total by _timeslice",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "RelativeTimeRangeBoundary",
+                    "relativeTime": "-1d"
+                },
+                "to": null
+            },
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panel106469F3A0FC5849",
+            "title": "Phishing Events - Outlier Trend",
+            "visualSettings": "{\"title\":{\"fontSize\":14},\"general\":{\"type\":\"line\",\"displayType\":\"default\",\"markerSize\":5,\"lineDashType\":\"solid\",\"markerType\":\"none\",\"lineThickness\":1,\"mode\":\"timeSeries\"},\"axes\":{\"axisX\":{\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"titleFontSize\":12,\"labelFontSize\":12,\"logarithmic\":false}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"bottom\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":false,\"wrap\":true},\"color\":{\"family\":\"Categorical Default\"},\"series\":{},\"overrides\":[]}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=*defender* \"Phish\"\n\n| where !(actionType matches \"Phish ZAP\" or actionType matches \"Malware ZAP\" or actionType matches \"Manual remediation\")\n| where threatTypes matches \"*Phish*\"\n| where recipientEmail matches \"{{Recipient_Email}}\" | where detection_methods matches \"{{Detection_Methods}}\"\n| timeslice 30m\n| count as Total by _timeslice\n| outlier Total window=5,threshold=3,consecutive=2,direction=+-",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "RelativeTimeRangeBoundary",
+                    "relativeTime": "-1d"
+                },
+                "to": null
+            },
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panel0FDB85A6B0327A45",
+            "title": " (Copy)",
+            "visualSettings": "{\"general\":{\"mode\":\"TextPanel\",\"type\":\"text\",\"displayType\":\"default\"},\"title\":{\"fontSize\":14},\"series\":{},\"legend\":{\"enabled\":false},\"text\":{\"format\":\"markdownV2\",\"verticalAlignment\":\"center\",\"horizontalAlignment\":\"center\",\"backgroundColor\":\"#005982\",\"textColor\":\"white\",\"showTitle\":false}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "TextPanel",
+            "text": "Phishing Events"
+        },
+        {
+            "id": null,
+            "key": "panel9504B806A080A940",
+            "title": "ZAP Event Details",
+            "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"table\",\"displayType\":\"default\"},\"version\":3,\"settings\":{\"table\":{\"version\":2,\"configuration\":{\"textTruncationMode\":\"none\",\"fontSize\":\"medium\",\"fontSizeOverride\":null,\"tableState\":null}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"pie\":{\"chartType\":\"pie\",\"version\":3,\"configuration\":{\"donutMode\":true,\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"label\":{\"truncationMode\":\"middle\"},\"showSliceBorders\":true,\"maxNumOfPieSlices\":\"10\"}}},\"boxplot\":{\"chartType\":\"boxplot\",\"version\":1,\"configuration\":{\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"}},\"yAxis\":{\"title\":null,\"min\":null,\"max\":null}}},\"map\":{\"chartType\":\"map\",\"version\":1,\"configuration\":{\"maptype\":\"cluster\"}},\"svv\":{\"version\":2,\"configuration\":{\"colorOverride\":null,\"backgroundColorEnabled\":false,\"noDataBehavior\":{\"enabled\":false,\"color\":\"#cccccc\",\"value\":null,\"isString\":null},\"valueType\":{\"number\":{\"showNumber\":true,\"unit\":null,\"colorsByValueRange\":null},\"boolean\":{\"trueColor\":\"#6aa84f\",\"falseColor\":\"#cc0000\"}},\"labels\":{\"prefix\":{\"enabled\":false,\"text\":\"\",\"align\":\"left\"},\"postfix\":{\"enabled\":false,\"text\":\"\",\"align\":\"right\"}}}},\"sankey\":{\"version\":1,\"configuration\":{}},\"text\":{\"version\":1,\"configuration\":{\"text\":null}},\"metrics\":{\"version\":2,\"configuration\":{\"blockSettings\":{},\"viewType\":\"timeline\",\"zoom\":\"xy\",\"yAxis\":{\"defaults\":[{\"name\":\"\"},{\"name\":\"\"}],\"custom\":[{},{}]},\"xAxis\":{\"scrubber\":true},\"outliers\":{\"enabled\":true,\"top\":1,\"scope\":\"Chart\",\"cyclicality\":false,\"threshold\":7,\"autoShowBand\":true},\"colorFamily\":\"METRIC_DEFAULT\"}},\"common\":{\"version\":1,\"configuration\":{\"drilldown\":{\"fallback\":{\"target\":{\"id\":null,\"name\":null,\"enabled\":null}}}}}},\"series\":{}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": " _sourceCategory=*defender* \"Phish ZAP\" or \"Malware ZAP\"\n\n| where actionType matches \"Phish ZAP\" or actionType matches \"Malware ZAP\" or actionType matches \"Manual remediation\"\n| where recipientEmail matches \"{{Recipient_Email}}\" | where detection_methods matches \"{{Detection_Methods}}\"\n| actionType as emailActionPolicy\n| timeslice 1s\n| count by recipientEmail, emailActionPolicy, action, actionResult, actionTrigger, detection_methods, _timeslice\n| fields -_count | sort by _timeslice",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panelPANE-192A6F149742AB4B",
+            "title": "ZAP Events",
+            "visualSettings": "{\"general\":{\"mode\":\"singleValueMetrics\",\"type\":\"svp\",\"displayType\":\"default\"},\"title\":{\"fontSize\":14},\"svp\":{\"option\":\"Sum\",\"unitify\":false,\"label\":\"Total\",\"useBackgroundColor\":false,\"useNoData\":false,\"noDataString\":\"No data\",\"hideData\":false,\"hideLabel\":false,\"rounding\":2,\"valueFontSize\":24,\"labelFontSize\":14,\"thresholds\":[{\"from\":0,\"to\":49,\"color\":\"#16943E\"},{\"from\":50,\"to\":125,\"color\":\"#DFBE2E\"},{\"from\":125,\"to\":250,\"color\":\"#BF2121\"}],\"sparkline\":{\"show\":false,\"color\":\"#dfbe2e\"},\"gauge\":{\"show\":true,\"max\":250}},\"series\":{},\"legend\":{\"enabled\":false}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": " _sourceCategory=*defender* \"Phish ZAP\" or \"Malware ZAP\"\n\n| where actionType matches \"Phish ZAP\" or actionType matches \"Malware ZAP\" or actionType matches \"Manual remediation\"\n| where recipientEmail matches \"{{Recipient_Email}}\" | where detection_methods matches \"{{Detection_Methods}}\"\n| count by category, recipientEmail, actionType, action, actionResult, actionTrigger, detection_methods",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panelAC851ADC8AED1B49",
+            "title": "ZAP Events per Hour",
+            "visualSettings": "{\"title\":{\"fontSize\":14},\"axes\":{\"axisX\":{\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"titleFontSize\":12,\"labelFontSize\":12,\"logarithmic\":false}},\"legend\":{\"enabled\":false,\"verticalAlign\":\"bottom\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":false,\"wrap\":true},\"color\":{\"family\":\"Categorical Default\"},\"series\":{},\"overrides\":[],\"general\":{\"type\":\"column\",\"displayType\":\"default\",\"fillOpacity\":1,\"mode\":\"timeSeries\"}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": " _sourceCategory=*defender* \"Phish ZAP\" or \"Malware ZAP\"\n\n| where actionType matches \"Phish ZAP\" or actionType matches \"Malware ZAP\" or actionType matches \"Manual remediation\"\n| where recipientEmail matches \"{{Recipient_Email}}\" | where detection_methods matches \"{{Detection_Methods}}\"\n| timeslice 1h\n\n\n// Total events per hour\n| count as Total by _timeslice\n\n\n//Total event per hour by recipient email - change display type to \"stacked\"\n//| count as Total by recipientEmail, _timeslice\n//| transpose row _timeslice column recipientEmail",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panel43DD87A6A1D6494F",
+            "title": "Top 10 Recipients",
+            "visualSettings": "{\"title\":{\"fontSize\":14},\"axes\":{\"axisX\":{\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"titleFontSize\":12,\"labelFontSize\":12}},\"series\":{},\"general\":{\"type\":\"table\",\"displayType\":\"default\",\"paginationPageSize\":100,\"fontSize\":12,\"mode\":\"distribution\"}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": " _sourceCategory=*defender* \"Phish ZAP\" or \"Malware ZAP\"\n\n| where actionType matches \"Phish ZAP\" or actionType matches \"Malware ZAP\" or actionType matches \"Manual remediation\"\n| where recipientEmail matches \"{{Recipient_Email}}\" | where detection_methods matches \"{{Detection_Methods}}\"\n| count as Total by recipientEmail | sort by Total desc | limit 10",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panelPANE-604F56F8B2F2B84F",
+            "title": "Phish Events - Details Table",
+            "visualSettings": "{\"title\":{\"fontSize\":14},\"axes\":{\"axisX\":{\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"titleFontSize\":12,\"labelFontSize\":12}},\"series\":{},\"general\":{\"type\":\"table\",\"displayType\":\"default\",\"paginationPageSize\":100,\"fontSize\":12,\"mode\":\"distribution\"},\"legend\":{\"enabled\":false}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=*defender* \"Phish\"\n\n| where threatTypes matches \"*Phish*\"\n| where !(actionType matches \"Phish ZAP\" or actionType matches \"Malware ZAP\" or actionType matches \"Manual remediation\")\n| where recipientEmail matches \"{{Recipient_Email}}\" | where detection_methods matches \"{{Detection_Methods}}\"\n| emailAction as Action\n| timeslice 1m \n| count as Total by _timeslice, recipientEmail, Action, emailDeliveryAction, emailActionPolicy, deliveryLocation, detection_methods, emailDirection\n| fields -Total | sort by _timeslice ",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panel6CED6902B28D1942",
+            "title": "Top 10 Recipient Emails",
+            "visualSettings": "{\"title\":{\"fontSize\":14},\"axes\":{\"axisX\":{\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"titleFontSize\":12,\"labelFontSize\":12}},\"series\":{},\"general\":{\"type\":\"table\",\"displayType\":\"default\",\"paginationPageSize\":100,\"fontSize\":12,\"mode\":\"distribution\"}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=*defender* \"Phish\"\n\n| where !(actionType matches \"Phish ZAP\" or actionType matches \"Malware ZAP\" or actionType matches \"Manual remediation\")\n| where threatTypes matches \"*Phish*\"\n| where recipientEmail matches \"{{Recipient_Email}}\" | where detection_methods matches \"{{Detection_Methods}}\"\n| count as Total by recipientEmail | sort by Total | limit 10\n",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panelEDEF5162B31C1A46",
+            "title": "Email Direction of Phishing Events",
+            "visualSettings": "{\"title\":{\"fontSize\":14},\"axes\":{\"axisX\":{\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"titleFontSize\":12,\"labelFontSize\":12}},\"series\":{},\"legend\":{\"enabled\":false},\"general\":{\"type\":\"table\",\"displayType\":\"default\",\"paginationPageSize\":100,\"fontSize\":12,\"mode\":\"distribution\"}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=*defender* \"Phish\"\n\n| where !(actionType matches \"Phish ZAP\" or actionType matches \"Malware ZAP\" or actionType matches \"Manual remediation\")\n| where threatTypes matches \"*Phish*\"\n| where recipientEmail matches \"{{Recipient_Email}}\" | where detection_methods matches \"{{Detection_Methods}}\"\n\n// filter out null results caused by the nodrop parsing\n//| if (isNull(emailDirection), \"null\", emailDirection) as emailDirection\n//| where !(emailDirection matches \"null\")\n\n\n// simple count of each emailDirection for phishing events\n| count as Total by emailDirection | sort by Total\n\n// Display trends of emailDirection over time for phishing events\n//| timeslice 1h\n//| count as Total by emailDirection, _timeslice | sort by Total | transpose row _timeslice column emailDirection",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panelA153C860B0203A46",
+            "title": "Triggered Email Policies",
+            "visualSettings": "{\"title\":{\"fontSize\":14},\"axes\":{\"axisX\":{\"titleFontSize\":12,\"labelFontSize\":12,\"title\":\" \"},\"axisY\":{\"titleFontSize\":12,\"labelFontSize\":12,\"title\":\" \"}},\"series\":{},\"general\":{\"type\":\"column\",\"displayType\":\"default\",\"fillOpacity\":1,\"mode\":\"distribution\"},\"legend\":{\"enabled\":false},\"overrides\":[]}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=*defender* \"Phish\"\n\n| where !(actionType matches \"Phish ZAP\" or actionType matches \"Malware ZAP\" or actionType matches \"Manual remediation\")\n| where threatTypes matches \"*Phish*\"\n| where recipientEmail matches \"{{Recipient_Email}}\" | where detection_methods matches \"{{Detection_Methods}}\"\n\n// filter out null results caused by the nodrop parsing\n//| if (isNull(emailActionPolicy), \"null\", emailActionPolicy) as emailActionPolicy\n//| where !(emailActionPolicy matches \"null\")\n\n// simple count of triggered email policies sorted from most to least\n| count as Total by emailActionPolicy | sort by Total \n\n// trends of the triggered email policies over time\n//| timeslice 1h | count as Total by _timeslice, emailActionPolicy | sort by _timeslice | transpose row _timeslice column emailActionPolicy",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panel4EC50966B6C07940",
+            "title": "Email Delivery Action - Trends",
+            "visualSettings": "{\"title\":{\"fontSize\":14},\"general\":{\"type\":\"line\",\"displayType\":\"default\",\"markerSize\":5,\"lineDashType\":\"solid\",\"markerType\":\"none\",\"lineThickness\":1,\"mode\":\"timeSeries\"},\"axes\":{\"axisX\":{\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"titleFontSize\":12,\"labelFontSize\":12,\"logarithmic\":false}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"bottom\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":false,\"wrap\":true},\"color\":{\"family\":\"Categorical Default\"},\"series\":{},\"overrides\":[]}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=*defender* \"Phish\"\n\n| where !(actionType matches \"Phish ZAP\" or actionType matches \"Malware ZAP\" or actionType matches \"Manual remediation\")\n| where threatTypes matches \"*Phish*\"\n| where recipientEmail matches \"{{Recipient_Email}}\" | where detection_methods matches \"{{Detection_Methods}}\"\n\n// filter out null results caused by the nodrop parsing\n//| if (isNull(emailDeliveryAction), \"null\", emailDeliveryAction) as emailDeliveryAction\n//| where !(emailDeliveryAction matches \"null\")\n\n// simple count of the EmailDeliveryAction sorted from most to least\n//| count as Total by emailDeliveryAction | sort by Total\n\n// EmailDeliveryAction trends over time\n| timeslice 1h | count as Total by emailDeliveryAction, _timeslice | sort by _timeslice | transpose row _timeslice column emailDeliveryAction",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        }
+    ],
+    "variables": [
+        {
+            "id": null,
+            "name": "Recipient_Email",
+            "displayName": "Recipient_Email",
+            "defaultValue": "*",
+            "sourceDefinition": {
+                "variableSourceType": "LogQueryVariableSourceDefinition",
+                "query": " _sourceCategory=*defender* | count by recipientEmail",
+                "field": "recipientemail"
+            },
+            "allowMultiSelect": false,
+            "includeAllOption": true,
+            "hideFromUI": false,
+            "valueType": "Any"
+        },
+        {
+            "id": null,
+            "name": "Detection_Methods",
+            "displayName": "Detection_Methods",
+            "defaultValue": "*",
+            "sourceDefinition": {
+                "variableSourceType": "LogQueryVariableSourceDefinition",
+                "query": "_sourceCategory=*defender* | count by detection_methods",
+                "field": "detection_methods"
+            },
+            "allowMultiSelect": false,
+            "includeAllOption": true,
+            "hideFromUI": false,
+            "valueType": "Any"
+        }
+    ],
+    "coloringRules": []
+}

@@ -1,0 +1,483 @@
+{
+    "type": "DashboardV2SyncDefinition",
+    "name": "AWS User Activity",
+    "description": "See information about your AWS users, including user locations, administrative activities, and instance launch and termination by users.",
+    "title": "AWS User Activity",
+    "theme": "Dark",
+    "topologyLabelMap": {
+        "data": {}
+    },
+    "refreshInterval": 0,
+    "timeRange": {
+        "type": "BeginBoundedTimeRange",
+        "from": {
+            "type": "RelativeTimeRangeBoundary",
+            "relativeTime": "-1d"
+        },
+        "to": null
+    },
+    "layout": {
+        "layoutType": "Grid",
+        "layoutStructures": [
+            {
+                "key": "panelCD343514A3D6EB42",
+                "structure": "{\"height\":9,\"width\":8,\"x\":0,\"y\":1}"
+            },
+            {
+                "key": "panelPANE-D2A14923B2792A4E",
+                "structure": "{\"height\":1,\"width\":24,\"x\":0,\"y\":0}"
+            },
+            {
+                "key": "panel21BAAF6B8EF27845",
+                "structure": "{\"height\":1,\"width\":24,\"x\":0,\"y\":19}"
+            },
+            {
+                "key": "panel99E79AA18BFEC94D",
+                "structure": "{\"height\":9,\"width\":9,\"x\":6,\"y\":10}"
+            },
+            {
+                "key": "panel5FBB6042BB019A42",
+                "structure": "{\"height\":9,\"width\":6,\"x\":8,\"y\":1}"
+            },
+            {
+                "key": "panelF95B6D389D3B8843",
+                "structure": "{\"height\":9,\"width\":9,\"x\":15,\"y\":10}"
+            },
+            {
+                "key": "panel0766AAB9A44FA845",
+                "structure": "{\"height\":9,\"width\":6,\"x\":0,\"y\":10}"
+            },
+            {
+                "key": "panelPANE-CBC80F64BA216A47",
+                "structure": "{\"height\":9,\"width\":8,\"x\":0,\"y\":20}"
+            },
+            {
+                "key": "panel595BD4A5BBF84A41",
+                "structure": "{\"height\":9,\"width\":10,\"x\":14,\"y\":1}"
+            },
+            {
+                "key": "panel45E7C407822FFA40",
+                "structure": "{\"height\":1,\"width\":24,\"x\":0,\"y\":29}"
+            },
+            {
+                "key": "panel1737135A8FFE4A49",
+                "structure": "{\"height\":9,\"width\":8,\"x\":8,\"y\":20}"
+            },
+            {
+                "key": "panel52427AEB949A6B43",
+                "structure": "{\"height\":9,\"width\":8,\"x\":16,\"y\":20}"
+            },
+            {
+                "key": "panel69DE08408FFB7946",
+                "structure": "{\"height\":10,\"width\":24,\"x\":0,\"y\":30}"
+            }
+        ]
+    },
+    "panels": [
+        {
+            "id": null,
+            "key": "panelCD343514A3D6EB42",
+            "title": "User location",
+            "visualSettings": "{\"general\":{\"mode\":\"map\",\"type\":\"map\",\"displayType\":\"default\"},\"version\":3,\"settings\":{\"table\":{\"version\":2,\"configuration\":{\"textTruncationMode\":\"none\",\"fontSize\":\"medium\",\"fontSizeOverride\":null,\"tableState\":null,\"seriesInfo\":{\"_count\":{\"yAxis\":0,\"color\":\"#1677B6\"},\"latitude\":{\"yAxis\":0,\"color\":\"#A5CEE4\"},\"longitude\":{\"yAxis\":0,\"color\":\"#2CA221\"}}}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{\"_count\":{\"yAxis\":0,\"color\":\"#1677B6\"},\"latitude\":{\"yAxis\":0,\"color\":\"#A5CEE4\"},\"longitude\":{\"yAxis\":0,\"color\":\"#2CA221\"}},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{\"_count\":{\"yAxis\":0,\"color\":\"#1677B6\"},\"latitude\":{\"yAxis\":0,\"color\":\"#A5CEE4\"},\"longitude\":{\"yAxis\":0,\"color\":\"#2CA221\"}},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{\"_count\":{\"yAxis\":0,\"color\":\"#1677B6\"},\"latitude\":{\"yAxis\":0,\"color\":\"#A5CEE4\"},\"longitude\":{\"yAxis\":0,\"color\":\"#2CA221\"}},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{\"_count\":{\"yAxis\":0,\"color\":\"#1677B6\"},\"latitude\":{\"yAxis\":0,\"color\":\"#A5CEE4\"},\"longitude\":{\"yAxis\":0,\"color\":\"#2CA221\"}},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"pie\":{\"chartType\":\"pie\",\"version\":3,\"configuration\":{\"donutMode\":true,\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"label\":{\"truncationMode\":\"middle\"},\"showSliceBorders\":true,\"maxNumOfPieSlices\":\"10\"}}},\"boxplot\":{\"chartType\":\"boxplot\",\"version\":1,\"configuration\":{\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"}},\"yAxis\":{\"title\":null,\"min\":null,\"max\":null}}},\"map\":{\"chartType\":\"map\",\"version\":1,\"configuration\":{\"maptype\":\"cluster\",\"seriesInfo\":{\"_count\":{\"yAxis\":0,\"color\":\"#1677B6\"},\"latitude\":{\"yAxis\":0,\"color\":\"#A5CEE4\"},\"longitude\":{\"yAxis\":0,\"color\":\"#2CA221\"}}}},\"svv\":{\"version\":2,\"configuration\":{\"colorOverride\":null,\"backgroundColorEnabled\":false,\"noDataBehavior\":{\"enabled\":false,\"color\":\"#cccccc\",\"value\":null,\"isString\":null},\"valueType\":{\"number\":{\"showNumber\":true,\"unit\":null,\"colorsByValueRange\":null},\"boolean\":{\"trueColor\":\"#6aa84f\",\"falseColor\":\"#cc0000\"}},\"labels\":{\"prefix\":{\"enabled\":false,\"text\":\"\",\"align\":\"left\"},\"postfix\":{\"enabled\":false,\"text\":\"\",\"align\":\"right\"}}}},\"sankey\":{\"version\":1,\"configuration\":{}},\"text\":{\"version\":1,\"configuration\":{\"text\":null}},\"metrics\":{\"version\":2,\"configuration\":{\"blockSettings\":{},\"viewType\":\"timeline\",\"zoom\":\"xy\",\"yAxis\":{\"defaults\":[{\"name\":\"\"},{\"name\":\"\"}],\"custom\":[{},{}]},\"xAxis\":{\"scrubber\":true},\"outliers\":{\"enabled\":true,\"top\":1,\"scope\":\"Chart\",\"cyclicality\":false,\"threshold\":7,\"autoShowBand\":true},\"colorFamily\":\"METRIC_DEFAULT\"}},\"common\":{\"version\":1,\"configuration\":{\"drilldown\":{\"fallback\":{\"target\":{\"id\":null,\"name\":null,\"enabled\":null}}}}}},\"series\":{}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=*cloudtrail*\n| parse \"\\\"eventSource\\\":\\\"*\\\"\" as event_source nodrop \n| parse \"\\\"eventName\\\":\\\"*\\\"\" as event_name nodrop\n| parse \"\\\"eventType\\\":\\\"*\\\"\" as event_Type nodrop \n| parse \"\\\"awsRegion\\\":\\\"*\\\"\" as aws_Region nodrop \n| parse \"\\\"sourceIPAddress\\\":\\\"*\\\"\" as src_ip nodrop \n| parse \"\\\"userName\\\":\\\"*\\\"\" as user nodrop\n| json \"recipientAccountId\" as recipient_acc_id nodrop\n\n| where user matches \"{{user}}\" | where event_name matches \"{{event_name}}\" | where event_source matches \"{{event_source}}\" | where event_Type matches \"{{event_type}}\" | where aws_Region matches \"{{aws_region}}\" | where src_ip matches \"{{src_ip}}\" | where recipient_acc_id matches \"{{aws_account_ID}}\"\n| count by user,src_ip  \n| lookup latitude, longitude, country_code,country_name from geo://location on ip = src_ip",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panelPANE-D2A14923B2792A4E",
+            "title": "",
+            "visualSettings": "{\"general\":{\"mode\":\"TextPanel\",\"type\":\"text\",\"displayType\":\"default\"},\"title\":{\"fontSize\":14},\"series\":{},\"text\":{\"format\":\"markdownV2\",\"backgroundColor\":\"#005982\",\"textColor\":\"white\",\"verticalAlignment\":\"center\",\"horizontalAlignment\":\"center\",\"showTitle\":false},\"legend\":{\"enabled\":false}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "TextPanel",
+            "text": "User Activity Overview & Trends"
+        },
+        {
+            "id": null,
+            "key": "panel21BAAF6B8EF27845",
+            "title": "",
+            "visualSettings": "{\"general\":{\"mode\":\"TextPanel\",\"type\":\"text\",\"displayType\":\"default\"},\"title\":{\"fontSize\":14},\"series\":{},\"text\":{\"format\":\"markdownV2\",\"backgroundColor\":\"#005982\",\"textColor\":\"white\",\"verticalAlignment\":\"center\",\"horizontalAlignment\":\"center\",\"showTitle\":false},\"legend\":{\"enabled\":false}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "TextPanel",
+            "text": "Created & Deleted Resources"
+        },
+        {
+            "id": null,
+            "key": "panel99E79AA18BFEC94D",
+            "title": "User Action & Edit Events - Trends",
+            "visualSettings": "{\"title\":{\"fontSize\":14},\"axes\":{\"axisX\":{\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"titleFontSize\":12,\"labelFontSize\":12,\"logarithmic\":false}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"bottom\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":false,\"wrap\":true},\"color\":{\"family\":\"Categorical Default\"},\"series\":{\"A_AssumeRole\":{\"visible\":true},\"A_AssumeRoleWithSAML\":{\"visible\":true},\"A_AttachVolume\":{\"visible\":true},\"A_BatchGetResourceConfig\":{\"visible\":true},\"A_ChangeResourceRecordSets\":{\"visible\":true},\"A_CompleteLifecycleAction\":{\"visible\":true},\"A_ConsoleLogin\":{\"visible\":true},\"A_CopyDBClusterSnapshot\":{\"visible\":true},\"A_CopyDBSnapshot\":{\"visible\":true},\"A_CopyImage\":{\"visible\":true},\"A_CreateApplicationVersion\":{\"visible\":true},\"A_CreateGrant\":{\"visible\":true},\"A_CreateImage\":{\"visible\":true},\"A_CreateInvalidation\":{\"visible\":true},\"A_CreateLaunchTemplate\":{\"visible\":true},\"A_CreateLogStream\":{\"visible\":true},\"A_CreateNetworkInterface\":{\"visible\":true},\"A_CreateNetworkInterfacePermission\":{\"visible\":true},\"A_CreateQueue\":{\"visible\":true},\"A_CreateSnapshot\":{\"visible\":true},\"A_CreateTags\":{\"visible\":true},\"A_CreateVolume\":{\"visible\":true},\"A_Decrypt\":{\"visible\":true},\"A_DeleteAlarms\":{\"visible\":true},\"A_DeleteApplicationVersion\":{\"visible\":true},\"A_DeleteArchive\":{\"visible\":true},\"A_DeleteDBSnapshot\":{\"visible\":true},\"A_DeleteNetworkInterface\":{\"visible\":true},\"A_DeleteQueue\":{\"visible\":true},\"A_DeleteSnapshot\":{\"visible\":true},\"A_DeregisterImage\":{\"visible\":true},\"A_DeregisterTargets\":{\"visible\":true},\"A_DisableAlarmActions\":{\"visible\":true},\"A_EnableAlarmActions\":{\"visible\":true},\"A_Encrypt\":{\"visible\":true},\"A_GenerateCredentialReport\":{\"visible\":true},\"A_GenerateDataKey\":{\"visible\":true},\"A_GitPull\":{\"visible\":true},\"A_ModifyInstanceAttribute\":{\"visible\":true},\"A_ModifyNetworkInterfaceAttribute\":{\"visible\":true},\"A_MonitorInstances\":{\"visible\":true},\"A_NewClientConnection\":{\"visible\":true},\"A_OpenDataChannel\":{\"visible\":true},\"A_PutEvaluations\":{\"visible\":true},\"A_PutMetricAlarm\":{\"visible\":true},\"A_RegisterTargets\":{\"visible\":true},\"A_ResumeProcesses\":{\"visible\":true},\"A_RetireGrant\":{\"visible\":true},\"A_RunInstances\":{\"visible\":true},\"A_RunJobFlow\":{\"visible\":true},\"A_SelectResourceConfig\":{\"visible\":true},\"A_SendCommand\":{\"visible\":true},\"A_SendSerialConsoleSSHPublicKey\":{\"visible\":true},\"A_SetQueueAttributes\":{\"visible\":true},\"A_SharedSnapshotVolumeCreated\":{\"visible\":true},\"A_StartConnection\":{\"visible\":true},\"A_StartSession\":{\"visible\":true},\"A_Subscribe\":{\"visible\":true},\"A_SuspendProcesses\":{\"visible\":true},\"A_SynchronizeMultiRegionKey\":{\"visible\":true},\"A_TerminateInstances\":{\"visible\":true},\"A_TerminateSession\":{\"visible\":true},\"A_Unsubscribe\":{\"visible\":true},\"A_UpdateAutoScalingGroup\":{\"visible\":true},\"A_UpdateEnvironment\":{\"visible\":true},\"A_UpdateIPSet\":{\"visible\":true},\"A_UpdateInstanceInformation\":{\"visible\":true},\"A_UploadArchive\":{\"visible\":true}},\"general\":{\"type\":\"line\",\"displayType\":\"default\",\"markerSize\":5,\"lineDashType\":\"solid\",\"markerType\":\"none\",\"lineThickness\":1,\"mode\":\"timeSeries\"},\"overrides\":[]}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=*cloudtrail*\n| parse \"\\\"eventSource\\\":\\\"*\\\"\" as event_source nodrop \n| parse \"\\\"eventName\\\":\\\"*\\\"\" as event_name nodrop\n| parse \"\\\"eventType\\\":\\\"*\\\"\" as event_Type nodrop \n| parse \"\\\"awsRegion\\\":\\\"*\\\"\" as aws_Region nodrop \n| parse \"\\\"sourceIPAddress\\\":\\\"*\\\"\" as src_ip nodrop \n| parse \"\\\"userName\\\":\\\"*\\\"\" as user nodrop\n| parse regex field=event_name \"^(?<event>[A-Z][a-z]+?)[A-Z]\"\n| json \"recipientAccountId\" as recipient_acc_id nodrop\n| where event not in (\"Get\",\"Describe\",\"List\")\n| where user matches \"{{user}}\" | where event_name matches \"{{event_name}}\" | where event_source matches \"{{event_source}}\" | where event_Type matches \"{{event_type}}\" | where aws_Region matches \"{{aws_region}}\" | where src_ip matches \"{{src_ip}}\" | where recipient_acc_id matches \"{{aws_account_ID}}\"\n| timeslice 1h\n| count by event_name, _timeslice\n| transpose row _timeslice column event_name",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panel5FBB6042BB019A42",
+            "title": "Top 10 Users",
+            "visualSettings": "{\"settings\":{\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"legend\":{\"position\":\"right\",\"enabled\":false},\"xAxis\":{\"title\":\"\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"\",\"logScale\":false,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{\"count\":{\"yAxis\":0,\"color\":\"#1677B6\"}}}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"legend\":{\"position\":\"right\",\"enabled\":false},\"xAxis\":{\"title\":\"\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"\",\"logScale\":false,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{\"count\":{\"yAxis\":0,\"color\":\"#1677B6\"}}}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"legend\":{\"position\":\"right\",\"enabled\":false},\"xAxis\":{\"title\":\"\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"\",\"logScale\":false,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{\"count\":{\"yAxis\":0,\"color\":\"#1677B6\"}}}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"legend\":{\"position\":\"right\",\"enabled\":false},\"xAxis\":{\"title\":\"\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"\",\"logScale\":false,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{\"count\":{\"yAxis\":0,\"color\":\"#1677B6\"}}}},\"pie\":{\"chartType\":\"pie\",\"version\":2,\"configuration\":{\"legend\":{\"position\":\"right\",\"enabled\":false},\"xAxis\":{\"title\":\"\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"\",\"logScale\":false,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{\"count\":{\"yAxis\":0,\"color\":\"#1677B6\"}}}},\"table\":{\"chartType\":\"table\",\"version\":2,\"configuration\":{\"legend\":{\"position\":\"right\",\"enabled\":false},\"xAxis\":{\"title\":\"\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"\",\"logScale\":false,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{\"count\":{\"yAxis\":0,\"color\":\"#1677B6\"}}}},\"map\":{\"chartType\":\"map\",\"version\":2,\"configuration\":{\"legend\":{\"position\":\"right\",\"enabled\":false},\"xAxis\":{\"title\":\"\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"\",\"logScale\":false,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{\"count\":{\"yAxis\":0,\"color\":\"#1677B6\"}}}}},\"series\":{},\"overrides\":[],\"general\":{\"type\":\"table\",\"displayType\":\"default\",\"paginationPageSize\":100,\"fontSize\":12,\"mode\":\"distribution\"}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=*cloudtrail*\n| parse \"\\\"eventSource\\\":\\\"*\\\"\" as event_source nodrop \n| parse \"\\\"eventName\\\":\\\"*\\\"\" as event_name nodrop\n| parse \"\\\"eventType\\\":\\\"*\\\"\" as event_Type nodrop \n| parse \"\\\"awsRegion\\\":\\\"*\\\"\" as aws_Region nodrop \n| parse \"\\\"sourceIPAddress\\\":\\\"*\\\"\" as src_ip nodrop \n| parse \"\\\"userName\\\":\\\"*\\\"\" as user nodrop\n| json \"recipientAccountId\" as recipient_acc_id nodrop\n\n| where user matches \"{{user}}\" | where event_name matches \"{{event_name}}\" | where event_source matches \"{{event_source}}\" | where event_Type matches \"{{event_type}}\" | where aws_Region matches \"{{aws_region}}\" | where src_ip matches \"{{src_ip}}\" | where recipient_acc_id matches \"{{aws_account_ID}}\"\n| where !(isBlank(user))\n| count as event_count by user | sort by event_count | limit 10",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Manual",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panelF95B6D389D3B8843",
+            "title": "User Actions",
+            "visualSettings": "{\"title\":{\"fontSize\":14},\"axes\":{\"axisX\":{\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"titleFontSize\":12,\"labelFontSize\":12}},\"series\":{},\"legend\":{\"enabled\":false},\"general\":{\"type\":\"pie\",\"displayType\":\"default\",\"fillOpacity\":1,\"startAngle\":270,\"innerRadius\":\"30%\",\"maxNumOfSlices\":10,\"mode\":\"distribution\"}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=*cloudtrail*\n| parse \"\\\"eventSource\\\":\\\"*\\\"\" as event_source nodrop \n| parse \"\\\"eventName\\\":\\\"*\\\"\" as event_name nodrop\n| parse \"\\\"eventType\\\":\\\"*\\\"\" as event_Type nodrop \n| parse \"\\\"awsRegion\\\":\\\"*\\\"\" as aws_Region nodrop \n| parse \"\\\"sourceIPAddress\\\":\\\"*\\\"\" as src_ip nodrop \n| parse \"\\\"userName\\\":\\\"*\\\"\" as user nodrop\n| parse regex field=event_name \"^(?<event>[A-Z][a-z]+?)[A-Z]\"\n| json \"recipientAccountId\" as recipient_acc_id nodrop\n| where !(isBlank(event))\n| where user matches \"{{user}}\" | where event_name matches \"{{event_name}}\" | where event_source matches \"{{event_source}}\" | where event_Type matches \"{{event_type}}\" | where aws_Region matches \"{{aws_region}}\" | where src_ip matches \"{{src_ip}}\" | where recipient_acc_id matches \"{{aws_account_ID}}\"\n \n//| timeslice 1h\n//| count as Total _timeslice, event\n//| sort by Total\n//| transpose row _timeslice column event\n\n| count as Total by event\n| sort by Total",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panel0766AAB9A44FA845",
+            "title": "Total User Events",
+            "visualSettings": "{\"title\":{\"fontSize\":14},\"axes\":{\"axisX\":{\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"titleFontSize\":12,\"labelFontSize\":12}},\"series\":{},\"general\":{\"type\":\"table\",\"displayType\":\"default\",\"paginationPageSize\":100,\"fontSize\":12,\"mode\":\"distribution\"}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=*cloudtrail*\n| parse \"\\\"eventSource\\\":\\\"*\\\"\" as event_source nodrop \n| parse \"\\\"eventName\\\":\\\"*\\\"\" as event_name nodrop\n| parse \"\\\"eventType\\\":\\\"*\\\"\" as event_Type nodrop \n| parse \"\\\"awsRegion\\\":\\\"*\\\"\" as aws_Region nodrop \n| parse \"\\\"sourceIPAddress\\\":\\\"*\\\"\" as src_ip nodrop \n| parse \"\\\"userName\\\":\\\"*\\\"\" as user nodrop\n| json \"recipientAccountId\" as recipient_acc_id nodrop\n\n| where user matches \"{{user}}\" | where event_name matches \"{{event_name}}\" | where event_source matches \"{{event_source}}\" | where event_Type matches \"{{event_type}}\" | where aws_Region matches \"{{aws_region}}\" | where src_ip matches \"{{src_ip}}\" | where recipient_acc_id matches \"{{aws_account_ID}}\"\n//| timeslice 1h\n| count by event_name\n| sort by _count\n//| transpose row _timeslice column event_name",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panelPANE-CBC80F64BA216A47",
+            "title": "Created vs Deleted Resources",
+            "visualSettings": "{\"general\":{\"mode\":\"timeSeries\",\"type\":\"line\",\"displayType\":\"default\",\"markerSize\":5,\"lineDashType\":\"solid\",\"markerType\":\"none\",\"lineThickness\":1},\"title\":{\"fontSize\":14},\"axes\":{\"axisX\":{\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"titleFontSize\":12,\"labelFontSize\":12,\"logarithmic\":false}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"bottom\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":false,\"wrap\":true},\"color\":{\"family\":\"Categorical Default\"},\"series\":{},\"overrides\":[{\"series\":[\"created\"],\"queries\":[],\"properties\":{\"type\":\"column\"}},{\"series\":[\"deleted\"],\"queries\":[],\"properties\":{\"color\":\"#ffb5b5\"}}]}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=*cloudtrail* (Create* OR Run* OR Delete*)\n| parse \"\\\"eventSource\\\":\\\"*\\\"\" as event_source nodrop \n| parse \"\\\"eventName\\\":\\\"*\\\"\" as event_name nodrop\n| parse \"\\\"eventType\\\":\\\"*\\\"\" as event_Type nodrop \n| parse \"\\\"awsRegion\\\":\\\"*\\\"\" as aws_Region nodrop \n| parse \"\\\"sourceIPAddress\\\":\\\"*\\\"\" as src_ip nodrop \n| parse \"\\\"userName\\\":\\\"*\\\"\" as user nodrop\n| json \"recipientAccountId\" as recipient_acc_id nodrop\n\n| where user matches \"{{user}}\" | where event_name matches \"{{event_name}}\" | where event_source matches \"{{event_source}}\" | where event_Type matches \"{{event_type}}\" | where aws_Region matches \"{{aws_region}}\" | where src_ip matches \"{{src_ip}}\" | where recipient_acc_id matches \"{{aws_account_ID}}\"\n| if(event_name matches \"Create*\", \"created\", if(event_name matches \"Run*\", \"created\", if(event_name matches \"Delete*\", \"deleted\", \"neither\"))) as Created_Deleted\n| where !(Created_Deleted matches \"neither\")\n| timeslice 1h\n| count _timeslice, Created_Deleted\n| transpose row _timeslice column Created_Deleted",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panel595BD4A5BBF84A41",
+            "title": "Total User Activity - Outlier Trend",
+            "visualSettings": "{\"title\":{\"fontSize\":14},\"general\":{\"type\":\"line\",\"displayType\":\"default\",\"markerSize\":5,\"lineDashType\":\"solid\",\"markerType\":\"none\",\"lineThickness\":1,\"mode\":\"timeSeries\"},\"axes\":{\"axisX\":{\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"titleFontSize\":12,\"labelFontSize\":12,\"logarithmic\":false}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"bottom\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":false,\"wrap\":true},\"color\":{\"family\":\"Categorical Default\"},\"series\":{},\"overrides\":[]}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=*cloudtrail*\n| parse \"\\\"eventSource\\\":\\\"*\\\"\" as event_source nodrop \n| parse \"\\\"eventName\\\":\\\"*\\\"\" as event_name nodrop\n| parse \"\\\"eventType\\\":\\\"*\\\"\" as event_Type nodrop \n| parse \"\\\"awsRegion\\\":\\\"*\\\"\" as aws_Region nodrop \n| parse \"\\\"sourceIPAddress\\\":\\\"*\\\"\" as src_ip nodrop \n| json \"recipientAccountId\" as recipient_acc_id nodrop\n\n| where user matches \"{{user}}\" | where event_name matches \"{{event_name}}\" | where event_source matches \"{{event_source}}\" | where event_Type matches \"{{event_type}}\" | where aws_Region matches \"{{aws_region}}\" | where src_ip matches \"{{src_ip}}\" | where recipient_acc_id matches \"{{aws_account_ID}}\"\n| timeslice 1h\n| count as event_count by _timeslice\n| outlier event_count window=5,threshold=3,consecutive=2,direction=+-",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Manual",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panel45E7C407822FFA40",
+            "title": " (Copy) (Copy)",
+            "visualSettings": "{\"general\":{\"mode\":\"TextPanel\",\"type\":\"text\",\"displayType\":\"default\"},\"title\":{\"fontSize\":14},\"series\":{},\"text\":{\"format\":\"markdownV2\",\"backgroundColor\":\"#005982\",\"textColor\":\"white\",\"verticalAlignment\":\"center\",\"horizontalAlignment\":\"center\",\"showTitle\":false},\"legend\":{\"enabled\":false}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "TextPanel",
+            "text": "User Activity Details"
+        },
+        {
+            "id": null,
+            "key": "panel1737135A8FFE4A49",
+            "title": "Deleted Resources Over Time",
+            "visualSettings": "{\"version\":3,\"settings\":{\"table\":{\"version\":2,\"configuration\":{\"textTruncationMode\":\"none\",\"fontSize\":\"medium\",\"fontSizeOverride\":null,\"tableState\":null,\"seriesInfo\":{}}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"pie\":{\"chartType\":\"pie\",\"version\":3,\"configuration\":{\"donutMode\":true,\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"label\":{\"truncationMode\":\"middle\"},\"showSliceBorders\":true,\"maxNumOfPieSlices\":\"10\"}}},\"boxplot\":{\"chartType\":\"boxplot\",\"version\":1,\"configuration\":{\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"}},\"yAxis\":{\"title\":null,\"min\":null,\"max\":null}}},\"map\":{\"chartType\":\"map\",\"version\":1,\"configuration\":{\"maptype\":\"cluster\",\"seriesInfo\":{}}},\"svv\":{\"version\":2,\"configuration\":{\"colorOverride\":null,\"backgroundColorEnabled\":false,\"noDataBehavior\":{\"enabled\":false,\"color\":\"#cccccc\",\"value\":null,\"isString\":null},\"valueType\":{\"number\":{\"showNumber\":true,\"unit\":null,\"colorsByValueRange\":null},\"boolean\":{\"trueColor\":\"#6aa84f\",\"falseColor\":\"#cc0000\"}},\"labels\":{\"prefix\":{\"enabled\":false,\"text\":\"\",\"align\":\"left\"},\"postfix\":{\"enabled\":false,\"text\":\"\",\"align\":\"right\"}}}},\"sankey\":{\"version\":1,\"configuration\":{}},\"text\":{\"version\":1,\"configuration\":{\"text\":null}},\"metrics\":{\"version\":2,\"configuration\":{\"blockSettings\":{},\"viewType\":\"timeline\",\"zoom\":\"xy\",\"yAxis\":{\"defaults\":[{\"name\":\"\"},{\"name\":\"\"}],\"custom\":[{},{}]},\"xAxis\":{\"scrubber\":true},\"outliers\":{\"enabled\":true,\"top\":1,\"scope\":\"Chart\",\"cyclicality\":false,\"threshold\":7,\"autoShowBand\":true},\"colorFamily\":\"METRIC_DEFAULT\"}},\"common\":{\"version\":1,\"configuration\":{\"drilldown\":{\"fallback\":{\"target\":{\"id\":null,\"name\":null,\"enabled\":null}}}}}},\"series\":{},\"general\":{\"type\":\"column\",\"displayType\":\"stacked\",\"fillOpacity\":1,\"mode\":\"timeSeries\"},\"overrides\":[]}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=*cloudtrail* Delete*\n| parse \"\\\"eventSource\\\":\\\"*\\\"\" as event_source nodrop \n| parse \"\\\"eventName\\\":\\\"*\\\"\" as event_name nodrop\n| parse \"\\\"eventType\\\":\\\"*\\\"\" as event_Type nodrop \n| parse \"\\\"awsRegion\\\":\\\"*\\\"\" as aws_Region nodrop \n| parse \"\\\"sourceIPAddress\\\":\\\"*\\\"\" as src_ip nodrop \n| parse \"\\\"userName\\\":\\\"*\\\"\" as user nodrop\n| parse \"\\\"userName\\\":\\\"*\\\"\" as user_name nodrop\n| json field=_raw \"userIdentity.principalId\" as principal_id nodrop\n| parse regex field = principal_id \":(?<user_principal>.+)\" nodrop\n| parse regex field=event_name \"^(?:Delete)(?<resource_type>[A-Z][A-Za-z]+)\"\n| json \"recipientAccountId\" as recipient_acc_id nodrop\n| where !(isBlank(resource_type))\n| if (user_name=\"\", user_principal, user_name) as user \n| timeslice 1h \n\n| where user matches \"{{user}}\" | where event_name matches \"{{event_name}}\" | where event_source matches \"{{event_source}}\" | where event_Type matches \"{{event_type}}\" | where aws_Region matches \"{{aws_region}}\" | where src_ip matches \"{{src_ip}}\" | where recipient_acc_id matches \"{{aws_account_ID}}\"\n\n| count _timeslice, resource_type\n| transpose row _timeslice column resource_type\n",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panel52427AEB949A6B43",
+            "title": "Created Resources Over Time",
+            "visualSettings": "{\"version\":3,\"settings\":{\"table\":{\"version\":2,\"configuration\":{\"textTruncationMode\":\"none\",\"fontSize\":\"medium\",\"fontSizeOverride\":null,\"tableState\":null,\"seriesInfo\":{}}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"pie\":{\"chartType\":\"pie\",\"version\":3,\"configuration\":{\"donutMode\":true,\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"label\":{\"truncationMode\":\"middle\"},\"showSliceBorders\":true,\"maxNumOfPieSlices\":\"10\"}}},\"boxplot\":{\"chartType\":\"boxplot\",\"version\":1,\"configuration\":{\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"}},\"yAxis\":{\"title\":null,\"min\":null,\"max\":null}}},\"map\":{\"chartType\":\"map\",\"version\":1,\"configuration\":{\"maptype\":\"cluster\",\"seriesInfo\":{}}},\"svv\":{\"version\":2,\"configuration\":{\"colorOverride\":null,\"backgroundColorEnabled\":false,\"noDataBehavior\":{\"enabled\":false,\"color\":\"#cccccc\",\"value\":null,\"isString\":null},\"valueType\":{\"number\":{\"showNumber\":true,\"unit\":null,\"colorsByValueRange\":null},\"boolean\":{\"trueColor\":\"#6aa84f\",\"falseColor\":\"#cc0000\"}},\"labels\":{\"prefix\":{\"enabled\":false,\"text\":\"\",\"align\":\"left\"},\"postfix\":{\"enabled\":false,\"text\":\"\",\"align\":\"right\"}}}},\"sankey\":{\"version\":1,\"configuration\":{}},\"text\":{\"version\":1,\"configuration\":{\"text\":null}},\"metrics\":{\"version\":2,\"configuration\":{\"blockSettings\":{},\"viewType\":\"timeline\",\"zoom\":\"xy\",\"yAxis\":{\"defaults\":[{\"name\":\"\"},{\"name\":\"\"}],\"custom\":[{},{}]},\"xAxis\":{\"scrubber\":true},\"outliers\":{\"enabled\":true,\"top\":1,\"scope\":\"Chart\",\"cyclicality\":false,\"threshold\":7,\"autoShowBand\":true},\"colorFamily\":\"METRIC_DEFAULT\"}},\"common\":{\"version\":1,\"configuration\":{\"drilldown\":{\"fallback\":{\"target\":{\"id\":null,\"name\":null,\"enabled\":null}}}}}},\"series\":{},\"general\":{\"type\":\"column\",\"displayType\":\"stacked\",\"fillOpacity\":1,\"mode\":\"timeSeries\"},\"overrides\":[]}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=*cloudtrail* (Create* OR Run*)\n| parse \"\\\"eventSource\\\":\\\"*\\\"\" as event_source nodrop \n| parse \"\\\"eventName\\\":\\\"*\\\"\" as event_name nodrop\n| parse \"\\\"eventType\\\":\\\"*\\\"\" as event_Type nodrop \n| parse \"\\\"awsRegion\\\":\\\"*\\\"\" as aws_Region nodrop \n| parse \"\\\"sourceIPAddress\\\":\\\"*\\\"\" as src_ip nodrop \n| parse \"\\\"userName\\\":\\\"*\\\"\" as user nodrop\n| parse \"\\\"userName\\\":\\\"*\\\"\" as user_name nodrop\n| json field=_raw \"userIdentity.principalId\" as principal_id nodrop\n| parse regex field = principal_id \":(?<user_principal>.+)\" nodrop\n| if (user_name=\"\", user_principal, user_name) as user \n| parse regex field=event_name \"^(?:Create|Run)(?<resource_type>[A-Z][A-Za-z]+)\" nodrop\n| json \"recipientAccountId\" as recipient_acc_id nodrop\n| where !(isBlank(resource_type))\n| where user matches \"{{user}}\" | where event_name matches \"{{event_name}}\" | where event_source matches \"{{event_source}}\" | where event_Type matches \"{{event_type}}\" | where aws_Region matches \"{{aws_region}}\" | where src_ip matches \"{{src_ip}}\" | where recipient_acc_id matches \"{{aws_account_ID}}\"\n| timeslice 1h\n| count _timeslice, resource_type\n| transpose row _timeslice column resource_type",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panel69DE08408FFB7946",
+            "title": "User Activity - Details",
+            "visualSettings": "{\"general\":{\"mode\":\"timeSeries\",\"type\":\"table\",\"displayType\":\"default\"},\"version\":3,\"settings\":{\"table\":{\"version\":2,\"configuration\":{\"textTruncationMode\":\"none\",\"fontSize\":\"medium\",\"fontSizeOverride\":null,\"tableState\":null}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"pie\":{\"chartType\":\"pie\",\"version\":3,\"configuration\":{\"donutMode\":true,\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"label\":{\"truncationMode\":\"middle\"},\"showSliceBorders\":true,\"maxNumOfPieSlices\":\"10\"}}},\"boxplot\":{\"chartType\":\"boxplot\",\"version\":1,\"configuration\":{\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"}},\"yAxis\":{\"title\":null,\"min\":null,\"max\":null}}},\"map\":{\"chartType\":\"map\",\"version\":1,\"configuration\":{\"maptype\":\"cluster\"}},\"svv\":{\"version\":2,\"configuration\":{\"colorOverride\":null,\"backgroundColorEnabled\":false,\"noDataBehavior\":{\"enabled\":false,\"color\":\"#cccccc\",\"value\":null,\"isString\":null},\"valueType\":{\"number\":{\"showNumber\":true,\"unit\":null,\"colorsByValueRange\":null},\"boolean\":{\"trueColor\":\"#6aa84f\",\"falseColor\":\"#cc0000\"}},\"labels\":{\"prefix\":{\"enabled\":false,\"text\":\"\",\"align\":\"left\"},\"postfix\":{\"enabled\":false,\"text\":\"\",\"align\":\"right\"}}}},\"sankey\":{\"version\":1,\"configuration\":{}},\"text\":{\"version\":1,\"configuration\":{\"text\":null}},\"metrics\":{\"version\":2,\"configuration\":{\"blockSettings\":{},\"viewType\":\"timeline\",\"zoom\":\"xy\",\"yAxis\":{\"defaults\":[{\"name\":\"\"},{\"name\":\"\"}],\"custom\":[{},{}]},\"xAxis\":{\"scrubber\":true},\"outliers\":{\"enabled\":true,\"top\":1,\"scope\":\"Chart\",\"cyclicality\":false,\"threshold\":7,\"autoShowBand\":true},\"colorFamily\":\"METRIC_DEFAULT\"}},\"common\":{\"version\":1,\"configuration\":{\"drilldown\":{\"fallback\":{\"target\":{\"id\":null,\"name\":null,\"enabled\":null}}}}}},\"series\":{}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=*cloudtrail*\n| parse \"\\\"eventSource\\\":\\\"*\\\"\" as event_source nodrop \n| parse \"\\\"eventName\\\":\\\"*\\\"\" as event_name nodrop\n| parse regex field=event_name \"^(?:Create|Run)(?<resource_type>[A-Z][A-Za-z]+)\" nodrop \n| parse regex field=event_name \"^(?:Delete)(?<resource_type>[A-Z][A-Za-z]+)\" nodrop\n| parse regex field=event_name \"^(?<event>[A-Z][a-z]+?)[A-Z]\" nodrop\n| parse \"\\\"eventType\\\":\\\"*\\\"\" as event_Type nodrop \n| parse \"\\\"awsRegion\\\":\\\"*\\\"\" as aws_Region nodrop \n| parse \"\\\"sourceIPAddress\\\":\\\"*\\\"\" as src_ip nodrop \n| parse \"\\\"userName\\\":\\\"*\\\"\" as user nodrop\n| parse \"\\\"principalId\\\":\\\"*\\\"\" as principalId nodrop | parse field=principalId \"*:*\" as accesskeyId, user_temp nodrop\n| parse \"\\\"arn\\\":\\\"*\\\"\" as arn nodrop | parse field=arn \"*:*:*::*:*\" as f1, f2, f3, f4, user_arn nodrop | parse field=arn \"*:*:*::*:*/*/*\" as f1, f2, f3, f4, f5, role, f7 nodrop\n| if (isEmpty(user) and !isEmpty(user_temp), user_temp, user) as user\n| if (isEmpty(user), user_arn, user ) as user\n| json \"readOnly\",\"userIdentity.accessKeyId\",\"requestID\",\"eventID\" as readOnly, aws_access_key, requestID, eventID nodrop\n| json \"recipientAccountId\" as acc_id nodrop\n| where user matches \"{{user}}\" | where event_name matches \"{{event_name}}\" | where event_source matches \"{{event_source}}\" | where event_Type matches \"{{event_type}}\" | where aws_Region matches \"{{aws_region}}\" | where src_ip matches \"{{src_ip}}\" | where acc_id matches \"{{aws_account_ID}}\"\n| timeslice 1s\n| count as Total by _timeslice, user, event_name, event, resource_type, event_Type, event_source, readOnly, aws_access_key, requestID, eventID, arn, src_ip, aws_region, acc_id\n| sort by _timeslice\n| fields -Total",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Manual",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        }
+    ],
+    "variables": [
+        {
+            "id": null,
+            "name": "event_name",
+            "displayName": "event_name",
+            "defaultValue": "*",
+            "sourceDefinition": {
+                "variableSourceType": "LogQueryVariableSourceDefinition",
+                "query": "_sourceCategory=*cloudtrail* \n| parse \"\\\"eventName\\\":\\\"*\\\"\" as event_name nodrop\n| count by event_name",
+                "field": "event_name"
+            },
+            "allowMultiSelect": false,
+            "includeAllOption": true,
+            "hideFromUI": false,
+            "valueType": "Any"
+        },
+        {
+            "id": null,
+            "name": "user",
+            "displayName": "user",
+            "defaultValue": "*",
+            "sourceDefinition": {
+                "variableSourceType": "LogQueryVariableSourceDefinition",
+                "query": "_sourceCategory=*cloudtrail*\n| parse \"\\\"userName\\\":\\\"*\\\"\" as user nodrop\n| parse \"\\\"principalId\\\":\\\"*\\\"\" as principalId nodrop | parse field=principalId \"*:*\" as accesskeyId, user_temp nodrop\n| parse \"\\\"arn\\\":\\\"*\\\"\" as arn nodrop | parse field=arn \"*:*:*::*:*\" as f1, f2, f3, f4, user_arn nodrop | parse field=arn \"*:*:*::*:*/*/*\" as f1, f2, f3, f4, f5, role, f7 nodrop\n| if (isEmpty(user) and !isEmpty(user_temp), user_temp, user) as user\n| if (isEmpty(user), user_arn, user ) as user\n| count by user",
+                "field": "user"
+            },
+            "allowMultiSelect": false,
+            "includeAllOption": true,
+            "hideFromUI": false,
+            "valueType": "Any"
+        },
+        {
+            "id": null,
+            "name": "event_type",
+            "displayName": "event_type",
+            "defaultValue": "*",
+            "sourceDefinition": {
+                "variableSourceType": "LogQueryVariableSourceDefinition",
+                "query": "_sourceCategory=*cloudtrail*\n| parse \"\\\"eventType\\\":\\\"*\\\"\" as event_Type nodrop\n| count by event_Type ",
+                "field": "event_type"
+            },
+            "allowMultiSelect": false,
+            "includeAllOption": true,
+            "hideFromUI": false,
+            "valueType": "Any"
+        },
+        {
+            "id": null,
+            "name": "event_source",
+            "displayName": "event_source",
+            "defaultValue": "*",
+            "sourceDefinition": {
+                "variableSourceType": "LogQueryVariableSourceDefinition",
+                "query": "_sourceCategory=*cloudtrail*\n| parse \"\\\"eventSource\\\":\\\"*\\\"\" as event_source nodrop \n| count by event_source",
+                "field": "event_source"
+            },
+            "allowMultiSelect": false,
+            "includeAllOption": true,
+            "hideFromUI": false,
+            "valueType": "Any"
+        },
+        {
+            "id": null,
+            "name": "src_ip",
+            "displayName": "src_ip",
+            "defaultValue": "*",
+            "sourceDefinition": {
+                "variableSourceType": "LogQueryVariableSourceDefinition",
+                "query": "_sourceCategory=*cloudtrail*\n| parse \"\\\"sourceIPAddress\\\":\\\"*\\\"\" as src_ip nodrop\n| count by src_ip",
+                "field": "src_ip"
+            },
+            "allowMultiSelect": false,
+            "includeAllOption": true,
+            "hideFromUI": false,
+            "valueType": "Any"
+        },
+        {
+            "id": null,
+            "name": "aws_region",
+            "displayName": "aws_region",
+            "defaultValue": "*",
+            "sourceDefinition": {
+                "variableSourceType": "LogQueryVariableSourceDefinition",
+                "query": "_sourceCategory=*cloudtrail*\n| parse \"\\\"awsRegion\\\":\\\"*\\\"\" as aws_Region nodrop \n| count by aws_region",
+                "field": "aws_Region"
+            },
+            "allowMultiSelect": false,
+            "includeAllOption": true,
+            "hideFromUI": false,
+            "valueType": "Any"
+        },
+        {
+            "id": null,
+            "name": "aws_account_ID",
+            "displayName": "aws_account_ID",
+            "defaultValue": "*",
+            "sourceDefinition": {
+                "variableSourceType": "LogQueryVariableSourceDefinition",
+                "query": "_sourceCategory=*cloudtrail* | json \"recipientAccountId\" as recipient_acc_id | count by recipient_acc_id",
+                "field": "recipient_acc_id"
+            },
+            "allowMultiSelect": false,
+            "includeAllOption": true,
+            "hideFromUI": false,
+            "valueType": "Any"
+        }
+    ],
+    "coloringRules": []
+}

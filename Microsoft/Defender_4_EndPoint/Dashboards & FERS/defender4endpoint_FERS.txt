@@ -1,4 +1,28 @@
+Defender for EndPoint FERs
+
+Parsers needed to make Defender for EndPoint - Email Events Dashboard work:
+
 | json "category" as category nodrop
+| json "properties.RecipientEmailAddress" as recipientEmail nodrop
+| json "properties.DeliveryAction" as emailDeliveryAction nodrop
+| json "properties.EmailActionPolicy" as emailActionPolicy nodrop
+| json "properties.DeliveryLocation" as deliveryLocation nodrop
+| json "properties.DetectionMethods" as detectionMethods nodrop
+| json field=detectionMethods "Phish[0]" as detection_methods nodrop
+| json "properties.EmailDirection" as emailDirection nodrop
+| json "properties.SenderFromAddress" as senderAddress nodrop
+| json "properties.SenderDisplayName" as senderDisplayName nodrop
+| json "properties.SenderMailFromDomain" as senderDomain nodrop
+| json "properties.EmailAction" as action nodrop
+| json "properties.ActionTrigger" as actionTrigger nodrop
+| json "properties.ActionResult" as actionResult nodrop
+| json "properties.ActionType" as actionType nodrop
+| json "properties.ThreatTypes" as threatTypes nodrop
+| replace(category, "AdvancedHunting-", "") as category
+
+
+Other useful parsing statements:
+
 | json "operationName" as operationName nodrop
 | json "properties.DeviceName" as deviceName nodrop
 | json "properties.DeviceId" as deviceID nodrop
@@ -38,7 +62,6 @@
 | json "properties.InitiatingProcessVersionInfoOrginalFileName" as orginalFileName nodrop
 | json "properties.InitiatingProcessVersionInfoFileDescription" as fileDescription nodrop
 | json "properties.MachineGroup" as machineGroup nodrop
-| json "properties.ActionType" as actionType nodrop
 | json "properties.RegistryKey" as registryKey nodrop
 | json "properties.RegistryValueName" as registryValueName nodrop
 | json "properties.RegistryValueType" as registryValueType nodrop
@@ -63,30 +86,15 @@
 | json "properties.CountryCode" as countryCode nodrop
 | json "properties.ISP" as ISP nodrop
 | json "properties.SenderIPv4" as sender_ipAddress nodrop
-| json "properties.SenderMailFromDomain" as senderDomain nodrop
 | json "properties.Subject" as email_subject nodrop
-| json "properties.RecipientEmailAddress" as recipientEmail nodrop
-| json "properties.ThreatTypes" as threatTypes nodrop
-| json "properties.SenderDisplayName" as senderDisplayName nodrop
 | json "properties.EmailAction" as action nodrop
-| json "properties.EmailDirection" as emailDirection nodrop
-| json "properties.DeliveryAction" as emailDeliveryAction nodrop
-| json "properties.DeliveryLocation" as deliveryLocation nodrop
-| json "properties.EmailActionPolicy" as emailActionPolicy nodrop
 | json "properties.ConfidenceLevel" as confidenceLevel nodrop
 | json "properties.AuthenticationDetails" as authenticationDetails nodrop
 | json "properties.ThreatNames" as threatName nodrop
-| json "properties.SenderFromAddress" as senderAddress nodrop
 | json "properties.FileName" as fileName nodrop
 | json "properties.FileType" as fileType nodrop
 | json "properties.SHA256" as SHA256 nodrop
 | json "properties.RecipientObjectId" as recipientObjectID nodrop
-| json "properties.DetectionMethods" as detectionMethods nodrop
-| json "properties.Action" as action nodrop
-| json "properties.ActionResult" as actionResult nodrop
-| json "properties.ActionTrigger" as actionTrigger nodrop
 | json "properties.InternetMessageId" as internetMessageID nodrop
 | json "properties.FileSize" as fileSize nodrop
 | json field=confidenceLevel "Phish" as confidence_level nodrop
-| json field=detectionMethods "Phish[0]" as detection_methods nodrop
-| replace(category, "AdvancedHunting-", "") as category
