@@ -1,6 +1,6 @@
-# Sumo Logic for AWS CloudTrail
+# Sumo Logic for AWS CloudTrail User Activity
 
-Sumo Logic Community Content built for AWS CloudTrail that is not published to the [App Catalog](https://help.sumologic.com/docs/integrations/).
+Sumo Logic Community Content built for AWS CloudTrail User Activity that is not published to the [App Catalog](https://help.sumologic.com/docs/integrations/).
 
 ## To use the content
 
