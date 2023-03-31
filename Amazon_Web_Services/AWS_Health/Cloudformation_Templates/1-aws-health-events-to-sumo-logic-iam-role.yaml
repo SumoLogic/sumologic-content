@@ -1,0 +1,36 @@
+# deploy this ONCE in every account
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Template creates an EventBridge Rule with that forwards all AWS Health Events to a Sumo Logic HTTP Source
+# resource created
+Resources:
+  EventBridgeSumoLogicApiDestinationRole:
+    Type: AWS::IAM::Role
+    Properties: 
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: "Allow"
+            Principal:
+              Service:
+                - "events.amazonaws.com"
+            Action:
+              - "sts:AssumeRole"
+      Description: "IAM role for EventBridge to use the API destination"
+      RoleName: "EventBridgeSumoLogicApiDestinationRole"
+  # eventbridge policy to access Sumo Logic api destination (used in above role)
+  EventBridgeSumoApiDestinationPolicy: 
+    Type: "AWS::IAM::Policy"
+    Properties: 
+      PolicyName: "EventBridgeSumoApiDestinationPolicy"
+      PolicyDocument: 
+        Version: "2012-10-17"
+        Statement: 
+          - Effect: "Allow"
+            Action: "events:InvokeApiDestination"
+            Resource: "arn:aws:events:*:*:api-destination/SumoLogicAPIDestination/*"
+      Roles: 
+        - !Ref EventBridgeSumoLogicApiDestinationRole
+Outputs:
+  EventBridgeSumoLogicApiDestinationIAMRole:
+    Description: IAM Role ARN
+    Value: !GetAtt EventBridgeSumoLogicApiDestinationRole.Arn

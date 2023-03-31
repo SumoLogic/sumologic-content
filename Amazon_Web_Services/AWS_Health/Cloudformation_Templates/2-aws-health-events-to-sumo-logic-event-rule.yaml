@@ -1,0 +1,48 @@
+# deploy this in any region/account AFTER you have deployed the role template
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Template creates an EventBridge Rule with that forwards all AWS Health Events to a Sumo Logic HTTP Source
+# input parameters - sumo http URL
+Parameters:
+  SumoLogicHTTPSourceURL:
+    Type: String
+    Description: "Enter the URL for a Sumo Logic HTTP Logs and Metrics Source"
+  IAMRoleARN:
+    Type: String
+    Description: "Enter the IAM Role ARN that is output from the CFN Role Deployment"
+# resource created
+Resources:
+  # connection resource to sumo
+  SumoLogicConnection:
+    Type: AWS::Events::Connection
+    Properties: 
+      AuthorizationType: "API_KEY"
+      AuthParameters: 
+        ApiKeyAuthParameters:
+          ApiKeyName: "dummy-key"
+          ApiKeyValue: "dummy-value"
+      Description: "Connection to Sumo Logic HTTP Source"
+      Name: "SumoLogicHTTPConnection"
+  # api destination to sumo
+  SumoLogicAPIDestination:
+    Type: AWS::Events::ApiDestination
+    Properties:
+      ConnectionArn: !GetAtt SumoLogicConnection.Arn
+      Description: "API Destination to Sumo Logic HTTP Source"
+      HttpMethod: "POST"
+      InvocationEndpoint: !Ref SumoLogicHTTPSourceURL
+      Name: "SumoLogicAPIDestination"
+  # eventbridge rule to sumo
+  HealthEventRule:
+    Type: AWS::Events::Rule
+    Properties: 
+      Description: "Forwards all AWS Health Events to Sumo Logic HTTP Source"
+      EventPattern:
+        source:
+          - "aws.health"
+      Name: "HealthEventsToSumoLogic"
+      RoleArn: !Ref IAMRoleARN
+      State: "ENABLED"
+      Targets:
+        - Arn: !GetAtt SumoLogicAPIDestination.Arn
+          Id: "SumoLogicHTTPTarget"
+          RoleArn: !Ref IAMRoleARN
