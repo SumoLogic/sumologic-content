@@ -1,4 +1,4 @@
-# Sumo Logic for Centrify
+# Sumo Logic for Checkpoint
 Sumo Logic Community Content built for Checkpoint not yet published to the [App Catalog](https://help.sumologic.com/docs/integrations/).
 
 ### ![Checkpoint_Logs.png](Screenshots/Checkpoint_Logs.png)
