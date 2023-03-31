@@ -1,0 +1,360 @@
+{
+    "type": "DashboardV2SyncDefinition",
+    "name": "Checkpoint Firewall",
+    "description": "",
+    "title": "Checkpoint Firewall",
+    "theme": "Dark",
+    "topologyLabelMap": {
+        "data": {}
+    },
+    "refreshInterval": 0,
+    "timeRange": {
+        "type": "BeginBoundedTimeRange",
+        "from": {
+            "type": "RelativeTimeRangeBoundary",
+            "relativeTime": "-1h"
+        },
+        "to": null
+    },
+    "layout": {
+        "layoutType": "Grid",
+        "layoutStructures": [
+            {
+                "key": "panel89383ec48bee3941",
+                "structure": "{\"width\":24,\"height\":1,\"x\":0,\"y\":0}"
+            },
+            {
+                "key": "panel7db1a636b7afda4e",
+                "structure": "{\"width\":8,\"height\":6,\"x\":0,\"y\":1}"
+            },
+            {
+                "key": "panel8bb81661a2c11a43",
+                "structure": "{\"width\":8,\"height\":6,\"x\":8,\"y\":1}"
+            },
+            {
+                "key": "paneldfca39faa10e0848",
+                "structure": "{\"width\":8,\"height\":6,\"x\":16,\"y\":1}"
+            },
+            {
+                "key": "panel78a6c3a3a025fa42",
+                "structure": "{\"width\":24,\"height\":1,\"x\":0,\"y\":6}"
+            },
+            {
+                "key": "panel1165c6a4862e6a4c",
+                "structure": "{\"width\":8,\"height\":6,\"x\":0,\"y\":7}"
+            },
+            {
+                "key": "panel480ee8d8b6da884b",
+                "structure": "{\"width\":8,\"height\":6,\"x\":8,\"y\":7}"
+            },
+            {
+                "key": "panel9c45eacab8cd3849",
+                "structure": "{\"width\":8,\"height\":6,\"x\":16,\"y\":7}"
+            },
+            {
+                "key": "panelc63a5ed0b5571b43",
+                "structure": "{\"width\":24,\"height\":1,\"x\":0,\"y\":12}"
+            },
+            {
+                "key": "panel6e04aee381071a49",
+                "structure": "{\"width\":8,\"height\":6,\"x\":0,\"y\":13}"
+            },
+            {
+                "key": "panela6a93438901f3846",
+                "structure": "{\"width\":8,\"height\":6,\"x\":8,\"y\":13}"
+            },
+            {
+                "key": "panelc340ea2a9d34e940",
+                "structure": "{\"width\":8,\"height\":6,\"x\":16,\"y\":13}"
+            }
+        ]
+    },
+    "panels": [
+        {
+            "id": null,
+            "key": "panel1165c6a4862e6a4c",
+            "title": "Outbound Destinations",
+            "visualSettings": "{\"general\":{\"mode\":\"map\",\"type\":\"map\"},\"map\":{\"mainMetric\":{}}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=yourSourceCategory  accept outbound\n| parse \"dst:\\\"*\\\";\" as dest_ip nodrop\n| parse \"ifdir:\\\"*\\\";\" as ifdir nodrop\n| where ( ifdir=\"outbound\" )\n// Remove all private IP Addresses\n| parse field=dest_ip \"*.*.*.*\" as oct1, oct2, oct3, oct4\n//| toInt(oct1) as oct1 | toInt(oct2) as oct2 | toInt(oct3) as oct3 | toInt(oct4) as oct4\n| where !( oct1=172 and (oct2 > 15 and oct2 < 32))\n| fields -oct1, oct2, oct3, oct4\n| where !((dest_ip matches \"10.*.*.*\") or (dest_ip matches \"192.168.*.*\") or (dest_ip=\"0.0.0.0\") or (dest_ip=\"127.0.0.1\"))\n| count by dest_ip\n| lookup latitude, longitude, country_code, country_name, region, city, postal_code, area_code, metro_code from geo://location on ip = dest_ip\n| count by latitude, longitude, country_code, country_name, region, city, postal_code, area_code, metro_code \n",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Manual",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": null
+                }
+            ],
+            "description": null,
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panel78a6c3a3a025fa42",
+            "title": "OutBound Connections",
+            "visualSettings": "{\"title\":{\"fontSize\":14},\"general\":{\"type\":\"text\",\"displayType\":\"default\",\"mode\":\"TextPanel\"},\"legend\":{\"enabled\":false},\"text\":{\"format\":\"markdownV2\",\"fontSize\":14},\"series\":{}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "TextPanel",
+            "text": ""
+        },
+        {
+            "id": null,
+            "key": "panel7db1a636b7afda4e",
+            "title": "Connections Over Time",
+            "visualSettings": "{\"title\":{\"fontSize\":14},\"general\":{\"type\":\"line\",\"displayType\":\"default\",\"markerSize\":null,\"lineDashType\":\"solid\",\"markerType\":\"none\",\"lineThickness\":1,\"mode\":\"timeSeries\"},\"axes\":{\"axisX\":{\"hideLabels\":false,\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"hideLabels\":false,\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12,\"logarithmic\":false,\"gridColor\":\"\",\"minimum\":null,\"maximum\":null}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"right\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":false,\"wrap\":true},\"color\":{\"family\":\"Categorical Default\"},\"thresholdsSettings\":{\"fillRemainingGreen\":false,\"showThresholds\":false,\"numberThresholds\":{\"warning\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":80},\"critical\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":100}}},\"overrides\":[]}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=yourSourceCategory  ( (\"action:\\\"Reject\\\"\" OR \"action:\\\"Drop\\\"\") OR (\"action:\\\"Accept\\\"\" AND (inbound or outbound)) )\n| if(_raw matches \"*accept*\" AND _raw matches \"*inbound*\",1,0) as inbound\n| if(_raw matches \"*accept*\" AND _raw matches \"*outbound*\",1,0) as outbound\n| if(_raw matches \"*reject*\",1,0) as reject\n| if(_raw matches \"*drop*\" ,1,0) as drop\n| timeslice by 5m\n| sum(inbound) as inbound, sum(outbound) as outbound, sum(reject) as reject, sum(drop) as drop by _timeslice\n| sort by _timeslice asc \n",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Manual",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": null
+                }
+            ],
+            "description": null,
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panel8bb81661a2c11a43",
+            "title": "Protocol Distribution Over Time",
+            "visualSettings": "{\"title\":{\"fontSize\":14},\"general\":{\"type\":\"line\",\"displayType\":\"default\",\"markerSize\":null,\"lineDashType\":\"solid\",\"markerType\":\"none\",\"lineThickness\":1,\"mode\":\"timeSeries\"},\"axes\":{\"axisX\":{\"hideLabels\":false,\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"hideLabels\":false,\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12,\"logarithmic\":false,\"gridColor\":\"\",\"minimum\":null,\"maximum\":null}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"right\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":false,\"wrap\":true},\"color\":{\"family\":\"Categorical Default\"},\"thresholdsSettings\":{\"fillRemainingGreen\":false,\"showThresholds\":false,\"numberThresholds\":{\"warning\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":80},\"critical\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":100}}},\"overrides\":[]}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=yourSourceCategory  \"action:\\\"Accept\\\"\" (inbound or outbound)\n//Protocol Distribution Over Time\",\n| parse \"protocol:\\\"*\\\";\" as protocol nodrop\n| parse \"proto:\\\"*\\\";\" as proto nodrop\n| parse \"conn_direction:\\\"*\\\";\" as conn_direction nodrop\n| parse \"ifdir:\\\"*\\\";\" as ifdir nodrop\n| timeslice by 5m\n| count by _timeslice, protocol\n| transpose row _timeslice column protocol\n\n//| count by ifdir, protocol",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Manual",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": null
+                }
+            ],
+            "description": null,
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panelc63a5ed0b5571b43",
+            "title": "Denied Connections",
+            "visualSettings": "{\"title\":{\"fontSize\":14},\"general\":{\"type\":\"text\",\"displayType\":\"default\",\"mode\":\"TextPanel\"},\"legend\":{\"enabled\":false},\"text\":{\"format\":\"markdownV2\",\"fontSize\":14},\"series\":{}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "TextPanel",
+            "text": ""
+        },
+        {
+            "id": null,
+            "key": "panela6a93438901f3846",
+            "title": "Top Denied Sources",
+            "visualSettings": "{\"title\":{\"fontSize\":12},\"series\":{},\"general\":{\"type\":\"table\",\"fontSize\":12,\"mode\":\"timeSeries\"},\"thresholdsSettings\":{\"fillRemainingGreen\":false,\"showThresholds\":false,\"numberThresholds\":{\"warning\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":80},\"critical\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":100}}}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=yourSourceCategory  (reject OR drop)\n| parse \"src_user_name:\\\"*, * (*) \\\";\" as lastname,firstname,user_id nodrop\n| parse \"dst:\\\"*\\\";\" as dest_ip nodrop\n| parse \"src:\\\"*\\\";\" as src_ip nodrop\n| parse \"ifdir:\\\"*\\\";\" as ifdir nodrop\n| count by src_ip, firstname, lastname \n| _count as NumDeny\n| sort by NumDeny\n| limit 10\n| fields -_count",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Manual",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": null
+                }
+            ],
+            "description": null,
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panel9c45eacab8cd3849",
+            "title": "Oubound Connection Threats",
+            "visualSettings": "{\"title\":{\"fontSize\":12},\"series\":{},\"general\":{\"type\":\"table\",\"fontSize\":12,\"mode\":\"timeSeries\"},\"thresholdsSettings\":{\"fillRemainingGreen\":false,\"showThresholds\":false,\"numberThresholds\":{\"warning\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":80},\"critical\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":100}}}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=yourSourceCategory accept outbound\n| parse \"dst:\\\"*\\\";\" as dst_ip nodrop\n| parse \"termination_reason:\\\"*\\\";\" as term_reason nodrop\n| parse \"src_user_name:\\\"*\\\";\" as src_user_name nodrop\n| parse \"src:\\\"*\\\";\" as src_ip nodrop\n| parse \"description:\\\"*\\\";\" as description nodrop\n| parse \"origin:\\\"*\\\";\" as origin_ip nodrop\n| parse \"logid:\\\"*\\\";\" as logid nodrop\n| parse \"ifdir:\\\"*\\\";\" as ifdir nodrop\n| parse \"action:\\\"*\\\";\" as action nodrop\n| count by dst_ip, src_ip, action\n| where (action=\"Accept\")\n| parse field=dst_ip \"*.*.*.*\" as oct1, oct2, oct3, oct4\n| where !( oct1=172 and (oct2 > 15 and oct2 < 32))\n| where !((dst_ip matches \"10.*.*.*\") or (dst_ip matches \"192.168.*.*\"))\n| count by dst_ip, src_ip\n| dst_ip as ip_address\n| where ip_address != \"0.0.0.0\" and ip_address != \"127.0.0.1\"\n| lookup type, actor, raw, threatlevel as malicious_confidence from sumo://threat/cs on threat=ip_address\n| where type=\"ip_address\" \n| json field=raw \"labels[*].name\" as detail \n| replace(detail, \"\\\\/\",\"->\") as detail\n| replace(detail, \"\\\"\",\" \") as detail\n| malicious_confidence as severity\n| fields Dst_ip, src_ip, severity, detail",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Manual",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": null
+                }
+            ],
+            "description": null,
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "RelativeTimeRangeBoundary",
+                    "relativeTime": "-1d"
+                },
+                "to": null
+            },
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panelc340ea2a9d34e940",
+            "title": "Top Rejecting/Denying  Rules",
+            "visualSettings": "{\"title\":{\"fontSize\":12},\"series\":{},\"general\":{\"type\":\"table\",\"fontSize\":12,\"mode\":\"timeSeries\"},\"thresholdsSettings\":{\"fillRemainingGreen\":false,\"showThresholds\":false,\"numberThresholds\":{\"warning\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":80},\"critical\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":100}}}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=yourSourceCategory (reject or prevent)\n| parse regex \"rule_name:\\\"(?<rule_name>[^\\\"]+)\\\";\" multi nodrop\n//| parse regex \"rule_action:\\\"(?<rule_action>[^\\\"]+)\\\";\" multi nodrop\n| parse \"action:\\\"*\\\";\" as action nodrop\n| where (action=\"Reject\" or action=\"Prevent\")\n| count by action, rule_name\n| _count as total\n| fields -_count \n| sort by total\n| limit 10",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Manual",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": null
+                }
+            ],
+            "description": null,
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "RelativeTimeRangeBoundary",
+                    "relativeTime": "-1d"
+                },
+                "to": null
+            },
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panel480ee8d8b6da884b",
+            "title": "Outbound Connections Over Time",
+            "visualSettings": "{\"title\":{\"fontSize\":14},\"general\":{\"type\":\"line\",\"displayType\":\"default\",\"markerSize\":null,\"lineDashType\":\"solid\",\"markerType\":\"none\",\"lineThickness\":1,\"mode\":\"timeSeries\"},\"axes\":{\"axisX\":{\"hideLabels\":false,\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"hideLabels\":false,\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12,\"logarithmic\":false,\"gridColor\":\"\",\"minimum\":null,\"maximum\":null}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"right\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":false,\"wrap\":true},\"color\":{\"family\":\"Categorical Default\"},\"thresholdsSettings\":{\"fillRemainingGreen\":false,\"showThresholds\":false,\"numberThresholds\":{\"warning\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":80},\"critical\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":100}}},\"overrides\":[]}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=yourSourceCategory  accept outbound\n| parse \"dst:\\\"*\\\";\" as dest_ip nodrop\n| parse \"ifdir:\\\"*\\\";\" as ifdir nodrop\n| where ( ifdir=\"outbound\" )\n// Remove all private IP Addresses\n| parse field=dest_ip \"*.*.*.*\" as oct1, oct2, oct3, oct4\n| where !( oct1=172 and (oct2 > 15 and oct2 < 32))\n| fields -oct1, oct2, oct3, oct4\n| where !((dest_ip matches \"10.*.*.*\") or (dest_ip matches \"192.168.*.*\") or (dest_ip=\"0.0.0.0\") or (dest_ip=\"127.0.0.1\"))\n// get Geo information\n| lookup latitude, longitude, country_code, country_name, region, city, postal_code, area_code, metro_code from geo://default on ip = dest_ip\n| timeslice 5m\n| count by _timeslice,country_name\n| transpose row _timeslice column country_name\n",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Manual",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": null
+                }
+            ],
+            "description": null,
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "paneldfca39faa10e0848",
+            "title": "Firewall Actions Over Time",
+            "visualSettings": "{\"title\":{\"fontSize\":14},\"general\":{\"type\":\"bar\",\"displayType\":\"default\",\"fillOpacity\":1,\"mode\":\"timeSeries\"},\"axes\":{\"axisX\":{\"hideLabels\":false,\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"hideLabels\":false,\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12,\"logarithmic\":false,\"gridColor\":\"\",\"minimum\":null,\"maximum\":null}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"right\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":false,\"wrap\":true},\"color\":{\"family\":\"Categorical Default\"},\"thresholdsSettings\":{\"fillRemainingGreen\":false,\"showThresholds\":false,\"numberThresholds\":{\"warning\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":80},\"critical\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":100}}}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=yourSourceCategory \n| parse \"ifname:\\\"*\\\";\" as ifname nodrop\n| parse \"ifdir:\\\"*\\\";\" as ifdir nodrop\n| parse \"origin:\\\"*\\\";\" as origin_ip nodrop\n| parse \"action:\\\"*\\\";\" as action nodrop\n| count by action\n| where !(isBlank(action))\n| sort by _count",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Manual",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": null
+                }
+            ],
+            "description": null,
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panel89383ec48bee3941",
+            "title": "Connection Stats",
+            "visualSettings": "{\"title\":{\"fontSize\":14},\"general\":{\"type\":\"text\",\"displayType\":\"default\",\"mode\":\"TextPanel\"},\"legend\":{\"enabled\":false},\"text\":{\"format\":\"markdownV2\",\"fontSize\":14},\"series\":{}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "TextPanel",
+            "text": ""
+        },
+        {
+            "id": null,
+            "key": "panel6e04aee381071a49",
+            "title": "Denied Connections by Location",
+            "visualSettings": "{\"general\":{\"mode\":\"map\",\"type\":\"map\"},\"map\":{\"mainMetric\":{}}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=yourSourceCategory  (reject OR drop) \n| parse \"dst:\\\"*\\\";\" as dest_ip nodrop\n| parse \"ifdir:\\\"*\\\";\" as ifdir nodrop\n| where ( ifdir=\"outbound\" )\n// Remove all private IP Addresses\n| parse field=dest_ip \"*.*.*.*\" as oct1, oct2, oct3, oct4\n//| toInt(oct1) as oct1 | toInt(oct2) as oct2 | toInt(oct3) as oct3 | toInt(oct4) as oct4\n| where !( oct1=172 and (oct2 > 15 and oct2 < 32))\n| fields -oct1, oct2, oct3, oct4\n| where !((dest_ip matches \"10.*.*.*\") or (dest_ip matches \"192.168.*.*\") or (dest_ip=\"0.0.0.0\") or (dest_ip=\"127.0.0.1\"))\n| count by dest_ip\n| lookup latitude, longitude, country_code, country_name, region, city, postal_code, area_code, metro_code from geo://location on ip = dest_ip\n| count by latitude, longitude, country_code, country_name, region, city, postal_code, area_code, metro_code \n",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Manual",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": null
+                }
+            ],
+            "description": null,
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        }
+    ],
+    "variables": [],
+    "coloringRules": []
+}
