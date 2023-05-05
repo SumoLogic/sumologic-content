@@ -1,171 +1,245 @@
 {
-    "type": "DashboardSyncDefinition",
-    "name": "Netscaler VPN Monitoring",
+    "type": "DashboardV2SyncDefinition",
+    "name": "Citrix NetScaler VPN",
     "description": "",
-    "detailLevel": 0,
-    "properties": "{\"layoutType\":\"gridster\",\"theme\":\"dark-theme\"}",
+    "title": "Citrix NetScaler VPN",
+    "theme": "Dark",
+    "topologyLabelMap": {
+        "data": {}
+    },
+    "refreshInterval": 0,
+    "timeRange": {
+        "type": "BeginBoundedTimeRange",
+        "from": {
+            "type": "RelativeTimeRangeBoundary",
+            "relativeTime": "-1d"
+        },
+        "to": null
+    },
+    "layout": {
+        "layoutType": "Grid",
+        "layoutStructures": [
+            {
+                "key": "panela2260c579cfbaa49",
+                "structure": "{\"width\":12,\"height\":8,\"x\":0,\"y\":0}"
+            },
+            {
+                "key": "panel444aaf668328ba4a",
+                "structure": "{\"width\":12,\"height\":8,\"x\":12,\"y\":0}"
+            },
+            {
+                "key": "paneldc072acca4300a44",
+                "structure": "{\"width\":12,\"height\":8,\"x\":0,\"y\":6}"
+            },
+            {
+                "key": "panel62151c4294eb3945",
+                "structure": "{\"width\":12,\"height\":8,\"x\":12,\"y\":6}"
+            },
+            {
+                "key": "panel135e3db488cac942",
+                "structure": "{\"width\":15,\"height\":8,\"x\":0,\"y\":12}"
+            },
+            {
+                "key": "panel97665a2a85a0c944",
+                "structure": "{\"width\":9,\"height\":8,\"x\":15,\"y\":12}"
+            },
+            {
+                "key": "panel2a940a65b7a67847",
+                "structure": "{\"width\":24,\"height\":8,\"x\":0,\"y\":18}"
+            }
+        ]
+    },
     "panels": [
         {
-            "name": "Failed Authentication Geolocation Map",
-            "viewerType": "map",
-            "detailLevel": 2,
-            "queryString": "_sourceCategory=<NETSCALER SOURCE CATEGORY> (\"AAA LOGIN_FAILED\" ) | parse regex \"\\: default (?<description>\\S+\\s\\S+)\\s+[\\s\\S]+?User\\s+(?<user_username>(?:\\S+|))\\s+\\-\\s+Client_ip\\s+(?<srcdevice_ip>\\d+\\.\\d+\\.\\d+\\.\\d+)\\s+[\\s\\S]+\" nodrop\n| parse \"Vserver *:\" as devicenat_ip nodrop\n| parse \"Browser_type \\\"*\\\"\" as http_userAgent nodrop\n| parse \"Browser *\" as http_userAgent nodrop\n| parse \"Failure_reason \\\"*\\\"\" as failureReason nodrop\n| parse \"SessionId: *-\" as sessionId nodrop\n| parse \"SSLVPN_client_type * \" as application nodrop\n| parse \"Start_time \\\"* \\\" - End_time \\\"* \\\" - Duration *  \" as Sessionstart_time, Sessionend_time, sessionDuration nodrop\n| parse \"Total_bytes_recv * \" as bytesIn nodrop\n\n| lookup latitude, longitude from geo://location on ip=srcdevice_ip\n| count latitude, longitude",
-            "metricsQueries": [],
-            "timeRange": {
-                "type": "BeginBoundedTimeRange",
-                "from": {
-                    "type": "RelativeTimeRangeBoundary",
-                    "relativeTime": "-1d"
-                },
-                "to": null
-            },
-            "x": 1,
-            "y": 7,
-            "width": 12,
-            "height": 6,
-            "properties": "{\"version\":3,\"settings\":{\"table\":{\"version\":2,\"configuration\":{\"textTruncationMode\":\"none\",\"fontSize\":\"medium\",\"fontSizeOverride\":null,\"tableState\":null}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"pie\":{\"chartType\":\"pie\",\"version\":3,\"configuration\":{\"donutMode\":true,\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"label\":{\"truncationMode\":\"middle\"},\"showSliceBorders\":true,\"maxNumOfPieSlices\":\"10\"}}},\"boxplot\":{\"chartType\":\"boxplot\",\"version\":1,\"configuration\":{\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"}},\"yAxis\":{\"title\":null,\"min\":null,\"max\":null}}},\"map\":{\"chartType\":\"map\",\"version\":1,\"configuration\":{\"maptype\":\"cluster\"}},\"svv\":{\"version\":2,\"configuration\":{\"colorOverride\":null,\"backgroundColorEnabled\":false,\"noDataBehavior\":{\"enabled\":false,\"color\":\"#cccccc\",\"value\":null,\"isString\":null},\"valueType\":{\"number\":{\"showNumber\":true,\"unit\":null,\"colorsByValueRange\":null},\"boolean\":{\"trueColor\":\"#6aa84f\",\"falseColor\":\"#cc0000\"}},\"labels\":{\"prefix\":{\"enabled\":false,\"text\":\"\",\"align\":\"left\"},\"postfix\":{\"enabled\":false,\"text\":\"\",\"align\":\"right\"}}}},\"sankey\":{\"version\":1,\"configuration\":{}},\"text\":{\"version\":1,\"configuration\":{\"text\":null}},\"metrics\":{\"version\":2,\"configuration\":{\"blockSettings\":{},\"viewType\":\"timeline\",\"zoom\":\"xy\",\"yAxis\":{\"defaults\":[{\"name\":\"\"},{\"name\":\"\"}],\"custom\":[{},{}]},\"xAxis\":{\"scrubber\":true},\"outliers\":{\"enabled\":true,\"top\":1,\"scope\":\"Chart\",\"cyclicality\":false,\"threshold\":7,\"autoShowBand\":true},\"colorFamily\":\"METRIC_DEFAULT\"}},\"common\":{\"version\":1,\"configuration\":{\"drilldown\":{\"fallback\":{\"target\":{\"id\":null,\"name\":null,\"enabled\":null}}}}}}}",
-            "id": "7254027",
-            "desiredQuantizationInSecs": 0,
-            "queryParameters": []
+            "id": null,
+            "key": "panel62151c4294eb3945",
+            "title": "Users Authentication From Multiple IPs",
+            "visualSettings": "{\"title\":{\"fontSize\":12},\"series\":{},\"general\":{\"type\":\"table\",\"fontSize\":12,\"mode\":\"timeSeries\"},\"thresholdsSettings\":{\"fillRemainingGreen\":false,\"showThresholds\":false,\"numberThresholds\":{\"warning\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":80},\"critical\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":100}}}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=*citrixvpn* (\"SSLVPN LOGOUT\"  OR \"SSLVPN LOGIN\") | parse regex \"\\: default (?<description>\\S+\\s\\S+)\\s+[\\s\\S]+?User\\s+(?<user_username>(?:\\S+|))\\s+\\-\\s+Client_ip\\s+(?<srcdevice_ip>\\d+\\.\\d+\\.\\d+\\.\\d+)\\s+[\\s\\S]+\" nodrop\n| parse \"Vserver *:\" as devicenat_ip nodrop\n| parse \"Browser_type \\\"*\\\"\" as http_userAgent nodrop\n| parse \"Browser *\" as http_userAgent nodrop\n| parse \"Failure_reason \\\"*\\\"\" as failureReason nodrop\n| parse \"SessionId: *-\" as sessionId nodrop\n| parse \"SSLVPN_client_type * \" as application nodrop\n| parse \"Start_time \\\"* \\\" - End_time \\\"* \\\" - Duration *  \" as Sessionstart_time, Sessionend_time, sessionDuration nodrop\n| parse \"Total_bytes_recv * \" as bytesIn nodrop\n\n| transaction on user_username, srcdevice_ip\nwith \"*LOGIN*\" as login,\nwith \"*LOGOUT*\" as logout\n\n| \"1\" as rownum\n| total(rownum) by user_username\n| where _total>1\n| sort user_username\n| formatDate(_start_time,\"yyyy-MM-dd HH:mm:ss\")  as _start_time\n| formatDate(_end_time,\"yyyy-MM-dd HH:mm:ss\")  as _end_time\n| fields -rownum, _others",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Manual",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": null
+                }
+            ],
+            "description": null,
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
         },
         {
-            "name": "Failed Authentication Attempts",
-            "viewerType": "table",
-            "detailLevel": 0,
-            "queryString": "_sourceCategory=<NETSCALER SOURCE CATEGORY> (\"AAA LOGIN_FAILED\" ) | parse regex \"\\: default (?<description>\\S+\\s\\S+)\\s+[\\s\\S]+?User\\s+(?<user_username>(?:\\S+|))\\s+\\-\\s+Client_ip\\s+(?<srcdevice_ip>\\d+\\.\\d+\\.\\d+\\.\\d+)\\s+[\\s\\S]+\" nodrop\n| parse \"Vserver *:\" as devicenat_ip nodrop\n| parse \"Browser_type \\\"*\\\"\" as http_userAgent nodrop\n| parse \"Browser *\" as http_userAgent nodrop\n| parse \"Failure_reason \\\"*\\\"\" as failureReason nodrop\n| parse \"SessionId: *-\" as sessionId nodrop\n| parse \"SSLVPN_client_type * \" as application nodrop\n| parse \"Start_time \\\"* \\\" - End_time \\\"* \\\" - Duration *  \" as Sessionstart_time, Sessionend_time, sessionDuration nodrop\n| parse \"Total_bytes_recv * \" as bytesIn nodrop\n\n| lookup country_name, region, city from geo://location on ip=srcdevice_ip\n| where country_name!=\"United States\"\n| formatDate(_messagetime, \"yyyy-MM-dd HH:mm:ss\") as event_time\n| count event_time, user_username, description,country_name, region, city, srcdevice_ip, http_userAgent, failureReason\n| sort event_time desc",
-            "metricsQueries": [],
-            "timeRange": {
-                "type": "BeginBoundedTimeRange",
-                "from": {
-                    "type": "RelativeTimeRangeBoundary",
-                    "relativeTime": "-1d"
-                },
-                "to": null
-            },
-            "x": 1,
-            "y": 13,
-            "width": 15,
-            "height": 6,
-            "properties": "{\"version\":3,\"settings\":{\"table\":{\"version\":2,\"configuration\":{\"textTruncationMode\":\"none\",\"fontSize\":\"medium\",\"fontSizeOverride\":null,\"tableState\":null}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"pie\":{\"chartType\":\"pie\",\"version\":3,\"configuration\":{\"donutMode\":true,\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"label\":{\"truncationMode\":\"middle\"},\"showSliceBorders\":true,\"maxNumOfPieSlices\":\"10\"}}},\"boxplot\":{\"chartType\":\"boxplot\",\"version\":1,\"configuration\":{\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"}},\"yAxis\":{\"title\":null,\"min\":null,\"max\":null}}},\"map\":{\"chartType\":\"map\",\"version\":1,\"configuration\":{\"maptype\":\"cluster\"}},\"svv\":{\"version\":2,\"configuration\":{\"colorOverride\":null,\"backgroundColorEnabled\":false,\"noDataBehavior\":{\"enabled\":false,\"color\":\"#cccccc\",\"value\":null,\"isString\":null},\"valueType\":{\"number\":{\"showNumber\":true,\"unit\":null,\"colorsByValueRange\":null},\"boolean\":{\"trueColor\":\"#6aa84f\",\"falseColor\":\"#cc0000\"}},\"labels\":{\"prefix\":{\"enabled\":false,\"text\":\"\",\"align\":\"left\"},\"postfix\":{\"enabled\":false,\"text\":\"\",\"align\":\"right\"}}}},\"sankey\":{\"version\":1,\"configuration\":{}},\"text\":{\"version\":1,\"configuration\":{\"text\":null}},\"metrics\":{\"version\":2,\"configuration\":{\"blockSettings\":{},\"viewType\":\"timeline\",\"zoom\":\"xy\",\"yAxis\":{\"defaults\":[{\"name\":\"\"},{\"name\":\"\"}],\"custom\":[{},{}]},\"xAxis\":{\"scrubber\":true},\"outliers\":{\"enabled\":true,\"top\":1,\"scope\":\"Chart\",\"cyclicality\":false,\"threshold\":7,\"autoShowBand\":true},\"colorFamily\":\"METRIC_DEFAULT\"}},\"common\":{\"version\":1,\"configuration\":{\"drilldown\":{\"fallback\":{\"target\":{\"id\":null,\"name\":null,\"enabled\":null}}}}}}}",
-            "id": "7254500",
-            "desiredQuantizationInSecs": 0,
-            "queryParameters": []
+            "id": null,
+            "key": "panel2a940a65b7a67847",
+            "title": "Authentications From Outside the US",
+            "visualSettings": "{\"title\":{\"fontSize\":12},\"series\":{},\"general\":{\"type\":\"table\",\"fontSize\":12,\"mode\":\"timeSeries\"},\"thresholdsSettings\":{\"fillRemainingGreen\":false,\"showThresholds\":false,\"numberThresholds\":{\"warning\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":80},\"critical\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":100}}}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=*citrixvpn* (\"SSLVPN LOGIN\" OR \"AAA LOGIN_FAILED\" ) | parse regex \"\\: default (?<description>\\S+\\s\\S+)\\s+[\\s\\S]+?User\\s+(?<user_username>(?:\\S+|))\\s+\\-\\s+Client_ip\\s+(?<srcdevice_ip>\\d+\\.\\d+\\.\\d+\\.\\d+)\\s+[\\s\\S]+\" nodrop\n| parse \"Vserver *:\" as devicenat_ip nodrop\n| parse \"Browser_type \\\"*\\\"\" as http_userAgent nodrop\n| parse \"Browser *\" as http_userAgent nodrop\n| parse \"Failure_reason \\\"*\\\"\" as failureReason nodrop\n| parse \"SessionId: *-\" as sessionId nodrop\n| parse \"SSLVPN_client_type * \" as application nodrop\n| parse \"Start_time \\\"* \\\" - End_time \\\"* \\\" - Duration *  \" as Sessionstart_time, Sessionend_time, sessionDuration nodrop\n| parse \"Total_bytes_recv * \" as bytesIn nodrop\n\n| lookup country_name, region, city from geo://location on ip=srcdevice_ip\n| where country_name!=\"United States\"\n| formatDate(_messagetime, \"yyyy-MM-dd HH:mm:ss\") as event_time\n| count event_time, user_username, description,country_name, region, city, srcdevice_ip, devicenat_ip, http_userAgent, failureReason, sessionId, application\n| sort event_time desc",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Manual",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": null
+                }
+            ],
+            "description": null,
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
         },
         {
-            "name": "Users Authentication From Multiple Geolocations",
-            "viewerType": "table",
-            "detailLevel": 0,
-            "queryString": "_sourceCategory=<NETSCALER SOURCE CATEGORY> (\"SSLVPN LOGOUT\"  OR \"SSLVPN LOGIN\") | parse regex \"\\: default (?<description>\\S+\\s\\S+)\\s+[\\s\\S]+?User\\s+(?<user_username>(?:\\S+|))\\s+\\-\\s+Client_ip\\s+(?<srcdevice_ip>\\d+\\.\\d+\\.\\d+\\.\\d+)\\s+[\\s\\S]+\" nodrop\n| parse \"Vserver *:\" as devicenat_ip nodrop\n| parse \"Browser_type \\\"*\\\"\" as http_userAgent nodrop\n| parse \"Browser *\" as http_userAgent nodrop\n| parse \"Failure_reason \\\"*\\\"\" as failureReason nodrop\n| parse \"SessionId: *-\" as sessionId nodrop\n| parse \"SSLVPN_client_type * \" as application nodrop\n| parse \"Start_time \\\"* \\\" - End_time \\\"* \\\" - Duration *  \" as Sessionstart_time, Sessionend_time, sessionDuration nodrop\n| parse \"Total_bytes_recv * \" as bytesIn nodrop\n\n| lookup country_name,state, state from geo://location on ip=srcdevice_ip\n\n| transaction on user_username, state\nwith \"*LOGIN*\" as login,\nwith \"*LOGOUT*\" as logout\n\n| \"1\" as rownum\n| total(rownum) by user_username\n| where _total>1\n| sort user_username\n| formatDate(_start_time,\"yyyy-MM-dd HH:mm:ss\")  as _start_time\n| formatDate(_end_time,\"yyyy-MM-dd HH:mm:ss\")  as _end_time\n| fields -rownum, _others",
-            "metricsQueries": [],
-            "timeRange": {
-                "type": "BeginBoundedTimeRange",
-                "from": {
-                    "type": "RelativeTimeRangeBoundary",
-                    "relativeTime": "-1d"
-                },
-                "to": null
-            },
-            "x": 13,
-            "y": 1,
-            "width": 12,
-            "height": 6,
-            "properties": "{\"version\":3,\"settings\":{\"table\":{\"version\":2,\"configuration\":{\"textTruncationMode\":\"none\",\"fontSize\":\"medium\",\"fontSizeOverride\":null,\"tableState\":null}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"pie\":{\"chartType\":\"pie\",\"version\":3,\"configuration\":{\"donutMode\":true,\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"label\":{\"truncationMode\":\"middle\"},\"showSliceBorders\":true,\"maxNumOfPieSlices\":\"10\"}}},\"boxplot\":{\"chartType\":\"boxplot\",\"version\":1,\"configuration\":{\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"}},\"yAxis\":{\"title\":null,\"min\":null,\"max\":null}}},\"map\":{\"chartType\":\"map\",\"version\":1,\"configuration\":{\"maptype\":\"cluster\"}},\"svv\":{\"version\":2,\"configuration\":{\"colorOverride\":null,\"backgroundColorEnabled\":false,\"noDataBehavior\":{\"enabled\":false,\"color\":\"#cccccc\",\"value\":null,\"isString\":null},\"valueType\":{\"number\":{\"showNumber\":true,\"unit\":null,\"colorsByValueRange\":null},\"boolean\":{\"trueColor\":\"#6aa84f\",\"falseColor\":\"#cc0000\"}},\"labels\":{\"prefix\":{\"enabled\":false,\"text\":\"\",\"align\":\"left\"},\"postfix\":{\"enabled\":false,\"text\":\"\",\"align\":\"right\"}}}},\"sankey\":{\"version\":1,\"configuration\":{}},\"text\":{\"version\":1,\"configuration\":{\"text\":null}},\"metrics\":{\"version\":2,\"configuration\":{\"blockSettings\":{},\"viewType\":\"timeline\",\"zoom\":\"xy\",\"yAxis\":{\"defaults\":[{\"name\":\"\"},{\"name\":\"\"}],\"custom\":[{},{}]},\"xAxis\":{\"scrubber\":true},\"outliers\":{\"enabled\":true,\"top\":1,\"scope\":\"Chart\",\"cyclicality\":false,\"threshold\":7,\"autoShowBand\":true},\"colorFamily\":\"METRIC_DEFAULT\"}},\"common\":{\"version\":1,\"configuration\":{\"drilldown\":{\"fallback\":{\"target\":{\"id\":null,\"name\":null,\"enabled\":null}}}}}}}",
-            "id": "7254495",
-            "desiredQuantizationInSecs": 0,
-            "queryParameters": []
+            "id": null,
+            "key": "panela2260c579cfbaa49",
+            "title": "Successful Authentication Geolocation Map",
+            "visualSettings": "{\"general\":{\"mode\":\"map\",\"type\":\"map\"},\"map\":{\"mainMetric\":{\"layerType\":\"Cluster\"}}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=*citrixvpn* (\"SSLVPN LOGIN\" ) | parse regex \"\\: default (?<description>\\S+\\s\\S+)\\s+[\\s\\S]+?User\\s+(?<user_username>(?:\\S+|))\\s+\\-\\s+Client_ip\\s+(?<srcdevice_ip>\\d+\\.\\d+\\.\\d+\\.\\d+)\\s+[\\s\\S]+\" nodrop\n| parse \"Vserver *:\" as devicenat_ip nodrop\n| parse \"Browser_type \\\"*\\\"\" as http_userAgent nodrop\n| parse \"Browser *\" as http_userAgent nodrop\n| parse \"Failure_reason \\\"*\\\"\" as failureReason nodrop\n| parse \"SessionId: *-\" as sessionId nodrop\n| parse \"SSLVPN_client_type * \" as application nodrop\n| parse \"Start_time \\\"* \\\" - End_time \\\"* \\\" - Duration *  \" as Sessionstart_time, Sessionend_time, sessionDuration nodrop\n| parse \"Total_bytes_recv * \" as bytesIn nodrop\n\n| lookup latitude, longitude from geo://location on ip=srcdevice_ip\n| count latitude, longitude",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Manual",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": null
+                }
+            ],
+            "description": null,
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
         },
         {
-            "name": "Users Authentication From Multiple IPs",
-            "viewerType": "table",
-            "detailLevel": 2,
-            "queryString": "_sourceCategory=<NETSCALER SOURCE CATEGORY> (\"SSLVPN LOGOUT\"  OR \"SSLVPN LOGIN\") | parse regex \"\\: default (?<description>\\S+\\s\\S+)\\s+[\\s\\S]+?User\\s+(?<user_username>(?:\\S+|))\\s+\\-\\s+Client_ip\\s+(?<srcdevice_ip>\\d+\\.\\d+\\.\\d+\\.\\d+)\\s+[\\s\\S]+\" nodrop\n| parse \"Vserver *:\" as devicenat_ip nodrop\n| parse \"Browser_type \\\"*\\\"\" as http_userAgent nodrop\n| parse \"Browser *\" as http_userAgent nodrop\n| parse \"Failure_reason \\\"*\\\"\" as failureReason nodrop\n| parse \"SessionId: *-\" as sessionId nodrop\n| parse \"SSLVPN_client_type * \" as application nodrop\n| parse \"Start_time \\\"* \\\" - End_time \\\"* \\\" - Duration *  \" as Sessionstart_time, Sessionend_time, sessionDuration nodrop\n| parse \"Total_bytes_recv * \" as bytesIn nodrop\n\n| transaction on user_username, srcdevice_ip\nwith \"*LOGIN*\" as login,\nwith \"*LOGOUT*\" as logout\n\n| \"1\" as rownum\n| total(rownum) by user_username\n| where _total>1\n| sort user_username\n| formatDate(_start_time,\"yyyy-MM-dd HH:mm:ss\")  as _start_time\n| formatDate(_end_time,\"yyyy-MM-dd HH:mm:ss\")  as _end_time\n| fields -rownum, _others",
-            "metricsQueries": [],
-            "timeRange": {
-                "type": "BeginBoundedTimeRange",
-                "from": {
-                    "type": "RelativeTimeRangeBoundary",
-                    "relativeTime": "-1d"
-                },
-                "to": null
-            },
-            "x": 13,
-            "y": 7,
-            "width": 12,
-            "height": 6,
-            "properties": "{\"version\":3,\"settings\":{\"table\":{\"version\":2,\"configuration\":{\"textTruncationMode\":\"none\",\"fontSize\":\"medium\",\"fontSizeOverride\":null,\"tableState\":null}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"pie\":{\"chartType\":\"pie\",\"version\":3,\"configuration\":{\"donutMode\":true,\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"label\":{\"truncationMode\":\"middle\"},\"showSliceBorders\":true,\"maxNumOfPieSlices\":\"10\"}}},\"boxplot\":{\"chartType\":\"boxplot\",\"version\":1,\"configuration\":{\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"}},\"yAxis\":{\"title\":null,\"min\":null,\"max\":null}}},\"map\":{\"chartType\":\"map\",\"version\":1,\"configuration\":{\"maptype\":\"cluster\"}},\"svv\":{\"version\":2,\"configuration\":{\"colorOverride\":null,\"backgroundColorEnabled\":false,\"noDataBehavior\":{\"enabled\":false,\"color\":\"#cccccc\",\"value\":null,\"isString\":null},\"valueType\":{\"number\":{\"showNumber\":true,\"unit\":null,\"colorsByValueRange\":null},\"boolean\":{\"trueColor\":\"#6aa84f\",\"falseColor\":\"#cc0000\"}},\"labels\":{\"prefix\":{\"enabled\":false,\"text\":\"\",\"align\":\"left\"},\"postfix\":{\"enabled\":false,\"text\":\"\",\"align\":\"right\"}}}},\"sankey\":{\"version\":1,\"configuration\":{}},\"text\":{\"version\":1,\"configuration\":{\"text\":null}},\"metrics\":{\"version\":2,\"configuration\":{\"blockSettings\":{},\"viewType\":\"timeline\",\"zoom\":\"xy\",\"yAxis\":{\"defaults\":[{\"name\":\"\"},{\"name\":\"\"}],\"custom\":[{},{}]},\"xAxis\":{\"scrubber\":true},\"outliers\":{\"enabled\":true,\"top\":1,\"scope\":\"Chart\",\"cyclicality\":false,\"threshold\":7,\"autoShowBand\":true},\"colorFamily\":\"METRIC_DEFAULT\"}},\"common\":{\"version\":1,\"configuration\":{\"drilldown\":{\"fallback\":{\"target\":{\"id\":null,\"name\":null,\"enabled\":null}}}}}}}",
-            "id": "7254419",
-            "desiredQuantizationInSecs": 0,
-            "queryParameters": []
+            "id": null,
+            "key": "panel444aaf668328ba4a",
+            "title": "Users Authentication From Multiple Geolocations",
+            "visualSettings": "{\"title\":{\"fontSize\":12},\"series\":{},\"general\":{\"type\":\"table\",\"fontSize\":12,\"mode\":\"timeSeries\"},\"thresholdsSettings\":{\"fillRemainingGreen\":false,\"showThresholds\":false,\"numberThresholds\":{\"warning\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":80},\"critical\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":100}}}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=*citrixvpn* (\"SSLVPN LOGOUT\"  OR \"SSLVPN LOGIN\") | parse regex \"\\: default (?<description>\\S+\\s\\S+)\\s+[\\s\\S]+?User\\s+(?<user_username>(?:\\S+|))\\s+\\-\\s+Client_ip\\s+(?<srcdevice_ip>\\d+\\.\\d+\\.\\d+\\.\\d+)\\s+[\\s\\S]+\" nodrop\n| parse \"Vserver *:\" as devicenat_ip nodrop\n| parse \"Browser_type \\\"*\\\"\" as http_userAgent nodrop\n| parse \"Browser *\" as http_userAgent nodrop\n| parse \"Failure_reason \\\"*\\\"\" as failureReason nodrop\n| parse \"SessionId: *-\" as sessionId nodrop\n| parse \"SSLVPN_client_type * \" as application nodrop\n| parse \"Start_time \\\"* \\\" - End_time \\\"* \\\" - Duration *  \" as Sessionstart_time, Sessionend_time, sessionDuration nodrop\n| parse \"Total_bytes_recv * \" as bytesIn nodrop\n\n| lookup country_name,state, state from geo://location on ip=srcdevice_ip\n\n| transaction on user_username, state\nwith \"*LOGIN*\" as login,\nwith \"*LOGOUT*\" as logout\n\n| \"1\" as rownum\n| total(rownum) by user_username\n| where _total>1\n| sort user_username\n| formatDate(_start_time,\"yyyy-MM-dd HH:mm:ss\")  as _start_time\n| formatDate(_end_time,\"yyyy-MM-dd HH:mm:ss\")  as _end_time\n| fields -rownum, _others",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Manual",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": null
+                }
+            ],
+            "description": null,
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
         },
         {
-            "name": "Successful Authentication Geolocation Map",
-            "viewerType": "map",
-            "detailLevel": 2,
-            "queryString": "_sourceCategory=<NETSCALER SOURCE CATEGORY> (\"SSLVPN LOGIN\" ) | parse regex \"\\: default (?<description>\\S+\\s\\S+)\\s+[\\s\\S]+?User\\s+(?<user_username>(?:\\S+|))\\s+\\-\\s+Client_ip\\s+(?<srcdevice_ip>\\d+\\.\\d+\\.\\d+\\.\\d+)\\s+[\\s\\S]+\" nodrop\n| parse \"Vserver *:\" as devicenat_ip nodrop\n| parse \"Browser_type \\\"*\\\"\" as http_userAgent nodrop\n| parse \"Browser *\" as http_userAgent nodrop\n| parse \"Failure_reason \\\"*\\\"\" as failureReason nodrop\n| parse \"SessionId: *-\" as sessionId nodrop\n| parse \"SSLVPN_client_type * \" as application nodrop\n| parse \"Start_time \\\"* \\\" - End_time \\\"* \\\" - Duration *  \" as Sessionstart_time, Sessionend_time, sessionDuration nodrop\n| parse \"Total_bytes_recv * \" as bytesIn nodrop\n\n| lookup latitude, longitude from geo://location on ip=srcdevice_ip\n| count latitude, longitude",
-            "metricsQueries": [],
-            "timeRange": {
-                "type": "BeginBoundedTimeRange",
-                "from": {
-                    "type": "RelativeTimeRangeBoundary",
-                    "relativeTime": "-1d"
-                },
-                "to": null
-            },
-            "x": 1,
-            "y": 1,
-            "width": 12,
-            "height": 6,
-            "properties": "{\"version\":3,\"settings\":{\"table\":{\"version\":2,\"configuration\":{\"textTruncationMode\":\"none\",\"fontSize\":\"medium\",\"fontSizeOverride\":null,\"tableState\":null}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"pie\":{\"chartType\":\"pie\",\"version\":3,\"configuration\":{\"donutMode\":true,\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"label\":{\"truncationMode\":\"middle\"},\"showSliceBorders\":true,\"maxNumOfPieSlices\":\"10\"}}},\"boxplot\":{\"chartType\":\"boxplot\",\"version\":1,\"configuration\":{\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"}},\"yAxis\":{\"title\":null,\"min\":null,\"max\":null}}},\"map\":{\"chartType\":\"map\",\"version\":1,\"configuration\":{\"maptype\":\"cluster\"}},\"svv\":{\"version\":2,\"configuration\":{\"colorOverride\":null,\"backgroundColorEnabled\":false,\"noDataBehavior\":{\"enabled\":false,\"color\":\"#cccccc\",\"value\":null,\"isString\":null},\"valueType\":{\"number\":{\"showNumber\":true,\"unit\":null,\"colorsByValueRange\":null},\"boolean\":{\"trueColor\":\"#6aa84f\",\"falseColor\":\"#cc0000\"}},\"labels\":{\"prefix\":{\"enabled\":false,\"text\":\"\",\"align\":\"left\"},\"postfix\":{\"enabled\":false,\"text\":\"\",\"align\":\"right\"}}}},\"sankey\":{\"version\":1,\"configuration\":{}},\"text\":{\"version\":1,\"configuration\":{\"text\":null}},\"metrics\":{\"version\":2,\"configuration\":{\"blockSettings\":{},\"viewType\":\"timeline\",\"zoom\":\"xy\",\"yAxis\":{\"defaults\":[{\"name\":\"\"},{\"name\":\"\"}],\"custom\":[{},{}]},\"xAxis\":{\"scrubber\":true},\"outliers\":{\"enabled\":true,\"top\":1,\"scope\":\"Chart\",\"cyclicality\":false,\"threshold\":7,\"autoShowBand\":true},\"colorFamily\":\"METRIC_DEFAULT\"}},\"common\":{\"version\":1,\"configuration\":{\"drilldown\":{\"fallback\":{\"target\":{\"id\":null,\"name\":null,\"enabled\":null}}}}}}}",
-            "id": "7254025",
-            "desiredQuantizationInSecs": 0,
-            "queryParameters": []
+            "id": null,
+            "key": "paneldc072acca4300a44",
+            "title": "Failed Authentication Geolocation Map",
+            "visualSettings": "{\"general\":{\"mode\":\"map\",\"type\":\"map\"},\"map\":{\"mainMetric\":{\"layerType\":\"Cluster\"}}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=*citrixvpn* (\"AAA LOGIN_FAILED\" ) | parse regex \"\\: default (?<description>\\S+\\s\\S+)\\s+[\\s\\S]+?User\\s+(?<user_username>(?:\\S+|))\\s+\\-\\s+Client_ip\\s+(?<srcdevice_ip>\\d+\\.\\d+\\.\\d+\\.\\d+)\\s+[\\s\\S]+\" nodrop\n| parse \"Vserver *:\" as devicenat_ip nodrop\n| parse \"Browser_type \\\"*\\\"\" as http_userAgent nodrop\n| parse \"Browser *\" as http_userAgent nodrop\n| parse \"Failure_reason \\\"*\\\"\" as failureReason nodrop\n| parse \"SessionId: *-\" as sessionId nodrop\n| parse \"SSLVPN_client_type * \" as application nodrop\n| parse \"Start_time \\\"* \\\" - End_time \\\"* \\\" - Duration *  \" as Sessionstart_time, Sessionend_time, sessionDuration nodrop\n| parse \"Total_bytes_recv * \" as bytesIn nodrop\n\n| lookup latitude, longitude from geo://location on ip=srcdevice_ip\n| count latitude, longitude",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Manual",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": null
+                }
+            ],
+            "description": null,
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
         },
         {
-            "name": "Authentications From Outside the US",
-            "viewerType": "table",
-            "detailLevel": 2,
-            "queryString": "_sourceCategory=<NETSCALER SOURCE CATEGORY> (\"SSLVPN LOGIN\" OR \"AAA LOGIN_FAILED\" ) | parse regex \"\\: default (?<description>\\S+\\s\\S+)\\s+[\\s\\S]+?User\\s+(?<user_username>(?:\\S+|))\\s+\\-\\s+Client_ip\\s+(?<srcdevice_ip>\\d+\\.\\d+\\.\\d+\\.\\d+)\\s+[\\s\\S]+\" nodrop\n| parse \"Vserver *:\" as devicenat_ip nodrop\n| parse \"Browser_type \\\"*\\\"\" as http_userAgent nodrop\n| parse \"Browser *\" as http_userAgent nodrop\n| parse \"Failure_reason \\\"*\\\"\" as failureReason nodrop\n| parse \"SessionId: *-\" as sessionId nodrop\n| parse \"SSLVPN_client_type * \" as application nodrop\n| parse \"Start_time \\\"* \\\" - End_time \\\"* \\\" - Duration *  \" as Sessionstart_time, Sessionend_time, sessionDuration nodrop\n| parse \"Total_bytes_recv * \" as bytesIn nodrop\n\n| lookup country_name, region, city from geo://location on ip=srcdevice_ip\n| where country_name!=\"United States\"\n| formatDate(_messagetime, \"yyyy-MM-dd HH:mm:ss\") as event_time\n| count event_time, user_username, description,country_name, region, city, srcdevice_ip, devicenat_ip, http_userAgent, failureReason, sessionId, application\n| sort event_time desc",
-            "metricsQueries": [],
-            "timeRange": {
-                "type": "BeginBoundedTimeRange",
-                "from": {
-                    "type": "RelativeTimeRangeBoundary",
-                    "relativeTime": "-1d"
-                },
-                "to": null
-            },
-            "x": 1,
-            "y": 19,
-            "width": 24,
-            "height": 6,
-            "properties": "{\"version\":3,\"settings\":{\"table\":{\"version\":2,\"configuration\":{\"textTruncationMode\":\"none\",\"fontSize\":\"medium\",\"fontSizeOverride\":null,\"tableState\":null}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"pie\":{\"chartType\":\"pie\",\"version\":3,\"configuration\":{\"donutMode\":true,\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"label\":{\"truncationMode\":\"middle\"},\"showSliceBorders\":true,\"maxNumOfPieSlices\":\"10\"}}},\"boxplot\":{\"chartType\":\"boxplot\",\"version\":1,\"configuration\":{\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"}},\"yAxis\":{\"title\":null,\"min\":null,\"max\":null}}},\"map\":{\"chartType\":\"map\",\"version\":1,\"configuration\":{\"maptype\":\"cluster\"}},\"svv\":{\"version\":2,\"configuration\":{\"colorOverride\":null,\"backgroundColorEnabled\":false,\"noDataBehavior\":{\"enabled\":false,\"color\":\"#cccccc\",\"value\":null,\"isString\":null},\"valueType\":{\"number\":{\"showNumber\":true,\"unit\":null,\"colorsByValueRange\":null},\"boolean\":{\"trueColor\":\"#6aa84f\",\"falseColor\":\"#cc0000\"}},\"labels\":{\"prefix\":{\"enabled\":false,\"text\":\"\",\"align\":\"left\"},\"postfix\":{\"enabled\":false,\"text\":\"\",\"align\":\"right\"}}}},\"sankey\":{\"version\":1,\"configuration\":{}},\"text\":{\"version\":1,\"configuration\":{\"text\":null}},\"metrics\":{\"version\":2,\"configuration\":{\"blockSettings\":{},\"viewType\":\"timeline\",\"zoom\":\"xy\",\"yAxis\":{\"defaults\":[{\"name\":\"\"},{\"name\":\"\"}],\"custom\":[{},{}]},\"xAxis\":{\"scrubber\":true},\"outliers\":{\"enabled\":true,\"top\":1,\"scope\":\"Chart\",\"cyclicality\":false,\"threshold\":7,\"autoShowBand\":true},\"colorFamily\":\"METRIC_DEFAULT\"}},\"common\":{\"version\":1,\"configuration\":{\"drilldown\":{\"fallback\":{\"target\":{\"id\":null,\"name\":null,\"enabled\":null}}}}}}}",
-            "id": "7254097",
-            "desiredQuantizationInSecs": 0,
-            "queryParameters": []
+            "id": null,
+            "key": "panel97665a2a85a0c944",
+            "title": "Rare User Agents",
+            "visualSettings": "{\"title\":{\"fontSize\":12},\"series\":{},\"general\":{\"type\":\"table\",\"fontSize\":12,\"mode\":\"timeSeries\"},\"thresholdsSettings\":{\"fillRemainingGreen\":false,\"showThresholds\":false,\"numberThresholds\":{\"warning\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":80},\"critical\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":100}}}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=*citrixvpn* (\"SSLVPN LOGIN\"  OR \"SSLVPN LOGIN\") | parse regex \"\\: default (?<description>\\S+\\s\\S+)\\s+[\\s\\S]+?User\\s+(?<user_username>(?:\\S+|))\\s+\\-\\s+Client_ip\\s+(?<srcdevice_ip>\\d+\\.\\d+\\.\\d+\\.\\d+)\\s+[\\s\\S]+\" nodrop\n| parse \"Vserver *:\" as devicenat_ip nodrop\n| parse \"Browser_type \\\"*\\\"\" as http_userAgent nodrop\n| parse \"Browser *\" as http_userAgent nodrop\n| parse \"Failure_reason \\\"*\\\"\" as failureReason nodrop\n| parse \"SessionId: *-\" as sessionId nodrop\n| parse \"SSLVPN_client_type * \" as application nodrop\n| parse \"Start_time \\\"* \\\" - End_time \\\"* \\\" - Duration *  \" as Sessionstart_time, Sessionend_time, sessionDuration nodrop\n| parse \"Total_bytes_recv * \" as bytesIn nodrop\n\n| lookup http_useragent as ug from shared/vpn_useragent on ug=http_useragent\n| where isEmpty(ug)\n| count user_username, srcdevice_ip,  http_useragent\n",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Manual",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": null
+                }
+            ],
+            "description": null,
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
         },
         {
-            "name": "Rare User Agents",
-            "viewerType": "table",
-            "detailLevel": 0,
-            "queryString": "_sourceCategory=<NETSCALER SOURCE CATEGORY> (\"SSLVPN LOGIN\"  OR \"SSLVPN LOGIN\") | parse regex \"\\: default (?<description>\\S+\\s\\S+)\\s+[\\s\\S]+?User\\s+(?<user_username>(?:\\S+|))\\s+\\-\\s+Client_ip\\s+(?<srcdevice_ip>\\d+\\.\\d+\\.\\d+\\.\\d+)\\s+[\\s\\S]+\" nodrop\n| parse \"Vserver *:\" as devicenat_ip nodrop\n| parse \"Browser_type \\\"*\\\"\" as http_userAgent nodrop\n| parse \"Browser *\" as http_userAgent nodrop\n| parse \"Failure_reason \\\"*\\\"\" as failureReason nodrop\n| parse \"SessionId: *-\" as sessionId nodrop\n| parse \"SSLVPN_client_type * \" as application nodrop\n| parse \"Start_time \\\"* \\\" - End_time \\\"* \\\" - Duration *  \" as Sessionstart_time, Sessionend_time, sessionDuration nodrop\n| parse \"Total_bytes_recv * \" as bytesIn nodrop\n\n| lookup http_useragent as ug from shared/vpn_useragent on ug=http_useragent\n| where isEmpty(ug)\n| count user_username, srcdevice_ip,  http_useragent\n",
-            "metricsQueries": [],
-            "timeRange": {
-                "type": "BeginBoundedTimeRange",
-                "from": {
-                    "type": "RelativeTimeRangeBoundary",
-                    "relativeTime": "-1d"
-                },
-                "to": null
-            },
-            "x": 16,
-            "y": 13,
-            "width": 9,
-            "height": 6,
-            "properties": "{\"version\":3,\"settings\":{\"table\":{\"version\":2,\"configuration\":{\"textTruncationMode\":\"none\",\"fontSize\":\"medium\",\"fontSizeOverride\":null,\"tableState\":null}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"pie\":{\"chartType\":\"pie\",\"version\":3,\"configuration\":{\"donutMode\":true,\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"label\":{\"truncationMode\":\"middle\"},\"showSliceBorders\":true,\"maxNumOfPieSlices\":\"10\"}}},\"boxplot\":{\"chartType\":\"boxplot\",\"version\":1,\"configuration\":{\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"}},\"yAxis\":{\"title\":null,\"min\":null,\"max\":null}}},\"map\":{\"chartType\":\"map\",\"version\":1,\"configuration\":{\"maptype\":\"cluster\"}},\"svv\":{\"version\":2,\"configuration\":{\"colorOverride\":null,\"backgroundColorEnabled\":false,\"noDataBehavior\":{\"enabled\":false,\"color\":\"#cccccc\",\"value\":null,\"isString\":null},\"valueType\":{\"number\":{\"showNumber\":true,\"unit\":null,\"colorsByValueRange\":null},\"boolean\":{\"trueColor\":\"#6aa84f\",\"falseColor\":\"#cc0000\"}},\"labels\":{\"prefix\":{\"enabled\":false,\"text\":\"\",\"align\":\"left\"},\"postfix\":{\"enabled\":false,\"text\":\"\",\"align\":\"right\"}}}},\"sankey\":{\"version\":1,\"configuration\":{}},\"text\":{\"version\":1,\"configuration\":{\"text\":null}},\"metrics\":{\"version\":2,\"configuration\":{\"blockSettings\":{},\"viewType\":\"timeline\",\"zoom\":\"xy\",\"yAxis\":{\"defaults\":[{\"name\":\"\"},{\"name\":\"\"}],\"custom\":[{},{}]},\"xAxis\":{\"scrubber\":true},\"outliers\":{\"enabled\":true,\"top\":1,\"scope\":\"Chart\",\"cyclicality\":false,\"threshold\":7,\"autoShowBand\":true},\"colorFamily\":\"METRIC_DEFAULT\"}},\"common\":{\"version\":1,\"configuration\":{\"drilldown\":{\"fallback\":{\"target\":{\"id\":null,\"name\":null,\"enabled\":null}}}}}}}",
-            "id": "7254639",
-            "desiredQuantizationInSecs": 0,
-            "queryParameters": []
+            "id": null,
+            "key": "panel135e3db488cac942",
+            "title": "Failed Authentication Attempts",
+            "visualSettings": "{\"title\":{\"fontSize\":12},\"series\":{},\"general\":{\"type\":\"table\",\"fontSize\":12,\"mode\":\"timeSeries\"},\"thresholdsSettings\":{\"fillRemainingGreen\":false,\"showThresholds\":false,\"numberThresholds\":{\"warning\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":80},\"critical\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":100}}}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=*citrixvpn* (\"AAA LOGIN_FAILED\" ) | parse regex \"\\: default (?<description>\\S+\\s\\S+)\\s+[\\s\\S]+?User\\s+(?<user_username>(?:\\S+|))\\s+\\-\\s+Client_ip\\s+(?<srcdevice_ip>\\d+\\.\\d+\\.\\d+\\.\\d+)\\s+[\\s\\S]+\" nodrop\n| parse \"Vserver *:\" as devicenat_ip nodrop\n| parse \"Browser_type \\\"*\\\"\" as http_userAgent nodrop\n| parse \"Browser *\" as http_userAgent nodrop\n| parse \"Failure_reason \\\"*\\\"\" as failureReason nodrop\n| parse \"SessionId: *-\" as sessionId nodrop\n| parse \"SSLVPN_client_type * \" as application nodrop\n| parse \"Start_time \\\"* \\\" - End_time \\\"* \\\" - Duration *  \" as Sessionstart_time, Sessionend_time, sessionDuration nodrop\n| parse \"Total_bytes_recv * \" as bytesIn nodrop\n\n| lookup country_name, region, city from geo://location on ip=srcdevice_ip\n| where country_name!=\"United States\"\n| formatDate(_messagetime, \"yyyy-MM-dd HH:mm:ss\") as event_time\n| count event_time, user_username, description,country_name, region, city, srcdevice_ip, http_userAgent, failureReason\n| sort event_time desc",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Manual",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": null
+                }
+            ],
+            "description": null,
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
         }
     ],
-    "filters": []
+    "variables": [],
+    "coloringRules": []
 }
