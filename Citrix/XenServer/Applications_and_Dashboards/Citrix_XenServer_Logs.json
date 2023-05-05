@@ -1,607 +1,155 @@
 {
-  "type":"Folder",
-  "name":"Citrix",
-  "description":"",
-  "children":[{
-    "type":"Report",
-    "name":"XenServer Prototype",
-    "description":"",
-    "columns":[""],
-    "detailLevel":0,
-    "properties":"{\"layoutType\":\"gridster\"}",
-    "panels":[{
-      "type":"ReportPanel",
-      "name":"Message Code Types over Time",
-      "viewerType":"area",
-      "detailLevel":2,
-      "queryString":"$$XenServer\n| parse \"<*>*: *\" as message_code,message_source,message_body | timeslice 10 buckets | count _timeslice, message_code | transpose row _timeslice column message_code",
-      "metricsQueries":[],
-      "timeRange":"[{\"t\":\"absolute\",\"d\":1499977026000},{\"t\":\"absolute\",\"d\":1499980626000}]",
-      "x":1,
-      "y":1,
-      "width":12,
-      "height":6,
-      "properties":"{\"version\":3,\"settings\":{\"table\":{\"version\":2,\"configuration\":{\"textTruncationMode\":\"none\",\"fontSize\":\"medium\",\"fontSizeOverride\":null}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"colors\":{\"index\":5,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"pie\":{\"chartType\":\"pie\",\"version\":3,\"configuration\":{\"donutMode\":true,\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"label\":{\"truncationMode\":\"middle\"},\"showSliceBorders\":true,\"maxNumOfPieSlices\":\"10\"}}},\"boxplot\":{\"chartType\":\"boxplot\",\"version\":1,\"configuration\":{\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"}},\"yAxis\":{\"title\":null,\"min\":null,\"max\":null}}},\"map\":{\"version\":1,\"configuration\":{}},\"svv\":{\"version\":2,\"configuration\":{\"colorOverride\":null,\"backgroundColorEnabled\":false,\"noDataBehavior\":{\"enabled\":false,\"color\":\"#cccccc\",\"value\":null,\"isString\":null},\"valueType\":{\"number\":{\"showNumber\":true,\"unit\":null,\"colorsByValueRange\":null},\"boolean\":{\"trueColor\":\"#6aa84f\",\"falseColor\":\"#cc0000\"}},\"labels\":{\"prefix\":{\"enabled\":false,\"text\":\"\",\"align\":\"left\"},\"postfix\":{\"enabled\":false,\"text\":\"\",\"align\":\"right\"}}}},\"sankey\":{\"version\":1,\"configuration\":{}},\"text\":{\"version\":1,\"configuration\":{\"text\":null}},\"metrics\":{\"version\":2,\"configuration\":{\"blockSettings\":{},\"viewType\":\"timeline\",\"zoom\":\"xy\",\"yAxis\":{\"defaults\":[{\"name\":\"\"},{\"name\":\"\"}],\"custom\":[{},{}]},\"xAxis\":{\"scrubber\":true},\"outliers\":{\"enabled\":true,\"top\":1,\"scope\":\"Chart\",\"cyclicality\":false,\"threshold\":7,\"autoShowBand\":true},\"colorFamily\":\"METRIC_DEFAULT\"}},\"common\":{\"version\":1,\"configuration\":{\"drilldown\":{\"fallback\":{\"target\":{\"id\":null,\"name\":null,\"enabled\":null}}}}}}}",
-      "isDisabled":false,
-      "id":"1454165",
-      "fields":[{
-        "name":{
-          "name":"_collector"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_source"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcecategory"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcehost"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcename"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"method"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"referrer"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"size"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"src_ip"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"status_code"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"url"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"user_agent"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"message_code"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"message_source"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"message_body"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"__timeslice_end"
-        },
-        "tpe":"java.lang.Long",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      }],
-      "desiredQuantizationInSecs":0,
-      "queryParameters":[]
-    },{
-      "type":"ReportPanel",
-      "name":"Message Sources Over Time",
-      "viewerType":"column",
-      "detailLevel":2,
-      "queryString":"$$XenServer\n| parse \"<*>*: *\" as message_code,message_source,message_body | timeslice 10 buckets | count _timeslice, message_source | transpose row _timeslice column message_source",
-      "metricsQueries":[],
-      "timeRange":"[{\"t\":\"absolute\",\"d\":1499977026000},{\"t\":\"absolute\",\"d\":1499980626000}]",
-      "x":13,
-      "y":1,
-      "width":12,
-      "height":6,
-      "properties":"{\"version\":3,\"settings\":{\"table\":{\"version\":2,\"configuration\":{\"textTruncationMode\":\"none\",\"fontSize\":\"medium\",\"fontSizeOverride\":null}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"colors\":{\"index\":9,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"pie\":{\"chartType\":\"pie\",\"version\":3,\"configuration\":{\"donutMode\":true,\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"label\":{\"truncationMode\":\"middle\"},\"showSliceBorders\":true,\"maxNumOfPieSlices\":\"10\"}}},\"boxplot\":{\"chartType\":\"boxplot\",\"version\":1,\"configuration\":{\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"}},\"yAxis\":{\"title\":null,\"min\":null,\"max\":null}}},\"map\":{\"version\":1,\"configuration\":{}},\"svv\":{\"version\":2,\"configuration\":{\"colorOverride\":null,\"backgroundColorEnabled\":false,\"noDataBehavior\":{\"enabled\":false,\"color\":\"#cccccc\",\"value\":null,\"isString\":null},\"valueType\":{\"number\":{\"showNumber\":true,\"unit\":null,\"colorsByValueRange\":null},\"boolean\":{\"trueColor\":\"#6aa84f\",\"falseColor\":\"#cc0000\"}},\"labels\":{\"prefix\":{\"enabled\":false,\"text\":\"\",\"align\":\"left\"},\"postfix\":{\"enabled\":false,\"text\":\"\",\"align\":\"right\"}}}},\"sankey\":{\"version\":1,\"configuration\":{}},\"text\":{\"version\":1,\"configuration\":{\"text\":null}},\"metrics\":{\"version\":2,\"configuration\":{\"blockSettings\":{},\"viewType\":\"timeline\",\"zoom\":\"xy\",\"yAxis\":{\"defaults\":[{\"name\":\"\"},{\"name\":\"\"}],\"custom\":[{},{}]},\"xAxis\":{\"scrubber\":true},\"outliers\":{\"enabled\":true,\"top\":1,\"scope\":\"Chart\",\"cyclicality\":false,\"threshold\":7,\"autoShowBand\":true},\"colorFamily\":\"METRIC_DEFAULT\"}},\"common\":{\"version\":1,\"configuration\":{\"drilldown\":{\"fallback\":{\"target\":{\"id\":null,\"name\":null,\"enabled\":null}}}}}}}",
-      "isDisabled":false,
-      "id":"1454169",
-      "fields":[{
-        "name":{
-          "name":"_collector"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_source"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcecategory"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcehost"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcename"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"method"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"referrer"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"size"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"src_ip"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"status_code"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"url"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"user_agent"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"message_code"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"message_source"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"message_body"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"__timeslice_end"
-        },
-        "tpe":"java.lang.Long",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      }],
-      "desiredQuantizationInSecs":0,
-      "queryParameters":[]
-    },{
-      "type":"ReportPanel",
-      "name":"Message Code by Session",
-      "viewerType":"pie",
-      "detailLevel":2,
-      "queryString":"$$XenServer Session\n| parse \"<*>*: *\" as message_code,message_source,message_body\n| parse field=message_body \"[*] *.* *\" as detail, detail1, session_action, detail2\n| fields - detail,detail1,detail2,message_body | count message_code | top 10 message_code by _count",
-      "metricsQueries":[],
-      "timeRange":"[{\"t\":\"absolute\",\"d\":1499977026000},{\"t\":\"absolute\",\"d\":1499980626000}]",
-      "x":1,
-      "y":7,
-      "width":8,
-      "height":5,
-      "properties":"{\"version\":3,\"settings\":{\"table\":{\"version\":2,\"configuration\":{\"textTruncationMode\":\"none\",\"fontSize\":\"medium\",\"fontSizeOverride\":null}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"pie\":{\"chartType\":\"pie\",\"version\":3,\"configuration\":{\"donutMode\":true,\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"label\":{\"truncationMode\":\"middle\"},\"showSliceBorders\":true,\"maxNumOfPieSlices\":\"10\"}}},\"boxplot\":{\"chartType\":\"boxplot\",\"version\":1,\"configuration\":{\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"}},\"yAxis\":{\"title\":null,\"min\":null,\"max\":null}}},\"map\":{\"version\":1,\"configuration\":{}},\"svv\":{\"version\":2,\"configuration\":{\"colorOverride\":null,\"backgroundColorEnabled\":false,\"noDataBehavior\":{\"enabled\":false,\"color\":\"#cccccc\",\"value\":null,\"isString\":null},\"valueType\":{\"number\":{\"showNumber\":true,\"unit\":null,\"colorsByValueRange\":null},\"boolean\":{\"trueColor\":\"#6aa84f\",\"falseColor\":\"#cc0000\"}},\"labels\":{\"prefix\":{\"enabled\":false,\"text\":\"\",\"align\":\"left\"},\"postfix\":{\"enabled\":false,\"text\":\"\",\"align\":\"right\"}}}},\"sankey\":{\"version\":1,\"configuration\":{}},\"text\":{\"version\":1,\"configuration\":{\"text\":null}},\"metrics\":{\"version\":2,\"configuration\":{\"blockSettings\":{},\"viewType\":\"timeline\",\"zoom\":\"xy\",\"yAxis\":{\"defaults\":[{\"name\":\"\"},{\"name\":\"\"}],\"custom\":[{},{}]},\"xAxis\":{\"scrubber\":true},\"outliers\":{\"enabled\":true,\"top\":1,\"scope\":\"Chart\",\"cyclicality\":false,\"threshold\":7,\"autoShowBand\":true},\"colorFamily\":\"METRIC_DEFAULT\"}},\"common\":{\"version\":1,\"configuration\":{\"drilldown\":{\"fallback\":{\"target\":{\"id\":null,\"name\":null,\"enabled\":null}}}}}}}",
-      "isDisabled":false,
-      "id":"1454213",
-      "fields":[{
-        "name":{
-          "name":"_collector"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_source"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcecategory"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcehost"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcename"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"method"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"referrer"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"size"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"src_ip"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"status_code"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"url"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"user_agent"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"message_code"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"message_source"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"session_action"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"message_code"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"query"
-      },{
-        "name":{
-          "name":"_count"
-        },
-        "tpe":"java.lang.Integer",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"query"
-      }],
-      "desiredQuantizationInSecs":0,
-      "queryParameters":[]
-    },{
-      "type":"ReportPanel",
-      "name":"Session Actions Over Time",
-      "viewerType":"column",
-      "detailLevel":2,
-      "queryString":"$$XenServer Session\n| parse \"<*>*: *\" as message_code,message_source,message_body\n| parse field=message_body \"[*] *.* *\" as detail, detail1, session_action, detail2\n| fields - detail,detail1,detail2,message_body | timeslice 10 buckets | count _timeslice, session_action | transpose row _timeslice column session_action",
-      "metricsQueries":[],
-      "timeRange":"[{\"t\":\"absolute\",\"d\":1499977026000},{\"t\":\"absolute\",\"d\":1499980626000}]",
-      "x":9,
-      "y":7,
-      "width":8,
-      "height":5,
-      "properties":"{\"version\":3,\"settings\":{\"table\":{\"version\":2,\"configuration\":{\"textTruncationMode\":\"none\",\"fontSize\":\"medium\",\"fontSizeOverride\":null}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"pie\":{\"chartType\":\"pie\",\"version\":3,\"configuration\":{\"donutMode\":true,\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"label\":{\"truncationMode\":\"middle\"},\"showSliceBorders\":true,\"maxNumOfPieSlices\":\"10\"}}},\"boxplot\":{\"chartType\":\"boxplot\",\"version\":1,\"configuration\":{\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"}},\"yAxis\":{\"title\":null,\"min\":null,\"max\":null}}},\"map\":{\"version\":1,\"configuration\":{}},\"svv\":{\"version\":2,\"configuration\":{\"colorOverride\":null,\"backgroundColorEnabled\":false,\"noDataBehavior\":{\"enabled\":false,\"color\":\"#cccccc\",\"value\":null,\"isString\":null},\"valueType\":{\"number\":{\"showNumber\":true,\"unit\":null,\"colorsByValueRange\":null},\"boolean\":{\"trueColor\":\"#6aa84f\",\"falseColor\":\"#cc0000\"}},\"labels\":{\"prefix\":{\"enabled\":false,\"text\":\"\",\"align\":\"left\"},\"postfix\":{\"enabled\":false,\"text\":\"\",\"align\":\"right\"}}}},\"sankey\":{\"version\":1,\"configuration\":{}},\"text\":{\"version\":1,\"configuration\":{\"text\":null}},\"metrics\":{\"version\":2,\"configuration\":{\"blockSettings\":{},\"viewType\":\"timeline\",\"zoom\":\"xy\",\"yAxis\":{\"defaults\":[{\"name\":\"\"},{\"name\":\"\"}],\"custom\":[{},{}]},\"xAxis\":{\"scrubber\":true},\"outliers\":{\"enabled\":true,\"top\":1,\"scope\":\"Chart\",\"cyclicality\":false,\"threshold\":7,\"autoShowBand\":true},\"colorFamily\":\"METRIC_DEFAULT\"}},\"common\":{\"version\":1,\"configuration\":{\"drilldown\":{\"fallback\":{\"target\":{\"id\":null,\"name\":null,\"enabled\":null}}}}}}}",
-      "isDisabled":false,
-      "id":"1454216",
-      "fields":[{
-        "name":{
-          "name":"_collector"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_source"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcecategory"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcehost"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcename"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"method"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"referrer"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"size"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"src_ip"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"status_code"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"url"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"user_agent"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"message_code"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"message_source"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"session_action"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"__timeslice_end"
-        },
-        "tpe":"java.lang.Long",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      }],
-      "desiredQuantizationInSecs":0,
-      "queryParameters":[]
-    }],
-    "filters":[]
-  }]
+  "type": "DashboardV2SyncDefinition",
+  "name": "XenServer Prototype",
+  "description": "",
+  "title": "XenServer Prototype",
+  "theme": "Dark",
+  "topologyLabelMap": {
+      "data": {}
+  },
+  "refreshInterval": 0,
+  "timeRange": {
+      "type": "BeginBoundedTimeRange",
+      "from": {
+          "type": "EpochTimeRangeBoundary",
+          "epochMillis": 1499977026000
+      },
+      "to": {
+          "type": "EpochTimeRangeBoundary",
+          "epochMillis": 1499980626000
+      }
+  },
+  "layout": {
+      "layoutType": "Grid",
+      "layoutStructures": [
+          {
+              "key": "panele1db895aa5e74b42",
+              "structure": "{\"height\":8,\"width\":12,\"x\":0,\"y\":0}"
+          },
+          {
+              "key": "panel4c4c2c09aa72bb4f",
+              "structure": "{\"height\":8,\"width\":12,\"x\":12,\"y\":0}"
+          },
+          {
+              "key": "panel0c065cb998477a48",
+              "structure": "{\"height\":8,\"width\":8,\"x\":0,\"y\":8}"
+          },
+          {
+              "key": "panel117669e88631c846",
+              "structure": "{\"height\":8,\"width\":16,\"x\":8,\"y\":8}"
+          }
+      ]
+  },
+  "panels": [
+      {
+          "id": null,
+          "key": "panele1db895aa5e74b42",
+          "title": "Message Code Types over Time",
+          "visualSettings": "{\"title\":{\"fontSize\":14},\"general\":{\"type\":\"area\",\"displayType\":\"default\",\"markerSize\":null,\"lineDashType\":\"solid\",\"markerType\":\"none\",\"lineThickness\":1,\"fillOpacity\":0.25,\"mode\":\"timeSeries\"},\"axes\":{\"axisX\":{\"hideLabels\":false,\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"hideLabels\":false,\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12,\"logarithmic\":false,\"gridColor\":\"\",\"minimum\":null,\"maximum\":null}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"right\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":true,\"wrap\":true},\"color\":{\"family\":\"Categorical Default\"},\"thresholdsSettings\":{\"fillRemainingGreen\":false,\"showThresholds\":false,\"numberThresholds\":{\"warning\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":80},\"critical\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":100}}},\"overrides\":[]}",
+          "keepVisualSettingsConsistentWithParent": true,
+          "panelType": "SumoSearchPanel",
+          "queries": [
+              {
+                  "transient": false,
+                  "queryString": "_sourceCategory=*XenServer*\n| parse \"<*>*: *\" as message_code,message_source,message_body | timeslice 10 buckets | count _timeslice, message_code | transpose row _timeslice column message_code",
+                  "queryType": "Logs",
+                  "queryKey": "A",
+                  "metricsQueryMode": null,
+                  "metricsQueryData": null,
+                  "tracesQueryData": null,
+                  "spansQueryData": null,
+                  "parseMode": "Manual",
+                  "timeSource": "Message",
+                  "outputCardinalityLimit": null
+              }
+          ],
+          "description": null,
+          "timeRange": null,
+          "coloringRules": null,
+          "linkedDashboards": []
+      },
+      {
+          "id": null,
+          "key": "panel4c4c2c09aa72bb4f",
+          "title": "Message Sources Over Time",
+          "visualSettings": "{\"title\":{\"fontSize\":14},\"general\":{\"type\":\"column\",\"displayType\":\"default\",\"fillOpacity\":1,\"mode\":\"timeSeries\"},\"axes\":{\"axisX\":{\"hideLabels\":false,\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"hideLabels\":false,\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12,\"logarithmic\":false,\"gridColor\":\"\",\"minimum\":null,\"maximum\":null}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"right\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":true,\"wrap\":true},\"color\":{\"family\":\"Categorical Default\"},\"thresholdsSettings\":{\"fillRemainingGreen\":false,\"showThresholds\":false,\"numberThresholds\":{\"warning\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":80},\"critical\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":100}}},\"overrides\":[]}",
+          "keepVisualSettingsConsistentWithParent": true,
+          "panelType": "SumoSearchPanel",
+          "queries": [
+              {
+                  "transient": false,
+                  "queryString": "_sourceCategory=*XenServer*\n| parse \"<*>*: *\" as message_code,message_source,message_body | timeslice 10 buckets | count _timeslice, message_source | transpose row _timeslice column message_source",
+                  "queryType": "Logs",
+                  "queryKey": "A",
+                  "metricsQueryMode": null,
+                  "metricsQueryData": null,
+                  "tracesQueryData": null,
+                  "spansQueryData": null,
+                  "parseMode": "Manual",
+                  "timeSource": "Message",
+                  "outputCardinalityLimit": null
+              }
+          ],
+          "description": null,
+          "timeRange": null,
+          "coloringRules": null,
+          "linkedDashboards": []
+      },
+      {
+          "id": null,
+          "key": "panel0c065cb998477a48",
+          "title": "Message Code by Session",
+          "visualSettings": "{\"title\":{\"fontSize\":14},\"general\":{\"type\":\"pie\",\"displayType\":\"default\",\"fillOpacity\":1,\"startAngle\":270,\"innerRadius\":\"30%\",\"maxNumOfSlices\":\"10\",\"mode\":\"distribution\"},\"color\":{\"family\":\"Categorical Default\"},\"axes\":{\"axisX\":{\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"titleFontSize\":12,\"labelFontSize\":12}},\"legend\":{\"enabled\":true,\"wrap\":true,\"verticalAlign\":\"right\",\"showAsTable\":true}}",
+          "keepVisualSettingsConsistentWithParent": true,
+          "panelType": "SumoSearchPanel",
+          "queries": [
+              {
+                  "transient": false,
+                  "queryString": "_sourceCategory=*XenServer* Session\n| parse \"<*>*: *\" as message_code,message_source,message_body\n| parse field=message_body \"[*] *.* *\" as detail, detail1, session_action, detail2\n| fields - detail,detail1,detail2,message_body | count message_code | top 10 message_code by _count",
+                  "queryType": "Logs",
+                  "queryKey": "A",
+                  "metricsQueryMode": null,
+                  "metricsQueryData": null,
+                  "tracesQueryData": null,
+                  "spansQueryData": null,
+                  "parseMode": "Manual",
+                  "timeSource": "Message",
+                  "outputCardinalityLimit": null
+              }
+          ],
+          "description": null,
+          "timeRange": null,
+          "coloringRules": null,
+          "linkedDashboards": []
+      },
+      {
+          "id": null,
+          "key": "panel117669e88631c846",
+          "title": "Session Actions Over Time",
+          "visualSettings": "{\"title\":{\"fontSize\":14},\"general\":{\"type\":\"column\",\"displayType\":\"default\",\"fillOpacity\":1,\"mode\":\"timeSeries\"},\"axes\":{\"axisX\":{\"hideLabels\":false,\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"hideLabels\":false,\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12,\"logarithmic\":false,\"gridColor\":\"\",\"minimum\":null,\"maximum\":null}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"right\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":true,\"wrap\":true},\"color\":{\"family\":\"Categorical Default\"},\"thresholdsSettings\":{\"fillRemainingGreen\":false,\"showThresholds\":false,\"numberThresholds\":{\"warning\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":80},\"critical\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":100}}},\"overrides\":[]}",
+          "keepVisualSettingsConsistentWithParent": true,
+          "panelType": "SumoSearchPanel",
+          "queries": [
+              {
+                  "transient": false,
+                  "queryString": "_sourceCategory=*XenServer* Session\n| parse \"<*>*: *\" as message_code,message_source,message_body\n| parse field=message_body \"[*] *.* *\" as detail, detail1, session_action, detail2\n| fields - detail,detail1,detail2,message_body | timeslice 10 buckets | count _timeslice, session_action | transpose row _timeslice column session_action",
+                  "queryType": "Logs",
+                  "queryKey": "A",
+                  "metricsQueryMode": null,
+                  "metricsQueryData": null,
+                  "tracesQueryData": null,
+                  "spansQueryData": null,
+                  "parseMode": "Manual",
+                  "timeSource": "Message",
+                  "outputCardinalityLimit": null
+              }
+          ],
+          "description": null,
+          "timeRange": null,
+          "coloringRules": null,
+          "linkedDashboards": []
+      }
+  ],
+  "variables": [],
+  "coloringRules": []
 }
