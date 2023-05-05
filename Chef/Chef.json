@@ -1,2240 +1,494 @@
 {
-  "type":"Folder",
-  "name":"Chef",
-  "description":"",
-  "children":[{
-    "type":"Search",
-    "name":"Cookbook Loaded",
-    "description":"This requires chef*-Client logs",
-    "searchQuery":"_sourceCategory=chef*  \"Loading cookbooks\" \n| parse \"cookbooks [*]\" as cookbooks\n| parse regex  field=cookbooks \"(?<cookbook>[^, \\]]+)\" multi \n| count_distinct(cookbook) by _sourceHost",
-    "defaultTimeRange":"-2d",
-    "viewNameOpt":"",
-    "viewStartTimeOpt":0
-  },{
-    "type":"Search",
-    "name":"Exceptions by Host",
-    "description":"",
-    "searchQuery":"_sourceCategory=chef* Exception*\n| parse regex \"host=(?<src_host>[^&]+)&ip_address=(?<src_ip>[^&]+)&\"  \n| parse \"Full list: *\" as exceptions | urldecode(exceptions) as exceptions",
-    "defaultTimeRange":"-1d",
-    "viewNameOpt":"",
-    "viewStartTimeOpt":0
-  },{
-    "type":"Report",
-    "name":"Handler-Based Chef Run Report",
-    "description":"This dashboard requires data by SumoLogic chef Handler",
-    "columns":[""],
-    "detailLevel":2,
-    "properties":"{\"layoutType\":\"gridster\",\"colorFamily\":2,\"theme\":\"dark-theme\"}",
-    "panels":[{
-      "type":"ReportPanel",
-      "name":"Top 10 Most Updated Resources",
-      "viewerType":"table",
-      "detailLevel":2,
-      "queryString":"_sourceCategory=chef*  \"completed successfully\" !\"Logfile created\"\n| parse \"updated_resources=*\" as resources \n| concat(resources,\" \") as resources\n| parse  regex field=resources \"(?<resource>\\S+)\\s\"  multi  nodrop \n| count as Count by resource  | top 10 resource by Count ",
-      "metricsQueries":[],
-      "timeRange":"[{\"t\":\"relative\",\"d\":-604800000}]",
-      "x":12,
-      "y":1,
-      "width":5,
-      "height":5,
-      "properties":"{\"version\":3,\"settings\":{\"table\":{\"version\":2,\"configuration\":{\"textTruncationMode\":\"none\",\"fontSize\":\"medium\",\"fontSizeOverride\":null}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"pie\":{\"chartType\":\"pie\",\"version\":3,\"configuration\":{\"donutMode\":true,\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"label\":{\"truncationMode\":\"middle\"},\"showSliceBorders\":true,\"maxNumOfPieSlices\":\"10\"}}},\"boxplot\":{\"chartType\":\"boxplot\",\"version\":1,\"configuration\":{\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"}},\"yAxis\":{\"title\":null,\"min\":null,\"max\":null}}},\"map\":{\"version\":1,\"configuration\":{}},\"svv\":{\"version\":2,\"configuration\":{\"colorOverride\":null,\"backgroundColorEnabled\":false,\"noDataBehavior\":{\"enabled\":false,\"color\":\"#cccccc\",\"value\":null,\"isString\":null},\"valueType\":{\"number\":{\"showNumber\":true,\"unit\":null,\"colorsByValueRange\":null},\"boolean\":{\"trueColor\":\"#6aa84f\",\"falseColor\":\"#cc0000\"}},\"labels\":{\"prefix\":{\"enabled\":false,\"text\":\"\",\"align\":\"left\"},\"postfix\":{\"enabled\":false,\"text\":\"\",\"align\":\"right\"}}}},\"sankey\":{\"version\":1,\"configuration\":{}},\"text\":{\"version\":1,\"configuration\":{\"text\":null}},\"common\":{\"version\":1,\"configuration\":{\"drilldown\":{\"fallback\":{\"target\":{\"name\":null,\"enabled\":null}}}}}}}",
-      "isDisabled":false,
-      "id":"955547",
-      "fields":[{
-        "name":{
-          "name":"_collector"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_source"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcecategory"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcehost"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcename"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"bitrate"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"eventid"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"fps"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"guid"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"job_id"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"job_message"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"job_status"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"loggername"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"message"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"project_name"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"state"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"ts"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"user"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"user_path"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"w_id"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"wrsstreamingwowzaid"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"resources"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"resource"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"resource"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"query"
-      },{
-        "name":{
-          "name":"_count"
-        },
-        "tpe":"java.lang.Integer",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"query"
-      }]
-    },{
-      "type":"ReportPanel",
-      "name":"Run Duration Distribution Overtime",
-      "viewerType":"bar",
-      "detailLevel":2,
-      "queryString":"$$Chef  \"chef*-Client\" \"elapsed_time\"\n| parse \"chef*-Client *:\" as msg\n| if (msg matches \"*completed successfully*\", \"success\", \"failed\") as status \n| parse \"elapsed_time=*&\" as runtime \n| 5 as bucket_size\n| long(runtime/bucket_size) as range | format(\"%d-%d\",long(range*bucket_size), long((range+1)*bucket_size)) as bucket\n| count as Runs by bucket, status,range\n| sort by range | fields -range\n| transpose row bucket column status \n| sort by bucket \n",
-      "metricsQueries":[],
-      "timeRange":"[{\"t\":\"relative\",\"d\":-86400000}]",
-      "x":9,
-      "y":6,
-      "width":8,
-      "height":5,
-      "properties":"{\"version\":3,\"settings\":{\"table\":{\"version\":2,\"configuration\":{\"textTruncationMode\":\"none\",\"fontSize\":\"medium\",\"fontSizeOverride\":null}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"colors\":{\"index\":\"10\",\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":\"normal\",\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"colors\":{\"index\":\"10\",\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":\"normal\",\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"pie\":{\"chartType\":\"pie\",\"version\":3,\"configuration\":{\"donutMode\":true,\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"label\":{\"truncationMode\":\"middle\"},\"showSliceBorders\":true,\"maxNumOfPieSlices\":\"10\"}}},\"boxplot\":{\"chartType\":\"boxplot\",\"version\":1,\"configuration\":{\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"}},\"yAxis\":{\"title\":null,\"min\":null,\"max\":null}}},\"map\":{\"version\":1,\"configuration\":{}},\"svv\":{\"version\":2,\"configuration\":{\"colorOverride\":null,\"backgroundColorEnabled\":false,\"noDataBehavior\":{\"enabled\":false,\"color\":\"#cccccc\",\"value\":null,\"isString\":null},\"valueType\":{\"number\":{\"showNumber\":true,\"unit\":null,\"colorsByValueRange\":null},\"boolean\":{\"trueColor\":\"#6aa84f\",\"falseColor\":\"#cc0000\"}},\"labels\":{\"prefix\":{\"enabled\":false,\"text\":\"\",\"align\":\"left\"},\"postfix\":{\"enabled\":false,\"text\":\"\",\"align\":\"right\"}}}},\"sankey\":{\"version\":1,\"configuration\":{}},\"text\":{\"version\":1,\"configuration\":{\"text\":null}},\"common\":{\"version\":1,\"configuration\":{\"drilldown\":{\"fallback\":{\"target\":{\"name\":null,\"enabled\":null}}}}}}}",
-      "isDisabled":false,
-      "id":"955546",
-      "fields":[]
-    },{
-      "type":"ReportPanel",
-      "name":"Updated Resources Overtime",
-      "viewerType":"line",
-      "detailLevel":2,
-      "queryString":"_sourceCategory=chef*  \"completed successfully\" \n| parse \"updated_resources=*\" as resources \n| concat(resources,\":\") as resources\n| parse  regex field=resources \"(?<resource>\\S+)\\s\"  multi\n| timeslice 1h  \n| count by _timeslice, resource\n| transpose row _timeslice column resource ",
-      "metricsQueries":[],
-      "timeRange":"[{\"t\":\"relative\",\"d\":-86400000}]",
-      "x":1,
-      "y":1,
-      "width":5,
-      "height":5,
-      "properties":"{\"version\":3,\"settings\":{\"table\":{\"version\":2,\"configuration\":{\"textTruncationMode\":\"none\",\"fontSize\":\"medium\",\"fontSizeOverride\":null}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"colors\":{\"index\":0,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"pie\":{\"chartType\":\"pie\",\"version\":3,\"configuration\":{\"donutMode\":true,\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"label\":{\"truncationMode\":\"middle\"},\"showSliceBorders\":true,\"maxNumOfPieSlices\":\"10\"}}},\"boxplot\":{\"chartType\":\"boxplot\",\"version\":1,\"configuration\":{\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"}},\"yAxis\":{\"title\":null,\"min\":null,\"max\":null}}},\"map\":{\"version\":1,\"configuration\":{}},\"svv\":{\"version\":2,\"configuration\":{\"colorOverride\":null,\"backgroundColorEnabled\":false,\"noDataBehavior\":{\"enabled\":false,\"color\":\"#cccccc\",\"value\":null,\"isString\":null},\"valueType\":{\"number\":{\"showNumber\":true,\"unit\":null,\"colorsByValueRange\":null},\"boolean\":{\"trueColor\":\"#6aa84f\",\"falseColor\":\"#cc0000\"}},\"labels\":{\"prefix\":{\"enabled\":false,\"text\":\"\",\"align\":\"left\"},\"postfix\":{\"enabled\":false,\"text\":\"\",\"align\":\"right\"}}}},\"sankey\":{\"version\":1,\"configuration\":{}},\"text\":{\"version\":1,\"configuration\":{\"text\":null}},\"common\":{\"version\":1,\"configuration\":{\"drilldown\":{\"fallback\":{\"target\":{\"name\":null,\"enabled\":null}}}}}}}",
-      "isDisabled":false,
-      "id":"955551",
-      "fields":[{
-        "name":{
-          "name":"_collector"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_source"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcecategory"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcehost"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcename"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"bitrate"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"eventid"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"fps"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"guid"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"job_id"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"job_message"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"job_status"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"loggername"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"message"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"project_name"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"state"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"ts"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"user"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"user_path"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"w_id"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"wrsstreamingwowzaid"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"resources"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"resource"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"__timeslice_end"
-        },
-        "tpe":"java.lang.Long",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      }]
-    },{
-      "type":"ReportPanel",
-      "name":"Failed Runs",
-      "viewerType":"table",
-      "detailLevel":2,
-      "queryString":"_sourceCategory=chef*  \"chef*-Client\" \"did not complete\" \n| parse regex \"host=(?<src_host>[^&]+)&ip_address=(?<src_ip>[^&]+)&\" \n| parse \"end_time=*&\" as end_time \n| count by src_host, src_ip, end_time,_messagetime,_raw\n| sort by -_messagetime |  fields - _raw, _messagetime, _count  |  \"chef*-Client did not complete\" as message ",
-      "metricsQueries":[],
-      "timeRange":"[{\"t\":\"relative\",\"d\":-604800000}]",
-      "x":17,
-      "y":1,
-      "width":8,
-      "height":10,
-      "properties":"{\"version\":3,\"settings\":{\"table\":{\"version\":2,\"configuration\":{\"textTruncationMode\":\"none\",\"fontSize\":\"medium\",\"fontSizeOverride\":null}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"pie\":{\"chartType\":\"pie\",\"version\":3,\"configuration\":{\"donutMode\":true,\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"label\":{\"truncationMode\":\"middle\"},\"showSliceBorders\":true,\"maxNumOfPieSlices\":\"10\"}}},\"boxplot\":{\"chartType\":\"boxplot\",\"version\":1,\"configuration\":{\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"}},\"yAxis\":{\"title\":null,\"min\":null,\"max\":null}}},\"map\":{\"version\":1,\"configuration\":{}},\"svv\":{\"version\":2,\"configuration\":{\"colorOverride\":null,\"backgroundColorEnabled\":false,\"noDataBehavior\":{\"enabled\":false,\"color\":\"#cccccc\",\"value\":null,\"isString\":null},\"valueType\":{\"number\":{\"showNumber\":true,\"unit\":null,\"colorsByValueRange\":null},\"boolean\":{\"trueColor\":\"#6aa84f\",\"falseColor\":\"#cc0000\"}},\"labels\":{\"prefix\":{\"enabled\":false,\"text\":\"\",\"align\":\"left\"},\"postfix\":{\"enabled\":false,\"text\":\"\",\"align\":\"right\"}}}},\"sankey\":{\"version\":1,\"configuration\":{}},\"text\":{\"version\":1,\"configuration\":{\"text\":null}},\"common\":{\"version\":1,\"configuration\":{\"drilldown\":{\"fallback\":{\"target\":{\"name\":null,\"enabled\":null}}}}}}}",
-      "isDisabled":false,
-      "id":"955549",
-      "fields":[{
-        "name":{
-          "name":"_collector"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_source"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcecategory"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcehost"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcename"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"bitrate"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"eventid"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"fps"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"guid"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"job_id"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"job_message"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"job_status"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"loggername"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"message"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"project_name"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"state"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"ts"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"user"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"user_path"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"w_id"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"wrsstreamingwowzaid"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"src_host"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"src_ip"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"end_time"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"src_host"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"query"
-      },{
-        "name":{
-          "name":"src_ip"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"query"
-      },{
-        "name":{
-          "name":"end_time"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"query"
-      },{
-        "name":{
-          "name":"message"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"query"
-      }]
-    },{
-      "type":"ReportPanel",
-      "name":"Average Runtime by Host",
-      "viewerType":"column",
-      "detailLevel":2,
-      "queryString":"_sourceCategory=chef*  \"completed successfully\" \n| parse regex \"host=(?<src_host>[^&]+)&ip_address=(?<src_ip>[^&]+)&\"  \n| parse \"elapsed_time=*&\" as runtime \n| avg(runtime) by src_host ",
-      "metricsQueries":[],
-      "timeRange":"[{\"t\":\"relative\",\"d\":-604800000}]",
-      "x":1,
-      "y":6,
-      "width":8,
-      "height":5,
-      "properties":"{\"version\":3,\"settings\":{\"table\":{\"version\":2,\"configuration\":{\"textTruncationMode\":\"none\",\"fontSize\":\"medium\",\"fontSizeOverride\":null}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"colors\":{\"index\":1,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"pie\":{\"chartType\":\"pie\",\"version\":3,\"configuration\":{\"donutMode\":true,\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"label\":{\"truncationMode\":\"middle\"},\"showSliceBorders\":true,\"maxNumOfPieSlices\":\"10\"}}},\"boxplot\":{\"chartType\":\"boxplot\",\"version\":1,\"configuration\":{\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"}},\"yAxis\":{\"title\":null,\"min\":null,\"max\":null}}},\"map\":{\"version\":1,\"configuration\":{}},\"svv\":{\"version\":2,\"configuration\":{\"colorOverride\":null,\"backgroundColorEnabled\":false,\"noDataBehavior\":{\"enabled\":false,\"color\":\"#cccccc\",\"value\":null,\"isString\":null},\"valueType\":{\"number\":{\"showNumber\":true,\"unit\":null,\"colorsByValueRange\":null},\"boolean\":{\"trueColor\":\"#6aa84f\",\"falseColor\":\"#cc0000\"}},\"labels\":{\"prefix\":{\"enabled\":false,\"text\":\"\",\"align\":\"left\"},\"postfix\":{\"enabled\":false,\"text\":\"\",\"align\":\"right\"}}}},\"sankey\":{\"version\":1,\"configuration\":{}},\"text\":{\"version\":1,\"configuration\":{\"text\":null}},\"common\":{\"version\":1,\"configuration\":{\"drilldown\":{\"fallback\":{\"target\":{\"name\":null,\"enabled\":null}}}}}}}",
-      "isDisabled":false,
-      "id":"955548",
-      "fields":[{
-        "name":{
-          "name":"_collector"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_source"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcecategory"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcehost"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcename"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"bitrate"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"eventid"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"fps"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"guid"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"job_id"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"job_message"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"job_status"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"loggername"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"message"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"project_name"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"state"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"ts"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"user"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"user_path"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"w_id"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"wrsstreamingwowzaid"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"src_host"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"src_ip"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"runtime"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"src_host"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"query"
-      },{
-        "name":{
-          "name":"_avg"
-        },
-        "tpe":"java.lang.Double",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"query"
-      }]
-    },{
-      "type":"ReportPanel",
-      "name":"Run Status Overtime",
-      "viewerType":"line",
-      "detailLevel":2,
-      "queryString":"_sourceCategory=chef*  \n| parse \"chef*-Client *:\" as msg\n| if (msg matches \"*completed successfully*\", \"success\", \"failed\") as status \n| timeslice 1h \n| count by status,_timeslice\n| transpose row _timeslice column status ",
-      "metricsQueries":[],
-      "timeRange":"[{\"t\":\"relative\",\"d\":-604800000}]",
-      "x":6,
-      "y":1,
-      "width":6,
-      "height":5,
-      "properties":"{\"version\":3,\"settings\":{\"table\":{\"version\":2,\"configuration\":{\"textTruncationMode\":\"none\",\"fontSize\":\"medium\",\"fontSizeOverride\":null}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"colors\":{\"index\":4,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"pie\":{\"chartType\":\"pie\",\"version\":3,\"configuration\":{\"donutMode\":true,\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"label\":{\"truncationMode\":\"middle\"},\"showSliceBorders\":true,\"maxNumOfPieSlices\":\"10\"}}},\"boxplot\":{\"chartType\":\"boxplot\",\"version\":1,\"configuration\":{\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"}},\"yAxis\":{\"title\":null,\"min\":null,\"max\":null}}},\"map\":{\"version\":1,\"configuration\":{}},\"svv\":{\"version\":2,\"configuration\":{\"colorOverride\":null,\"backgroundColorEnabled\":false,\"noDataBehavior\":{\"enabled\":false,\"color\":\"#cccccc\",\"value\":null,\"isString\":null},\"valueType\":{\"number\":{\"showNumber\":true,\"unit\":null,\"colorsByValueRange\":null},\"boolean\":{\"trueColor\":\"#6aa84f\",\"falseColor\":\"#cc0000\"}},\"labels\":{\"prefix\":{\"enabled\":false,\"text\":\"\",\"align\":\"left\"},\"postfix\":{\"enabled\":false,\"text\":\"\",\"align\":\"right\"}}}},\"sankey\":{\"version\":1,\"configuration\":{}},\"text\":{\"version\":1,\"configuration\":{\"text\":null}},\"common\":{\"version\":1,\"configuration\":{\"drilldown\":{\"fallback\":{\"target\":{\"name\":null,\"enabled\":null}}}}}}}",
-      "isDisabled":false,
-      "id":"955550",
-      "fields":[]
-    }],
-    "filters":[]
-  },{
-    "type":"Report",
-    "name":"Log-Based Chef Run Report",
-    "description":"This requires chef-client logs",
-    "columns":[""],
-    "detailLevel":2,
-    "properties":"{\"layoutType\":\"gridster\"}",
-    "panels":[{
-      "type":"ReportPanel",
-      "name":"Average RunTime by Host (Seconds)",
-      "viewerType":"column",
-      "detailLevel":2,
-      "queryString":"_sourceCategory=chef* \"chef* Run complete\"\n| parse \"in * seconds\" as runtime  \n| avg(runtime) as AvgRunTime by _sourceHost\n| sort by AvgRunTime",
-      "metricsQueries":[],
-      "timeRange":"[{\"t\":\"relative\",\"d\":-86400000}]",
-      "x":1,
-      "y":6,
-      "width":12,
-      "height":5,
-      "properties":"{\"version\":3,\"settings\":{\"table\":{\"version\":2,\"configuration\":{\"textTruncationMode\":\"none\",\"fontSize\":\"medium\",\"fontSizeOverride\":null}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"colors\":{\"index\":5,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"pie\":{\"chartType\":\"pie\",\"version\":3,\"configuration\":{\"donutMode\":true,\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"label\":{\"truncationMode\":\"middle\"},\"showSliceBorders\":true,\"maxNumOfPieSlices\":\"10\"}}},\"boxplot\":{\"chartType\":\"boxplot\",\"version\":1,\"configuration\":{\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"}},\"yAxis\":{\"title\":null,\"min\":null,\"max\":null}}},\"map\":{\"version\":1,\"configuration\":{}},\"svv\":{\"version\":2,\"configuration\":{\"colorOverride\":null,\"backgroundColorEnabled\":false,\"noDataBehavior\":{\"enabled\":false,\"color\":\"#cccccc\",\"value\":null,\"isString\":null},\"valueType\":{\"number\":{\"showNumber\":true,\"unit\":null,\"colorsByValueRange\":null},\"boolean\":{\"trueColor\":\"#6aa84f\",\"falseColor\":\"#cc0000\"}},\"labels\":{\"prefix\":{\"enabled\":false,\"text\":\"\",\"align\":\"left\"},\"postfix\":{\"enabled\":false,\"text\":\"\",\"align\":\"right\"}}}},\"sankey\":{\"version\":1,\"configuration\":{}},\"text\":{\"version\":1,\"configuration\":{\"text\":null}},\"metrics\":{\"version\":2,\"configuration\":{\"blockSettings\":{},\"viewType\":\"timeline\",\"zoom\":\"xy\",\"yAxis\":{\"defaults\":[{\"name\":\"\"},{\"name\":\"\"}],\"custom\":[{},{}]},\"xAxis\":{\"scrubber\":true},\"outliers\":{\"enabled\":true,\"top\":1,\"scope\":\"Chart\",\"cyclicality\":false,\"threshold\":7},\"colorFamily\":\"METRIC_DEFAULT\"}},\"common\":{\"version\":1,\"configuration\":{\"drilldown\":{\"fallback\":{\"target\":{\"name\":null,\"enabled\":null}}}}}}}",
-      "isDisabled":false,
-      "id":"955556",
-      "fields":[{
-        "name":{
-          "name":"_collector"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_source"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcecategory"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcehost"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcename"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"bitrate"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"eventid"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"fps"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"guid"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"job_id"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"job_message"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"job_status"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"loggername"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"message"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"project_name"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"state"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"ts"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"user"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"user_path"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"w_id"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"wrsstreamingwowzaid"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"runtime"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcehost"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"query"
-      },{
-        "name":{
-          "name":"avgruntime"
-        },
-        "tpe":"java.lang.Double",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"query"
-      }]
-    },{
-      "type":"ReportPanel",
-      "name":"Host Count by Error or Fatal Message",
-      "viewerType":"table",
-      "detailLevel":2,
-      "queryString":"_sourceCategory=chef* (\"error\" or \"fatal\") !\"WARN:\"\n| parse \"] *\" as message \n| count_distinct (_sourceHost) as Hosts by message  | order by Hosts",
-      "metricsQueries":[],
-      "timeRange":"[{\"t\":\"relative\",\"d\":-86400000}]",
-      "x":13,
-      "y":6,
-      "width":12,
-      "height":10,
-      "properties":"{\"version\":3,\"settings\":{\"table\":{\"version\":2,\"configuration\":{\"textTruncationMode\":\"none\",\"fontSize\":\"medium\",\"fontSizeOverride\":null}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"pie\":{\"chartType\":\"pie\",\"version\":3,\"configuration\":{\"donutMode\":true,\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"label\":{\"truncationMode\":\"middle\"},\"showSliceBorders\":true,\"maxNumOfPieSlices\":\"10\"}}},\"boxplot\":{\"chartType\":\"boxplot\",\"version\":1,\"configuration\":{\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"}},\"yAxis\":{\"title\":null,\"min\":null,\"max\":null}}},\"map\":{\"version\":1,\"configuration\":{}},\"svv\":{\"version\":2,\"configuration\":{\"colorOverride\":null,\"backgroundColorEnabled\":false,\"noDataBehavior\":{\"enabled\":false,\"color\":\"#cccccc\",\"value\":null,\"isString\":null},\"valueType\":{\"number\":{\"showNumber\":true,\"unit\":null,\"colorsByValueRange\":null},\"boolean\":{\"trueColor\":\"#6aa84f\",\"falseColor\":\"#cc0000\"}},\"labels\":{\"prefix\":{\"enabled\":false,\"text\":\"\",\"align\":\"left\"},\"postfix\":{\"enabled\":false,\"text\":\"\",\"align\":\"right\"}}}},\"sankey\":{\"version\":1,\"configuration\":{}},\"text\":{\"version\":1,\"configuration\":{\"text\":null}},\"metrics\":{\"version\":2,\"configuration\":{\"blockSettings\":{},\"viewType\":\"timeline\",\"zoom\":\"xy\",\"yAxis\":{\"defaults\":[{\"name\":\"\"},{\"name\":\"\"}],\"custom\":[{},{}]},\"xAxis\":{\"scrubber\":true},\"outliers\":{\"enabled\":true,\"top\":1,\"scope\":\"Chart\",\"cyclicality\":false,\"threshold\":7},\"colorFamily\":\"METRIC_DEFAULT\"}},\"common\":{\"version\":1,\"configuration\":{\"drilldown\":{\"fallback\":{\"target\":{\"id\":null,\"name\":null,\"enabled\":null}}}}}}}",
-      "isDisabled":false,
-      "id":"957055",
-      "fields":[{
-        "name":{
-          "name":"_collector"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_source"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcecategory"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcehost"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcename"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"bitrate"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"eventid"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"fps"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"guid"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"job_id"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"job_message"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"job_status"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"loggername"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"message"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"project_name"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"state"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"ts"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"user"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"user_path"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"w_id"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"wrsstreamingwowzaid"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"message"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"query"
-      },{
-        "name":{
-          "name":"hosts"
-        },
-        "tpe":"java.lang.Long",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"query"
-      }]
-    },{
-      "type":"ReportPanel",
-      "name":"Host Count by Cookbook",
-      "viewerType":"bar",
-      "detailLevel":2,
-      "queryString":"_sourceCategory=chef*  \"Loading cookbooks\" \n| parse \"cookbooks [*]\" as cookbooks\n| parse regex  field=cookbooks \"(?<cookbook>[^, \\]]+)\" multi \n| count by _sourceHost,cookbook\n| count(_sourceHost) as hosts by cookbook \n| sort hosts",
-      "metricsQueries":[],
-      "timeRange":"[{\"t\":\"relative\",\"d\":-86400000}]",
-      "x":17,
-      "y":1,
-      "width":8,
-      "height":5,
-      "properties":"{\"version\":3,\"settings\":{\"table\":{\"version\":2,\"configuration\":{\"textTruncationMode\":\"none\",\"fontSize\":\"medium\",\"fontSizeOverride\":null}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"colors\":{\"index\":9,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":\"normal\",\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"pie\":{\"chartType\":\"pie\",\"version\":3,\"configuration\":{\"donutMode\":true,\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"label\":{\"truncationMode\":\"middle\"},\"showSliceBorders\":true,\"maxNumOfPieSlices\":\"10\"}}},\"boxplot\":{\"chartType\":\"boxplot\",\"version\":1,\"configuration\":{\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"}},\"yAxis\":{\"title\":null,\"min\":null,\"max\":null}}},\"map\":{\"version\":1,\"configuration\":{}},\"svv\":{\"version\":2,\"configuration\":{\"colorOverride\":null,\"backgroundColorEnabled\":false,\"noDataBehavior\":{\"enabled\":false,\"color\":\"#cccccc\",\"value\":null,\"isString\":null},\"valueType\":{\"number\":{\"showNumber\":true,\"unit\":null,\"colorsByValueRange\":null},\"boolean\":{\"trueColor\":\"#6aa84f\",\"falseColor\":\"#cc0000\"}},\"labels\":{\"prefix\":{\"enabled\":false,\"text\":\"\",\"align\":\"left\"},\"postfix\":{\"enabled\":false,\"text\":\"\",\"align\":\"right\"}}}},\"sankey\":{\"version\":1,\"configuration\":{}},\"text\":{\"version\":1,\"configuration\":{\"text\":null}},\"metrics\":{\"version\":2,\"configuration\":{\"blockSettings\":{},\"viewType\":\"timeline\",\"zoom\":\"xy\",\"yAxis\":{\"defaults\":[{\"name\":\"\"},{\"name\":\"\"}],\"custom\":[{},{}]},\"xAxis\":{\"scrubber\":true},\"outliers\":{\"enabled\":true,\"top\":1,\"scope\":\"Chart\",\"cyclicality\":false,\"threshold\":7},\"colorFamily\":\"METRIC_DEFAULT\"}},\"common\":{\"version\":1,\"configuration\":{\"drilldown\":{\"fallback\":{\"target\":{\"name\":null,\"enabled\":null}}}}}}}",
-      "isDisabled":false,
-      "id":"955553",
-      "fields":[{
-        "name":{
-          "name":"_collector"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_source"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcecategory"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcehost"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcename"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"bitrate"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"eventid"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"fps"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"guid"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"job_id"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"job_message"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"job_status"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"loggername"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"message"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"project_name"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"state"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"ts"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"user"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"user_path"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"w_id"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"wrsstreamingwowzaid"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"cookbooks"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"cookbook"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"cookbook"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"query"
-      },{
-        "name":{
-          "name":"hosts"
-        },
-        "tpe":"java.lang.Integer",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"query"
-      }]
-    },{
-      "type":"ReportPanel",
-      "name":"Run Duration Distribution",
-      "viewerType":"column",
-      "detailLevel":2,
-      "queryString":"_sourceCategory=chef* \"chef* Run complete\"\n| parse \"in * seconds\" as runtime\n| 5 as bucket_size\n| long(runtime/bucket_size) as range | format(\"%d-%d\",long(range*bucket_size), long((range+1)*bucket_size)) as bucket\n| count as Runs by bucket,range\n| sort by range | fields -range\n| sort by +bucket ",
-      "metricsQueries":[],
-      "timeRange":"[{\"t\":\"relative\",\"d\":-86400000}]",
-      "x":1,
-      "y":11,
-      "width":12,
-      "height":5,
-      "properties":"{\"version\":3,\"settings\":{\"table\":{\"version\":2,\"configuration\":{\"textTruncationMode\":\"none\",\"fontSize\":\"medium\",\"fontSizeOverride\":null}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"colors\":{\"index\":10,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"pie\":{\"chartType\":\"pie\",\"version\":3,\"configuration\":{\"donutMode\":true,\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"label\":{\"truncationMode\":\"middle\"},\"showSliceBorders\":true,\"maxNumOfPieSlices\":\"10\"}}},\"boxplot\":{\"chartType\":\"boxplot\",\"version\":1,\"configuration\":{\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"}},\"yAxis\":{\"title\":null,\"min\":null,\"max\":null}}},\"map\":{\"version\":1,\"configuration\":{}},\"svv\":{\"version\":2,\"configuration\":{\"colorOverride\":null,\"backgroundColorEnabled\":false,\"noDataBehavior\":{\"enabled\":false,\"color\":\"#cccccc\",\"value\":null,\"isString\":null},\"valueType\":{\"number\":{\"showNumber\":true,\"unit\":null,\"colorsByValueRange\":null},\"boolean\":{\"trueColor\":\"#6aa84f\",\"falseColor\":\"#cc0000\"}},\"labels\":{\"prefix\":{\"enabled\":false,\"text\":\"\",\"align\":\"left\"},\"postfix\":{\"enabled\":false,\"text\":\"\",\"align\":\"right\"}}}},\"sankey\":{\"version\":1,\"configuration\":{}},\"text\":{\"version\":1,\"configuration\":{\"text\":null}},\"metrics\":{\"version\":2,\"configuration\":{\"blockSettings\":{},\"viewType\":\"timeline\",\"zoom\":\"xy\",\"yAxis\":{\"defaults\":[{\"name\":\"\"},{\"name\":\"\"}],\"custom\":[{},{}]},\"xAxis\":{\"scrubber\":true},\"outliers\":{\"enabled\":true,\"top\":1,\"scope\":\"Chart\",\"cyclicality\":false,\"threshold\":7},\"colorFamily\":\"METRIC_DEFAULT\"}},\"common\":{\"version\":1,\"configuration\":{\"drilldown\":{\"fallback\":{\"target\":{\"name\":null,\"enabled\":null}}}}}}}",
-      "isDisabled":false,
-      "id":"955552",
-      "fields":[{
-        "name":{
-          "name":"_collector"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_source"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcecategory"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcehost"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcename"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"bitrate"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"eventid"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"fps"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"guid"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"job_id"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"job_message"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"job_status"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"loggername"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"message"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"project_name"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"state"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"ts"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"user"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"user_path"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"w_id"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"wrsstreamingwowzaid"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"runtime"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"bucket_size"
-        },
-        "tpe":"java.lang.Double",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"range"
-        },
-        "tpe":"java.lang.Long",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"bucket"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"bucket"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"query"
-      },{
-        "name":{
-          "name":"runs"
-        },
-        "tpe":"java.lang.Integer",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"query"
-      }]
-    },{
-      "type":"ReportPanel",
-      "name":"Hosts with Potential Failed Runs",
-      "viewerType":"column",
-      "detailLevel":2,
-      "queryString":"_sourceCategory=chef* (\"Starting chef* Run for\"  or \"chef* Run complete\") \n| if (_raw matches \"*Starting chef* Run*\", \"Started\", \"Completed\") as status\n| count by status,_sourceHost \n| sort by _sourceHost, status\n| diff _count by _sourceHost \n| where _diff>0 \n| (_diff+_count) as  Started \n| _count as Completed | fields -status,_count, _diff",
-      "metricsQueries":[],
-      "timeRange":"[{\"t\":\"relative\",\"d\":-86400000}]",
-      "x":1,
-      "y":1,
-      "width":8,
-      "height":5,
-      "properties":"{\"version\":3,\"settings\":{\"table\":{\"version\":2,\"configuration\":{\"textTruncationMode\":\"none\",\"fontSize\":\"medium\",\"fontSizeOverride\":null}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"colors\":{\"index\":3,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":\"normal\",\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"pie\":{\"chartType\":\"pie\",\"version\":3,\"configuration\":{\"donutMode\":true,\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"label\":{\"truncationMode\":\"middle\"},\"showSliceBorders\":true,\"maxNumOfPieSlices\":\"10\"}}},\"boxplot\":{\"chartType\":\"boxplot\",\"version\":1,\"configuration\":{\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"}},\"yAxis\":{\"title\":null,\"min\":null,\"max\":null}}},\"map\":{\"version\":1,\"configuration\":{}},\"svv\":{\"version\":2,\"configuration\":{\"colorOverride\":null,\"backgroundColorEnabled\":false,\"noDataBehavior\":{\"enabled\":false,\"color\":\"#cccccc\",\"value\":null,\"isString\":null},\"valueType\":{\"number\":{\"showNumber\":true,\"unit\":null,\"colorsByValueRange\":null},\"boolean\":{\"trueColor\":\"#6aa84f\",\"falseColor\":\"#cc0000\"}},\"labels\":{\"prefix\":{\"enabled\":false,\"text\":\"\",\"align\":\"left\"},\"postfix\":{\"enabled\":false,\"text\":\"\",\"align\":\"right\"}}}},\"sankey\":{\"version\":1,\"configuration\":{}},\"text\":{\"version\":1,\"configuration\":{\"text\":null}},\"metrics\":{\"version\":2,\"configuration\":{\"blockSettings\":{},\"viewType\":\"timeline\",\"zoom\":\"xy\",\"yAxis\":{\"defaults\":[{\"name\":\"\"},{\"name\":\"\"}],\"custom\":[{},{}]},\"xAxis\":{\"scrubber\":true},\"outliers\":{\"enabled\":true,\"top\":1,\"scope\":\"Chart\",\"cyclicality\":false,\"threshold\":7},\"colorFamily\":\"METRIC_DEFAULT\"}},\"common\":{\"version\":1,\"configuration\":{\"drilldown\":{\"fallback\":{\"target\":{\"name\":null,\"enabled\":null}}}}}}}",
-      "isDisabled":false,
-      "id":"955554",
-      "fields":[{
-        "name":{
-          "name":"_collector"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_source"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcecategory"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcehost"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcename"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"bitrate"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"eventid"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"fps"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"guid"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"job_id"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"job_message"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"job_status"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"loggername"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"message"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"project_name"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"state"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"ts"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"user"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"user_path"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"w_id"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"wrsstreamingwowzaid"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"status"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcehost"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"query"
-      },{
-        "name":{
-          "name":"started"
-        },
-        "tpe":"java.lang.Double",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"query"
-      },{
-        "name":{
-          "name":"completed"
-        },
-        "tpe":"java.lang.Integer",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"query"
-      }]
-    },{
-      "type":"ReportPanel",
-      "name":"Error or Fatal Count by Host",
-      "viewerType":"column",
-      "detailLevel":2,
-      "queryString":"_sourceCategory=chef* (\"ERROR:\" or \"FATAL:\")\n| count by _sourceHost\n| sort by _count",
-      "metricsQueries":[],
-      "timeRange":"[{\"t\":\"relative\",\"d\":-86400000}]",
-      "x":9,
-      "y":1,
-      "width":8,
-      "height":5,
-      "properties":"{\"version\":3,\"settings\":{\"table\":{\"version\":2,\"configuration\":{\"textTruncationMode\":\"none\",\"fontSize\":\"medium\",\"fontSizeOverride\":null}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"colors\":{\"index\":7,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"pie\":{\"chartType\":\"pie\",\"version\":3,\"configuration\":{\"donutMode\":true,\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"label\":{\"truncationMode\":\"middle\"},\"showSliceBorders\":true,\"maxNumOfPieSlices\":\"10\"}}},\"boxplot\":{\"chartType\":\"boxplot\",\"version\":1,\"configuration\":{\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"}},\"yAxis\":{\"title\":null,\"min\":null,\"max\":null}}},\"map\":{\"version\":1,\"configuration\":{}},\"svv\":{\"version\":2,\"configuration\":{\"colorOverride\":null,\"backgroundColorEnabled\":false,\"noDataBehavior\":{\"enabled\":false,\"color\":\"#cccccc\",\"value\":null,\"isString\":null},\"valueType\":{\"number\":{\"showNumber\":true,\"unit\":null,\"colorsByValueRange\":null},\"boolean\":{\"trueColor\":\"#6aa84f\",\"falseColor\":\"#cc0000\"}},\"labels\":{\"prefix\":{\"enabled\":false,\"text\":\"\",\"align\":\"left\"},\"postfix\":{\"enabled\":false,\"text\":\"\",\"align\":\"right\"}}}},\"sankey\":{\"version\":1,\"configuration\":{}},\"text\":{\"version\":1,\"configuration\":{\"text\":null}},\"metrics\":{\"version\":2,\"configuration\":{\"blockSettings\":{},\"viewType\":\"timeline\",\"zoom\":\"xy\",\"yAxis\":{\"defaults\":[{\"name\":\"\"},{\"name\":\"\"}],\"custom\":[{},{}]},\"xAxis\":{\"scrubber\":true},\"outliers\":{\"enabled\":true,\"top\":1,\"scope\":\"Chart\",\"cyclicality\":false,\"threshold\":7},\"colorFamily\":\"METRIC_DEFAULT\"}},\"common\":{\"version\":1,\"configuration\":{\"drilldown\":{\"fallback\":{\"target\":{\"name\":null,\"enabled\":null}}}}}}}",
-      "isDisabled":false,
-      "id":"955555",
-      "fields":[{
-        "name":{
-          "name":"_collector"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_source"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcecategory"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcehost"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcename"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"bitrate"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"eventid"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"fps"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"guid"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"job_id"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"job_message"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"job_status"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"loggername"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"message"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"project_name"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"state"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"ts"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"user"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"user_path"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"w_id"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"wrsstreamingwowzaid"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":false,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcehost"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"query"
-      },{
-        "name":{
-          "name":"_count"
-        },
-        "tpe":"java.lang.Integer",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"query"
-      }]
-    }],
-    "filters":[]
-  },{
-    "type":"Search",
-    "name":"Resource Extraction",
-    "description":"",
-    "searchQuery":"_sourceCategory=chef*  \"completed successfully\" \n| parse \"updated_resources=*\" as resources \n| concat(resources,\":\") as resources\n| parse  regex field=resources \"(?<resource>\\S+)\\s\"  multi",
-    "defaultTimeRange":"02/15 00:00 02/17 00:00",
-    "viewNameOpt":"",
-    "viewStartTimeOpt":0
-  }]
+  "type": "FolderSyncDefinition",
+  "name": "Chef",
+  "description": "",
+  "children": [
+      {
+          "type": "SavedSearchWithScheduleSyncDefinition",
+          "name": "Cookbook Loaded",
+          "search": {
+              "queryText": "_sourceCategory=chef*  \"Loading cookbooks\" \n| parse \"cookbooks [*]\" as cookbooks\n| parse regex  field=cookbooks \"(?<cookbook>[^, \\]]+)\" multi \n| count_distinct(cookbook) by _sourceHost",
+              "byReceiptTime": false,
+              "viewName": "",
+              "viewStartTime": "1970-01-01T00:00:00Z",
+              "queryParameters": [],
+              "parsingMode": "Manual",
+              "defaultTimeRange": "-2d"
+          },
+          "searchSchedule": null,
+          "description": "This requires chef*-Client logs"
+      },
+      {
+          "type": "SavedSearchWithScheduleSyncDefinition",
+          "name": "Exceptions by Host",
+          "search": {
+              "queryText": "_sourceCategory=chef* Exception*\n| parse regex \"host=(?<src_host>[^&]+)&ip_address=(?<src_ip>[^&]+)&\"  \n| parse \"Full list: *\" as exceptions | urldecode(exceptions) as exceptions",
+              "byReceiptTime": false,
+              "viewName": "",
+              "viewStartTime": "1970-01-01T00:00:00Z",
+              "queryParameters": [],
+              "parsingMode": "Manual",
+              "defaultTimeRange": "-1d"
+          },
+          "searchSchedule": null,
+          "description": ""
+      },
+      {
+          "type": "DashboardV2SyncDefinition",
+          "name": "Handler-Based Chef Run Report",
+          "description": "This dashboard requires data by SumoLogic chef Handler",
+          "title": "Handler-Based Chef Run Report",
+          "theme": "Dark",
+          "topologyLabelMap": {
+              "data": {}
+          },
+          "refreshInterval": 0,
+          "timeRange": {
+              "type": "BeginBoundedTimeRange",
+              "from": {
+                  "type": "RelativeTimeRangeBoundary",
+                  "relativeTime": "-1w"
+              },
+              "to": null
+          },
+          "layout": {
+              "layoutType": "Grid",
+              "layoutStructures": [
+                  {
+                      "key": "panel0a40cb159d735948",
+                      "structure": "{\"width\":5,\"height\":6,\"x\":0,\"y\":0}"
+                  },
+                  {
+                      "key": "panel960e03dc8672194c",
+                      "structure": "{\"width\":6,\"height\":6,\"x\":5,\"y\":0}"
+                  },
+                  {
+                      "key": "panel727af162a2b0b848",
+                      "structure": "{\"width\":5,\"height\":6,\"x\":11,\"y\":0}"
+                  },
+                  {
+                      "key": "panel5616e69bb6384b46",
+                      "structure": "{\"width\":8,\"height\":13,\"x\":16,\"y\":0}"
+                  },
+                  {
+                      "key": "paneld0c3afcfb3afa846",
+                      "structure": "{\"width\":8,\"height\":6,\"x\":0,\"y\":5}"
+                  },
+                  {
+                      "key": "panel0c638f7aa4c9ea47",
+                      "structure": "{\"width\":8,\"height\":6,\"x\":8,\"y\":5}"
+                  }
+              ]
+          },
+          "panels": [
+              {
+                  "id": null,
+                  "key": "panel727af162a2b0b848",
+                  "title": "Top 10 Most Updated Resources",
+                  "visualSettings": "{\"title\":{\"fontSize\":12},\"series\":{},\"general\":{\"type\":\"table\",\"fontSize\":12,\"mode\":\"timeSeries\"},\"thresholdsSettings\":{\"fillRemainingGreen\":false,\"showThresholds\":false,\"numberThresholds\":{\"warning\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":80},\"critical\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":100}}}}",
+                  "keepVisualSettingsConsistentWithParent": true,
+                  "panelType": "SumoSearchPanel",
+                  "queries": [
+                      {
+                          "transient": false,
+                          "queryString": "_sourceCategory=chef*  \"completed successfully\" !\"Logfile created\"\n| parse \"updated_resources=*\" as resources \n| concat(resources,\" \") as resources\n| parse  regex field=resources \"(?<resource>\\S+)\\s\"  multi  nodrop \n| count as Count by resource  | top 10 resource by Count ",
+                          "queryType": "Logs",
+                          "queryKey": "A",
+                          "metricsQueryMode": null,
+                          "metricsQueryData": null,
+                          "tracesQueryData": null,
+                          "spansQueryData": null,
+                          "parseMode": "Manual",
+                          "timeSource": "Message",
+                          "outputCardinalityLimit": null
+                      }
+                  ],
+                  "description": null,
+                  "timeRange": null,
+                  "coloringRules": null,
+                  "linkedDashboards": []
+              },
+              {
+                  "id": null,
+                  "key": "paneld0c3afcfb3afa846",
+                  "title": "Average Runtime by Host",
+                  "visualSettings": "{\"title\":{\"fontSize\":14},\"general\":{\"type\":\"column\",\"displayType\":\"default\",\"fillOpacity\":1,\"mode\":\"timeSeries\"},\"axes\":{\"axisX\":{\"hideLabels\":false,\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"hideLabels\":false,\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12,\"logarithmic\":false,\"gridColor\":\"\",\"minimum\":null,\"maximum\":null}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"right\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":true,\"wrap\":true},\"color\":{\"family\":\"Categorical Default\"},\"thresholdsSettings\":{\"fillRemainingGreen\":false,\"showThresholds\":false,\"numberThresholds\":{\"warning\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":80},\"critical\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":100}}},\"overrides\":[]}",
+                  "keepVisualSettingsConsistentWithParent": true,
+                  "panelType": "SumoSearchPanel",
+                  "queries": [
+                      {
+                          "transient": false,
+                          "queryString": "_sourceCategory=chef*  \"completed successfully\" \n| parse regex \"host=(?<src_host>[^&]+)&ip_address=(?<src_ip>[^&]+)&\"  \n| parse \"elapsed_time=*&\" as runtime \n| avg(runtime) by src_host ",
+                          "queryType": "Logs",
+                          "queryKey": "A",
+                          "metricsQueryMode": null,
+                          "metricsQueryData": null,
+                          "tracesQueryData": null,
+                          "spansQueryData": null,
+                          "parseMode": "Manual",
+                          "timeSource": "Message",
+                          "outputCardinalityLimit": null
+                      }
+                  ],
+                  "description": null,
+                  "timeRange": null,
+                  "coloringRules": null,
+                  "linkedDashboards": []
+              },
+              {
+                  "id": null,
+                  "key": "panel960e03dc8672194c",
+                  "title": "Run Status Overtime",
+                  "visualSettings": "{\"title\":{\"fontSize\":14},\"general\":{\"type\":\"line\",\"displayType\":\"default\",\"markerSize\":null,\"lineDashType\":\"solid\",\"markerType\":\"none\",\"lineThickness\":1,\"mode\":\"timeSeries\"},\"axes\":{\"axisX\":{\"hideLabels\":false,\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"hideLabels\":false,\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12,\"logarithmic\":false,\"gridColor\":\"\",\"minimum\":null,\"maximum\":null}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"right\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":true,\"wrap\":true},\"color\":{\"family\":\"Categorical Default\"},\"thresholdsSettings\":{\"fillRemainingGreen\":false,\"showThresholds\":false,\"numberThresholds\":{\"warning\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":80},\"critical\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":100}}},\"overrides\":[]}",
+                  "keepVisualSettingsConsistentWithParent": true,
+                  "panelType": "SumoSearchPanel",
+                  "queries": [
+                      {
+                          "transient": false,
+                          "queryString": "_sourceCategory=chef*  \n| parse \"chef*-Client *:\" as msg\n| if (msg matches \"*completed successfully*\", \"success\", \"failed\") as status \n| timeslice 1h \n| count by status,_timeslice\n| transpose row _timeslice column status ",
+                          "queryType": "Logs",
+                          "queryKey": "A",
+                          "metricsQueryMode": null,
+                          "metricsQueryData": null,
+                          "tracesQueryData": null,
+                          "spansQueryData": null,
+                          "parseMode": "Manual",
+                          "timeSource": "Message",
+                          "outputCardinalityLimit": null
+                      }
+                  ],
+                  "description": null,
+                  "timeRange": null,
+                  "coloringRules": null,
+                  "linkedDashboards": []
+              },
+              {
+                  "id": null,
+                  "key": "panel0a40cb159d735948",
+                  "title": "Updated Resources Overtime",
+                  "visualSettings": "{\"title\":{\"fontSize\":14},\"general\":{\"type\":\"line\",\"displayType\":\"default\",\"markerSize\":null,\"lineDashType\":\"solid\",\"markerType\":\"none\",\"lineThickness\":1,\"mode\":\"timeSeries\"},\"axes\":{\"axisX\":{\"hideLabels\":false,\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"hideLabels\":false,\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12,\"logarithmic\":false,\"gridColor\":\"\",\"minimum\":null,\"maximum\":null}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"right\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":true,\"wrap\":true},\"color\":{\"family\":\"Categorical Default\"},\"thresholdsSettings\":{\"fillRemainingGreen\":false,\"showThresholds\":false,\"numberThresholds\":{\"warning\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":80},\"critical\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":100}}},\"overrides\":[]}",
+                  "keepVisualSettingsConsistentWithParent": true,
+                  "panelType": "SumoSearchPanel",
+                  "queries": [
+                      {
+                          "transient": false,
+                          "queryString": "_sourceCategory=chef*  \"completed successfully\" \n| parse \"updated_resources=*\" as resources \n| concat(resources,\":\") as resources\n| parse  regex field=resources \"(?<resource>\\S+)\\s\"  multi\n| timeslice 1h  \n| count by _timeslice, resource\n| transpose row _timeslice column resource ",
+                          "queryType": "Logs",
+                          "queryKey": "A",
+                          "metricsQueryMode": null,
+                          "metricsQueryData": null,
+                          "tracesQueryData": null,
+                          "spansQueryData": null,
+                          "parseMode": "Manual",
+                          "timeSource": "Message",
+                          "outputCardinalityLimit": null
+                      }
+                  ],
+                  "description": null,
+                  "timeRange": {
+                      "type": "BeginBoundedTimeRange",
+                      "from": {
+                          "type": "RelativeTimeRangeBoundary",
+                          "relativeTime": "-1d"
+                      },
+                      "to": null
+                  },
+                  "coloringRules": null,
+                  "linkedDashboards": []
+              },
+              {
+                  "id": null,
+                  "key": "panel0c638f7aa4c9ea47",
+                  "title": "Run Duration Distribution Overtime",
+                  "visualSettings": "{\"title\":{\"fontSize\":14},\"general\":{\"type\":\"bar\",\"displayType\":\"stacked\",\"fillOpacity\":1,\"mode\":\"timeSeries\"},\"axes\":{\"axisX\":{\"hideLabels\":false,\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"hideLabels\":false,\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12,\"logarithmic\":false,\"gridColor\":\"\",\"minimum\":null,\"maximum\":null}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"right\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":true,\"wrap\":true},\"color\":{\"family\":\"Categorical Default\"},\"thresholdsSettings\":{\"fillRemainingGreen\":false,\"showThresholds\":false,\"numberThresholds\":{\"warning\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":80},\"critical\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":100}}}}",
+                  "keepVisualSettingsConsistentWithParent": true,
+                  "panelType": "SumoSearchPanel",
+                  "queries": [
+                      {
+                          "transient": false,
+                          "queryString": "$$Chef  \"chef*-Client\" \"elapsed_time\"\n| parse \"chef*-Client *:\" as msg\n| if (msg matches \"*completed successfully*\", \"success\", \"failed\") as status \n| parse \"elapsed_time=*&\" as runtime \n| 5 as bucket_size\n| long(runtime/bucket_size) as range | format(\"%d-%d\",long(range*bucket_size), long((range+1)*bucket_size)) as bucket\n| count as Runs by bucket, status,range\n| sort by range | fields -range\n| transpose row bucket column status \n| sort by bucket \n",
+                          "queryType": "Logs",
+                          "queryKey": "A",
+                          "metricsQueryMode": null,
+                          "metricsQueryData": null,
+                          "tracesQueryData": null,
+                          "spansQueryData": null,
+                          "parseMode": "Manual",
+                          "timeSource": "Message",
+                          "outputCardinalityLimit": null
+                      }
+                  ],
+                  "description": null,
+                  "timeRange": {
+                      "type": "BeginBoundedTimeRange",
+                      "from": {
+                          "type": "RelativeTimeRangeBoundary",
+                          "relativeTime": "-1d"
+                      },
+                      "to": null
+                  },
+                  "coloringRules": null,
+                  "linkedDashboards": []
+              },
+              {
+                  "id": null,
+                  "key": "panel5616e69bb6384b46",
+                  "title": "Failed Runs",
+                  "visualSettings": "{\"title\":{\"fontSize\":12},\"series\":{},\"general\":{\"type\":\"table\",\"fontSize\":12,\"mode\":\"timeSeries\"},\"thresholdsSettings\":{\"fillRemainingGreen\":false,\"showThresholds\":false,\"numberThresholds\":{\"warning\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":80},\"critical\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":100}}}}",
+                  "keepVisualSettingsConsistentWithParent": true,
+                  "panelType": "SumoSearchPanel",
+                  "queries": [
+                      {
+                          "transient": false,
+                          "queryString": "_sourceCategory=chef*  \"chef*-Client\" \"did not complete\" \n| parse regex \"host=(?<src_host>[^&]+)&ip_address=(?<src_ip>[^&]+)&\" \n| parse \"end_time=*&\" as end_time \n| count by src_host, src_ip, end_time,_messagetime,_raw\n| sort by -_messagetime |  fields - _raw, _messagetime, _count  |  \"chef*-Client did not complete\" as message ",
+                          "queryType": "Logs",
+                          "queryKey": "A",
+                          "metricsQueryMode": null,
+                          "metricsQueryData": null,
+                          "tracesQueryData": null,
+                          "spansQueryData": null,
+                          "parseMode": "Manual",
+                          "timeSource": "Message",
+                          "outputCardinalityLimit": null
+                      }
+                  ],
+                  "description": null,
+                  "timeRange": null,
+                  "coloringRules": null,
+                  "linkedDashboards": []
+              }
+          ],
+          "variables": [],
+          "coloringRules": []
+      },
+      {
+          "type": "DashboardV2SyncDefinition",
+          "name": "Log-Based Chef Run Report",
+          "description": "This requires chef-client logs",
+          "title": "Log-Based Chef Run Report",
+          "theme": "Dark",
+          "topologyLabelMap": {
+              "data": {}
+          },
+          "refreshInterval": 0,
+          "timeRange": {
+              "type": "BeginBoundedTimeRange",
+              "from": {
+                  "type": "RelativeTimeRangeBoundary",
+                  "relativeTime": "-1d"
+              },
+              "to": null
+          },
+          "layout": {
+              "layoutType": "Grid",
+              "layoutStructures": [
+                  {
+                      "key": "panel766ea9c7a2ad2948",
+                      "structure": "{\"width\":8,\"height\":6,\"x\":0,\"y\":0}"
+                  },
+                  {
+                      "key": "panel338a7f46a3b6594f",
+                      "structure": "{\"width\":8,\"height\":6,\"x\":8,\"y\":0}"
+                  },
+                  {
+                      "key": "paneld8b09db98e619843",
+                      "structure": "{\"width\":8,\"height\":6,\"x\":16,\"y\":0}"
+                  },
+                  {
+                      "key": "panelc76160b79d13584c",
+                      "structure": "{\"width\":12,\"height\":6,\"x\":0,\"y\":5}"
+                  },
+                  {
+                      "key": "paneldc512d5e9e23db42",
+                      "structure": "{\"width\":12,\"height\":13,\"x\":12,\"y\":5}"
+                  },
+                  {
+                      "key": "panelff02999da79d3843",
+                      "structure": "{\"width\":12,\"height\":6,\"x\":0,\"y\":10}"
+                  }
+              ]
+          },
+          "panels": [
+              {
+                  "id": null,
+                  "key": "panel338a7f46a3b6594f",
+                  "title": "Error or Fatal Count by Host",
+                  "visualSettings": "{\"title\":{\"fontSize\":14},\"general\":{\"type\":\"column\",\"displayType\":\"default\",\"fillOpacity\":1,\"mode\":\"timeSeries\"},\"axes\":{\"axisX\":{\"hideLabels\":false,\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"hideLabels\":false,\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12,\"logarithmic\":false,\"gridColor\":\"\",\"minimum\":null,\"maximum\":null}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"right\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":true,\"wrap\":true},\"color\":{\"family\":\"Categorical Default\"},\"thresholdsSettings\":{\"fillRemainingGreen\":false,\"showThresholds\":false,\"numberThresholds\":{\"warning\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":80},\"critical\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":100}}},\"overrides\":[]}",
+                  "keepVisualSettingsConsistentWithParent": true,
+                  "panelType": "SumoSearchPanel",
+                  "queries": [
+                      {
+                          "transient": false,
+                          "queryString": "_sourceCategory=chef* (\"ERROR:\" or \"FATAL:\")\n| count by _sourceHost\n| sort by _count",
+                          "queryType": "Logs",
+                          "queryKey": "A",
+                          "metricsQueryMode": null,
+                          "metricsQueryData": null,
+                          "tracesQueryData": null,
+                          "spansQueryData": null,
+                          "parseMode": "Manual",
+                          "timeSource": "Message",
+                          "outputCardinalityLimit": null
+                      }
+                  ],
+                  "description": null,
+                  "timeRange": null,
+                  "coloringRules": null,
+                  "linkedDashboards": []
+              },
+              {
+                  "id": null,
+                  "key": "paneld8b09db98e619843",
+                  "title": "Host Count by Cookbook",
+                  "visualSettings": "{\"title\":{\"fontSize\":14},\"general\":{\"type\":\"bar\",\"displayType\":\"default\",\"fillOpacity\":1,\"mode\":\"timeSeries\"},\"axes\":{\"axisX\":{\"hideLabels\":false,\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"hideLabels\":false,\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12,\"logarithmic\":false,\"gridColor\":\"\",\"minimum\":null,\"maximum\":null}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"right\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":true,\"wrap\":true},\"color\":{\"family\":\"Categorical Default\"},\"thresholdsSettings\":{\"fillRemainingGreen\":false,\"showThresholds\":false,\"numberThresholds\":{\"warning\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":80},\"critical\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":100}}}}",
+                  "keepVisualSettingsConsistentWithParent": true,
+                  "panelType": "SumoSearchPanel",
+                  "queries": [
+                      {
+                          "transient": false,
+                          "queryString": "_sourceCategory=chef*  \"Loading cookbooks\" \n| parse \"cookbooks [*]\" as cookbooks\n| parse regex  field=cookbooks \"(?<cookbook>[^, \\]]+)\" multi \n| count by _sourceHost,cookbook\n| count(_sourceHost) as hosts by cookbook \n| sort hosts",
+                          "queryType": "Logs",
+                          "queryKey": "A",
+                          "metricsQueryMode": null,
+                          "metricsQueryData": null,
+                          "tracesQueryData": null,
+                          "spansQueryData": null,
+                          "parseMode": "Manual",
+                          "timeSource": "Message",
+                          "outputCardinalityLimit": null
+                      }
+                  ],
+                  "description": null,
+                  "timeRange": null,
+                  "coloringRules": null,
+                  "linkedDashboards": []
+              },
+              {
+                  "id": null,
+                  "key": "paneldc512d5e9e23db42",
+                  "title": "Host Count by Error or Fatal Message",
+                  "visualSettings": "{\"title\":{\"fontSize\":12},\"series\":{},\"general\":{\"type\":\"table\",\"fontSize\":12,\"mode\":\"timeSeries\"},\"thresholdsSettings\":{\"fillRemainingGreen\":false,\"showThresholds\":false,\"numberThresholds\":{\"warning\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":80},\"critical\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":100}}}}",
+                  "keepVisualSettingsConsistentWithParent": true,
+                  "panelType": "SumoSearchPanel",
+                  "queries": [
+                      {
+                          "transient": false,
+                          "queryString": "_sourceCategory=chef* (\"error\" or \"fatal\") !\"WARN:\"\n| parse \"] *\" as message \n| count_distinct (_sourceHost) as Hosts by message  | order by Hosts",
+                          "queryType": "Logs",
+                          "queryKey": "A",
+                          "metricsQueryMode": null,
+                          "metricsQueryData": null,
+                          "tracesQueryData": null,
+                          "spansQueryData": null,
+                          "parseMode": "Manual",
+                          "timeSource": "Message",
+                          "outputCardinalityLimit": null
+                      }
+                  ],
+                  "description": null,
+                  "timeRange": null,
+                  "coloringRules": null,
+                  "linkedDashboards": []
+              },
+              {
+                  "id": null,
+                  "key": "panelc76160b79d13584c",
+                  "title": "Average RunTime by Host (Seconds)",
+                  "visualSettings": "{\"title\":{\"fontSize\":14},\"general\":{\"type\":\"column\",\"displayType\":\"default\",\"fillOpacity\":1,\"mode\":\"timeSeries\"},\"axes\":{\"axisX\":{\"hideLabels\":false,\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"hideLabels\":false,\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12,\"logarithmic\":false,\"gridColor\":\"\",\"minimum\":null,\"maximum\":null}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"right\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":true,\"wrap\":true},\"color\":{\"family\":\"Categorical Default\"},\"thresholdsSettings\":{\"fillRemainingGreen\":false,\"showThresholds\":false,\"numberThresholds\":{\"warning\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":80},\"critical\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":100}}},\"overrides\":[]}",
+                  "keepVisualSettingsConsistentWithParent": true,
+                  "panelType": "SumoSearchPanel",
+                  "queries": [
+                      {
+                          "transient": false,
+                          "queryString": "_sourceCategory=chef* \"chef* Run complete\"\n| parse \"in * seconds\" as runtime  \n| avg(runtime) as AvgRunTime by _sourceHost\n| sort by AvgRunTime",
+                          "queryType": "Logs",
+                          "queryKey": "A",
+                          "metricsQueryMode": null,
+                          "metricsQueryData": null,
+                          "tracesQueryData": null,
+                          "spansQueryData": null,
+                          "parseMode": "Manual",
+                          "timeSource": "Message",
+                          "outputCardinalityLimit": null
+                      }
+                  ],
+                  "description": null,
+                  "timeRange": null,
+                  "coloringRules": null,
+                  "linkedDashboards": []
+              },
+              {
+                  "id": null,
+                  "key": "panel766ea9c7a2ad2948",
+                  "title": "Hosts with Potential Failed Runs",
+                  "visualSettings": "{\"title\":{\"fontSize\":14},\"general\":{\"type\":\"column\",\"displayType\":\"stacked\",\"fillOpacity\":1,\"mode\":\"timeSeries\"},\"axes\":{\"axisX\":{\"hideLabels\":false,\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"hideLabels\":false,\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12,\"logarithmic\":false,\"gridColor\":\"\",\"minimum\":null,\"maximum\":null}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"right\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":true,\"wrap\":true},\"color\":{\"family\":\"Categorical Default\"},\"thresholdsSettings\":{\"fillRemainingGreen\":false,\"showThresholds\":false,\"numberThresholds\":{\"warning\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":80},\"critical\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":100}}},\"overrides\":[]}",
+                  "keepVisualSettingsConsistentWithParent": true,
+                  "panelType": "SumoSearchPanel",
+                  "queries": [
+                      {
+                          "transient": false,
+                          "queryString": "_sourceCategory=chef* (\"Starting chef* Run for\"  or \"chef* Run complete\") \n| if (_raw matches \"*Starting chef* Run*\", \"Started\", \"Completed\") as status\n| count by status,_sourceHost \n| sort by _sourceHost, status\n| diff _count by _sourceHost \n| where _diff>0 \n| (_diff+_count) as  Started \n| _count as Completed | fields -status,_count, _diff",
+                          "queryType": "Logs",
+                          "queryKey": "A",
+                          "metricsQueryMode": null,
+                          "metricsQueryData": null,
+                          "tracesQueryData": null,
+                          "spansQueryData": null,
+                          "parseMode": "Manual",
+                          "timeSource": "Message",
+                          "outputCardinalityLimit": null
+                      }
+                  ],
+                  "description": null,
+                  "timeRange": null,
+                  "coloringRules": null,
+                  "linkedDashboards": []
+              },
+              {
+                  "id": null,
+                  "key": "panelff02999da79d3843",
+                  "title": "Run Duration Distribution",
+                  "visualSettings": "{\"title\":{\"fontSize\":14},\"general\":{\"type\":\"column\",\"displayType\":\"default\",\"fillOpacity\":1,\"mode\":\"timeSeries\"},\"axes\":{\"axisX\":{\"hideLabels\":false,\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"hideLabels\":false,\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12,\"logarithmic\":false,\"gridColor\":\"\",\"minimum\":null,\"maximum\":null}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"right\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":true,\"wrap\":true},\"color\":{\"family\":\"Categorical Default\"},\"thresholdsSettings\":{\"fillRemainingGreen\":false,\"showThresholds\":false,\"numberThresholds\":{\"warning\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":80},\"critical\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":100}}},\"overrides\":[]}",
+                  "keepVisualSettingsConsistentWithParent": true,
+                  "panelType": "SumoSearchPanel",
+                  "queries": [
+                      {
+                          "transient": false,
+                          "queryString": "_sourceCategory=chef* \"chef* Run complete\"\n| parse \"in * seconds\" as runtime\n| 5 as bucket_size\n| long(runtime/bucket_size) as range | format(\"%d-%d\",long(range*bucket_size), long((range+1)*bucket_size)) as bucket\n| count as Runs by bucket,range\n| sort by range | fields -range\n| sort by +bucket ",
+                          "queryType": "Logs",
+                          "queryKey": "A",
+                          "metricsQueryMode": null,
+                          "metricsQueryData": null,
+                          "tracesQueryData": null,
+                          "spansQueryData": null,
+                          "parseMode": "Manual",
+                          "timeSource": "Message",
+                          "outputCardinalityLimit": null
+                      }
+                  ],
+                  "description": null,
+                  "timeRange": null,
+                  "coloringRules": null,
+                  "linkedDashboards": []
+              }
+          ],
+          "variables": [],
+          "coloringRules": []
+      },
+      {
+          "type": "SavedSearchWithScheduleSyncDefinition",
+          "name": "Resource Extraction",
+          "search": {
+              "queryText": "_sourceCategory=chef*  \"completed successfully\" \n| parse \"updated_resources=*\" as resources \n| concat(resources,\":\") as resources\n| parse  regex field=resources \"(?<resource>\\S+)\\s\"  multi",
+              "byReceiptTime": false,
+              "viewName": "",
+              "viewStartTime": "1970-01-01T00:00:00Z",
+              "queryParameters": [],
+              "parsingMode": "Manual",
+              "defaultTimeRange": "02/15 00:00 02/17 00:00"
+          },
+          "searchSchedule": null,
+          "description": ""
+      }
+  ]
 }
