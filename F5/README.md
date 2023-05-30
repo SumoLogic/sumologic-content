@@ -36,7 +36,7 @@ Note: Namespaces provide logical grouping and isolation of objects within a dist
 **Step 3: Sumo Logic Settings**
 
 1. Select Sumo Logic for the Receiver Configuration.
-2. Navigate to Sumo Logic  Manage Data  Collection and copy the desired HTTP Source URL.
+2. Navigate to Sumo Logic > Manage Data > Collection and copy the desired HTTP Source URL.
 3. Navigate back to F5 XC global log receiver configuration screen, select ‘Configure’ and paste in the HTTP Source to blindfold. Select ‘Apply’.
 4. Select Save & Exit to complete creating the global log receiver. Verify that logs are received into your Sumo Logic account.
 
