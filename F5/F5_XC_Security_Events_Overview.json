@@ -1,0 +1,128 @@
+{
+    "type": "DashboardV2SyncDefinition",
+    "name": "F5 XC Security Events Overview",
+    "description": "",
+    "title": "F5 XC Security Events Overview",
+    "theme": "Light",
+    "topologyLabelMap": {
+        "data": {}
+    },
+    "refreshInterval": 0,
+    "timeRange": {
+        "type": "BeginBoundedTimeRange",
+        "from": {
+            "type": "RelativeTimeRangeBoundary",
+            "relativeTime": "-1d"
+        },
+        "to": null
+    },
+    "layout": {
+        "layoutType": "Grid",
+        "layoutStructures": [
+            {
+                "key": "panelFBE720BC82C2294D",
+                "structure": "{\"height\":10,\"width\":12,\"x\":0,\"y\":0}"
+            },
+            {
+                "key": "panelPANE-CA349A3884BACA4E",
+                "structure": "{\"height\":10,\"width\":12,\"x\":12,\"y\":0}"
+            },
+            {
+                "key": "panelPANE-B58B7B2EA7659A41",
+                "structure": "{\"height\":7,\"width\":24,\"x\":0,\"y\":10}"
+            }
+        ]
+    },
+    "panels": [
+        {
+            "id": null,
+            "key": "panelFBE720BC82C2294D",
+            "title": "WAF Attack Summary",
+            "visualSettings": "{\"axes\":{\"axisX\":{\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"titleFontSize\":12,\"labelFontSize\":12}},\"series\":{},\"legend\":{\"enabled\":true,\"verticalAlign\":\"bottom\",\"fontSize\":10,\"showAsTable\":false,\"wrap\":true,\"maxHeight\":40},\"general\":{\"type\":\"pie\",\"displayType\":\"default\",\"fillOpacity\":1,\"startAngle\":270,\"innerRadius\":\"30%\",\"maxNumOfSlices\":10,\"mode\":\"distribution\"},\"title\":{\"fontSize\":18}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourcecategory=f5 attack_types |parse field=attack_types \"[{\\\"name\\\":\\\"ATTACK_TYPE_*\\\"}\" as myfield | where attack_types<>\"{}\" OR isNull(attack_types) | count by myfield  ",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "RelativeTimeRangeBoundary",
+                    "relativeTime": "-6h"
+                },
+                "to": null
+            },
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panelPANE-CA349A3884BACA4E",
+            "title": "Attacks by Geolocation",
+            "visualSettings": "{\"general\":{\"mode\":\"map\",\"type\":\"map\",\"displayType\":\"default\"},\"series\":{},\"map\":{\"mainMetric\":{\"hasCustomSizeMetric\":false,\"layerType\":\"Cluster\",\"colorCalculationMode\":1,\"colorThresholds\":[{\"value\":null,\"color\":\"#50caf2\",\"id\":1675194100127},{\"value\":100,\"color\":\"#FFCC1D\",\"id\":1675194100227},{\"value\":250,\"color\":\"#E64B00\",\"id\":1675194100327}]},\"secondaryMetric\":{}},\"legend\":{\"enabled\":false},\"title\":{\"fontSize\":18}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourcecategory=f5 attack_types | where attack_types<>\"{}\" AND !isNull(attack_types) | count by latitude, longitude",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panelPANE-B58B7B2EA7659A41",
+            "title": "Log Events",
+            "visualSettings": "{\"title\":{\"fontSize\":14},\"axes\":{\"axisX\":{\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"titleFontSize\":12,\"labelFontSize\":12,\"logarithmic\":false}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"bottom\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":false,\"wrap\":true},\"color\":{\"family\":\"Categorical Default\"},\"series\":{},\"general\":{\"type\":\"table\",\"displayType\":\"default\",\"paginationPageSize\":100,\"fontSize\":12,\"mode\":\"timeSeries\"}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourcecategory=f5 req_id | req_id as RequestID | src_ip as SourceIP | domain as Destination | time as DateTime | parse field=attack_types \"[{\\\"name\\\":\\\"ATTACK_TYPE_*\\\"}\" as AttackType | browser_type as Browser | action as WafAction | country as SrcCountry | WHERE sec_event_type=\"waf_sec_event\" AND Action=\"block\" | count by DateTime, SourceIP, RequestID, AttackType, WafAction, Browser, Destination, SrcCountry | fields DateTime, RequestID, SourceIP, Destination, AttackType, Browser, WafAction, SrcCountry",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        }
+    ],
+    "variables": [],
+    "coloringRules": []
+}
