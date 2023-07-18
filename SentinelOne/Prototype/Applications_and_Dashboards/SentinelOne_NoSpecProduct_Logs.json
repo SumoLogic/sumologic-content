@@ -1,1439 +1,353 @@
 {
-  "type":"Folder",
-  "name":"SentinelOne",
-  "description":"contains Endpoint security data",
-  "children":[{
-    "type":"Report",
-    "name":"SentinelOne Prototype",
-    "description":"",
-    "columns":[""],
-    "detailLevel":0,
-    "properties":"{\"layoutType\":\"gridster\",\"theme\":\"dark-theme\"}",
-    "panels":[{
-      "type":"ReportPanel",
-      "name":"Updates and Installs",
-      "viewerType":"title",
-      "detailLevel":2,
-      "queryString":"",
-      "metricsQueries":[],
-      "timeRange":"[ { \"t\": \"relative\", \"d\":-60000 } ]",
-      "x":1,
-      "y":11,
-      "width":8,
-      "height":1,
-      "properties":"{\"version\":3,\"settings\":{\"table\":{\"version\":2,\"configuration\":{\"textTruncationMode\":\"none\",\"fontSize\":\"medium\",\"fontSizeOverride\":null}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"pie\":{\"chartType\":\"pie\",\"version\":3,\"configuration\":{\"donutMode\":true,\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"label\":{\"truncationMode\":\"middle\"},\"showSliceBorders\":true,\"maxNumOfPieSlices\":\"10\"}}},\"boxplot\":{\"chartType\":\"boxplot\",\"version\":1,\"configuration\":{\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"}},\"yAxis\":{\"title\":null,\"min\":null,\"max\":null}}},\"map\":{\"version\":1,\"configuration\":{}},\"svv\":{\"version\":2,\"configuration\":{\"colorOverride\":null,\"backgroundColorEnabled\":false,\"noDataBehavior\":{\"enabled\":false,\"color\":\"#cccccc\",\"value\":null,\"isString\":null},\"valueType\":{\"number\":{\"showNumber\":true,\"unit\":null,\"colorsByValueRange\":null},\"boolean\":{\"trueColor\":\"#6aa84f\",\"falseColor\":\"#cc0000\"}},\"labels\":{\"prefix\":{\"enabled\":false,\"text\":\"\",\"align\":\"left\"},\"postfix\":{\"enabled\":false,\"text\":\"\",\"align\":\"right\"}}}},\"sankey\":{\"version\":1,\"configuration\":{}},\"text\":{\"version\":1,\"configuration\":{\"text\":null}},\"metrics\":{\"version\":2,\"configuration\":{\"blockSettings\":{},\"viewType\":\"timeline\",\"zoom\":\"xy\",\"yAxis\":{\"defaults\":[{\"name\":\"\"},{\"name\":\"\"}],\"custom\":[{},{}]},\"xAxis\":{\"scrubber\":true},\"outliers\":{\"enabled\":true,\"top\":1,\"scope\":\"Chart\",\"cyclicality\":false,\"threshold\":7,\"autoShowBand\":true},\"colorFamily\":\"METRIC_DEFAULT\"}},\"common\":{\"version\":1,\"configuration\":{\"drilldown\":{\"fallback\":{\"target\":{\"id\":null,\"name\":null,\"enabled\":null}}}}}}}",
-      "isDisabled":false,
-      "id":"1385039",
-      "fields":[],
-      "desiredQuantizationInSecs":0,
-      "queryParameters":[]
-    },{
-      "type":"ReportPanel",
-      "name":"Threat Actions",
-      "viewerType":"title",
-      "detailLevel":2,
-      "queryString":"",
-      "metricsQueries":[],
-      "timeRange":"[ { \"t\": \"relative\", \"d\":-60000 } ]",
-      "x":1,
-      "y":1,
-      "width":24,
-      "height":1,
-      "properties":"{\"version\":3,\"settings\":{\"table\":{\"version\":2,\"configuration\":{\"textTruncationMode\":\"none\",\"fontSize\":\"medium\",\"fontSizeOverride\":null}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"pie\":{\"chartType\":\"pie\",\"version\":3,\"configuration\":{\"donutMode\":true,\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"label\":{\"truncationMode\":\"middle\"},\"showSliceBorders\":true,\"maxNumOfPieSlices\":\"10\"}}},\"boxplot\":{\"chartType\":\"boxplot\",\"version\":1,\"configuration\":{\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"}},\"yAxis\":{\"title\":null,\"min\":null,\"max\":null}}},\"map\":{\"version\":1,\"configuration\":{}},\"svv\":{\"version\":2,\"configuration\":{\"colorOverride\":null,\"backgroundColorEnabled\":false,\"noDataBehavior\":{\"enabled\":false,\"color\":\"#cccccc\",\"value\":null,\"isString\":null},\"valueType\":{\"number\":{\"showNumber\":true,\"unit\":null,\"colorsByValueRange\":null},\"boolean\":{\"trueColor\":\"#6aa84f\",\"falseColor\":\"#cc0000\"}},\"labels\":{\"prefix\":{\"enabled\":false,\"text\":\"\",\"align\":\"left\"},\"postfix\":{\"enabled\":false,\"text\":\"\",\"align\":\"right\"}}}},\"sankey\":{\"version\":1,\"configuration\":{}},\"text\":{\"version\":1,\"configuration\":{\"text\":null}},\"metrics\":{\"version\":2,\"configuration\":{\"blockSettings\":{},\"viewType\":\"timeline\",\"zoom\":\"xy\",\"yAxis\":{\"defaults\":[{\"name\":\"\"},{\"name\":\"\"}],\"custom\":[{},{}]},\"xAxis\":{\"scrubber\":true},\"outliers\":{\"enabled\":true,\"top\":1,\"scope\":\"Chart\",\"cyclicality\":false,\"threshold\":7,\"autoShowBand\":true},\"colorFamily\":\"METRIC_DEFAULT\"}},\"common\":{\"version\":1,\"configuration\":{\"drilldown\":{\"fallback\":{\"target\":{\"id\":null,\"name\":null,\"enabled\":null}}}}}}}",
-      "isDisabled":false,
-      "id":"1382570",
-      "fields":[],
-      "desiredQuantizationInSecs":0,
-      "queryParameters":[]
-    },{
-      "type":"ReportPanel",
-      "name":"Threat Resolve Marking",
-      "viewerType":"table",
-      "detailLevel":2,
-      "queryString":"_source=\"SentinelOne\" \"Threat marked as resolved\"\n| parse \"filePath=*\" as path\n| parse \"<14>CEF:0|SentinelOne|Mgmt|*|*|*|*|rt=\" as os,startcode,message,endcode\n| timeslice 1d\n| count by _timeslice, message, path",
-      "metricsQueries":[],
-      "timeRange":"[{\"t\":\"relative\",\"d\":-2592000000}]",
-      "x":9,
-      "y":2,
-      "width":16,
-      "height":4,
-      "properties":"{\"version\":3,\"settings\":{\"table\":{\"version\":2,\"configuration\":{\"textTruncationMode\":\"none\",\"fontSize\":\"medium\",\"fontSizeOverride\":null}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"pie\":{\"chartType\":\"pie\",\"version\":3,\"configuration\":{\"donutMode\":true,\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"label\":{\"truncationMode\":\"middle\"},\"showSliceBorders\":true,\"maxNumOfPieSlices\":\"10\"}}},\"boxplot\":{\"chartType\":\"boxplot\",\"version\":1,\"configuration\":{\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"}},\"yAxis\":{\"title\":null,\"min\":null,\"max\":null}}},\"map\":{\"version\":1,\"configuration\":{}},\"svv\":{\"version\":2,\"configuration\":{\"colorOverride\":null,\"backgroundColorEnabled\":false,\"noDataBehavior\":{\"enabled\":false,\"color\":\"#cccccc\",\"value\":null,\"isString\":null},\"valueType\":{\"number\":{\"showNumber\":true,\"unit\":null,\"colorsByValueRange\":null},\"boolean\":{\"trueColor\":\"#6aa84f\",\"falseColor\":\"#cc0000\"}},\"labels\":{\"prefix\":{\"enabled\":false,\"text\":\"\",\"align\":\"left\"},\"postfix\":{\"enabled\":false,\"text\":\"\",\"align\":\"right\"}}}},\"sankey\":{\"version\":1,\"configuration\":{}},\"text\":{\"version\":1,\"configuration\":{\"text\":null}},\"metrics\":{\"version\":2,\"configuration\":{\"blockSettings\":{},\"viewType\":\"timeline\",\"zoom\":\"xy\",\"yAxis\":{\"defaults\":[{\"name\":\"\"},{\"name\":\"\"}],\"custom\":[{},{}]},\"xAxis\":{\"scrubber\":true},\"outliers\":{\"enabled\":true,\"top\":1,\"scope\":\"Chart\",\"cyclicality\":false,\"threshold\":7,\"autoShowBand\":true},\"colorFamily\":\"METRIC_DEFAULT\"}},\"common\":{\"version\":1,\"configuration\":{\"drilldown\":{\"fallback\":{\"target\":{\"id\":null,\"name\":null,\"enabled\":null}}}}}}}",
-      "isDisabled":false,
-      "id":"1382884",
-      "fields":[{
-        "name":{
-          "name":"_collector"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_source"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcecategory"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcehost"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcename"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"path"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"os"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"startcode"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"message"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"endcode"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"__timeslice_end"
-        },
-        "tpe":"java.lang.Long",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"message"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"query"
-      },{
-        "name":{
-          "name":"path"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"query"
-      },{
-        "name":{
-          "name":"_count"
-        },
-        "tpe":"java.lang.Integer",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"query"
-      }],
-      "desiredQuantizationInSecs":0,
-      "queryParameters":[]
-    },{
-      "type":"ReportPanel",
-      "name":"Updates and Installs Areas",
-      "viewerType":"map",
-      "detailLevel":2,
-      "queryString":"_source=\"SentinelOne\" (*update* or *install*)\n| parse \"<14>CEF:0|SentinelOne|Mgmt|*|*|*|1|suser=* ip=* rt=\" as it_code,startcode,message,machine,remote_ip\n| lookup latitude, longitude, country_code, country_name, region, city, postal_code, area_code, metro_code from geo://default on ip = remote_ip\n| if (isNull(country_code), \"unknown\", country_code) as country_code\n| if (isNull(region), \"unknown\", region) as region\n| if (isNull(city), \"unknown\", city) as city\n| if (isNull(postal_code), \"unknown\", postal_code) as postal_code\n| count by latitude, longitude, country_code, country_name, region, city, postal_code, area_code, metro_code\n| sort _count",
-      "metricsQueries":[],
-      "timeRange":"[{\"t\":\"relative\",\"d\":-2592000000}]",
-      "x":9,
-      "y":11,
-      "width":8,
-      "height":10,
-      "properties":"{\"version\":3,\"settings\":{\"table\":{\"version\":2,\"configuration\":{\"textTruncationMode\":\"none\",\"fontSize\":\"medium\",\"fontSizeOverride\":null}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"pie\":{\"chartType\":\"pie\",\"version\":3,\"configuration\":{\"donutMode\":true,\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"label\":{\"truncationMode\":\"middle\"},\"showSliceBorders\":true,\"maxNumOfPieSlices\":\"10\"}}},\"boxplot\":{\"chartType\":\"boxplot\",\"version\":1,\"configuration\":{\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"}},\"yAxis\":{\"title\":null,\"min\":null,\"max\":null}}},\"map\":{\"version\":1,\"configuration\":{}},\"svv\":{\"version\":2,\"configuration\":{\"colorOverride\":null,\"backgroundColorEnabled\":false,\"noDataBehavior\":{\"enabled\":false,\"color\":\"#cccccc\",\"value\":null,\"isString\":null},\"valueType\":{\"number\":{\"showNumber\":true,\"unit\":null,\"colorsByValueRange\":null},\"boolean\":{\"trueColor\":\"#6aa84f\",\"falseColor\":\"#cc0000\"}},\"labels\":{\"prefix\":{\"enabled\":false,\"text\":\"\",\"align\":\"left\"},\"postfix\":{\"enabled\":false,\"text\":\"\",\"align\":\"right\"}}}},\"sankey\":{\"version\":1,\"configuration\":{}},\"text\":{\"version\":1,\"configuration\":{\"text\":null}},\"metrics\":{\"version\":2,\"configuration\":{\"blockSettings\":{},\"viewType\":\"timeline\",\"zoom\":\"xy\",\"yAxis\":{\"defaults\":[{\"name\":\"\"},{\"name\":\"\"}],\"custom\":[{},{}]},\"xAxis\":{\"scrubber\":true},\"outliers\":{\"enabled\":true,\"top\":1,\"scope\":\"Chart\",\"cyclicality\":false,\"threshold\":7,\"autoShowBand\":true},\"colorFamily\":\"METRIC_DEFAULT\"}},\"common\":{\"version\":1,\"configuration\":{\"drilldown\":{\"fallback\":{\"target\":{\"id\":null,\"name\":null,\"enabled\":null}}}}}}}",
-      "isDisabled":false,
-      "id":"1385191",
-      "fields":[{
-        "name":{
-          "name":"_collector"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_source"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcecategory"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcehost"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcename"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"it_code"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"startcode"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"message"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"machine"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"remote_ip"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"latitude"
-        },
-        "tpe":"java.lang.Double",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"longitude"
-        },
-        "tpe":"java.lang.Double",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"country_code"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"country_name"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"region"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"city"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"postal_code"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"metro_code"
-        },
-        "tpe":"java.lang.Integer",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"area_code"
-        },
-        "tpe":"java.lang.Integer",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"latitude"
-        },
-        "tpe":"java.lang.Double",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"query"
-      },{
-        "name":{
-          "name":"longitude"
-        },
-        "tpe":"java.lang.Double",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"query"
-      },{
-        "name":{
-          "name":"country_code"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"query"
-      },{
-        "name":{
-          "name":"country_name"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"query"
-      },{
-        "name":{
-          "name":"region"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"query"
-      },{
-        "name":{
-          "name":"city"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"query"
-      },{
-        "name":{
-          "name":"postal_code"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"query"
-      },{
-        "name":{
-          "name":"area_code"
-        },
-        "tpe":"java.lang.Integer",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"query"
-      },{
-        "name":{
-          "name":"metro_code"
-        },
-        "tpe":"java.lang.Integer",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"query"
-      },{
-        "name":{
-          "name":"_count"
-        },
-        "tpe":"java.lang.Integer",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"query"
-      }],
-      "desiredQuantizationInSecs":0,
-      "queryParameters":[]
-    },{
-      "type":"ReportPanel",
-      "name":"Commissioning",
-      "viewerType":"table",
-      "detailLevel":2,
-      "queryString":"_source=\"SentinelOne\" *commission*\n| parse \"<14>CEF:0|SentinelOne|Mgmt|*|*|Machine * *|*|rt=\" as os,startcode,machine,action,endcode\n| timeslice 1d\n| count by _timeslice, machine, os, action\n| sort by machine asc\n| fields - _count",
-      "metricsQueries":[],
-      "timeRange":"[{\"t\":\"relative\",\"d\":-2592000000}]",
-      "x":1,
-      "y":18,
-      "width":8,
-      "height":4,
-      "properties":"{\"version\":3,\"settings\":{\"table\":{\"version\":2,\"configuration\":{\"textTruncationMode\":\"none\",\"fontSize\":\"medium\",\"fontSizeOverride\":null}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"pie\":{\"chartType\":\"pie\",\"version\":3,\"configuration\":{\"donutMode\":true,\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"label\":{\"truncationMode\":\"middle\"},\"showSliceBorders\":true,\"maxNumOfPieSlices\":\"10\"}}},\"boxplot\":{\"chartType\":\"boxplot\",\"version\":1,\"configuration\":{\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"}},\"yAxis\":{\"title\":null,\"min\":null,\"max\":null}}},\"map\":{\"version\":1,\"configuration\":{}},\"svv\":{\"version\":2,\"configuration\":{\"colorOverride\":null,\"backgroundColorEnabled\":false,\"noDataBehavior\":{\"enabled\":false,\"color\":\"#cccccc\",\"value\":null,\"isString\":null},\"valueType\":{\"number\":{\"showNumber\":true,\"unit\":null,\"colorsByValueRange\":null},\"boolean\":{\"trueColor\":\"#6aa84f\",\"falseColor\":\"#cc0000\"}},\"labels\":{\"prefix\":{\"enabled\":false,\"text\":\"\",\"align\":\"left\"},\"postfix\":{\"enabled\":false,\"text\":\"\",\"align\":\"right\"}}}},\"sankey\":{\"version\":1,\"configuration\":{}},\"text\":{\"version\":1,\"configuration\":{\"text\":null}},\"metrics\":{\"version\":2,\"configuration\":{\"blockSettings\":{},\"viewType\":\"timeline\",\"zoom\":\"xy\",\"yAxis\":{\"defaults\":[{\"name\":\"\"},{\"name\":\"\"}],\"custom\":[{},{}]},\"xAxis\":{\"scrubber\":true},\"outliers\":{\"enabled\":true,\"top\":1,\"scope\":\"Chart\",\"cyclicality\":false,\"threshold\":7,\"autoShowBand\":true},\"colorFamily\":\"METRIC_DEFAULT\"}},\"common\":{\"version\":1,\"configuration\":{\"drilldown\":{\"fallback\":{\"target\":{\"id\":null,\"name\":null,\"enabled\":null}}}}}}}",
-      "isDisabled":false,
-      "id":"1385205",
-      "fields":[{
-        "name":{
-          "name":"_collector"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_source"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcecategory"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcehost"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcename"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"os"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"startcode"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"machine"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"action"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"endcode"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"__timeslice_end"
-        },
-        "tpe":"java.lang.Long",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"machine"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"query"
-      },{
-        "name":{
-          "name":"os"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"query"
-      },{
-        "name":{
-          "name":"action"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"query"
-      }],
-      "desiredQuantizationInSecs":0,
-      "queryParameters":[]
-    },{
-      "type":"ReportPanel",
-      "name":"Updates by Machine and IP",
-      "viewerType":"table",
-      "detailLevel":2,
-      "queryString":"_source=\"SentinelOne\" (*update* or *install*)\n| parse \"<14>CEF:0|SentinelOne|Mgmt|*|*|*|1|suser=* ip=* rt=\" as it_code,startcode,message,machine,remote_ip\n| fields - it_code, startcode, message\n| timeslice 1d\n| count by _timeslice, machine, remote_ip\n| fields - _count\n| sort by machine asc",
-      "metricsQueries":[],
-      "timeRange":"[{\"t\":\"relative\",\"d\":-2592000000}]",
-      "x":1,
-      "y":12,
-      "width":8,
-      "height":6,
-      "properties":"{\"version\":3,\"settings\":{\"table\":{\"version\":2,\"configuration\":{\"textTruncationMode\":\"none\",\"fontSize\":\"medium\",\"fontSizeOverride\":null}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"pie\":{\"chartType\":\"pie\",\"version\":3,\"configuration\":{\"donutMode\":true,\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"label\":{\"truncationMode\":\"middle\"},\"showSliceBorders\":true,\"maxNumOfPieSlices\":\"10\"}}},\"boxplot\":{\"chartType\":\"boxplot\",\"version\":1,\"configuration\":{\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"}},\"yAxis\":{\"title\":null,\"min\":null,\"max\":null}}},\"map\":{\"version\":1,\"configuration\":{}},\"svv\":{\"version\":2,\"configuration\":{\"colorOverride\":null,\"backgroundColorEnabled\":false,\"noDataBehavior\":{\"enabled\":false,\"color\":\"#cccccc\",\"value\":null,\"isString\":null},\"valueType\":{\"number\":{\"showNumber\":true,\"unit\":null,\"colorsByValueRange\":null},\"boolean\":{\"trueColor\":\"#6aa84f\",\"falseColor\":\"#cc0000\"}},\"labels\":{\"prefix\":{\"enabled\":false,\"text\":\"\",\"align\":\"left\"},\"postfix\":{\"enabled\":false,\"text\":\"\",\"align\":\"right\"}}}},\"sankey\":{\"version\":1,\"configuration\":{}},\"text\":{\"version\":1,\"configuration\":{\"text\":null}},\"metrics\":{\"version\":2,\"configuration\":{\"blockSettings\":{},\"viewType\":\"timeline\",\"zoom\":\"xy\",\"yAxis\":{\"defaults\":[{\"name\":\"\"},{\"name\":\"\"}],\"custom\":[{},{}]},\"xAxis\":{\"scrubber\":true},\"outliers\":{\"enabled\":true,\"top\":1,\"scope\":\"Chart\",\"cyclicality\":false,\"threshold\":7,\"autoShowBand\":true},\"colorFamily\":\"METRIC_DEFAULT\"}},\"common\":{\"version\":1,\"configuration\":{\"drilldown\":{\"fallback\":{\"target\":{\"id\":null,\"name\":null,\"enabled\":null}}}}}}}",
-      "isDisabled":false,
-      "id":"1385181",
-      "fields":[{
-        "name":{
-          "name":"_collector"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_source"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcecategory"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcehost"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcename"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"machine"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"remote_ip"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"__timeslice_end"
-        },
-        "tpe":"java.lang.Long",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"machine"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"query"
-      },{
-        "name":{
-          "name":"remote_ip"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"query"
-      }],
-      "desiredQuantizationInSecs":0,
-      "queryParameters":[]
-    },{
-      "type":"ReportPanel",
-      "name":"Event Breakdown",
-      "viewerType":"pie",
-      "detailLevel":2,
-      "queryString":"_source=\"SentinelOne\" SentinelOne\n| parse \"<14>CEF:0|SentinelOne|Mgmt|*|*|*|*|\" as os_code,startcode,message,endcode\n| if(message matches \"Quarantine*\", \"quarantine actions\", message) as message\n| if(message matches \"Kill*\", \"kill actions\", message) as message\n| if(message matches \"*threat*\" or message matches \"Threat*\", \"threat actions\", message) as message\n| if(message matches \"*update*\", \"machine updates\", message) as message\n| if(message matches \"*subscribed*\", \"machine subscriptions\", message) as message\n| if(message matches \"*commission*\", \"machine commissions\", message) as message\n| if(message not in(\"quarantine actions\",\"kill actions\",\"threat actions\",\"machine updates\",\"machine subscriptions\",\"machine commissions\"), \"other\", message) as message\n| count message",
-      "metricsQueries":[],
-      "timeRange":"[{\"t\":\"relative\",\"d\":-2592000000}]",
-      "x":17,
-      "y":11,
-      "width":8,
-      "height":10,
-      "properties":"{\"version\":3,\"settings\":{\"table\":{\"version\":2,\"configuration\":{\"textTruncationMode\":\"none\",\"fontSize\":\"medium\",\"fontSizeOverride\":null}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"pie\":{\"chartType\":\"pie\",\"version\":3,\"configuration\":{\"donutMode\":true,\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"label\":{\"truncationMode\":\"middle\"},\"showSliceBorders\":true,\"maxNumOfPieSlices\":\"10\"}}},\"boxplot\":{\"chartType\":\"boxplot\",\"version\":1,\"configuration\":{\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"}},\"yAxis\":{\"title\":null,\"min\":null,\"max\":null}}},\"map\":{\"version\":1,\"configuration\":{}},\"svv\":{\"version\":2,\"configuration\":{\"colorOverride\":null,\"backgroundColorEnabled\":false,\"noDataBehavior\":{\"enabled\":false,\"color\":\"#cccccc\",\"value\":null,\"isString\":null},\"valueType\":{\"number\":{\"showNumber\":true,\"unit\":null,\"colorsByValueRange\":null},\"boolean\":{\"trueColor\":\"#6aa84f\",\"falseColor\":\"#cc0000\"}},\"labels\":{\"prefix\":{\"enabled\":false,\"text\":\"\",\"align\":\"left\"},\"postfix\":{\"enabled\":false,\"text\":\"\",\"align\":\"right\"}}}},\"sankey\":{\"version\":1,\"configuration\":{}},\"text\":{\"version\":1,\"configuration\":{\"text\":null}},\"metrics\":{\"version\":2,\"configuration\":{\"blockSettings\":{},\"viewType\":\"timeline\",\"zoom\":\"xy\",\"yAxis\":{\"defaults\":[{\"name\":\"\"},{\"name\":\"\"}],\"custom\":[{},{}]},\"xAxis\":{\"scrubber\":true},\"outliers\":{\"enabled\":true,\"top\":1,\"scope\":\"Chart\",\"cyclicality\":false,\"threshold\":7,\"autoShowBand\":true},\"colorFamily\":\"METRIC_DEFAULT\"}},\"common\":{\"version\":1,\"configuration\":{\"drilldown\":{\"fallback\":{\"target\":{\"id\":null,\"name\":null,\"enabled\":null}}}}}}}",
-      "isDisabled":false,
-      "id":"1385605",
-      "fields":[{
-        "name":{
-          "name":"_collector"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_source"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcecategory"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcehost"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcename"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"os_code"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"startcode"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"message"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"endcode"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"message"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"query"
-      },{
-        "name":{
-          "name":"_count"
-        },
-        "tpe":"java.lang.Integer",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"query"
-      }],
-      "desiredQuantizationInSecs":0,
-      "queryParameters":[]
-    },{
-      "type":"ReportPanel",
-      "name":"Threat Quarantines",
-      "viewerType":"table",
-      "detailLevel":2,
-      "queryString":"_source=\"SentinelOne\" quarantine\n| parse \"<14>CEF:0|SentinelOne|Mgmt|*|*|*|*|suser=* \" as os,startcode,message,endcode,machine\n| parse field=message \"* performed successfully\" as action\n| timeslice 1d\n| count _timeslice, action, machine\n| sort by machine asc",
-      "metricsQueries":[],
-      "timeRange":"[{\"t\":\"relative\",\"d\":-2592000000}]",
-      "x":9,
-      "y":6,
-      "width":8,
-      "height":4,
-      "properties":"{\"version\":3,\"settings\":{\"table\":{\"version\":2,\"configuration\":{\"textTruncationMode\":\"none\",\"fontSize\":\"medium\",\"fontSizeOverride\":null}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"pie\":{\"chartType\":\"pie\",\"version\":3,\"configuration\":{\"donutMode\":true,\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"label\":{\"truncationMode\":\"middle\"},\"showSliceBorders\":true,\"maxNumOfPieSlices\":\"10\"}}},\"boxplot\":{\"chartType\":\"boxplot\",\"version\":1,\"configuration\":{\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"}},\"yAxis\":{\"title\":null,\"min\":null,\"max\":null}}},\"map\":{\"version\":1,\"configuration\":{}},\"svv\":{\"version\":2,\"configuration\":{\"colorOverride\":null,\"backgroundColorEnabled\":false,\"noDataBehavior\":{\"enabled\":false,\"color\":\"#cccccc\",\"value\":null,\"isString\":null},\"valueType\":{\"number\":{\"showNumber\":true,\"unit\":null,\"colorsByValueRange\":null},\"boolean\":{\"trueColor\":\"#6aa84f\",\"falseColor\":\"#cc0000\"}},\"labels\":{\"prefix\":{\"enabled\":false,\"text\":\"\",\"align\":\"left\"},\"postfix\":{\"enabled\":false,\"text\":\"\",\"align\":\"right\"}}}},\"sankey\":{\"version\":1,\"configuration\":{}},\"text\":{\"version\":1,\"configuration\":{\"text\":null}},\"metrics\":{\"version\":2,\"configuration\":{\"blockSettings\":{},\"viewType\":\"timeline\",\"zoom\":\"xy\",\"yAxis\":{\"defaults\":[{\"name\":\"\"},{\"name\":\"\"}],\"custom\":[{},{}]},\"xAxis\":{\"scrubber\":true},\"outliers\":{\"enabled\":true,\"top\":1,\"scope\":\"Chart\",\"cyclicality\":false,\"threshold\":7,\"autoShowBand\":true},\"colorFamily\":\"METRIC_DEFAULT\"}},\"common\":{\"version\":1,\"configuration\":{\"drilldown\":{\"fallback\":{\"target\":{\"id\":null,\"name\":null,\"enabled\":null}}}}}}}",
-      "isDisabled":false,
-      "id":"1382947",
-      "fields":[{
-        "name":{
-          "name":"_collector"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_source"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcecategory"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcehost"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcename"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"os"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"startcode"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"message"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"endcode"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"machine"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"action"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"__timeslice_end"
-        },
-        "tpe":"java.lang.Long",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"action"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"query"
-      },{
-        "name":{
-          "name":"machine"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"query"
-      },{
-        "name":{
-          "name":"_count"
-        },
-        "tpe":"java.lang.Integer",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"query"
-      }],
-      "desiredQuantizationInSecs":0,
-      "queryParameters":[]
-    },{
-      "type":"ReportPanel",
-      "name":"Quarantine Areas",
-      "viewerType":"map",
-      "detailLevel":2,
-      "queryString":"_source=\"SentinelOne\" quarantine\n| parse \"<14>CEF:0|SentinelOne|Mgmt|*|*|Quarantine performed successfully|*|suser=* ip=* rt=\" as os,startcode,endcode,machine,remote_ip\n| lookup latitude, longitude, country_code, country_name, region, city, postal_code, area_code, metro_code from geo://default on ip = remote_ip\n| if (isNull(country_code), \"unknown\", country_code) as country_code\n| if (isNull(region), \"unknown\", region) as region\n| if (isNull(city), \"unknown\", city) as city\n| if (isNull(postal_code), \"unknown\", postal_code) as postal_code\n| count by latitude, longitude, country_code, country_name, region, city, postal_code, area_code, metro_code\n| sort _count",
-      "metricsQueries":[],
-      "timeRange":"[{\"t\":\"relative\",\"d\":-2592000000}]",
-      "x":17,
-      "y":6,
-      "width":8,
-      "height":4,
-      "properties":"{\"version\":3,\"settings\":{\"table\":{\"version\":2,\"configuration\":{\"textTruncationMode\":\"none\",\"fontSize\":\"medium\",\"fontSizeOverride\":null}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"pie\":{\"chartType\":\"pie\",\"version\":3,\"configuration\":{\"donutMode\":true,\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"label\":{\"truncationMode\":\"middle\"},\"showSliceBorders\":true,\"maxNumOfPieSlices\":\"10\"}}},\"boxplot\":{\"chartType\":\"boxplot\",\"version\":1,\"configuration\":{\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"}},\"yAxis\":{\"title\":null,\"min\":null,\"max\":null}}},\"map\":{\"version\":1,\"configuration\":{}},\"svv\":{\"version\":2,\"configuration\":{\"colorOverride\":null,\"backgroundColorEnabled\":false,\"noDataBehavior\":{\"enabled\":false,\"color\":\"#cccccc\",\"value\":null,\"isString\":null},\"valueType\":{\"number\":{\"showNumber\":true,\"unit\":null,\"colorsByValueRange\":null},\"boolean\":{\"trueColor\":\"#6aa84f\",\"falseColor\":\"#cc0000\"}},\"labels\":{\"prefix\":{\"enabled\":false,\"text\":\"\",\"align\":\"left\"},\"postfix\":{\"enabled\":false,\"text\":\"\",\"align\":\"right\"}}}},\"sankey\":{\"version\":1,\"configuration\":{}},\"text\":{\"version\":1,\"configuration\":{\"text\":null}},\"metrics\":{\"version\":2,\"configuration\":{\"blockSettings\":{},\"viewType\":\"timeline\",\"zoom\":\"xy\",\"yAxis\":{\"defaults\":[{\"name\":\"\"},{\"name\":\"\"}],\"custom\":[{},{}]},\"xAxis\":{\"scrubber\":true},\"outliers\":{\"enabled\":true,\"top\":1,\"scope\":\"Chart\",\"cyclicality\":false,\"threshold\":7,\"autoShowBand\":true},\"colorFamily\":\"METRIC_DEFAULT\"}},\"common\":{\"version\":1,\"configuration\":{\"drilldown\":{\"fallback\":{\"target\":{\"id\":null,\"name\":null,\"enabled\":null}}}}}}}",
-      "isDisabled":false,
-      "id":"1384763",
-      "fields":[{
-        "name":{
-          "name":"_collector"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_source"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcecategory"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcehost"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcename"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"os"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"startcode"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"endcode"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"machine"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"remote_ip"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"latitude"
-        },
-        "tpe":"java.lang.Double",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"longitude"
-        },
-        "tpe":"java.lang.Double",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"country_code"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"country_name"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"region"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"city"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"postal_code"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"metro_code"
-        },
-        "tpe":"java.lang.Integer",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"area_code"
-        },
-        "tpe":"java.lang.Integer",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"latitude"
-        },
-        "tpe":"java.lang.Double",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"query"
-      },{
-        "name":{
-          "name":"longitude"
-        },
-        "tpe":"java.lang.Double",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"query"
-      },{
-        "name":{
-          "name":"country_code"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"query"
-      },{
-        "name":{
-          "name":"country_name"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"query"
-      },{
-        "name":{
-          "name":"region"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"query"
-      },{
-        "name":{
-          "name":"city"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"query"
-      },{
-        "name":{
-          "name":"postal_code"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"query"
-      },{
-        "name":{
-          "name":"area_code"
-        },
-        "tpe":"java.lang.Integer",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"query"
-      },{
-        "name":{
-          "name":"metro_code"
-        },
-        "tpe":"java.lang.Integer",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"query"
-      },{
-        "name":{
-          "name":"_count"
-        },
-        "tpe":"java.lang.Integer",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"query"
-      }],
-      "desiredQuantizationInSecs":0,
-      "queryParameters":[]
-    },{
-      "type":"ReportPanel",
-      "name":"IT Operations",
-      "viewerType":"title",
-      "detailLevel":2,
-      "queryString":"",
-      "metricsQueries":[],
-      "timeRange":"[ { \"t\": \"relative\", \"d\":-60000 } ]",
-      "x":1,
-      "y":10,
-      "width":24,
-      "height":1,
-      "properties":"{\"version\":3,\"settings\":{\"table\":{\"version\":2,\"configuration\":{\"textTruncationMode\":\"none\",\"fontSize\":\"medium\",\"fontSizeOverride\":null}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"pie\":{\"chartType\":\"pie\",\"version\":3,\"configuration\":{\"donutMode\":true,\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"label\":{\"truncationMode\":\"middle\"},\"showSliceBorders\":true,\"maxNumOfPieSlices\":\"10\"}}},\"boxplot\":{\"chartType\":\"boxplot\",\"version\":1,\"configuration\":{\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"}},\"yAxis\":{\"title\":null,\"min\":null,\"max\":null}}},\"map\":{\"version\":1,\"configuration\":{}},\"svv\":{\"version\":2,\"configuration\":{\"colorOverride\":null,\"backgroundColorEnabled\":false,\"noDataBehavior\":{\"enabled\":false,\"color\":\"#cccccc\",\"value\":null,\"isString\":null},\"valueType\":{\"number\":{\"showNumber\":true,\"unit\":null,\"colorsByValueRange\":null},\"boolean\":{\"trueColor\":\"#6aa84f\",\"falseColor\":\"#cc0000\"}},\"labels\":{\"prefix\":{\"enabled\":false,\"text\":\"\",\"align\":\"left\"},\"postfix\":{\"enabled\":false,\"text\":\"\",\"align\":\"right\"}}}},\"sankey\":{\"version\":1,\"configuration\":{}},\"text\":{\"version\":1,\"configuration\":{\"text\":null}},\"metrics\":{\"version\":2,\"configuration\":{\"blockSettings\":{},\"viewType\":\"timeline\",\"zoom\":\"xy\",\"yAxis\":{\"defaults\":[{\"name\":\"\"},{\"name\":\"\"}],\"custom\":[{},{}]},\"xAxis\":{\"scrubber\":true},\"outliers\":{\"enabled\":true,\"top\":1,\"scope\":\"Chart\",\"cyclicality\":false,\"threshold\":7,\"autoShowBand\":true},\"colorFamily\":\"METRIC_DEFAULT\"}},\"common\":{\"version\":1,\"configuration\":{\"drilldown\":{\"fallback\":{\"target\":{\"id\":null,\"name\":null,\"enabled\":null}}}}}}}",
-      "isDisabled":false,
-      "id":"1384401",
-      "fields":[],
-      "desiredQuantizationInSecs":0,
-      "queryParameters":[]
-    },{
-      "type":"ReportPanel",
-      "name":"Threat Kills",
-      "viewerType":"table",
-      "detailLevel":2,
-      "queryString":"_source=\"SentinelOne\" kill\n| parse \"<14>CEF:0|SentinelOne|Mgmt|*|*|*|*|suser=* \" as os,startcode,message,endcode,machine\n| parse field=message \"* performed successfully\" as action\n| timeslice 1d\n| count by _timeslice, action, machine\n| sort by machine asc",
-      "metricsQueries":[],
-      "timeRange":"[{\"t\":\"relative\",\"d\":-2592000000}]",
-      "x":1,
-      "y":6,
-      "width":8,
-      "height":4,
-      "properties":"{\"version\":3,\"settings\":{\"table\":{\"version\":2,\"configuration\":{\"textTruncationMode\":\"none\",\"fontSize\":\"medium\",\"fontSizeOverride\":null}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"pie\":{\"chartType\":\"pie\",\"version\":3,\"configuration\":{\"donutMode\":true,\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"label\":{\"truncationMode\":\"middle\"},\"showSliceBorders\":true,\"maxNumOfPieSlices\":\"10\"}}},\"boxplot\":{\"chartType\":\"boxplot\",\"version\":1,\"configuration\":{\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"}},\"yAxis\":{\"title\":null,\"min\":null,\"max\":null}}},\"map\":{\"version\":1,\"configuration\":{}},\"svv\":{\"version\":2,\"configuration\":{\"colorOverride\":null,\"backgroundColorEnabled\":false,\"noDataBehavior\":{\"enabled\":false,\"color\":\"#cccccc\",\"value\":null,\"isString\":null},\"valueType\":{\"number\":{\"showNumber\":true,\"unit\":null,\"colorsByValueRange\":null},\"boolean\":{\"trueColor\":\"#6aa84f\",\"falseColor\":\"#cc0000\"}},\"labels\":{\"prefix\":{\"enabled\":false,\"text\":\"\",\"align\":\"left\"},\"postfix\":{\"enabled\":false,\"text\":\"\",\"align\":\"right\"}}}},\"sankey\":{\"version\":1,\"configuration\":{}},\"text\":{\"version\":1,\"configuration\":{\"text\":null}},\"metrics\":{\"version\":2,\"configuration\":{\"blockSettings\":{},\"viewType\":\"timeline\",\"zoom\":\"xy\",\"yAxis\":{\"defaults\":[{\"name\":\"\"},{\"name\":\"\"}],\"custom\":[{},{}]},\"xAxis\":{\"scrubber\":true},\"outliers\":{\"enabled\":true,\"top\":1,\"scope\":\"Chart\",\"cyclicality\":false,\"threshold\":7,\"autoShowBand\":true},\"colorFamily\":\"METRIC_DEFAULT\"}},\"common\":{\"version\":1,\"configuration\":{\"drilldown\":{\"fallback\":{\"target\":{\"id\":null,\"name\":null,\"enabled\":null}}}}}}}",
-      "isDisabled":false,
-      "id":"1382946",
-      "fields":[{
-        "name":{
-          "name":"_collector"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_source"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcecategory"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcehost"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcename"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"os"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"startcode"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"message"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"endcode"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"machine"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"action"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"__timeslice_end"
-        },
-        "tpe":"java.lang.Long",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"action"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"query"
-      },{
-        "name":{
-          "name":"machine"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"query"
-      },{
-        "name":{
-          "name":"_count"
-        },
-        "tpe":"java.lang.Integer",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"query"
-      }],
-      "desiredQuantizationInSecs":0,
-      "queryParameters":[]
-    },{
-      "type":"ReportPanel",
-      "name":"Threat by Machine",
-      "viewerType":"table",
-      "detailLevel":2,
-      "queryString":"_source=\"SentinelOne\" \"New active threat\"\n| parse \"<14>CEF:0|SentinelOne|Mgmt|*|*|* - machine *|*|rt=\" as os,startcode,message,machine,endcode nodrop\n| timeslice 1d\n| count by _timeslice, message, machine\n| sort by machine asc",
-      "metricsQueries":[],
-      "timeRange":"[{\"t\":\"relative\",\"d\":-2592000000}]",
-      "x":1,
-      "y":2,
-      "width":8,
-      "height":4,
-      "properties":"{\"version\":3,\"settings\":{\"table\":{\"version\":2,\"configuration\":{\"textTruncationMode\":\"none\",\"fontSize\":\"medium\",\"fontSizeOverride\":null}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{}}},\"pie\":{\"chartType\":\"pie\",\"version\":3,\"configuration\":{\"donutMode\":true,\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"label\":{\"truncationMode\":\"middle\"},\"showSliceBorders\":true,\"maxNumOfPieSlices\":\"10\"}}},\"boxplot\":{\"chartType\":\"boxplot\",\"version\":1,\"configuration\":{\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"}},\"yAxis\":{\"title\":null,\"min\":null,\"max\":null}}},\"map\":{\"version\":1,\"configuration\":{}},\"svv\":{\"version\":2,\"configuration\":{\"colorOverride\":null,\"backgroundColorEnabled\":false,\"noDataBehavior\":{\"enabled\":false,\"color\":\"#cccccc\",\"value\":null,\"isString\":null},\"valueType\":{\"number\":{\"showNumber\":true,\"unit\":null,\"colorsByValueRange\":null},\"boolean\":{\"trueColor\":\"#6aa84f\",\"falseColor\":\"#cc0000\"}},\"labels\":{\"prefix\":{\"enabled\":false,\"text\":\"\",\"align\":\"left\"},\"postfix\":{\"enabled\":false,\"text\":\"\",\"align\":\"right\"}}}},\"sankey\":{\"version\":1,\"configuration\":{}},\"text\":{\"version\":1,\"configuration\":{\"text\":null}},\"metrics\":{\"version\":2,\"configuration\":{\"blockSettings\":{},\"viewType\":\"timeline\",\"zoom\":\"xy\",\"yAxis\":{\"defaults\":[{\"name\":\"\"},{\"name\":\"\"}],\"custom\":[{},{}]},\"xAxis\":{\"scrubber\":true},\"outliers\":{\"enabled\":true,\"top\":1,\"scope\":\"Chart\",\"cyclicality\":false,\"threshold\":7,\"autoShowBand\":true},\"colorFamily\":\"METRIC_DEFAULT\"}},\"common\":{\"version\":1,\"configuration\":{\"drilldown\":{\"fallback\":{\"target\":{\"id\":null,\"name\":null,\"enabled\":null}}}}}}}",
-      "isDisabled":false,
-      "id":"1384399",
-      "fields":[{
-        "name":{
-          "name":"_collector"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_source"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcecategory"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcehost"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"_sourcename"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"os"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"startcode"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"message"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"machine"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"endcode"
-        },
-        "tpe":"java.lang.String",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"__timeslice_end"
-        },
-        "tpe":"java.lang.Long",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"raw"
-      },{
-        "name":{
-          "name":"message"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"query"
-      },{
-        "name":{
-          "name":"machine"
-        },
-        "tpe":"java.lang.String",
-        "isKey":true,
-        "userReferenced":true,
-        "wire":"query"
-      },{
-        "name":{
-          "name":"_count"
-        },
-        "tpe":"java.lang.Integer",
-        "isKey":false,
-        "userReferenced":true,
-        "wire":"query"
-      }],
-      "desiredQuantizationInSecs":0,
-      "queryParameters":[]
-    }],
-    "filters":[]
-  }]
+  "type": "FolderSyncDefinition",
+  "name": "Sentinel One Prototype",
+  "description": "contains Endpoint security data",
+  "children": [
+      {
+          "type": "DashboardV2SyncDefinition",
+          "name": "SentinelOne Prototype",
+          "description": "",
+          "title": "SentinelOne Prototype",
+          "theme": "Dark",
+          "topologyLabelMap": {
+              "data": {}
+          },
+          "refreshInterval": 0,
+          "timeRange": {
+              "type": "BeginBoundedTimeRange",
+              "from": {
+                  "type": "RelativeTimeRangeBoundary",
+                  "relativeTime": "-4w2d"
+              },
+              "to": null
+          },
+          "layout": {
+              "layoutType": "Grid",
+              "layoutStructures": [
+                  {
+                      "key": "panel00d21525979d5b45",
+                      "structure": "{\"width\":24,\"height\":1,\"x\":0,\"y\":0}"
+                  },
+                  {
+                      "key": "panel0d9047b6ad7dc94e",
+                      "structure": "{\"width\":8,\"height\":5,\"x\":0,\"y\":1}"
+                  },
+                  {
+                      "key": "panel267e2d879cbd4844",
+                      "structure": "{\"width\":16,\"height\":5,\"x\":8,\"y\":1}"
+                  },
+                  {
+                      "key": "panelfaa904688dc5b84c",
+                      "structure": "{\"width\":8,\"height\":5,\"x\":0,\"y\":5}"
+                  },
+                  {
+                      "key": "panel43f113258c10db4c",
+                      "structure": "{\"width\":8,\"height\":5,\"x\":8,\"y\":5}"
+                  },
+                  {
+                      "key": "panelde78f7e5bfc7ab4d",
+                      "structure": "{\"width\":8,\"height\":5,\"x\":16,\"y\":5}"
+                  },
+                  {
+                      "key": "panelaae89a9891b29940",
+                      "structure": "{\"width\":24,\"height\":1,\"x\":0,\"y\":9}"
+                  },
+                  {
+                      "key": "panel6dfadc3bba23ba46",
+                      "structure": "{\"width\":8,\"height\":1,\"x\":0,\"y\":10}"
+                  },
+                  {
+                      "key": "paneld6c8e8d5aa00b848",
+                      "structure": "{\"width\":8,\"height\":13,\"x\":8,\"y\":10}"
+                  },
+                  {
+                      "key": "panel2759d5ff9c689a4d",
+                      "structure": "{\"width\":8,\"height\":13,\"x\":16,\"y\":10}"
+                  },
+                  {
+                      "key": "panel4e6857899574aa4a",
+                      "structure": "{\"width\":8,\"height\":8,\"x\":0,\"y\":11}"
+                  },
+                  {
+                      "key": "panel977ce23894b91847",
+                      "structure": "{\"width\":8,\"height\":5,\"x\":0,\"y\":17}"
+                  }
+              ]
+          },
+          "panels": [
+              {
+                  "id": null,
+                  "key": "panel0d9047b6ad7dc94e",
+                  "title": "Threat by Machine",
+                  "visualSettings": "{\"title\":{\"fontSize\":12},\"series\":{},\"general\":{\"type\":\"table\",\"fontSize\":12,\"mode\":\"timeSeries\"},\"thresholdsSettings\":{\"fillRemainingGreen\":false,\"showThresholds\":false,\"numberThresholds\":{\"warning\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":80},\"critical\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":100}},\"highlightViolations\":true}}",
+                  "keepVisualSettingsConsistentWithParent": true,
+                  "panelType": "SumoSearchPanel",
+                  "queries": [
+                      {
+                          "transient": false,
+                          "queryString": "_source=\"SentinelOne\" \"New active threat\"\n| parse \"<14>CEF:0|SentinelOne|Mgmt|*|*|* - machine *|*|rt=\" as os,startcode,message,machine,endcode nodrop\n| timeslice 1d\n| count by _timeslice, message, machine\n| sort by machine asc",
+                          "queryType": "Logs",
+                          "queryKey": "A",
+                          "metricsQueryMode": null,
+                          "metricsQueryData": null,
+                          "tracesQueryData": null,
+                          "spansQueryData": null,
+                          "parseMode": "Manual",
+                          "timeSource": "Message",
+                          "outputCardinalityLimit": null
+                      }
+                  ],
+                  "description": null,
+                  "timeRange": null,
+                  "coloringRules": null,
+                  "linkedDashboards": []
+              },
+              {
+                  "id": null,
+                  "key": "panelde78f7e5bfc7ab4d",
+                  "title": "Quarantine Areas",
+                  "visualSettings": "{\"general\":{\"mode\":\"map\",\"type\":\"map\"},\"map\":{\"mainMetric\":{}}}",
+                  "keepVisualSettingsConsistentWithParent": true,
+                  "panelType": "SumoSearchPanel",
+                  "queries": [
+                      {
+                          "transient": false,
+                          "queryString": "_source=\"SentinelOne\" quarantine\n| parse \"<14>CEF:0|SentinelOne|Mgmt|*|*|Quarantine performed successfully|*|suser=* ip=* rt=\" as os,startcode,endcode,machine,remote_ip\n| lookup latitude, longitude, country_code, country_name, region, city, postal_code, area_code, metro_code from geo://default on ip = remote_ip\n| if (isNull(country_code), \"unknown\", country_code) as country_code\n| if (isNull(region), \"unknown\", region) as region\n| if (isNull(city), \"unknown\", city) as city\n| if (isNull(postal_code), \"unknown\", postal_code) as postal_code\n| count by latitude, longitude, country_code, country_name, region, city, postal_code, area_code, metro_code\n| sort _count",
+                          "queryType": "Logs",
+                          "queryKey": "A",
+                          "metricsQueryMode": null,
+                          "metricsQueryData": null,
+                          "tracesQueryData": null,
+                          "spansQueryData": null,
+                          "parseMode": "Manual",
+                          "timeSource": "Message",
+                          "outputCardinalityLimit": null
+                      }
+                  ],
+                  "description": null,
+                  "timeRange": null,
+                  "coloringRules": null,
+                  "linkedDashboards": []
+              },
+              {
+                  "id": null,
+                  "key": "panel267e2d879cbd4844",
+                  "title": "Threat Resolve Marking",
+                  "visualSettings": "{\"title\":{\"fontSize\":12},\"series\":{},\"general\":{\"type\":\"table\",\"fontSize\":12,\"mode\":\"timeSeries\"},\"thresholdsSettings\":{\"fillRemainingGreen\":false,\"showThresholds\":false,\"numberThresholds\":{\"warning\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":80},\"critical\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":100}},\"highlightViolations\":true}}",
+                  "keepVisualSettingsConsistentWithParent": true,
+                  "panelType": "SumoSearchPanel",
+                  "queries": [
+                      {
+                          "transient": false,
+                          "queryString": "_source=\"SentinelOne\" \"Threat marked as resolved\"\n| parse \"filePath=*\" as path\n| parse \"<14>CEF:0|SentinelOne|Mgmt|*|*|*|*|rt=\" as os,startcode,message,endcode\n| timeslice 1d\n| count by _timeslice, message, path",
+                          "queryType": "Logs",
+                          "queryKey": "A",
+                          "metricsQueryMode": null,
+                          "metricsQueryData": null,
+                          "tracesQueryData": null,
+                          "spansQueryData": null,
+                          "parseMode": "Manual",
+                          "timeSource": "Message",
+                          "outputCardinalityLimit": null
+                      }
+                  ],
+                  "description": null,
+                  "timeRange": null,
+                  "coloringRules": null,
+                  "linkedDashboards": []
+              },
+              {
+                  "id": null,
+                  "key": "paneld6c8e8d5aa00b848",
+                  "title": "Updates and Installs Areas",
+                  "visualSettings": "{\"general\":{\"mode\":\"map\",\"type\":\"map\"},\"map\":{\"mainMetric\":{}}}",
+                  "keepVisualSettingsConsistentWithParent": true,
+                  "panelType": "SumoSearchPanel",
+                  "queries": [
+                      {
+                          "transient": false,
+                          "queryString": "_source=\"SentinelOne\" (*update* or *install*)\n| parse \"<14>CEF:0|SentinelOne|Mgmt|*|*|*|1|suser=* ip=* rt=\" as it_code,startcode,message,machine,remote_ip\n| lookup latitude, longitude, country_code, country_name, region, city, postal_code, area_code, metro_code from geo://default on ip = remote_ip\n| if (isNull(country_code), \"unknown\", country_code) as country_code\n| if (isNull(region), \"unknown\", region) as region\n| if (isNull(city), \"unknown\", city) as city\n| if (isNull(postal_code), \"unknown\", postal_code) as postal_code\n| count by latitude, longitude, country_code, country_name, region, city, postal_code, area_code, metro_code\n| sort _count",
+                          "queryType": "Logs",
+                          "queryKey": "A",
+                          "metricsQueryMode": null,
+                          "metricsQueryData": null,
+                          "tracesQueryData": null,
+                          "spansQueryData": null,
+                          "parseMode": "Manual",
+                          "timeSource": "Message",
+                          "outputCardinalityLimit": null
+                      }
+                  ],
+                  "description": null,
+                  "timeRange": null,
+                  "coloringRules": null,
+                  "linkedDashboards": []
+              },
+              {
+                  "id": null,
+                  "key": "panel43f113258c10db4c",
+                  "title": "Threat Quarantines",
+                  "visualSettings": "{\"title\":{\"fontSize\":12},\"series\":{},\"general\":{\"type\":\"table\",\"fontSize\":12,\"mode\":\"timeSeries\"},\"thresholdsSettings\":{\"fillRemainingGreen\":false,\"showThresholds\":false,\"numberThresholds\":{\"warning\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":80},\"critical\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":100}},\"highlightViolations\":true}}",
+                  "keepVisualSettingsConsistentWithParent": true,
+                  "panelType": "SumoSearchPanel",
+                  "queries": [
+                      {
+                          "transient": false,
+                          "queryString": "_source=\"SentinelOne\" quarantine\n| parse \"<14>CEF:0|SentinelOne|Mgmt|*|*|*|*|suser=* \" as os,startcode,message,endcode,machine\n| parse field=message \"* performed successfully\" as action\n| timeslice 1d\n| count _timeslice, action, machine\n| sort by machine asc",
+                          "queryType": "Logs",
+                          "queryKey": "A",
+                          "metricsQueryMode": null,
+                          "metricsQueryData": null,
+                          "tracesQueryData": null,
+                          "spansQueryData": null,
+                          "parseMode": "Manual",
+                          "timeSource": "Message",
+                          "outputCardinalityLimit": null
+                      }
+                  ],
+                  "description": null,
+                  "timeRange": null,
+                  "coloringRules": null,
+                  "linkedDashboards": []
+              },
+              {
+                  "id": null,
+                  "key": "panelfaa904688dc5b84c",
+                  "title": "Threat Kills",
+                  "visualSettings": "{\"title\":{\"fontSize\":12},\"series\":{},\"general\":{\"type\":\"table\",\"fontSize\":12,\"mode\":\"timeSeries\"},\"thresholdsSettings\":{\"fillRemainingGreen\":false,\"showThresholds\":false,\"numberThresholds\":{\"warning\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":80},\"critical\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":100}},\"highlightViolations\":true}}",
+                  "keepVisualSettingsConsistentWithParent": true,
+                  "panelType": "SumoSearchPanel",
+                  "queries": [
+                      {
+                          "transient": false,
+                          "queryString": "_source=\"SentinelOne\" kill\n| parse \"<14>CEF:0|SentinelOne|Mgmt|*|*|*|*|suser=* \" as os,startcode,message,endcode,machine\n| parse field=message \"* performed successfully\" as action\n| timeslice 1d\n| count by _timeslice, action, machine\n| sort by machine asc",
+                          "queryType": "Logs",
+                          "queryKey": "A",
+                          "metricsQueryMode": null,
+                          "metricsQueryData": null,
+                          "tracesQueryData": null,
+                          "spansQueryData": null,
+                          "parseMode": "Manual",
+                          "timeSource": "Message",
+                          "outputCardinalityLimit": null
+                      }
+                  ],
+                  "description": null,
+                  "timeRange": null,
+                  "coloringRules": null,
+                  "linkedDashboards": []
+              },
+              {
+                  "id": null,
+                  "key": "panel4e6857899574aa4a",
+                  "title": "Updates by Machine and IP",
+                  "visualSettings": "{\"title\":{\"fontSize\":12},\"series\":{},\"general\":{\"type\":\"table\",\"fontSize\":12,\"mode\":\"timeSeries\"},\"thresholdsSettings\":{\"fillRemainingGreen\":false,\"showThresholds\":false,\"numberThresholds\":{\"warning\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":80},\"critical\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":100}},\"highlightViolations\":true}}",
+                  "keepVisualSettingsConsistentWithParent": true,
+                  "panelType": "SumoSearchPanel",
+                  "queries": [
+                      {
+                          "transient": false,
+                          "queryString": "_source=\"SentinelOne\" (*update* or *install*)\n| parse \"<14>CEF:0|SentinelOne|Mgmt|*|*|*|1|suser=* ip=* rt=\" as it_code,startcode,message,machine,remote_ip\n| fields - it_code, startcode, message\n| timeslice 1d\n| count by _timeslice, machine, remote_ip\n| fields - _count\n| sort by machine asc",
+                          "queryType": "Logs",
+                          "queryKey": "A",
+                          "metricsQueryMode": null,
+                          "metricsQueryData": null,
+                          "tracesQueryData": null,
+                          "spansQueryData": null,
+                          "parseMode": "Manual",
+                          "timeSource": "Message",
+                          "outputCardinalityLimit": null
+                      }
+                  ],
+                  "description": null,
+                  "timeRange": null,
+                  "coloringRules": null,
+                  "linkedDashboards": []
+              },
+              {
+                  "id": null,
+                  "key": "panel2759d5ff9c689a4d",
+                  "title": "Event Breakdown",
+                  "visualSettings": "{\"title\":{\"fontSize\":14},\"general\":{\"type\":\"pie\",\"displayType\":\"default\",\"fillOpacity\":1,\"startAngle\":270,\"innerRadius\":\"30%\",\"maxNumOfSlices\":\"10\",\"mode\":\"distribution\"},\"color\":{\"family\":\"Categorical Default\"},\"axes\":{\"axisX\":{\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"titleFontSize\":12,\"labelFontSize\":12}},\"legend\":{\"enabled\":true,\"wrap\":true,\"verticalAlign\":\"bottom\",\"showAsTable\":true},\"series\":{}}",
+                  "keepVisualSettingsConsistentWithParent": true,
+                  "panelType": "SumoSearchPanel",
+                  "queries": [
+                      {
+                          "transient": false,
+                          "queryString": "_source=\"SentinelOne\" SentinelOne\n| parse \"<14>CEF:0|SentinelOne|Mgmt|*|*|*|*|\" as os_code,startcode,message,endcode\n| if(message matches \"Quarantine*\", \"quarantine actions\", message) as message\n| if(message matches \"Kill*\", \"kill actions\", message) as message\n| if(message matches \"*threat*\" or message matches \"Threat*\", \"threat actions\", message) as message\n| if(message matches \"*update*\", \"machine updates\", message) as message\n| if(message matches \"*subscribed*\", \"machine subscriptions\", message) as message\n| if(message matches \"*commission*\", \"machine commissions\", message) as message\n| if(message not in(\"quarantine actions\",\"kill actions\",\"threat actions\",\"machine updates\",\"machine subscriptions\",\"machine commissions\"), \"other\", message) as message\n| count message",
+                          "queryType": "Logs",
+                          "queryKey": "A",
+                          "metricsQueryMode": null,
+                          "metricsQueryData": null,
+                          "tracesQueryData": null,
+                          "spansQueryData": null,
+                          "parseMode": "Manual",
+                          "timeSource": "Message",
+                          "outputCardinalityLimit": 1000
+                      }
+                  ],
+                  "description": null,
+                  "timeRange": null,
+                  "coloringRules": null,
+                  "linkedDashboards": []
+              },
+              {
+                  "id": null,
+                  "key": "panel00d21525979d5b45",
+                  "title": "Threat Actions",
+                  "visualSettings": "{\"title\":{\"fontSize\":14},\"general\":{\"type\":\"text\",\"displayType\":\"default\",\"mode\":\"TextPanel\"},\"legend\":{\"enabled\":false},\"text\":{\"format\":\"markdownV2\",\"fontSize\":14},\"series\":{}}",
+                  "keepVisualSettingsConsistentWithParent": true,
+                  "panelType": "TextPanel",
+                  "text": ""
+              },
+              {
+                  "id": null,
+                  "key": "panel6dfadc3bba23ba46",
+                  "title": "Updates and Installs",
+                  "visualSettings": "{\"title\":{\"fontSize\":14},\"general\":{\"type\":\"text\",\"displayType\":\"default\",\"mode\":\"TextPanel\"},\"legend\":{\"enabled\":false},\"text\":{\"format\":\"markdownV2\",\"fontSize\":14},\"series\":{}}",
+                  "keepVisualSettingsConsistentWithParent": true,
+                  "panelType": "TextPanel",
+                  "text": ""
+              },
+              {
+                  "id": null,
+                  "key": "panel977ce23894b91847",
+                  "title": "Commissioning",
+                  "visualSettings": "{\"title\":{\"fontSize\":12},\"series\":{},\"general\":{\"type\":\"table\",\"fontSize\":12,\"mode\":\"timeSeries\"},\"thresholdsSettings\":{\"fillRemainingGreen\":false,\"showThresholds\":false,\"numberThresholds\":{\"warning\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":80},\"critical\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":100}},\"highlightViolations\":true}}",
+                  "keepVisualSettingsConsistentWithParent": true,
+                  "panelType": "SumoSearchPanel",
+                  "queries": [
+                      {
+                          "transient": false,
+                          "queryString": "_source=\"SentinelOne\" *commission*\n| parse \"<14>CEF:0|SentinelOne|Mgmt|*|*|Machine * *|*|rt=\" as os,startcode,machine,action,endcode\n| timeslice 1d\n| count by _timeslice, machine, os, action\n| sort by machine asc\n| fields - _count",
+                          "queryType": "Logs",
+                          "queryKey": "A",
+                          "metricsQueryMode": null,
+                          "metricsQueryData": null,
+                          "tracesQueryData": null,
+                          "spansQueryData": null,
+                          "parseMode": "Manual",
+                          "timeSource": "Message",
+                          "outputCardinalityLimit": null
+                      }
+                  ],
+                  "description": null,
+                  "timeRange": null,
+                  "coloringRules": null,
+                  "linkedDashboards": []
+              },
+              {
+                  "id": null,
+                  "key": "panelaae89a9891b29940",
+                  "title": "IT Operations",
+                  "visualSettings": "{\"title\":{\"fontSize\":14},\"general\":{\"type\":\"text\",\"displayType\":\"default\",\"mode\":\"TextPanel\"},\"legend\":{\"enabled\":false},\"text\":{\"format\":\"markdownV2\",\"fontSize\":14},\"series\":{}}",
+                  "keepVisualSettingsConsistentWithParent": true,
+                  "panelType": "TextPanel",
+                  "text": ""
+              }
+          ],
+          "variables": [],
+          "coloringRules": []
+      }
+  ]
 }
