@@ -1,0 +1,440 @@
+integration: ServiceNow - Custom
+name: Search Tickets
+type: Enrichment
+script:
+  code: |
+    import requests
+    import argparse
+    import urllib3
+    import base64
+    import sys
+    import json
+    import os
+    import html
+    import unicodedata
+    from bs4 import BeautifulSoup
+
+    urllib3.disable_warnings(urllib3.exceptions.InsecurePlatformWarning)
+    urllib3.disable_warnings(urllib3.exceptions.SNIMissingWarning)
+    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+
+    def clean_textarea_output(x):
+        x = html.unescape(str(x).strip())
+        x = unicodedata.normalize("NFKD", x).encode("utf-8").decode("utf-8")
+        x = BeautifulSoup(x, "html.parser").text
+        x = x.replace('\u200b', '')
+        return x
+
+
+    class EnvDefault(argparse.Action):
+        def __init__(self, required=True, default=None, **kwargs):
+            envvar = kwargs.get("dest")
+            default = os.environ.get(envvar, default) if envvar in os.environ else default
+            required = False if required and default else required
+            super(EnvDefault, self).__init__(default=default, required=required, **kwargs)
+
+        def __call__(self, parser, namespace, values, option_string=None):
+            setattr(namespace, self.dest, values)
+
+
+    try:
+        parser = argparse.ArgumentParser()
+        parser.add_argument('--url', help='url , REQUIRED', required=True, action=EnvDefault)
+        parser.add_argument('--username', help='Username , REQUIRED', required=True, action=EnvDefault)
+        parser.add_argument('--password', help='Password , REQUIRED', required=True, action=EnvDefault)
+        parser.add_argument('--table', help='table , REQUIRED', required=True, action=EnvDefault)
+        parser.add_argument('--displayValue', help='display value', required=False, action=EnvDefault)
+        parser.add_argument('--referenceLink', help='reference link', required=False, action=EnvDefault)
+        parser.add_argument('--paginationHeader', help='pagination header', required=False, action=EnvDefault)
+        parser.add_argument('--fields', help='fileds', required=False, action=EnvDefault)
+        parser.add_argument('--queryCategory', help='query category', required=False, action=EnvDefault)
+        parser.add_argument('--limit', help='limit', required=False, action=EnvDefault)
+        parser.add_argument('--count', help='count', required=False, action=EnvDefault)
+        parser.add_argument('--offset', help='offset', required=False, action=EnvDefault)
+        parser.add_argument('--query', help='query', required=False, action=EnvDefault)
+        parser.add_argument('--view', help='view', required=False, action=EnvDefault)
+        parser.add_argument('--queryNoDomain', help='query no domain', required=False, action=EnvDefault)
+        parser.add_argument('--timeout', help='timeout', required=False, action=EnvDefault)
+        parser.add_argument('--verify', help='verify', required=False, action=EnvDefault)
+        parser.add_argument('--proxy_url', help='Proxy URL', required=False, action=EnvDefault)
+        args, unknown = parser.parse_known_args()
+        proxies = {'http': args.proxy_url, 'https': args.proxy_url} if args.proxy_url is not None else None
+        try:
+            timeout = float(args.timeout)
+        except (ValueError, TypeError):
+            timeout = 180.0
+        verify = args.verify == 'true'
+        session = requests.Session()
+        userpass = f"{args.username}:{args.password}"
+        endcoded_user = base64.b64encode(userpass.encode("ascii")).decode("ascii")
+        urlNoSlash = str(args.url).rstrip("/")
+        endpoint = urlNoSlash + "/api/now/table/" + args.table
+        headers = {
+            "Authorization": "Basic {}".format(endcoded_user),
+            "Content-type": "application/json",
+            "Accept": "application/json"
+        }
+        params_api = ('sysparm_display_value', 'sysparm_exclude_reference_link', 'sysparm_suppress_pagination_header', 'sysparm_fields', 'sysparm_limit', 'sysparm_no_count', 'sysparm_offset', 'sysparm_view', 'sysparm_query_category', 'sysparm_query_no_domain')
+        params_input = (args.displayValue, args.referenceLink, args.paginationHeader, args.fields, args.limit, args.count, args.offset, args.view, args.queryCategory, args.queryNoDomain)
+        params = {k: v for k, v in zip(params_api, params_input) if v is not None and v != '' and str(v).lower() != 'none'}
+        if args.query is not None and args.query != '' and str(args.query).lower() != 'none':
+            params['sysparm_query'] = clean_textarea_output(args.query)
+        response = session.get(endpoint, headers=headers, params=params, proxies=proxies, verify=verify, timeout=timeout)
+        response.raise_for_status()
+        try:
+            response = response.json()
+        except ValueError:
+            raise Exception("Please check if your instance is up and running?")
+        print(json.dumps(response))
+        exit(0)
+    except Exception as e:
+        err = str(e)
+        try:
+            if hasattr(e, "response"):
+                try:
+                    response = e.response.json()
+                    error = response.get("error", '')
+                    if error is not None:
+                        message = error.get("message", "")
+                        err = "API Error: {}".format(str(message))
+                except ValueError:
+                    err = str(e)
+        except AttributeError:
+            err = str(e)
+        sys.stderr.write(str(err))
+        exit(-1)
+fields:
+- id: table
+  label: Table Name
+  type: text
+  required: true
+  hint: The name of the table to search in. i.e. incident, problem, change_request,
+    sc_request, sc_task, sc_req_item
+  default: incident
+- id: query
+  label: Query
+  type: textarea
+  required: false
+  hint: 'Query used to filter the result set. Syntax: sysparm_query=<col_name><operator><value>.
+    More information can be found in the integration guide'
+- id: displayValue
+  label: Display Value
+  type: list
+  values:
+    'true': Returns the display values for all fields
+    'false': Returns the actual values from the database
+    all: All
+  required: false
+  hint: 'Default: False'
+- id: referenceLink
+  label: Exclude Reference Link
+  type: list
+  values:
+    'true': Exclude Table API links for reference fields
+    'false': Include Table API links for reference fields
+  required: false
+  hint: 'Default: False'
+- id: paginationHeader
+  label: Suppress Pagination Header
+  type: list
+  values:
+    'false': Do not remove the Link header from the response
+    'true': Remove the Link header from the response
+  required: false
+  hint: 'Indicates whether to remove the Link header from the response. The Link header
+    provides various URLs to relative pages in the record set which you can use to
+    paginate the returned record set. Default: False'
+- id: fields
+  label: Fields
+  type: text
+  required: false
+  hint: Comma-separated values of fields to return in the response
+- id: view
+  label: View
+  type: list
+  values:
+    desktop: Desktop
+    mobile: Mobile
+    both: Both
+  required: false
+  hint: UI view for which to render the data. Determines the fields returned in the
+    response (overridden by Fields)
+- id: queryCategory
+  label: Query Category
+  type: text
+  required: false
+  hint: Name of the category to use for queries
+- id: queryNoDomain
+  label: Query No Domain
+  type: list
+  values:
+    'false': Exclude the record if it is in a domain that the currently logged in
+      user is not configured to access
+    'true': Include the record even if it is in a domain that the currently logged
+      in user is not configured to access
+  required: false
+  hint: 'Indicates whether to restrict the record search to only the domains for which
+    the logged in user is configured. This parameter is available only to system administrators
+    or users who have the query_no_domain_table_api role. Default: False'
+- id: count
+  label: No Count
+  type: list
+  values:
+    'true': Do not execute a select count(*)
+    'false': Execute a select count(*)
+  required: false
+  hint: 'Indicates whether to execute a select count(*) query on the table to return
+    the number of rows in the associated table. Default: False'
+- id: limit
+  label: Limit
+  type: text
+  validator: integer
+  required: false
+  hint: 'Max number of records to return. For requests that exceed this number of
+    records, use the Offset parameter to paginate record retrieval. Default: 1000'
+- id: offset
+  label: Offset
+  type: text
+  validator: integer
+  required: false
+  hint: 'Starting record index for which to begin retrieving records. Use this value
+    to paginate record retrieval. Default: 0'
+output:
+- path: result.[].parent
+  type: text
+- path: result.[].made_sla
+  type: text
+- path: result.[].caused_by
+  type: text
+- path: result.[].watch_list
+  type: text
+- path: result.[].upon_reject
+  type: text
+- path: result.[].sys_updated_on
+  type: text
+- path: result.[].child_incidents
+  type: text
+- path: result.[].hold_reason
+  type: text
+- path: result.[].origin_table
+  type: text
+- path: result.[].task_effective_number
+  type: text
+- path: result.[].approval_history
+  type: text
+- path: result.[].number
+  type: text
+- path: result.[].resolved_by.link
+  type: text
+- path: result.[].resolved_by.value
+  type: text
+- path: result.[].sys_updated_by
+  type: text
+- path: result.[].opened_by.link
+  type: text
+- path: result.[].opened_by.value
+  type: text
+- path: result.[].user_input
+  type: text
+- path: result.[].sys_created_on
+  type: text
+- path: result.[].sys_domain.link
+  type: text
+- path: result.[].sys_domain.value
+  type: text
+- path: result.[].state
+  type: text
+- path: result.[].route_reason
+  type: text
+- path: result.[].sys_created_by
+  type: text
+- path: result.[].knowledge
+  type: text
+- path: result.[].order
+  type: text
+- path: result.[].calendar_stc
+  type: text
+- path: result.[].closed_at
+  type: text
+- path: result.[].cmdb_ci.link
+  type: text
+- path: result.[].cmdb_ci.value
+  type: text
+- path: result.[].delivery_plan
+  type: text
+- path: result.[].contract
+  type: text
+- path: result.[].impact
+  type: text
+- path: result.[].active
+  type: text
+- path: result.[].work_notes_list
+  type: text
+- path: result.[].business_service.link
+  type: text
+- path: result.[].business_service.value
+  type: text
+- path: result.[].business_impact
+  type: text
+- path: result.[].priority
+  type: text
+- path: result.[].sys_domain_path
+  type: text
+- path: result.[].rfc
+  type: text
+- path: result.[].time_worked
+  type: text
+- path: result.[].expected_start
+  type: text
+- path: result.[].opened_at
+  type: text
+- path: result.[].business_duration
+  type: text
+- path: result.[].group_list
+  type: text
+- path: result.[].work_end
+  type: text
+- path: result.[].caller_id.link
+  type: text
+- path: result.[].caller_id.value
+  type: text
+- path: result.[].reopened_time
+  type: text
+- path: result.[].resolved_at
+  type: text
+- path: result.[].approval_set
+  type: text
+- path: result.[].subcategory
+  type: text
+- path: result.[].work_notes
+  type: text
+- path: result.[].universal_request
+  type: text
+- path: result.[].short_description
+  type: text
+- path: result.[].close_code
+  type: text
+- path: result.[].correlation_display
+  type: text
+- path: result.[].delivery_task
+  type: text
+- path: result.[].work_start
+  type: text
+- path: result.[].assignment_group.link
+  type: text
+- path: result.[].assignment_group.value
+  type: text
+- path: result.[].additional_assignee_list
+  type: text
+- path: result.[].business_stc
+  type: text
+- path: result.[].cause
+  type: text
+- path: result.[].description
+  type: text
+- path: result.[].origin_id
+  type: text
+- path: result.[].calendar_duration
+  type: text
+- path: result.[].close_notes
+  type: text
+- path: result.[].notify
+  type: text
+- path: result.[].service_offering
+  type: text
+- path: result.[].sys_class_name
+  type: text
+- path: result.[].closed_by.link
+  type: text
+- path: result.[].closed_by.value
+  type: text
+- path: result.[].follow_up
+  type: text
+- path: result.[].parent_incident
+  type: text
+- path: result.[].sys_id
+  type: text
+- path: result.[].contact_type
+  type: text
+- path: result.[].reopened_by
+  type: text
+- path: result.[].incident_state
+  type: text
+- path: result.[].urgency
+  type: text
+- path: result.[].problem_id
+  type: text
+- path: result.[].company.link
+  type: text
+- path: result.[].company.value
+  type: text
+- path: result.[].reassignment_count
+  type: text
+- path: result.[].activity_due
+  type: text
+- path: result.[].assigned_to.link
+  type: text
+- path: result.[].assigned_to.value
+  type: text
+- path: result.[].severity
+  type: text
+- path: result.[].comments
+  type: text
+- path: result.[].approval
+  type: text
+- path: result.[].sla_due
+  type: text
+- path: result.[].comments_and_work_notes
+  type: text
+- path: result.[].due_date
+  type: text
+- path: result.[].sys_mod_count
+  type: text
+- path: result.[].reopen_count
+  type: text
+- path: result.[].sys_tags
+  type: text
+- path: result.[].escalation
+  type: text
+- path: result.[].upon_approval
+  type: text
+- path: result.[].correlation_id
+  type: text
+- path: result.[].location
+  type: text
+- path: result.[].category
+  type: text
+- path: result.[].cmdb_ci
+  type: text
+- path: result.[].business_service
+  type: text
+- path: result.[].assignment_group
+  type: text
+- path: result.[].company
+  type: text
+- path: result.[].assigned_to
+  type: text
+- path: result.[].location.link
+  type: text
+- path: result.[].location.value
+  type: text
+- path: result.[].problem_id.link
+  type: text
+- path: result.[].problem_id.value
+  type: text
+- path: result.[].resolved_by
+  type: text
+- path: result.[].closed_by
+  type: text
+- path: result.[].caller_id
+  type: text
+- path: result.[].parent_incident.link
+  type: text
+- path: result.[].parent_incident.value
+  type: text
+table_view:
+- display_name: Number
+  value: result.[].number
+- display_name: System ID
+  value: result.[].sys_id

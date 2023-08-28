@@ -1,0 +1,112 @@
+name: ServiceNow - Custom
+version: '2.2'
+icon: data:image/png;base64,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
+script:
+  type: python
+  test_connection_code: |
+    import requests
+    import argparse
+    import urllib3
+    import base64
+    import sys
+    import os
+
+    urllib3.disable_warnings(urllib3.exceptions.InsecurePlatformWarning)
+    urllib3.disable_warnings(urllib3.exceptions.SNIMissingWarning)
+    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+
+    class EnvDefault(argparse.Action):
+        def __init__(self, required=True, default=None, **kwargs):
+            envvar = kwargs.get("dest")
+            default = os.environ.get(envvar, default) if envvar in os.environ else default
+            required = False if required and default else required
+            super(EnvDefault, self).__init__(default=default, required=required, **kwargs)
+
+        def __call__(self, parser, namespace, values, option_string=None):
+            setattr(namespace, self.dest, values)
+
+
+    try:
+        parser = argparse.ArgumentParser()
+        parser.add_argument('--url', help='url , REQUIRED', required=True, action=EnvDefault)
+        parser.add_argument('--username', help='Username , REQUIRED', required=True, action=EnvDefault)
+        parser.add_argument('--password', help='Password , REQUIRED', required=True, action=EnvDefault)
+        parser.add_argument('--timeout', help='timeout', required=False, action=EnvDefault)
+        parser.add_argument('--verify', help='verify', required=False, action=EnvDefault)
+        parser.add_argument('--proxy_url', help='Proxy URL', required=False, action=EnvDefault)
+        parser.add_argument('--table', help='Table Name , REQUIRED', required=True, action=EnvDefault)
+        args, unknown = parser.parse_known_args()
+        proxies = {'http': args.proxy_url, 'https': args.proxy_url} if args.proxy_url is not None else None
+        try:
+            timeout = float(args.timeout)
+        except (ValueError, TypeError):
+            timeout = 180.0
+        verify = args.verify == 'true'
+        session = requests.Session()
+        userpass = f"{args.username}:{args.password}"
+        endcoded_user = base64.b64encode(userpass.encode("ascii")).decode("ascii")
+        urlNoSlash = str(args.url).rstrip("/")
+        endpoint = urlNoSlash + "/api/now/table/incident"
+        headers = {
+            "Authorization": "Basic {}".format(endcoded_user),
+            "Content-type": "application/json",
+            "Accept": "application/json"
+        }
+        response = session.get(endpoint, headers=headers, proxies=proxies, verify=verify, timeout=timeout)
+        response.raise_for_status()
+        try:
+            response = response.json()
+        except ValueError:
+            raise Exception("Please check if your instance is up and running?")
+        exit(0)
+    except Exception as e:
+        err = str(e)
+        try:
+            if hasattr(e, "response"):
+                try:
+                    response = e.response.json()
+                    error = response.get("error", '')
+                    if error is not None:
+                        message = error.get("message", "")
+                        err = "API Error: {}".format(str(message))
+                except ValueError:
+                    err = str(e.response.text)
+        except AttributeError:
+            err = str(e)
+        sys.stderr.write(str(err))
+        exit(-1)
+docker_repo_tag: python3_generic:latest
+configuration:
+  testable_connection: true
+  require_proxy_config: true
+  data_attributes:
+    url:
+      label: URL
+      type: text
+      required: true
+      hint: ServiceNow URL in the format https://company.service-now.com/
+    username:
+      label: Username
+      type: text
+      required: true
+      hint: ServiceNow username
+    password:
+      label: Password
+      type: password
+      required: true
+      hint: ServiceNow password
+    verify:
+      label: Verify Server Certificate
+      type: checkbox
+      required: false
+    timeout:
+      label: Connection Timeout (s)
+      type: text
+      required: false
+      validator: integer
+    table:
+      label: Table Name (Daemon)
+      type: text
+      required: true
+      hint: ServiceNow Table Name (incidents, sc_task, etc)

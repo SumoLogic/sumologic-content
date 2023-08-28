@@ -1,10 +1,16 @@
 # ServiceNow CloudSOAR Integration for Sumo Logic
-Sumo Logic Custom CloudSOAR Integration for ServiceNow, provided by the community. A similar Integration is already provided out-of-the-box in the SOAR App Central, however this particular integration includes a daemon that allows you to pull from **any** ServiceNow table, as opposed to just the Incident daemon provided OOTB.
+Sumo Logic Custom CloudSOAR Integration for ServiceNow, provided by the community. A similar Integration is already provided out-of-the-box in the SOAR App Central, however this particular integration includes an additional daemon that allows you to pull from **any** ServiceNow table, as opposed to just the Incident daemon provided OOTB.
 
 ### Whats included:
-1. Integration YAML File: Integration configurations and test code
+1. Integration YAML File: Integration configurations and test code (different from OOTB Integration)
 2. Action YAML File(s):
-    - Change Password: Takes user UID or email as input, and forces that user to change their password by sending them an email.
+    - Create Ticket (Notification) - Inserts one record in the specified table
+    - Update Ticket (Notification) - Updates the specified record with the name-value pairs included in the request body
+    - Close Ticket (Containment) - Closes a ticket specified by the System ID
+    - Get Ticket Details (Enrichment) - Retrieve a record from a table
+    - Search Tickets (Enrichment) - Retrieve a record from a table
+    - ServiceNow Incidents Daemon (Daemon) - Automatically retrieves new tickets
+    - ServiceNow Table Daemon (Daemon) - Automatically retrieves new records from specified table name
 
 ### To use the content:
 - Download the Integatration and Action YAML files to your local device.

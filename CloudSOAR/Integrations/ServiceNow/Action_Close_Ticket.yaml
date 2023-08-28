@@ -1,0 +1,313 @@
+integration: ServiceNow - Custom
+name: Close Ticket
+type: Containment
+script:
+  code: |
+    import requests
+    import argparse
+    import urllib3
+    import base64
+    import sys
+    import json
+    import os
+
+    urllib3.disable_warnings(urllib3.exceptions.InsecurePlatformWarning)
+    urllib3.disable_warnings(urllib3.exceptions.SNIMissingWarning)
+    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+
+    class EnvDefault(argparse.Action):
+        def __init__(self, required=True, default=None, **kwargs):
+            envvar = kwargs.get("dest")
+            default = os.environ.get(envvar, default) if envvar in os.environ else default
+            required = False if required and default else required
+            super(EnvDefault, self).__init__(default=default, required=required, **kwargs)
+
+        def __call__(self, parser, namespace, values, option_string=None):
+            setattr(namespace, self.dest, values)
+
+
+    try:
+        parser = argparse.ArgumentParser()
+        parser.add_argument('--url', help='url , REQUIRED', required=True, action=EnvDefault)
+        parser.add_argument('--username', help='Username , REQUIRED', required=True, action=EnvDefault)
+        parser.add_argument('--password', help='Password , REQUIRED', required=True, action=EnvDefault)
+        parser.add_argument('--table', help='table , REQUIRED', required=True, action=EnvDefault)
+        parser.add_argument('--systemId', help='system ID , REQUIRED', required=True, action=EnvDefault)
+        parser.add_argument('--closeNotes', help='close notes , REQUIRED', required=True, action=EnvDefault)
+        parser.add_argument('--closeCode', help='close code , REQUIRED', required=True, action=EnvDefault)
+        parser.add_argument('--timeout', help='timeout', required=False, action=EnvDefault)
+        parser.add_argument('--verify', help='verify', required=False, action=EnvDefault)
+        parser.add_argument('--proxy_url', help='Proxy URL', required=False, action=EnvDefault)
+        args, unknown = parser.parse_known_args()
+        proxies = {'http': args.proxy_url, 'https': args.proxy_url} if args.proxy_url is not None else None
+        try:
+            timeout = float(args.timeout)
+        except (ValueError, TypeError):
+            timeout = 180.0
+        verify = args.verify == 'true'
+        session = requests.Session()
+        userpass = f"{args.username}:{args.password}"
+        endcoded_user = base64.b64encode(userpass.encode("ascii")).decode("ascii")
+        urlNoSlash = str(args.url).rstrip("/")
+        endpoint = urlNoSlash + "/api/now/table/" + args.table + "/" + args.systemId
+        headers = {
+            "Authorization": "Basic {}".format(endcoded_user),
+            "Content-type": "application/json",
+            "Accept": "application/json"
+        }
+        data = {
+            "state": "3",
+            "close_notes": args.closeNotes,
+            "close_code": args.closeCode
+        }
+        response = session.patch(endpoint, headers=headers, json=data, proxies=proxies, verify=verify, timeout=timeout)
+        response.raise_for_status()
+        try:
+            response = response.json()
+        except ValueError:
+            raise Exception("Please check if your instance is up and running?")
+        print(json.dumps(response))
+        exit(0)
+    except Exception as e:
+        err = str(e)
+        try:
+            if hasattr(e, "response"):
+                try:
+                    response = e.response.json()
+                    error = response.get("error", '')
+                    if error is not None:
+                        message = error.get("message", "")
+                        err = "API Error: {}".format(str(message))
+                except ValueError:
+                    err = str(e)
+        except AttributeError:
+            err = str(e)
+        sys.stderr.write(str(err))
+        exit(-1)
+fields:
+- id: table
+  label: Table Name
+  type: text
+  required: true
+  hint: The name of the table i.e. incident, problem, change_request, sc_request,
+    sc_task, sc_req_item
+  default: incident
+- id: systemId
+  label: System ID
+  type: text
+  required: true
+  incident_artifacts: true
+- id: closeNotes
+  label: Resolution Notes
+  type: text
+  required: true
+- id: closeCode
+  label: Resolution Code
+  type: list
+  values:
+    Duplicate: Duplicate
+    Known error: Known error
+    No resolution provided: No resolution provided
+    Resolved by caller: Resolved by caller
+    Resolved by change: Resolved by change
+    Resolved by problem: Resolved by problem
+    Resolved by request: Resolved by request
+    Solution provided: Solution provided
+    Workaround provided: Workaround provided
+    User error: User error
+  required: true
+output:
+- path: result.parent
+  type: text
+- path: result.made_sla
+  type: text
+- path: result.caused_by
+  type: text
+- path: result.watch_list
+  type: text
+- path: result.upon_reject
+  type: text
+- path: result.sys_updated_on
+  type: text
+- path: result.child_incidents
+  type: text
+- path: result.hold_reason
+  type: text
+- path: result.origin_table
+  type: text
+- path: result.task_effective_number
+  type: text
+- path: result.approval_history
+  type: text
+- path: result.number
+  type: text
+- path: result.resolved_by
+  type: text
+- path: result.sys_updated_by
+  type: text
+- path: result.opened_by.link
+  type: text
+- path: result.opened_by.value
+  type: text
+- path: result.user_input
+  type: text
+- path: result.sys_created_on
+  type: text
+- path: result.sys_domain.link
+  type: text
+- path: result.sys_domain.value
+  type: text
+- path: result.state
+  type: text
+- path: result.route_reason
+  type: text
+- path: result.sys_created_by
+  type: text
+- path: result.knowledge
+  type: text
+- path: result.order
+  type: text
+- path: result.calendar_stc
+  type: text
+- path: result.closed_at
+  type: text
+- path: result.cmdb_ci
+  type: text
+- path: result.delivery_plan
+  type: text
+- path: result.contract
+  type: text
+- path: result.impact
+  type: text
+- path: result.active
+  type: text
+- path: result.work_notes_list
+  type: text
+- path: result.business_service
+  type: text
+- path: result.business_impact
+  type: text
+- path: result.priority
+  type: text
+- path: result.sys_domain_path
+  type: text
+- path: result.rfc
+  type: text
+- path: result.time_worked
+  type: text
+- path: result.expected_start
+  type: text
+- path: result.opened_at
+  type: text
+- path: result.business_duration
+  type: text
+- path: result.group_list
+  type: text
+- path: result.work_end
+  type: text
+- path: result.caller_id
+  type: text
+- path: result.reopened_time
+  type: text
+- path: result.resolved_at
+  type: text
+- path: result.approval_set
+  type: text
+- path: result.subcategory
+  type: text
+- path: result.work_notes
+  type: text
+- path: result.universal_request
+  type: text
+- path: result.short_description
+  type: text
+- path: result.close_code
+  type: text
+- path: result.correlation_display
+  type: text
+- path: result.delivery_task
+  type: text
+- path: result.work_start
+  type: text
+- path: result.assignment_group
+  type: text
+- path: result.additional_assignee_list
+  type: text
+- path: result.business_stc
+  type: text
+- path: result.cause
+  type: text
+- path: result.description
+  type: text
+- path: result.origin_id
+  type: text
+- path: result.calendar_duration
+  type: text
+- path: result.close_notes
+  type: text
+- path: result.notify
+  type: text
+- path: result.service_offering
+  type: text
+- path: result.sys_class_name
+  type: text
+- path: result.closed_by
+  type: text
+- path: result.follow_up
+  type: text
+- path: result.parent_incident
+  type: text
+- path: result.sys_id
+  type: text
+- path: result.contact_type
+  type: text
+- path: result.reopened_by
+  type: text
+- path: result.incident_state
+  type: text
+- path: result.urgency
+  type: text
+- path: result.problem_id
+  type: text
+- path: result.company
+  type: text
+- path: result.reassignment_count
+  type: text
+- path: result.activity_due
+  type: text
+- path: result.assigned_to
+  type: text
+- path: result.severity
+  type: text
+- path: result.comments
+  type: text
+- path: result.approval
+  type: text
+- path: result.sla_due
+  type: text
+- path: result.comments_and_work_notes
+  type: text
+- path: result.due_date
+  type: text
+- path: result.sys_mod_count
+  type: text
+- path: result.reopen_count
+  type: text
+- path: result.sys_tags
+  type: text
+- path: result.escalation
+  type: text
+- path: result.upon_approval
+  type: text
+- path: result.correlation_id
+  type: text
+- path: result.location
+  type: text
+- path: result.category
+  type: text
+table_view:
+- display_name: Incident State
+  value: result.incident_state
+- display_name: Closed At
+  value: result.closed_at

@@ -1,0 +1,332 @@
+integration: ServiceNow - Custom
+name: ServiceNow Table Daemon
+type: Daemon
+script:
+  code: |
+    import requests
+    import argparse
+    import urllib3
+    import base64
+    import sys
+    import json
+    import urllib.parse
+    import os
+    from datetime import datetime, timezone
+    import pytz
+
+    urllib3.disable_warnings(urllib3.exceptions.InsecurePlatformWarning)
+    urllib3.disable_warnings(urllib3.exceptions.SNIMissingWarning)
+    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+
+    class EnvDefault(argparse.Action):
+        def __init__(self, required=True, default=None, **kwargs):
+            envvar = kwargs.get("dest")
+            default = os.environ.get(envvar, default) if envvar in os.environ else default
+            required = False if required and default else required
+            super(EnvDefault, self).__init__(default=default, required=required, **kwargs)
+
+        def __call__(self, parser, namespace, values, option_string=None):
+            setattr(namespace, self.dest, values)
+    
+    #used to convert from UTC to Eastern time
+    def prepare_date_time(date_time_value):
+        date_time_format1 = '%Y-%m-%d %H:%M:%S'
+        date_time_format2 = '%Y-%m-%d %H:%M:%S%z'
+        date_time_object = datetime.strptime(date_time_value, date_time_format1)
+        addUtc= date_time_object.replace(tzinfo=timezone.utc)
+        date_time_value=addUtc.astimezone(pytz.timezone('US/Eastern')).strftime(date_time_format2)
+        return date_time_value
+    
+    try:
+        parser = argparse.ArgumentParser()
+        parser.add_argument('--url', help='url , REQUIRED', required=True, action=EnvDefault)
+        parser.add_argument('--username', help='Username , REQUIRED', required=True, action=EnvDefault)
+        parser.add_argument('--password', help='Password , REQUIRED', required=True, action=EnvDefault)
+        parser.add_argument('--created', help='state', required=False, action=EnvDefault)
+        parser.add_argument('--timeout', help='timeout', required=False, action=EnvDefault)
+        parser.add_argument('--verify', help='verify', required=False, action=EnvDefault)
+        parser.add_argument('--proxy_url', help='Proxy URL', required=False, action=EnvDefault)
+        parser.add_argument('--table', help='Table Name, REQUIRED', required=True, action=EnvDefault)
+        args, unknown = parser.parse_known_args()
+        proxies = {'http': args.proxy_url, 'https': args.proxy_url} if args.proxy_url is not None else None
+        try:
+            timeout = float(args.timeout)
+        except (ValueError, TypeError):
+            timeout = 180.0
+        verify = args.verify == 'true'
+        session = requests.Session()
+        userpass = f"{args.username}:{args.password}"
+        endcoded_user = base64.b64encode(userpass.encode("ascii")).decode("ascii")
+        urlNoSlash = str(args.url).rstrip("/")
+        endpoint = "{0}/api/now/table/{1}".format(urlNoSlash, args.table)
+        headers = {
+            "Authorization": "Basic {}".format(endcoded_user),
+            "Content-type": "application/json",
+            "Accept": "application/json"
+        }
+        params={
+            "sysparm_fields":"variables.member_email,sys_id,parent,made_sla,caused_by,watch_list,upon_reject,sys_updated_on,child_incidents,hold_reason,origin_table,task_effective_number,approval_history,number,resolved_by,sys_updated_by,opened_by.link,opened_by.value,user_input,sys_created_on,sys_domain.link,sys_domain.value,state,route_reason,sys_created_by,knowledge,order,calendar_stc,closed_at,cmdb_ci,delivery_plan,contract,impact,active,work_notes_list,business_service,business_impact,priority,sys_domain_path,rfc,time_worked,expected_start,opened_at,business_duration,group_list,work_end,caller_id,reopened_time,resolved_at,approval_set,subcategory,work_notes,universal_request,short_description,close_code,correlation_display,delivery_task,work_start,assignment_group,additional_assignee_list,business_stc,cause,description,origin_id,calendar_duration,close_notes,notify,service_offering,sys_class_name,closed_by,follow_up,parent_incident,contact_type,reopened_by,incident_state,urgency,problem_id,company,reassignment_count,activity_due,assigned_to,severity,comments,approval,sla_due,comments_and_work_notes,due_date,sys_mod_count,reopen_count,sys_tags,escalation,upon_approval,correlation_id,location,category,caller_id.link,caller_id.value,parent_incident.link,parent_incident.value"
+        }
+        if args.created is not None and args.created != '' and str(args.created).lower() != 'none':
+            created = args.created.split(" ")
+            params['sysparm_query'] = "state=1^opened_at>javascript:gs.dateGenerate('{}', '{}')".format(created[0], created[1])
+        else:
+            params['sysparm_query'] = "state=1^opened_at>javascript:gs.beginningOfLastWeek()"
+
+        response = session.get(endpoint, headers=headers, params=params, proxies=proxies, verify=verify, timeout=timeout)
+        response.raise_for_status()
+        
+        dict = response.json()
+        
+        # remap member email response field to member_email
+        for dic in dict.get("result", []):
+            if 'variables.member_email' in dic.keys():
+                dic['member_email'] = dic['variables.member_email']
+            else:
+                dic['member_email'] = None
+        
+        # update sys_created_on timestamp to Eastern time and save to sys_created_on_est
+        for dic in dict.get("result", []):
+            if 'sys_created_on' in dic.keys():
+                orginalTimestamp = dic['sys_created_on']
+                estTimestamp = prepare_date_time(str(orginalTimestamp))
+                dic['sys_created_on_est'] = estTimestamp
+            else:
+                dic['sys_created_on'] = dic['sys_created_on']
+
+        print(json.dumps(dict.get("result", [])))
+        
+        exit(0)
+    except Exception as e:
+        err = str(e)
+        try:
+            if hasattr(e, "response"):
+                try:
+                    response = e.response.json()
+                    error = response.get("error", '')
+                    if error is not None:
+                        message = error.get("message", "")
+                        err = "API Error: {}".format(str(message))
+                except ValueError:
+                    err = str(e.response.text)
+        except AttributeError:
+            err = str(e)
+        sys.stderr.write(str(err))
+        exit(-1)
+fields:
+- id: created
+  label: Created On
+  type: text
+  required: false
+  hint: 'Time format e.g.: 2022-09-19 05:20:00'
+output:
+- path: '[].sys_id'
+  type: text
+- path: '[].parent'
+  type: text
+- path: '[].made_sla'
+  type: text
+- path: '[].caused_by'
+  type: text
+- path: '[].watch_list'
+  type: text
+- path: '[].upon_reject'
+  type: text
+- path: '[].sys_updated_on'
+  type: text
+- path: '[].child_incidents'
+  type: text
+- path: '[].hold_reason'
+  type: text
+- path: '[].origin_table'
+  type: text
+- path: '[].task_effective_number'
+  type: text
+- path: '[].approval_history'
+  type: text
+- path: '[].number'
+  type: text
+- path: '[].resolved_by'
+  type: text
+- path: '[].sys_updated_by'
+  type: text
+- path: '[].opened_by.link'
+  type: text
+- path: '[].opened_by.value'
+  type: text
+- path: '[].user_input'
+  type: text
+- path: '[].sys_created_on'
+  type: text
+- path: '[].sys_domain.link'
+  type: text
+- path: '[].sys_domain.value'
+  type: text
+- path: '[].state'
+  type: text
+- path: '[].route_reason'
+  type: text
+- path: '[].sys_created_by'
+  type: text
+- path: '[].knowledge'
+  type: text
+- path: '[].order'
+  type: text
+- path: '[].calendar_stc'
+  type: text
+- path: '[].closed_at'
+  type: text
+- path: '[].cmdb_ci'
+  type: text
+- path: '[].delivery_plan'
+  type: text
+- path: '[].contract'
+  type: text
+- path: '[].impact'
+  type: text
+- path: '[].active'
+  type: text
+- path: '[].work_notes_list'
+  type: text
+- path: '[].business_service'
+  type: text
+- path: '[].business_impact'
+  type: text
+- path: '[].priority'
+  type: text
+- path: '[].sys_domain_path'
+  type: text
+- path: '[].rfc'
+  type: text
+- path: '[].time_worked'
+  type: text
+- path: '[].expected_start'
+  type: text
+- path: '[].opened_at'
+  type: text
+- path: '[].business_duration'
+  type: text
+- path: '[].group_list'
+  type: text
+- path: '[].work_end'
+  type: text
+- path: '[].caller_id'
+  type: text
+- path: '[].reopened_time'
+  type: text
+- path: '[].resolved_at'
+  type: text
+- path: '[].approval_set'
+  type: text
+- path: '[].subcategory'
+  type: text
+- path: '[].work_notes'
+  type: text
+- path: '[].universal_request'
+  type: text
+- path: '[].short_description'
+  type: text
+- path: '[].close_code'
+  type: text
+- path: '[].correlation_display'
+  type: text
+- path: '[].delivery_task'
+  type: text
+- path: '[].work_start'
+  type: text
+- path: '[].assignment_group'
+  type: text
+- path: '[].additional_assignee_list'
+  type: text
+- path: '[].business_stc'
+  type: text
+- path: '[].cause'
+  type: text
+- path: '[].description'
+  type: text
+- path: '[].origin_id'
+  type: text
+- path: '[].calendar_duration'
+  type: text
+- path: '[].close_notes'
+  type: text
+- path: '[].notify'
+  type: text
+- path: '[].service_offering'
+  type: text
+- path: '[].sys_class_name'
+  type: text
+- path: '[].closed_by'
+  type: text
+- path: '[].follow_up'
+  type: text
+- path: '[].parent_incident'
+  type: text
+- path: '[].contact_type'
+  type: text
+- path: '[].reopened_by'
+  type: text
+- path: '[].incident_state'
+  type: text
+- path: '[].urgency'
+  type: text
+- path: '[].problem_id'
+  type: text
+- path: '[].company'
+  type: text
+- path: '[].reassignment_count'
+  type: text
+- path: '[].activity_due'
+  type: text
+- path: '[].assigned_to'
+  type: text
+- path: '[].severity'
+  type: text
+- path: '[].comments'
+  type: text
+- path: '[].approval'
+  type: text
+- path: '[].sla_due'
+  type: text
+- path: '[].comments_and_work_notes'
+  type: text
+- path: '[].due_date'
+  type: text
+- path: '[].sys_mod_count'
+  type: text
+- path: '[].reopen_count'
+  type: text
+- path: '[].sys_tags'
+  type: text
+- path: '[].escalation'
+  type: text
+- path: '[].upon_approval'
+  type: text
+- path: '[].correlation_id'
+  type: text
+- path: '[].location'
+  type: text
+- path: '[].category'
+  type: text
+- path: '[].caller_id.link'
+  type: text
+- path: '[].caller_id.value'
+  type: text
+- path: '[].parent_incident.link'
+  type: text
+- path: '[].parent_incident.value'
+  type: text
+- path: '[].variables.member_email'
+  type: text
+- path: '[].member_email'
+  type: text
+- path: '[].sys_created_on_est'
+  type: text
+table_view:
+- display_name: Number
+  value: '[].number'
+- display_name: Short Description
+  value: '[].short_description'
+- display_name: Email
+  value: '[].member_email'
