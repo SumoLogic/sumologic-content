@@ -1,0 +1,107 @@
+name: Proofpoint End User Management (PPS)
+version: '1.2'
+icon: data:image/png;base64,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
+script:
+  type: python
+  test_connection_code: |
+    import sys
+    import requests
+    import argparse
+    import urllib3
+    import base64
+    import os
+    from requests.auth import HTTPBasicAuth
+
+    urllib3.disable_warnings(urllib3.exceptions.InsecurePlatformWarning)
+    urllib3.disable_warnings(urllib3.exceptions.SNIMissingWarning)
+    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+
+    class EnvDefault(argparse.Action):
+        def __init__(self, required=True, default=None, **kwargs):
+            envvar = kwargs.get("dest")
+            default = os.environ.get(envvar, default) if envvar in os.environ else default
+            required = False if required and default else required
+            super(EnvDefault, self).__init__(default=default, required=required, **kwargs)
+
+        def __call__(self, parser, namespace, values, option_string=None):
+            setattr(namespace, self.dest, values)
+
+
+    try:
+        parser = argparse.ArgumentParser()
+        parser.add_argument('--url', help='URL , REQUIRED', required=True, action=EnvDefault)
+        parser.add_argument('--username', help='username, REQUIRED', required=True, action=EnvDefault)
+        parser.add_argument('--password', help='password, REQUIRED', required=True, action=EnvDefault)
+        parser.add_argument('--test_user_email', help='test_user_email', required=False, action=EnvDefault)
+        parser.add_argument('--timeout', help='timeout , REQUIRED', required=False, action=EnvDefault)
+        parser.add_argument('--verify', help='verify', required=False, action=EnvDefault)
+        parser.add_argument('--proxy_url', help='Proxy URL', required=False, action=EnvDefault)
+        args, unknown = parser.parse_known_args()
+        proxies = {"http": args.proxy_url, "https": args.proxy_url} if args.proxy_url is not None else None
+        try:
+            timeout = args.timeout
+        except (ValueError, TypeError):
+            timeout = 180.0
+        verify = args.verify == "true"
+        session = requests.Session()
+        host = str(args.url).replace("https://","").rstrip("/")
+        hostPort = host + ":10000"
+        urlNoSlash = str(args.url).rstrip("/")
+        urlNoSlashPort = urlNoSlash + ":10000"
+        endpoint = "{0}/rest/v1/enduser/{1}".format(urlNoSlashPort, args.test_user_email)
+        headers = {
+            "Host": hostPort,
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36",
+            "Content-type": "application/json",
+            "Accept": "application/json"
+        }
+        response = session.get(endpoint, auth=(str(args.username), str(args.password)), headers=headers, proxies=proxies, verify=verify, timeout=timeout)
+        response.raise_for_status()
+        exit(0)
+    except Exception as e:
+        err = str(e)
+        try:
+            if hasattr(e, "response"):
+                try:
+                    response = e.response.json()
+                    message = response.get("message", "")
+                    if message != "":
+                        err = "API Error: {}".format(message)
+                except ValueError:
+                    err = "API Error: {}".format(str(e.response.text))
+        except AttributeError:
+            err = str(e)
+        sys.stderr.write(str(err))
+        exit(-1)
+docker_repo_tag: python3_generic:latest
+configuration:
+  testable_connection: true
+  require_proxy_config: true
+  data_attributes:
+    url:
+      label: Server URL
+      type: text
+      required: true
+      hint: e.g https://xxxxx.pphosted.com/
+    username:
+      label: Username
+      type: text
+      required: true
+    password:
+      label: Password
+      type: password
+      required: true
+    test_user_email:
+      label: Test Connection User Email
+      type: text
+      required: false
+    verify:
+      label: Verify Server Certificate
+      type: checkbox
+      required: false
+    timeout:
+      label: Timeout
+      type: text
+      validator: integer
+      required: false
