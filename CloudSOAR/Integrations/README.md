@@ -1,4 +1,4 @@
-# Custom CloudSOAR Integrations for SumoLogic
+# Sumo Logic Custom CloudSOAR Integrations
 Sumo Logic Custom CloudSOAR Integrations provided by the community.
 
 ### To use the content:

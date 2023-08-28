@@ -1,4 +1,4 @@
-# CloudSOAR Community Content
+# Sumo Logic CloudSOAR Community Content
 Sumo Logic Community Content built for CloudSOAR.
 
 ### To use the content:
