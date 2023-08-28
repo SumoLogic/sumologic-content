@@ -4,7 +4,7 @@ Sumo Logic Custom CloudSOAR Integration for Proofpoint End User Management (Proo
 ### Whats included:
 1. Integration YAML File: Integration configurations and test code
 2. Action YAML File(s):
-    - Change Password (Containment): Takes user UID or email as input, and forces that user to change their password by sending them an email.
+    - Change Password (Containment) - Takes user UID or email as input, and forces that user to change their password by sending them an email.
 
 ### To use the content:
 - Download the Integatration and Action YAML files to your local device.
