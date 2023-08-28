@@ -1,6 +1,8 @@
 # Sumo Logic CloudSOAR Community Content
 Sumo Logic Community Content built for CloudSOAR.
 
+See [Integrations](https://github.com/SumoLogic/sumologic-content/tree/master/CloudSOAR/Integrations) section.
+
 ### To use the content:
 - Download the Integatration and Action YAML files to your local device.
 - Create a new CloudSOAR integration by logging into CloudSOAR > going to Settings cogwheel (top right) > Automation > Integrations > Plus(+) icon > and selecting the Integration YAML file.
