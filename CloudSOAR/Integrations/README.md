@@ -3,7 +3,7 @@ Sumo Logic Custom CloudSOAR Integrations provided by the community.
 
 ### Content list:
 - [Proofpoint End User Management for Proofpoint Protection Service](https://github.com/SumoLogic/sumologic-content/tree/master/CloudSOAR/Integrations/Proofpoint_End_User_Management_PPS)
-- [ServiceNow - Custom](https://github.com/SumoLogic/sumologic-content/tree/master/CloudSOAR/Integrations/ServiceNow)
+- [ServiceNow](https://github.com/SumoLogic/sumologic-content/tree/master/CloudSOAR/Integrations/ServiceNow)
 
 ### To use the content:
 - Download the Integatration and Action YAML files to your local device.
