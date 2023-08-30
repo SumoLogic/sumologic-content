@@ -1,0 +1,10 @@
+{
+  "reviewer":"[githubid/name]",
+  "ratings":{
+    "overall": [0-5],
+    "use-case":[0-5],
+    "design":[0-5],
+    "technical":[0-5]
+  },
+  "review":"Example review: This a great app that provides some quick time to value for my logs using some prebuilt Sumo queries."
+}
