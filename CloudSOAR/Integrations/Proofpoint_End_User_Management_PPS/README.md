@@ -1,5 +1,5 @@
 # Proofpoint End User Management (Proofpoint Protection Server) CloudSOAR Integration for Sumo Logic
-Sumo Logic Custom CloudSOAR Integration for Proofpoint End User Management (Proofpoint Protection Server), provided by the community.
+Sumo Logic Custom CloudSOAR Integration for Proofpoint End User Management (Proofpoint Protection Server), provided by the community. This integration allows you to peform actions on users using the Proofpoint End User Management (Proofpoint Protection Server) API.
 
 ### Whats included:
 1. Integration YAML File: Integration configurations and test code
