@@ -1,0 +1,283 @@
+{
+    "type": "DashboardV2SyncDefinition",
+    "name": "Extrahop Detections",
+    "description": "",
+    "title": "Extrahop Detections",
+    "theme": "Dark",
+    "topologyLabelMap": {
+        "data": {}
+    },
+    "refreshInterval": 0,
+    "timeRange": {
+        "type": "BeginBoundedTimeRange",
+        "from": {
+            "type": "RelativeTimeRangeBoundary",
+            "relativeTime": "-1d"
+        },
+        "to": null
+    },
+    "layout": {
+        "layoutType": "Grid",
+        "layoutStructures": [
+            {
+                "key": "panelPANE-209FE1C599017949",
+                "structure": "{\"height\":7,\"width\":12,\"x\":0,\"y\":5}"
+            },
+            {
+                "key": "panelPANE-558488119C055A43",
+                "structure": "{\"height\":9,\"width\":24,\"x\":0,\"y\":12}"
+            },
+            {
+                "key": "panelPANE-09ED9F599FA50942",
+                "structure": "{\"height\":7,\"width\":12,\"x\":12,\"y\":5}"
+            },
+            {
+                "key": "panelPANE-A3115BA8BABA3A4D",
+                "structure": "{\"height\":5,\"width\":6,\"x\":6,\"y\":0}"
+            },
+            {
+                "key": "panelPANE-32AEF59CB6140A4C",
+                "structure": "{\"height\":5,\"width\":6,\"x\":18,\"y\":0}"
+            },
+            {
+                "key": "panelPANE-E6B18F6CA92EAA48",
+                "structure": "{\"height\":5,\"width\":6,\"x\":12,\"y\":0}"
+            },
+            {
+                "key": "panelPANE-757A81148197A944",
+                "structure": "{\"height\":5,\"width\":6,\"x\":0,\"y\":0}"
+            }
+        ]
+    },
+    "panels": [
+        {
+            "id": null,
+            "key": "panelPANE-209FE1C599017949",
+            "title": "Extrahop Detection by Risk Score",
+            "visualSettings": "{\"general\":{\"mode\":\"timeSeries\",\"type\":\"line\",\"displayType\":\"default\",\"roundDataPoints\":true,\"markerSize\":5,\"lineDashType\":\"solid\",\"markerType\":\"none\",\"lineThickness\":1},\"title\":{\"fontSize\":14},\"axes\":{\"axisX\":{\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"titleFontSize\":12,\"labelFontSize\":12,\"logarithmic\":false}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"bottom\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":false,\"wrap\":true},\"color\":{\"family\":\"Categorical Default\"},\"series\":{},\"overrides\":[]}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=*extrahop* \n| json field=_raw \"risk_score\" \n| json field=_raw \"title\" \n| json field=_raw \"victims[0].device_details.ipaddr4\" as victim_ip nodrop \n| json field=_raw \"victims[0].device_details.cloud_instance_name\" as victim_cloud_instance nodrop \n| if(isNull(victim_cloud_instance),\"Null\", victim_cloud_instance) as victim_cloud_instance \n| where victim_ip matches \"{{victim_ip}}\" \n| where victim_cloud_instance matches \"{{victim_cloud_instance}}\" \n| timeslice 15m | count _timeslice, risk_score \n| transpose row _timeslice column risk_score",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "RelativeTimeRangeBoundary",
+                    "relativeTime": "-1d"
+                },
+                "to": null
+            },
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panelPANE-558488119C055A43",
+            "title": "Extrahop Detection Details",
+            "visualSettings": "{\"title\":{\"fontSize\":14},\"axes\":{\"axisX\":{\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"titleFontSize\":12,\"labelFontSize\":12,\"logarithmic\":false}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"bottom\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":false,\"wrap\":true},\"color\":{\"family\":\"Categorical Default\"},\"series\":{},\"general\":{\"type\":\"table\",\"displayType\":\"default\",\"roundDataPoints\":true,\"paginationPageSize\":100,\"fontSize\":12,\"mode\":\"timeSeries\"}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": " _sourceCategory=*extrahop*\n| json field=_raw \"title\" nodrop \n| json field=_raw \"victims[0].device_details.ipaddr4\" as victim_ip nodrop \n| where !isNull(victim_ip) | isPublicIP(victim_ip) as public_ip \n| json field=_raw \"mitre_tactics[0].name\" as tactic nodrop \n| json field=_raw \"mitre_techniques[0].name\" as technique nodrop \n| json field=_raw \"risk_score\" nodrop | json field=_raw \"victims[0].device_details.cloud_instance_name\" as victim_cloud_instance nodrop \n| json field=_raw \"victims[0].device_details.cloud_instance_description\" as victim_cloud_instance_description nodrop \n| if(isNull(victim_cloud_instance),\"Null\", victim_cloud_instance) as victim_cloud_instance \n| where victim_ip matches \"{{victim_ip}}\" \n| where victim_cloud_instance matches \"{{victim_cloud_instance}}\" \n| json field=_raw \"url\" nodrop | tourl(url, \"Extrahop Detection Details\") as link \n| count by title, victim_ip, public_ip, victim_cloud_instance,victim_cloud_instance_description, tactic, technique, risk_score,link \n| sort _count",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panelPANE-09ED9F599FA50942",
+            "title": "Extrahop Detection by Victim IP",
+            "visualSettings": "{\"general\":{\"mode\":\"timeSeries\",\"type\":\"line\",\"displayType\":\"default\",\"roundDataPoints\":true,\"markerSize\":5,\"lineDashType\":\"solid\",\"markerType\":\"none\",\"lineThickness\":1},\"title\":{\"fontSize\":14},\"axes\":{\"axisX\":{\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"titleFontSize\":12,\"labelFontSize\":12,\"logarithmic\":false}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"bottom\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":false,\"wrap\":true},\"color\":{\"family\":\"Categorical Default\"},\"series\":{},\"overrides\":[]}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=*extrahop* \n| json field=_raw \"title\" nodrop \n| json field=_raw \"victims[0].device_details.ipaddr4\" as victim_ip nodrop \n| json field=_raw \"victims[0].device_details.cloud_instance_name\" as victim_cloud_instance nodrop \n| if(isNull(victim_cloud_instance),\"Null\", victim_cloud_instance) as victim_cloud_instance \n| where victim_ip matches \"{{victim_ip}}\" \n| where victim_cloud_instance matches \"{{victim_cloud_instance}}\" \n| timeslice 15m \n| count _timeslice, victim_ip \n| transpose row _timeslice column victim_ip",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panelPANE-A3115BA8BABA3A4D",
+            "title": "Detection Risk Score",
+            "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"pie\",\"displayType\":\"default\",\"roundDataPoints\":true,\"fillOpacity\":1,\"startAngle\":270,\"innerRadius\":\"30%\",\"maxNumOfSlices\":10},\"title\":{\"fontSize\":14},\"legend\":{\"enabled\":true,\"verticalAlign\":\"bottom\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":false,\"wrap\":true},\"axes\":{\"axisX\":{\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"titleFontSize\":12,\"labelFontSize\":12}},\"series\":{}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=*extrahop* \n| json field=_raw \"risk_score\" nodrop \n| json field=_raw \"victims[0].device_details.ipaddr4\" as victim_ip nodrop \n| json field=_raw \"victims[0].device_details.cloud_instance_name\" as victim_cloud_instance nodrop \n| if(isNull(victim_cloud_instance),\"Null\", victim_cloud_instance) as victim_cloud_instance | where victim_ip matches \"{{victim_ip}}\" \n| where victim_cloud_instance matches \"{{victim_cloud_instance}}\" \n| count risk_score",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panelPANE-32AEF59CB6140A4C",
+            "title": "Mitre Attack Technique",
+            "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"pie\",\"displayType\":\"default\",\"roundDataPoints\":true,\"fillOpacity\":1,\"startAngle\":270,\"innerRadius\":\"30%\",\"maxNumOfSlices\":10},\"title\":{\"fontSize\":14},\"legend\":{\"enabled\":true,\"verticalAlign\":\"bottom\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":false,\"wrap\":true},\"axes\":{\"axisX\":{\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"titleFontSize\":12,\"labelFontSize\":12}},\"series\":{}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=*extrahop*\n| json field=_raw \"mitre_tactics[0].name\" as tactic nodrop \n| json field=_raw \"mitre_technique[0].name\" as technique nodrop \n| if(isNull(tactic),\"Null\", tactic) as tactic \n| if(isNull(technique),\"Null\", technique) as technique \n| json field=_raw \"victims[0].device_details.ipaddr4\" as victim_ip nodrop \n| json field=_raw \"victims[0].device_details.cloud_instance_name\" as victim_cloud_instance nodrop \n| if(isNull(victim_cloud_instance),\"Null\", victim_cloud_instance) as victim_cloud_instance | where victim_ip matches \"{{victim_ip}}\" \n| where victim_cloud_instance matches \"{{victim_cloud_instance}}\" \n| count technique",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panelPANE-E6B18F6CA92EAA48",
+            "title": "Mitre Attack Tactic",
+            "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"pie\",\"displayType\":\"default\",\"roundDataPoints\":true,\"fillOpacity\":1,\"startAngle\":270,\"innerRadius\":\"30%\",\"maxNumOfSlices\":10},\"title\":{\"fontSize\":14},\"legend\":{\"enabled\":true,\"verticalAlign\":\"bottom\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":false,\"wrap\":true},\"axes\":{\"axisX\":{\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"titleFontSize\":12,\"labelFontSize\":12}},\"series\":{}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=*extrahop* \n| json field=_raw \"mitre_tactics[0].name\" as tactic nodrop \n| json field=_raw \"mitre_technique[0].name\" as technique nodrop \n| if(isNull(tactic),\"Null\", tactic) as tactic \n| if(isNull(technique),\"Null\", technique) as technique \n| json field=_raw \"victims[0].device_details.ipaddr4\" as victim_ip nodrop \n| json field=_raw \"victims[0].device_details.cloud_instance_name\" as victim_cloud_instance nodrop \n| if(isNull(victim_cloud_instance),\"Null\", victim_cloud_instance) as victim_cloud_instance \n| where victim_ip matches \"{{victim_ip}}\" \n| where victim_cloud_instance matches \"{{victim_cloud_instance}}\" \n| count tactic",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panelPANE-757A81148197A944",
+            "title": "Total Detections",
+            "visualSettings": "{\"general\":{\"mode\":\"singleValueMetrics\",\"type\":\"svp\",\"displayType\":\"default\",\"roundDataPoints\":true,\"noDataMessage\":\"0\"},\"title\":{\"fontSize\":14},\"svp\":{\"option\":\"Latest\",\"unitify\":false,\"textColor\":\"\",\"backgroundColor\":\"\",\"label\":\"Detections\",\"useBackgroundColor\":false,\"useNoData\":false,\"noDataString\":\"\",\"hideData\":false,\"hideLabel\":false,\"rounding\":2,\"valueFontSize\":24,\"labelFontSize\":14,\"thresholds\":[{\"from\":null,\"to\":null,\"color\":\"#16943E\"},{\"from\":null,\"to\":null,\"color\":\"#DFBE2E\"},{\"from\":null,\"to\":null,\"color\":\"#BF2121\"}],\"sparkline\":{\"show\":true,\"color\":\"#222D3B\"},\"gauge\":{\"show\":false}},\"series\":{},\"legend\":{\"enabled\":false}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=*extrahop*\n| json field=_raw \"victims[0].device_details.ipaddr4\" as victim_ip nodrop \n| json field=_raw \"victims[0].device_details.cloud_instance_name\" as victim_cloud_instance nodrop \n| if(isNull(victim_cloud_instance),\"Null\", victim_cloud_instance) as victim_cloud_instance | where victim_ip matches \"{{victim_ip}}\" \n| where victim_cloud_instance matches \"{{victim_cloud_instance}}\" \n| timeslice 1h \n| count _timeslice",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        }
+    ],
+    "variables": [
+        {
+            "id": null,
+            "name": "victim_ip",
+            "displayName": "victim_ip",
+            "defaultValue": "*",
+            "sourceDefinition": {
+                "variableSourceType": "LogQueryVariableSourceDefinition",
+                "query": "_sourceCategory=*extrahop* \n| json field=_raw \"victims[0].device_details.ipaddr4\" as victim_ip nodrop",
+                "field": "victim_ip"
+            },
+            "allowMultiSelect": false,
+            "includeAllOption": true,
+            "hideFromUI": false,
+            "valueType": "Any"
+        },
+        {
+            "id": null,
+            "name": "victim_cloud_instance",
+            "displayName": "victim_cloud_instance",
+            "defaultValue": "*",
+            "sourceDefinition": {
+                "variableSourceType": "LogQueryVariableSourceDefinition",
+                "query": "_sourceCategory=*extrahop* \n| json field=_raw \"victims[0].device_details.cloud_instance_name\" as victim_cloud_instance nodrop \n| if(isNull(victim_cloud_instance),\"Null\", victim_cloud_instance) as victim_cloud_instance ",
+                "field": "victim_cloud_instance"
+            },
+            "allowMultiSelect": false,
+            "includeAllOption": true,
+            "hideFromUI": false,
+            "valueType": "Any"
+        }
+    ],
+    "coloringRules": []
+}
