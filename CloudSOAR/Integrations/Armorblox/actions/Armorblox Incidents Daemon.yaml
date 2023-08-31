@@ -1,0 +1,150 @@
+integration: 'Armorblox'
+name: 'Armorblox Incidents Daemon'
+type: Daemon
+script:
+  code: |
+    import sys
+    import requests
+    import argparse
+    import urllib3
+    import json
+    from datetime import datetime, timedelta
+    urllib3.disable_warnings(urllib3.exceptions.InsecurePlatformWarning)
+    urllib3.disable_warnings(urllib3.exceptions.SNIMissingWarning)
+    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+    try:
+
+        parser = argparse.ArgumentParser()
+        parser.add_argument('--tenant', help='tenant name , REQUIRED', required=True)
+        parser.add_argument('--apiKey', help='apiKey , REQUIRED', required=True)
+        parser.add_argument('--timeout', help='timeout , REQUIRED', required=True)
+        parser.add_argument('--verify', help='verify', required=False)
+        parser.add_argument('--proxy_url', help='proxy_url', required=False)
+        parser.add_argument('--mock', help='mock', required=False)
+
+        parser.add_argument('--starttime', help='Start Time', required=False)
+
+        # TODO: pagination ('pageToken', 'PageSize')
+        # params not implemented: 'fromDate', 'toDate'
+
+        args, unknown = parser.parse_known_args()
+        proxies = {'http': args.proxy_url, 'https': args.proxy_url} if args.proxy_url is not None else None
+        try:
+            timeout = float(args.timeout)
+        except ValueError:
+            timeout = 180
+        verify = True if args.verify == "true" else False
+        
+        headers = {
+            'Content-Type': 'application/json',
+            'X-Ab-Authorization': args.apiKey
+        }
+
+        endpoint = "https://{0}.armorblox.io/api/v1beta1/organizations/{1}/incidents".format(args.tenant, args.tenant)
+        mock_endpoint = "https://stoplight.io/mocks/armorblox/public-apis/81683860/api/v1beta1/organizations/{0}/incidents".format(args.tenant)
+        session = requests.Session()
+
+        params = {
+            'pageSize': 100,
+            'sortBy': 'DATE',
+            'toDate': str(datetime.now())
+        }
+        
+        if args.starttime is not None:
+            start_time = args.starttime
+            start_time = datetime.strptime(start_time,"%Y-%m-%dT%H:%M:%S.%fZ")
+            params['fromDate'] = str(start_time)
+        else:
+            from_time = datetime.now() - timedelta(hours=24)
+            params['fromDate'] = str(from_time)
+
+        incidents_list = []
+        if args.mock == "true":
+            response = session.get(mock_endpoint, headers=headers, params=json.dumps(params), proxies=proxies, verify=verify, timeout=timeout)
+        else:
+            response = session.get(endpoint, headers=headers, params=json.dumps(params), proxies=proxies, verify=verify, timeout=timeout)
+        response.raise_for_status()
+        incidents = response.json().get("incidents", [])
+        if isinstance(incidents, list):
+            incident_list = incidents
+        print(json.dumps(incident_list))
+        exit(0)
+    except Exception as e:
+        sys.stderr.write(str(e))
+        exit(-1)
+fields:
+  - id: starttime
+    label: 'Start Time'
+    type: datetime
+    required: false
+    hint: 'Fetch incidents on or after this timestamp'
+output:
+  - path: '[].id'
+    type: text
+  - path: '[].date'
+    type: text
+  - path: '[].policy_names.[]'
+    type: text
+  - path: '[].remediation_actions.[]'
+    type: text
+  - path: '[].total_count'
+    type: text
+  - path: '[].resolutionState'
+    type: text
+  - path: '[].priority'
+    type: text
+  - path: '[].tagged'
+    type: text
+  - path: '[].object_type'
+    type: text
+  - path: '[].remediated_by'
+    type: text
+  - path: '[].created_date'
+    type: text
+  - path: '[].incident_type'
+    type: text
+  - path: '[].research_status'
+    type: text
+  - path: '[].earliest_subject'
+    type: text
+  - path: '[].app_name'
+    type: text
+  - path: '[].senders'
+    type: text
+  - path: '[].users.[].user_name'
+    type: text
+  - path: '[].users.[].user_address'
+    type: text
+  - path: '[].users.[].is_vip'
+    type: text
+  - path: '[].users.[].department_name'
+    type: text
+  - path: '[].users.[].job_title'
+    type: text
+  - path: '[].events.[].event_id'
+    type: text
+  - path: '[].events.[].object_id'
+    type: text
+  - path: '[].events.[].from_name'
+    type: text
+  - path: '[].events.[].from_address'
+    type: text
+  - path: '[].events.[].date'
+    type: text
+  - path: '[].events.[].event_action.update_by'
+    type: text
+  - path: '[].events.[].event_action.action'
+    type: text
+  - path: '[].events.[].object_type'
+    type: text
+  - path: '[].events.[].title'
+    type: text
+  - path: '[].events.[].to_users'
+    type: text
+  - path: '[].events.[].to_address'
+    type: text
+  - path: '[].events.[].affected_user'
+    type: text
+  - path: '[].events.[].attachment_list'
+    type: text

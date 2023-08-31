@@ -1,0 +1,96 @@
+integration: 'Automation Tools'
+name: 'Add External Alert to Incident'
+type: Enrichment
+script:
+    code: |
+        import json
+        import argparse
+        import requests
+        import sys
+        import urllib3
+        
+        urllib3.disable_warnings(urllib3.exceptions.InsecurePlatformWarning)
+        urllib3.disable_warnings(urllib3.exceptions.SNIMissingWarning)
+        urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+        
+        try:
+            parser = argparse.ArgumentParser()
+            parser.add_argument('--token', help='JWT token , REQUIRED', required=True)
+            parser.add_argument('--cloud_soar_url', help='Cloud SOAR URL , REQUIRED', required=True)
+            parser.add_argument('--incidentId', help='Incident Id', required=False)
+            parser.add_argument('--IncmanParamIncidentId', help='Incident ID', required=False)
+            parser.add_argument('--alert_source', help='Alert Source', required=True)
+            parser.add_argument('--alert_data', help='Alert Payload', required=True)
+        
+            args, unknown = parser.parse_known_args()
+        
+            # Get the incident id, if empty current incident id will be used
+            incidentID = args.IncmanParamIncidentId
+            if args.incidentId is not None and args.incidentId != '':
+                incidentID = args.incidentId
+            if incidentID is None or incidentID == '' or int(incidentID) <= 0:
+                raise Exception('Invalid IncMan incident id')
+        
+            api_url = args.cloud_soar_url.rstrip('/')
+            headers = {
+                'Authorization': 'Bearer {}'.format(args.token),
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+            session = requests.Session()
+            session.verify = False
+
+            # Build Alert Payload
+            alert_payload = {
+              "type": args.alert_source,
+              "data": {}
+            }
+            din = str(args.alert_data).strip("'<>() ").replace('\'', '\"')
+            d = json.loads(din)
+            alert_payload["data"] = d
+        
+            # Add external alert to incident
+            add_ext_alert = '{0}/api/v3/incidents/{1}/external_alerts/'.format(api_url, incidentID)
+            response = session.post(add_ext_alert, headers=headers, timeout=15, data=json.dumps(alert_payload))
+            res = response.json()
+        
+            print(json.dumps(res))
+            exit(0)
+        
+        except Exception as e:
+            err = str(e)
+            try:
+                if hasattr(e, "response"):
+                    try:
+                        response = e.response.json()
+                        msg_error = response.get("error", None)
+                        if msg_error is not None:
+                            msg_description = response.get("description", "")
+                            err = "IncMan API Error: {} {} ".format(str(msg_error), str(msg_description))
+                    except ValueError:
+                        err = str(e)
+            except AttributeError:
+                err = str(e)
+            sys.stderr.write(str(err))
+            exit(-1)
+
+fields:
+  - id: incidentId
+    label: 'Incident ID'
+    type: text
+    required: false
+    hint: "Incident ID (if empty the current incident ID will be used)"
+    validator: integer
+  - id: alert_source
+    label: 'Alert Source'
+    type: text
+    required: true
+    hint: "Original alert source (ex. 'Sumo Logic')"
+  - id: alert_data
+    label: 'Alert Payload'
+    type: text
+    required: true
+    hint: "The alert payload to attach as an external alert (JSON)"
+output:
+    - path: 'data'
+      type: string
