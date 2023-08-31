@@ -1,0 +1,180 @@
+name: Azure AD
+version: '1.6'
+icon: data:image/png;base64,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
+script:
+  type: python
+  test_connection_code: |
+    import os
+    import sys
+    import urllib3
+    import argparse
+    import requests
+    from urllib.parse import urlencode
+
+    # disabling all urllib3 warnings.
+    urllib3.disable_warnings()
+
+    class EnvDefault(argparse.Action):
+        def __init__(self, required=True, default=None, **kwargs):
+            envvar = kwargs.get("dest")
+            default = os.environ.get(envvar, default) if envvar in os.environ else default
+            required = False if required and default else required
+            super(EnvDefault, self).__init__(default=default, required=required, **kwargs)
+
+        def __call__(self, parser, namespace, values, option_string=None):
+            setattr(namespace, self.dest, values)
+
+    def send_request(
+            request_url,
+            request_method="post",
+            request_json=None,
+            request_data=None,
+            request_params=None,
+            request_headers=None,
+            request_timeout=None,
+            request_verify=None,
+            request_proxies=None
+    ):
+        """ Prepares all the parameters of Request and sends it.
+        :param request_url: URL for the new Request.
+        :param request_method: method for the Request.
+        :param request_json: (optional) json to send in the body of the Request
+        :param request_data: (optional) Dictionary, list of tuples, bytes, or file-like object to send in the body of the Request
+        :param request_params: (optional) Dictionary or bytes to be sent in the query string for the Request
+        :param request_headers: (optional) Dictionary of HTTP Headers to send with the Request
+        :param request_timeout: (optional) How long to wait for the server to send data before giving up, as a float
+        :param request_verify: (optional) Either a boolean, in which case it controls whether we verify the server's TLS certificate
+        :param request_proxies: (optional) Dictionary mapping protocol or protocol and hostname to the URL of the proxy.
+        :rtype: dict
+        """
+        request_args = {
+            'json': request_json,
+            'data': request_data,
+            'params': request_params,
+            'headers': request_headers,
+            'timeout': request_timeout,
+            'verify': request_verify,
+            'proxies': request_proxies,
+        }
+        session = requests.Session()
+        responses = getattr(session, request_method)(request_url, **request_args)
+        responses.raise_for_status()
+        return responses.json()
+
+    def get_access_token(tenant, client_id, client_secret, request_timeout, request_verify, request_proxies):
+        auth_url = 'https://login.microsoftonline.com/{tenant}/oauth2/v2.0/token'.format(tenant=tenant)
+        auth_data = {
+            'grant_type': 'client_credentials',
+            'scope': "https://graph.microsoft.com/.default",
+            'client_id': client_id,
+            'client_secret': client_secret
+        }
+        access_token_results = send_request(
+            request_url=auth_url,
+            request_data=urlencode(auth_data),
+            request_timeout=request_timeout,
+            request_verify=request_verify,
+            request_proxies=request_proxies
+        )
+        access_token = access_token_results.get("access_token")
+        if access_token is None:
+            raise Exception("Login failed, Check your Credentials")
+        return access_token
+
+    try:
+        parsers = argparse.ArgumentParser()
+        parsers.add_argument('--api_url', help='API URL, REQUIRED', required=True, action=EnvDefault)
+        parsers.add_argument('--tenant', help='tenant, REQUIRED', required=True, action=EnvDefault)
+        parsers.add_argument('--client_id', help='Client ID, REQUIRED', required=True, action=EnvDefault)
+        parsers.add_argument('--client_secret', help='Client Secret, REQUIRED', required=True, action=EnvDefault)
+        parsers.add_argument('--timeout', help='timeout', required=False, action=EnvDefault)
+        parsers.add_argument('--verify', help='verify', required=False, action=EnvDefault)
+        parsers.add_argument('--proxy_url', help='proxy_url', required=False, action=EnvDefault)
+        args, unknown = parsers.parse_known_args()
+        proxies = {'http': args.proxy_url, 'https': args.proxy_url} if args.proxy_url is not None else None
+        try:
+            timeout = float(args.timeout)
+        except (ValueError, TypeError):
+            timeout = 180.0
+        verify = args.verify == 'true'
+        bearer_token = get_access_token(args.tenant, args.client_id, args.client_secret, timeout, verify, proxies)
+        headers = {
+            "Authorization": "Bearer {}".format(bearer_token),
+            "Content-Type": "application/json",
+            "ConsistencyLevel": "eventual"
+        }
+        endpoint_users = "{}/v1.0/users".format(str(args.api_url).rstrip("/"))
+        params = {"$top": 1}
+        users_results = send_request(
+            request_url=endpoint_users,
+            request_method='get',
+            request_params=urlencode(params),
+            request_headers=headers,
+            request_timeout=timeout,
+            request_verify=verify,
+            request_proxies=proxies
+        )
+        exit(0)
+    except Exception as e:
+        err = str(e)
+        try:
+            if hasattr(e, "response"):
+                try:
+                    response = e.response.json()
+                    error_dict = response.get("error")
+                    if error_dict is not None:
+                        if isinstance(error_dict, dict):
+                            error_cod = error_dict.get("code", "")
+                            error_message = error_dict.get("message", "")
+                            error_dict = "({}) {}".format(str(error_cod), str(error_message))
+                        msg_description = response.get("error_description", "")
+                        err = "API Error: {} {}".format(str(error_dict), str(msg_description))
+                    else:
+                        err = str(response)
+                except ValueError:
+                    err = str(e)
+        except AttributeError:
+            err = str(e)
+        sys.stderr.write(str(err))
+        exit(-1)
+docker_repo_tag: python3_generic:latest
+configuration:
+  testable_connection: true
+  require_proxy_config: true
+  data_attributes:
+    api_url:
+      label: API URL
+      type: text
+      required: true
+      validator: url
+      default: https://graph.microsoft.com
+      hint: https://graph.microsoft.com
+    tenant:
+      label: Directory (Tenant) ID
+      type: text
+      required: true
+      hint: The ID of the AAD directory in which you created the application
+    client_id:
+      label: Application (Client) ID
+      type: text
+      required: true
+      hint: Service principal client ID
+    client_secret:
+      label: Application (Client) Secret
+      type: password
+      required: true
+      hint: service principal client secret
+    timeout:
+      label: Connection Timeout (s)
+      type: text
+      required: false
+      validator: integer
+    verify:
+      label: Verify Server Certificate
+      type: checkbox
+      required: false
+  listing_attributes:
+    tenant:
+      name: 'Tenant'
+    client_id:
+      name: 'Client ID'

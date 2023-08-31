@@ -1,0 +1,101 @@
+integration: 'Armorblox'
+name: 'Update Incident Action'
+type: Containment
+script:
+  code: |
+    import sys
+    import requests
+    import argparse
+    import urllib3
+    import json
+    urllib3.disable_warnings(urllib3.exceptions.InsecurePlatformWarning)
+    urllib3.disable_warnings(urllib3.exceptions.SNIMissingWarning)
+    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+    try:
+
+        parser = argparse.ArgumentParser()
+        parser.add_argument('--tenant', help='tenant name , REQUIRED', required=True)
+        parser.add_argument('--apiKey', help='apiKey , REQUIRED', required=True)
+        parser.add_argument('--timeout', help='timeout , REQUIRED', required=True)
+        parser.add_argument('--verify', help='verify', required=False)
+        parser.add_argument('--proxy_url', help='proxy_url', required=False)
+        parser.add_argument('--mock', help='mock', required=False)
+
+        parser.add_argument('--incident_id', help='incident_id, REQUIRED', required=True)
+        parser.add_argument('--policyActionType', help='policyActionType, REQUIRED', required=True)
+        parser.add_argument('--addSenderToException', help='addSenderToException', required=False)
+        parser.add_argument('--actionProfileId', help='actionProfileId', required=False)
+
+        args, unknown = parser.parse_known_args()
+        proxies = {'http': args.proxy_url, 'https': args.proxy_url} if args.proxy_url is not None else None
+        try:
+            timeout = float(args.timeout)
+        except ValueError:
+            timeout = 180
+        verify = True if args.verify == "true" else False
+        
+        headers = {
+            'Content-Type': 'application/json',
+            'X-Ab-Authorization': args.apiKey
+        }
+
+        endpoint = "https://{0}.armorblox.io/api/v1beta1/organizations/{1}/incidents/{2}:updateAction".format(args.tenant, args.tenant, args.incident_id)
+        mock_endpoint = "https://stoplight.io/mocks/armorblox/public-apis/81683860/api/v1beta1/organizations/{0}/incidents/{1}:updateAction".format(args.tenant, args.incident_id)
+        session = requests.Session()
+        data = {
+          'policyActionType': args.policyActionType,
+        }
+
+        if args.policyActionType == "MARK_AS_SAFE":
+          data['addSenderToException'] = True if args.addSenderToException == "true" else False
+        if args.policyActionType == "QUARANTINE":
+          data['actionProfileId'] = args.actionProfileId
+
+        if args.mock == "true":
+            response = session.patch(mock_endpoint, headers=headers, data=json.dumps(data), proxies=proxies, verify=verify, timeout=timeout)
+        else:
+            response = session.patch(endpoint, headers=headers, data=json.dumps(data), proxies=proxies, verify=verify, timeout=timeout)
+        status_code = response.status_code
+
+        print(json.dumps(response.json()))
+        exit(0)
+    except Exception as e:
+        sys.stderr.write(str(e))
+        exit(-1)
+fields:
+  - id: incident_id
+    label: 'Incident ID'
+    type: text
+    required: true
+    hint: 'The Incident ID to fetch.'
+  - id: policyActionType
+    label: 'Policy Action Types'
+    type: list
+    required: false
+    hint: 'The policy action to take.'
+    values:
+      DELETE: DELETE
+      PERMANENTLY_DELETE: PERMANENTLY_DELETE
+      QUARANTINE: QUARANTINE
+      IGNORE: IGNORE
+      MARK_AS_SAFE: MARK_AS_SAFE
+  - id: addSenderToException
+    label: 'Add Sender To Exception'
+    type: checkbox
+    required: false
+    hint: 'Applicable only for the "MARK_AS_SAFE" policy action. Set to "true" if you want the user to be added as a sender exception.h.'
+  - id: actionProfileId
+    label: 'Action Profile ID'
+    type: text
+    required: false
+    hint: 'Applicable only for the QUARANTINE action. Potential actionProfileId values can be found in the Miscellaneous section in the "Get App Restrictions" action.'
+output:
+  - path: 'update_by'
+    type: text
+  - path: 'remediation_actions.[]'
+    type: text
+  - path: 'resolution_state'
+    type: text
+  - path: 'objects_action'
+    type: text

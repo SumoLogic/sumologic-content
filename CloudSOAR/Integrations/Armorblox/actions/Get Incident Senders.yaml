@@ -1,0 +1,133 @@
+integration: 'Armorblox'
+name: 'Get Incident Senders'
+type: Enrichment
+script:
+  code: |
+    import sys
+    import requests
+    import argparse
+    import urllib3
+    import json
+    urllib3.disable_warnings(urllib3.exceptions.InsecurePlatformWarning)
+    urllib3.disable_warnings(urllib3.exceptions.SNIMissingWarning)
+    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+    try:
+
+        parser = argparse.ArgumentParser()
+        parser.add_argument('--tenant', help='tenant name , REQUIRED', required=True)
+        parser.add_argument('--apiKey', help='apiKey , REQUIRED', required=True)
+        parser.add_argument('--timeout', help='timeout , REQUIRED', required=True)
+        parser.add_argument('--verify', help='verify', required=False)
+        parser.add_argument('--proxy_url', help='proxy_url', required=False)
+        parser.add_argument('--mock', help='mock', required=False)
+
+        parser.add_argument('--incident_id', help='incident_id, REQUIRED', required=True)
+
+        args, unknown = parser.parse_known_args()
+        proxies = {'http': args.proxy_url, 'https': args.proxy_url} if args.proxy_url is not None else None
+        try:
+            timeout = float(args.timeout)
+        except ValueError:
+            timeout = 180
+        verify = True if args.verify == "true" else False
+        
+        headers = {
+            'Content-Type': 'application/json',
+            'X-Ab-Authorization': args.apiKey
+        }
+
+        endpoint = "https://{0}.armorblox.io/api/v1beta1/organizations/{1}/incidents/{2}:getSenders".format(args.tenant, args.tenant, args.incident_id)
+        mock_endpoint = "https://stoplight.io/mocks/armorblox/public-apis/81683860/api/v1beta1/organizations/{0}/incidents/{1}:getSenders".format(args.tenant, args.incident_id)
+        session = requests.Session()
+        params = {
+            'tenant': args.tenant,
+            'incident_id': args.incident_id
+        }
+
+        if args.mock == "true":
+            response = session.get(mock_endpoint, headers=headers, params=json.dumps(params), proxies=proxies, verify=verify, timeout=timeout)
+        else:
+            response = session.get(endpoint, headers=headers, params=json.dumps(params), proxies=proxies, verify=verify, timeout=timeout)
+        status_code = response.status_code
+
+        print(json.dumps(response.json()))
+        exit(0)
+    except Exception as e:
+        sys.stderr.write(str(e))
+        exit(-1)
+fields:
+  - id: incident_id
+    label: 'Incident ID'
+    type: text
+    required: true
+    hint: 'The Incident ID to fetch.'
+output:
+  - path: 'domains.[]'
+    type: text
+  - path: 'user.[]'
+    type: text
+  - path: 'domains.[].domain'
+    type: text
+  - path: 'domains.[].server_ip'
+    type: text
+  - path: 'domains.[].bcti_data'
+    type: text
+  - path: 'domains.[].bcti_data.category'
+    type: text
+  - path: 'domains.[].bcti_data.country'
+    type: text
+  - path: 'domains.[].bcti_data.popularity'
+    type: text
+  - path: 'domains.[].bcti_data.first_seen_months'
+    type: text
+  - path: 'domains.[].bcti_data.dns_lifetime_months'
+    type: text
+  - path: 'domains.[].bcti_data.reputation'
+    type: text
+  - path: 'domains.[].bcti_data.global_threat_history'
+    type: text
+  - path: 'domains.[].type'
+    type: text
+  - path: 'user'
+    type: text
+  - path: 'user.analyses_list.[]'
+    type: text
+  - path: 'user.analyses_list.[].common.type'
+    type: text
+  - path: 'user.analyses_list.[].common.priority'
+    type: text
+  - path: 'user.analyses_list.[].analyses.[].vip_impersonation.common.type'
+    type: text
+  - path: 'user.analyses_list.[].analyses.[].display.display_name'
+    type: text
+  - path: 'user.analyses_list.[].analyses.[].impersonator.impersonated_email'
+    type: text
+  - path: 'user.analyses_list.[].analyses.[].impersonator.impersonator_name'
+    type: text
+  - path: 'user.analyses_list.[].analyses.[].original.original_email'
+    type: text
+  - path: 'user.analyses_list.[].analyses.[].nickname.is_nickname'
+    type: text
+  - path: 'user.analyses_list.[].analyses.[].spoof_type.name_spoof_type'
+    type: text
+  - path: 'user.analyses_list.[].date'
+    type: text
+  - path: 'user.relationship_history'
+    type: text
+  - path: 'user.relationship_history.edge_history'
+    type: text
+  - path: 'user.relationship_history.edge_history.all_time'
+    type: text
+  - path: 'user.relationship_history.edge_history.all_time.emails'
+    type: text
+  - path: 'user.relationship_history.edge_history.all_time.vip'
+    type: text
+  - path: 'user.relationship_history.edge_history.all_time.suspicious'
+    type: text
+  - path: 'user.user_info.name'
+    type: text
+  - path: 'user.user_info.email'
+    type: text
+  - path: 'user.user_info.is_vip'
+    type: text

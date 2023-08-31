@@ -1,0 +1,62 @@
+integration: 'Automation Tools'
+name: 'Sleep'
+type: Custom
+script:
+ code: |
+    import json
+    import sys
+    import time
+    import argparse
+
+    # adds an artificial delay to a playbook.
+    try:
+        parser = argparse.ArgumentParser()
+        parser.add_argument('--length', help='Sleep Duration', required=True)
+        parser.add_argument('--unit', help='Unit of Time', required=True)
+        args, unknown = parser.parse_known_args()
+    
+        json_dict = {}
+        now = time.ctime()
+        json_dict['start_time'] = time.strftime("%Y-%m-%dT%H:%M:%S")
+        json_dict['duration'] = "{} {}".format(args.length, args.unit)
+
+        if args.unit == "seconds":
+            length_seconds = int(args.length)
+        elif args.unit == "minutes":
+            length_seconds = int(args.length) * 60
+        else:
+            length_seconds = (int(args.length) * 60) * 60
+
+        time.sleep(length_seconds)
+
+        now = time.ctime()
+        json_dict['end_time'] = time.strftime("%Y-%m-%dT%H:%M:%S")
+        
+        print(json.dumps(json_dict))
+        exit(0)
+    except Exception as e:
+        err = str(e)
+        sys.stderr.write(str(e))
+        exit(-1)
+fields:
+  - id: length
+    label: 'Sleep Duration'
+    type: text
+    required: true
+    hint: 'Sleep Duration (e.g. "24")'
+  - id: unit
+    label: 'Unit of Time'
+    type: list
+    required: yes
+    hint: 'The unit of time (seconds, minutes or hours)'
+    values:
+      seconds: Seconds
+      minutes: Minutes
+      hours: Hours
+output:
+  - path: 'start_time'
+    type: text
+  - path: 'end_time'
+    type: text
+  - path: 'duration'
+    type: text

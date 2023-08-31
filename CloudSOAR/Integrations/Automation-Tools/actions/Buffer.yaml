@@ -1,0 +1,41 @@
+integration: 'Automation Tools'
+name: 'Buffer'
+type: Custom
+script:
+ code: |
+    import json
+    import sys
+    import argparse
+
+    # simple action to take a string or JSON snippet as an input, and output as a JSON result.
+    try:
+        parser = argparse.ArgumentParser()
+        parser.add_argument('--input', help='JSON', required=True)
+        args, unknown = parser.parse_known_args()
+    
+        json_dict = {"data":{}}
+        try:
+            din = str(args.input).strip("'<>() ").replace('\'', '\"')
+            json_dict["data"] = json.loads(din)
+            
+        except Exception as e:
+            pass
+            if  type(args.input) is str:
+                json_dict["data"] = args.input
+        
+        print(json.dumps(json_dict))
+        exit(0)
+    except Exception as e:
+        err = str(e)
+        sys.stderr.write(err)
+        exit(-1)
+fields:
+  - id: input
+    label: 'JSON or String Input'
+    incident_artifacts: true
+    type: text
+    required: true
+    hint: 'Accepts valid JSON or string input and returns in JSON format.'
+output:
+  - path: 'data'
+    type: text

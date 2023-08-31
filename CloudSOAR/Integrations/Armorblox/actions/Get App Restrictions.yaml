@@ -1,0 +1,69 @@
+integration: 'Armorblox'
+name: 'Get App Restrictions'
+type: Enrichment
+script:
+  code: |
+    import sys
+    import requests
+    import argparse
+    import urllib3
+    import json
+    urllib3.disable_warnings(urllib3.exceptions.InsecurePlatformWarning)
+    urllib3.disable_warnings(urllib3.exceptions.SNIMissingWarning)
+    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+    try:
+
+        parser = argparse.ArgumentParser()
+        parser.add_argument('--tenant', help='tenant name , REQUIRED', required=True)
+        parser.add_argument('--apiKey', help='apiKey , REQUIRED', required=True)
+        parser.add_argument('--timeout', help='timeout , REQUIRED', required=True)
+        parser.add_argument('--verify', help='verify', required=False)
+        parser.add_argument('--proxy_url', help='proxy_url', required=False)
+        parser.add_argument('--mock', help='mock', required=False)
+
+        parser.add_argument('--incident_id', help='incident_id, REQUIRED', required=True)
+
+        args, unknown = parser.parse_known_args()
+        proxies = {'http': args.proxy_url, 'https': args.proxy_url} if args.proxy_url is not None else None
+        try:
+            timeout = float(args.timeout)
+        except ValueError:
+            timeout = 180
+        verify = True if args.verify == "true" else False
+        
+        headers = {
+            'Content-Type': 'application/json',
+            'X-Ab-Authorization': args.apiKey
+        }
+
+        endpoint = "https://{0}.armorblox.io/api/v1beta1/organizations/{1}/config:getAppRestrictions".format(args.tenant, args.tenant)
+        mock_endpoint = "https://stoplight.io/mocks/armorblox/public-apis/81683860/api/v1alpha1/organizations/{0}/config:getAppRestrictions".format(args.tenant)
+        session = requests.Session()
+
+        if args.mock == "true":
+            response = session.get(mock_endpoint, headers=headers, proxies=proxies, verify=verify, timeout=timeout)
+        else:
+            response = session.get(endpoint, headers=headers, proxies=proxies, verify=verify, timeout=timeout)
+        status_code = response.status_code
+
+        print(json.dumps(response.json()))
+        exit(0)
+    except Exception as e:
+        sys.stderr.write(str(e))
+        exit(-1)
+fields:
+  - id: incident_id
+    label: 'Incident ID'
+    type: text
+    required: true
+    hint: 'The Incident ID to fetch.'
+output:
+  - path: 'apps.[].app'
+    type: text
+  - path: 'apps.[].actions.[].QUARANTINE.options.[]'
+    type: text
+  - path: 'apps.[].actions.[].QUARANTINE.options.[].id'
+    type: text
+  - path: 'apps.[].actions.[].QUARANTINE.options.[].display_name'
+    type: text

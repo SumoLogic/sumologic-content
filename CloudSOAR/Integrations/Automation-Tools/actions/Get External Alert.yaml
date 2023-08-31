@@ -1,0 +1,113 @@
+integration: 'Automation Tools'
+name: 'Get External Alert'
+type: Enrichment
+script:
+    code: |
+        import json
+        import argparse
+        import requests
+        import sys
+        import urllib3
+        
+        urllib3.disable_warnings(urllib3.exceptions.InsecurePlatformWarning)
+        urllib3.disable_warnings(urllib3.exceptions.SNIMissingWarning)
+        urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+        
+        try:
+            parser = argparse.ArgumentParser()
+            parser.add_argument('--token', help='JWT token , REQUIRED', required=True)
+            parser.add_argument('--incmanurl', help='IncMan URL , REQUIRED', required=True)
+            parser.add_argument('--incidentId', help='Incident Id', required=False)
+            parser.add_argument('--IncmanParamIncidentId', help='Incident ID', required=False)
+        
+            args, unknown = parser.parse_known_args()
+        
+            # Get the incident id, if empty current incident id will be used
+            incidentID = args.IncmanParamIncidentId
+            if args.incidentId is not None and args.incidentId != '':
+                incidentID = args.incidentId
+            if incidentID is None or incidentID == '' or int(incidentID) <= 0:
+                raise Exception('Invalid IncMan incident id')
+        
+            incUrl = args.incmanurl.rstrip('/')
+            headers = {
+                'Authorization': 'Bearer {}'.format(args.token),
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+            session = requests.Session()
+            session.verify = False
+            
+            # fetch list of external alerts
+            get_ext_alert_list = '{0}/api/v3/incidents/{1}/external_alerts/'.format(incUrl, incidentID)
+            response = session.get(get_ext_alert_list, headers=headers, timeout=15)
+            response.raise_for_status()
+            alert_res = response.json()
+            alert_id = alert_res[0]["id"]
+            alert_type = alert_res[0]["type"]
+        
+            # fetch external alert(s) details
+            get_ext_alert = '{0}/api/v3/incidents/{1}/external_alerts/{2}/?type={3}'.format(incUrl, incidentID, alert_id, alert_type)
+            response = session.get(get_ext_alert, headers=headers, timeout=15)
+            res = response.json()
+        
+            print(json.dumps(res))
+            exit(0)
+        
+        except Exception as e:
+            err = str(e)
+            try:
+                if hasattr(e, "response"):
+                    try:
+                        response = e.response.json()
+                        msg_error = response.get("error", None)
+                        if msg_error is not None:
+                            msg_description = response.get("description", "")
+                            err = "IncMan API Error: {} {} ".format(str(msg_error), str(msg_description))
+                    except ValueError:
+                        err = str(e)
+            except AttributeError:
+                err = str(e)
+            sys.stderr.write(str(err))
+            exit(-1)
+
+fields:
+  - id: incidentId
+    label: 'Incident ID'
+    type: text
+    required: false
+    hint: "Incident ID (if empty the current incident ID will be used)"
+    validator: integer
+output:
+    - path: '[].id.name'
+      type: string
+    - path: '[].id.value'
+      type: string
+    - path: '[].value.name'
+      type: string
+    - path: '[].value.value'
+      type: string
+    - path: '[].type.name'
+      type: string
+    - path: '[].type.value'
+      type: string
+    - path: '[].additional_info.name'
+      type: string
+    - path: '[].additional_info.value'
+      type: string
+    - path: '[].incident.name'
+      type: string
+    - path: '[].incident.value'
+      type: string
+    - path: '[].sha256_hash.name'
+      type: string
+    - path: '[].sha256_hash.value'
+      type: string
+    - path: '[].md5_hash.name'
+      type: string
+    - path: '[].md5_hash.value'
+      type: string
+    - path: '[].sha1_hash.name'
+      type: string
+    - path: '[].sha1_hash.value'
+      type: string

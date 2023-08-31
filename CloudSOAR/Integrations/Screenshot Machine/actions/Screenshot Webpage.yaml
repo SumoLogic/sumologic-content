@@ -1,0 +1,162 @@
+integration: 'Screenshot Machine'
+name: 'Screenshot Webpage'
+type: Enrichment
+script:
+    code: |
+        import sys
+        import argparse
+        import urllib3
+        import requests
+        import datetime
+        import base64
+        import json
+        import traceback
+        from io import BytesIO
+        urllib3.disable_warnings(urllib3.exceptions.InsecurePlatformWarning)
+        urllib3.disable_warnings(urllib3.exceptions.SNIMissingWarning)
+        urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+        try:
+          parser = argparse.ArgumentParser()
+          parser.add_argument('--APIKey', help='APIKey, REQUIRED', required=True)
+          parser.add_argument('--url', help='URL, REQUIRED', required=True)
+          parser.add_argument('--device', help='Device', required=False)
+          parser.add_argument('--dimension', help='Dimension', required=False)
+          parser.add_argument('--soarUrl', help='IncMan URL , REQUIRED', required=True)
+          parser.add_argument('--token', help='JWT Token , REQUIRED', required=True)
+          parser.add_argument('--IncmanParamIncidentId', help='Incident ID , REQUIRED', required=False)
+          parser.add_argument('--format', help='Format', required=False)
+          parser.add_argument('--incidentId', help='Inciden ID', required=False)
+          parser.add_argument('--proxy_url', help='Proxy ', required=False)
+          parser.add_argument('--verify', help='Verify SSL', required=False)
+          parser.add_argument('--timeout', help='Timeout', required=False)
+          args, unknown = parser.parse_known_args()
+          
+          verify = args.verify in ['true', '1', True, 1]
+          timeout = 180 if args.timeout is None or args.timeout == '' or int(args.timeout) <= 0 else int(args.timeout)
+          proxies = {'http': args.proxy_url, 'https': args.proxy_url} if args.proxy_url is not None else None
+          if args.device is None or args.device != '':
+              args.device = 'desktop'
+          if args.dimension is None or args.dimension != '':
+              args.dimension = '1024x768'
+          if args.format is None or args.format != '':
+              args.format = 'png'
+
+          api = args.APIKey
+          api_url = 'https://api.screenshotmachine.com/?key=' + api
+          options = {
+              'url': '{}'.format(args.url),
+              'dimension': '{}'.format(args.dimension),
+              'device': '{}'.format(args.device),
+              'cacheLimit': '0',
+              'delay': '200',
+              'zoom': '100',
+              'format': '{}'.format(args.format)
+          }
+          result = requests.get(url=api_url, proxies=proxies, params=options, verify=verify, timeout=timeout)
+          
+          def check_lenght(result):
+              if len(result.content) <= 10000:
+                  raise Exception("Cannot Establish Connection")
+          check_lenght(result)
+          try:
+              # Get the incident id, if empty current incident id will be used
+              incidentID = args.IncmanParamIncidentId
+              if args.incidentId is not None and args.incidentId != '':
+                  incidentID = args.incidentId
+              if incidentID is None or incidentID == '' or int(incidentID) <= 0:
+                  raise Exception('Invalid IncMan incident id')
+              date_time_file = datetime.datetime.now().strftime("%d-%m-%Y %H:%M:%S")
+              headers = {
+                  'Accept': 'application/json;charset=UTF-8',
+                  'Authorization': 'Bearer ' + args.token
+              }
+              
+              file_name = 'Attachment ' + date_time_file + '.{}'.format(args.format)
+              files = [('attachment',(file_name,BytesIO(result.content),'application/octet-stream'))]
+              payload_incMan = {
+                  'file_name': file_name,
+                  'additional_info': 'Add attachment from API',
+                  'reference': '00'
+              }
+              
+              end_point2 = "api/v3/incidents/" if args.soarUrl.endswith('/') else "/api/v3/incidents/"
+
+              end_point = "{0}{1}{2}/attachments/".format(args.soarUrl, end_point2, incidentID)
+              # end_point = args.soarUrl + end_point2 + args.IncmanParamIncidentId + '/attachments/'
+              
+              session = requests.Session()
+              session.verify = False
+              resAlerts = session.post(end_point, headers=headers, data=payload_incMan, files=files, proxies=None, timeout=(5, 60))
+              resAlerts.raise_for_status()
+              resJson = resAlerts.json()
+              resJson["url"] = args.url
+              resJson["base64"] = str(base64.b64encode(result.content),'utf-8')
+              print(json.dumps(resJson))
+              # print(base64.b64encode(result.content))
+          except Exception as e:
+              if hasattr(e, 'response') and e.response is not None:
+                  resJson = e.response.json()
+                  errMsg = resJson["error"]
+                  sys.stderr.write(errMsg)
+              else:
+                  sys.stderr.write(str(e))
+              exit(1)
+          exit(0)
+        except Exception as e:
+            sys.stderr.write(str(e))
+            exit(-1)
+fields:
+  - id: url
+    label: 'URL'
+    type: text
+    required: true
+  - id: format
+    label: 'Format'
+    type: list
+    required: false
+    values:
+      jpg: 'JPG'
+      png: 'PNG'
+  - id: device
+    label: 'Device'
+    type: list
+    required: false
+    values:
+      desktop: 'Desktop'
+      tablet: 'Tablet'
+      phone: 'Phone'
+  - id: dimension
+    label: 'Dimension'
+    type: list
+    required: false
+    values:
+      1: '1024x768'
+      2: '1024xfull'
+      3: '1920xfull'
+      4: '480x800'
+      5: '800x1280'
+  - id: incidentId
+    label: 'Incident ID'
+    type: text
+    validator: integer
+    required: false
+output:
+    - path: 'id'
+      type: text
+    - path: 'datetime'
+      type: text
+    - path: 'uploader'
+      type: text
+    - path: 'file_name'
+      type: text
+    - path: 'file_size'
+      type: text
+    - path: 'file_type'
+      type: text
+    - path: 'description'
+      type: text
+    - path: 'url'
+      type: text
+    - path: 'base64'
+      type: text
+image_base64_png: 'base64'

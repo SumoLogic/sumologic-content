@@ -1,0 +1,75 @@
+integration: 'Automation Tools'
+name: 'Get Time'
+type: Custom
+script:
+ code: |
+    import json
+    import sys
+    import time
+    from datetime import datetime
+    import argparse
+
+    try:
+        parser = argparse.ArgumentParser()
+        # parser.add_argument('--time_operator', help='Time Operation, REQUIRED', required=True)
+        parser.add_argument('--time_dt', help='Timestamp Input', required=False)
+        parser.add_argument('--time_str', help='Timestamp to Compare', required=False)
+        args, unknown = parser.parse_known_args()
+    
+        json_dict = {}
+        now = datetime.now()
+        if args.time_dt:
+            past = args.time_dt
+        else:
+            past = args.time_str
+
+        try:
+            past_time = datetime.strptime(past,"%Y-%m-%dT%H:%M:%S.%fZ")
+        except:
+            past.strip('Zz')
+            try:
+                past_time = datetime.strptime(past,"%Y-%m-%dT%H:%M:%S.%f")
+            except:
+                past_time = datetime.strptime(past,"%Y-%m-%dT%H:%M:%S")
+
+        start_time = datetime.strptime(str(now), "%Y-%m-%d %H:%M:%S.%f")
+
+        time_compare = start_time - past_time
+        time_diff = time_compare.days
+
+        json_dict['time_current'] = str(start_time)
+        json_dict['time_compared'] = str(past_time)
+        json_dict['time_elapsed'] = str(time_compare)
+        json_dict['days_elapsed'] = int(time_diff)
+
+        # now = datetime.now()
+        # json_dict['end_time'] = time.strftime("%m/%d/%y %H:%M:%S")
+        
+        print(json.dumps(json_dict))
+        exit(0)
+    except Exception as e:
+        err = str(e)
+        sys.stderr.write(str(e))
+        exit(-1)
+fields:
+  - id: time_dt
+    label: 'Timestamp Datetime Input'
+    type: datetime
+    required: false
+    hint: 'Time used to determine how much time has elasped since the current time. Overrides "Timestamp String Input".'
+  - id: time_str
+    label: 'Timestamp String Input'
+    type: text
+    required: false
+    incident_artifacts: true
+    hint: 'Time used to determine how much time has elasped since the current time.'
+
+output:
+  - path: 'time_current'
+    type: text
+  - path: 'time_compared'
+    type: text
+  - path: 'time_elapsed'
+    type: text
+  - path: 'days_elapsed'
+    type: text
