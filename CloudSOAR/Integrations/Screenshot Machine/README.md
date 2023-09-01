@@ -1,5 +1,5 @@
 # Screenshot Machine
-Sumo Logic Custom CloudSOAR Integration for Armorblox, provided by the community. 
+Sumo Logic Custom CloudSOAR Integration for Screenshot Machine, provided by the community. 
 
 **This integration will likely be available in App Central in the near future.**
 
