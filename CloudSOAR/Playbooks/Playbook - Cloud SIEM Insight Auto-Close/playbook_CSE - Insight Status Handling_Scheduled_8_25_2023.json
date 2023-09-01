@@ -1,0 +1,1000 @@
+[
+    {
+        "model": "automation.playbookpublished",
+        "pk": null,
+        "fields":
+        {
+            "description": "<p>Automatically closes incidents marked as 'closed' in CloudSIEM.</p>",
+            "name": "CSE - Insight Status Handling (Live)",
+            "is_deleted": false,
+            "kill_on_error": false,
+            "last_updated": "2022-06-23T15:59:52.496",
+            "links":
+            [
+                {
+                    "z": 4,
+                    "id": "89eb393e-98be-4ccc-a8c5-38e5aa58a607",
+                    "type": "link",
+                    "attrs":
+                    {
+                        ".marker-target":
+                        {
+                            "d": "M 10 0 L 0 5 L 10 10 z"
+                        }
+                    },
+                    "router":
+                    {
+                        "name": "manhattan"
+                    },
+                    "source":
+                    {
+                        "id": "649e694d-d12b-4903-9356-273b2fe7ab6c",
+                        "port": "out"
+                    },
+                    "target":
+                    {
+                        "id": "e73f94bc-a188-46f8-bbc5-4c16ebc50d4d",
+                        "port": "in"
+                    },
+                    "connector":
+                    {
+                        "args":
+                        {
+                            "type": "gap"
+                        },
+                        "name": "jumpover"
+                    }
+                },
+                {
+                    "z": 7,
+                    "id": "f92474e0-021a-4573-b201-e2e48d0dd3d9",
+                    "type": "link",
+                    "attrs":
+                    {
+                        ".marker-target":
+                        {
+                            "d": "M 10 0 L 0 5 L 10 10 z"
+                        }
+                    },
+                    "router":
+                    {
+                        "name": "manhattan"
+                    },
+                    "source":
+                    {
+                        "id": "69654292-f601-44e8-a752-d4e61fb18139",
+                        "port": "out"
+                    },
+                    "target":
+                    {
+                        "id": "d0fd739c-50ae-4b86-b309-631383bd7e8b",
+                        "port": "in"
+                    },
+                    "connector":
+                    {
+                        "args":
+                        {
+                            "type": "gap"
+                        },
+                        "name": "jumpover"
+                    }
+                },
+                {
+                    "z": 9,
+                    "id": "051165f9-a38c-406c-8819-a01f006f53b4",
+                    "type": "link",
+                    "attrs":
+                    {
+                        ".marker-target":
+                        {
+                            "d": "M 10 0 L 0 5 L 10 10 z"
+                        }
+                    },
+                    "router":
+                    {
+                        "name": "manhattan"
+                    },
+                    "source":
+                    {
+                        "id": "e73f94bc-a188-46f8-bbc5-4c16ebc50d4d",
+                        "port": "out"
+                    },
+                    "target":
+                    {
+                        "id": "7d693b71-e72e-4046-8df5-a6c3f6cf14b2",
+                        "port": "in"
+                    },
+                    "connector":
+                    {
+                        "args":
+                        {
+                            "type": "gap"
+                        },
+                        "name": "jumpover"
+                    }
+                },
+                {
+                    "z": 10,
+                    "id": "b950dd35-a3c4-43a0-be4e-415a240cbf8e",
+                    "type": "link",
+                    "attrs":
+                    {
+                        ".marker-target":
+                        {
+                            "d": "M 10 0 L 0 5 L 10 10 z"
+                        }
+                    },
+                    "router":
+                    {
+                        "name": "manhattan"
+                    },
+                    "source":
+                    {
+                        "id": "7d693b71-e72e-4046-8df5-a6c3f6cf14b2",
+                        "port": "out"
+                    },
+                    "target":
+                    {
+                        "id": "69654292-f601-44e8-a752-d4e61fb18139",
+                        "port": "in"
+                    },
+                    "connector":
+                    {
+                        "args":
+                        {
+                            "type": "gap"
+                        },
+                        "name": "jumpover"
+                    }
+                }
+            ],
+            "nodes":
+            [
+                {
+                    "z": 1,
+                    "id": "649e694d-d12b-4903-9356-273b2fe7ab6c",
+                    "a_id": "62b48b0a3024124500bf2063",
+                    "size":
+                    {
+                        "width": 50,
+                        "height": 50
+                    },
+                    "type": "devs.Start",
+                    "angle": 0,
+                    "attrs":
+                    {
+                        ".title":
+                        {
+                            "text": "START"
+                        }
+                    },
+                    "ports":
+                    {
+                        "items":
+                        [
+                            {
+                                "id": "out",
+                                "attrs":
+                                {
+                                    ".port-label":
+                                    {
+                                        "text": "out"
+                                    }
+                                },
+                                "group": "out"
+                            }
+                        ],
+                        "groups":
+                        {
+                            "in":
+                            {
+                                "attrs":
+                                {
+                                    ".port-body":
+                                    {
+                                        "r": 10,
+                                        "fill": "#fff",
+                                        "magnet": true,
+                                        "stroke": "#000"
+                                    },
+                                    ".port-label":
+                                    {
+                                        "fill": "#000"
+                                    }
+                                },
+                                "label":
+                                {
+                                    "position":
+                                    {
+                                        "args":
+                                        {
+                                            "y": 10
+                                        },
+                                        "name": "left"
+                                    }
+                                },
+                                "position":
+                                {
+                                    "name": "left"
+                                }
+                            },
+                            "out":
+                            {
+                                "z": 0,
+                                "id": "out",
+                                "attrs":
+                                {
+                                    "circle":
+                                    {
+                                        "r": 15,
+                                        "cx": 28,
+                                        "fill": "rgba(255,255,255,0.03)",
+                                        "magnet": "true",
+                                        "stroke-width": 0
+                                    },
+                                    ".port-body":
+                                    {
+                                        "r": 10,
+                                        "fill": "#fff",
+                                        "magnet": true,
+                                        "stroke": "#000"
+                                    },
+                                    ".port-label":
+                                    {
+                                        "fill": "#000"
+                                    }
+                                },
+                                "group": "out",
+                                "label":
+                                {
+                                    "markup": "<text />",
+                                    "position":
+                                    {
+                                        "args":
+                                        {
+                                            "y": 10
+                                        },
+                                        "name": "top"
+                                    }
+                                },
+                                "markup": "<circle r=\"15\" />",
+                                "position":
+                                {
+                                    "name": "right"
+                                }
+                            }
+                        }
+                    },
+                    "inPorts":
+                    [],
+                    "outPorts":
+                    [
+                        "out"
+                    ],
+                    "position":
+                    {
+                        "x": -90,
+                        "y": 0
+                    },
+                    "stepType": "start",
+                    "elementType": "START"
+                },
+                {
+                    "z": 2,
+                    "id": "d0fd739c-50ae-4b86-b309-631383bd7e8b",
+                    "a_id": "62b48b0a73086d7800ce168b",
+                    "size":
+                    {
+                        "width": 50,
+                        "height": 50
+                    },
+                    "type": "devs.End",
+                    "angle": 0,
+                    "attrs":
+                    {
+                        ".title":
+                        {
+                            "text": "END"
+                        }
+                    },
+                    "ports":
+                    {
+                        "items":
+                        [
+                            {
+                                "id": "in",
+                                "attrs":
+                                {
+                                    ".port-label":
+                                    {
+                                        "text": "in"
+                                    }
+                                },
+                                "group": "in"
+                            }
+                        ],
+                        "groups":
+                        {
+                            "in":
+                            {
+                                "z": 0,
+                                "id": "in",
+                                "attrs":
+                                {
+                                    "circle":
+                                    {
+                                        "r": 15,
+                                        "fill": "rgba(255,255,255,0.03)",
+                                        "magnet": "passive",
+                                        "stroke-width": 0
+                                    },
+                                    ".port-body":
+                                    {
+                                        "r": 10,
+                                        "fill": "#fff",
+                                        "magnet": true,
+                                        "stroke": "#000"
+                                    },
+                                    ".port-label":
+                                    {
+                                        "fill": "#000"
+                                    }
+                                },
+                                "group": "in",
+                                "label":
+                                {
+                                    "markup": "<text />",
+                                    "position":
+                                    {
+                                        "args":
+                                        {
+                                            "y": 10
+                                        },
+                                        "name": "top"
+                                    }
+                                },
+                                "markup": "<circle r=\"15\" />",
+                                "position":
+                                {
+                                    "name": "left"
+                                }
+                            },
+                            "out":
+                            {
+                                "attrs":
+                                {
+                                    ".port-body":
+                                    {
+                                        "r": 10,
+                                        "fill": "#fff",
+                                        "magnet": true,
+                                        "stroke": "#000"
+                                    },
+                                    ".port-label":
+                                    {
+                                        "fill": "#000"
+                                    }
+                                },
+                                "label":
+                                {
+                                    "position":
+                                    {
+                                        "args":
+                                        {
+                                            "y": 10
+                                        },
+                                        "name": "right"
+                                    }
+                                },
+                                "position":
+                                {
+                                    "name": "right"
+                                }
+                            }
+                        }
+                    },
+                    "inPorts":
+                    [
+                        "in"
+                    ],
+                    "outPorts":
+                    [],
+                    "position":
+                    {
+                        "x": 810,
+                        "y": 0
+                    },
+                    "stepType": "end",
+                    "elementType": "END"
+                },
+                {
+                    "z": 3,
+                    "id": "e73f94bc-a188-46f8-bbc5-4c16ebc50d4d",
+                    "a_id": "62b48b1840a92a541abf27d8",
+                    "size":
+                    {
+                        "width": 180,
+                        "height": 80
+                    },
+                    "type": "devs.Action",
+                    "angle": 0,
+                    "attrs":
+                    {
+                        ".info":
+                        {
+                            "text": ""
+                        },
+                        ".title":
+                        {
+                            "text": "Scheduled"
+                        },
+                        ".rotatable":
+                        {
+                            "data-type": "Scheduled"
+                        },
+                        ".description":
+                        {
+                            "text": "Check Insight Status\r\nSchedule"
+                        }
+                    },
+                    "ports":
+                    {
+                        "items":
+                        [
+                            {
+                                "id": "in",
+                                "attrs":
+                                {
+                                    ".port-label":
+                                    {
+                                        "text": "in"
+                                    }
+                                },
+                                "group": "in"
+                            },
+                            {
+                                "id": "out",
+                                "attrs":
+                                {
+                                    ".port-label":
+                                    {
+                                        "text": "out"
+                                    }
+                                },
+                                "group": "out"
+                            }
+                        ],
+                        "groups":
+                        {
+                            "in":
+                            {
+                                "z": 0,
+                                "id": "in",
+                                "attrs":
+                                {
+                                    "circle":
+                                    {
+                                        "r": 15,
+                                        "fill": "rgba(255,255,255,0.03)",
+                                        "magnet": "passive",
+                                        "stroke-width": 0
+                                    },
+                                    ".port-body":
+                                    {
+                                        "r": 10,
+                                        "fill": "#fff",
+                                        "magnet": true,
+                                        "stroke": "#000"
+                                    },
+                                    ".port-label":
+                                    {
+                                        "fill": "#000"
+                                    }
+                                },
+                                "group": "in",
+                                "label":
+                                {
+                                    "markup": "<text />",
+                                    "position":
+                                    {
+                                        "args":
+                                        {
+                                            "y": 10
+                                        },
+                                        "name": "top"
+                                    }
+                                },
+                                "markup": "<circle r=\"15\" />",
+                                "position":
+                                {
+                                    "args":
+                                    {
+                                        "x": "0",
+                                        "y": "43"
+                                    },
+                                    "name": "left"
+                                }
+                            },
+                            "out":
+                            {
+                                "z": 0,
+                                "id": "out",
+                                "attrs":
+                                {
+                                    "circle":
+                                    {
+                                        "r": 15,
+                                        "fill": "rgba(255,255,255,0.03)",
+                                        "magnet": "true",
+                                        "stroke-width": 0
+                                    },
+                                    ".port-body":
+                                    {
+                                        "r": 10,
+                                        "fill": "#fff",
+                                        "magnet": true,
+                                        "stroke": "#000"
+                                    },
+                                    ".port-label":
+                                    {
+                                        "fill": "#000"
+                                    }
+                                },
+                                "group": "out",
+                                "label":
+                                {
+                                    "markup": "<text />",
+                                    "position":
+                                    {
+                                        "args":
+                                        {
+                                            "y": 10
+                                        },
+                                        "name": "top"
+                                    }
+                                },
+                                "markup": "<circle r=\"15\" />",
+                                "position":
+                                {
+                                    "args":
+                                    {
+                                        "x": "180",
+                                        "y": "43"
+                                    },
+                                    "name": "left"
+                                }
+                            }
+                        }
+                    },
+                    "actConf":
+                    {
+                        "opt_fields":
+                        [],
+                        "required_fields":
+                        [],
+                        "optSwitch_fields":
+                        []
+                    },
+                    "actToDo": "dynamicCheckInsightStatusSchedule_1",
+                    "inPorts":
+                    [
+                        "in"
+                    ],
+                    "actAsset": "",
+                    "outPorts":
+                    [
+                        "out"
+                    ],
+                    "position":
+                    {
+                        "x": 54,
+                        "y": -18
+                    },
+                    "stepType": "action",
+                    "actionDesc": "",
+                    "actionName": "dynamicCheckInsightStatusSchedule",
+                    "actionType": "Scheduled",
+                    "authorizer": "",
+                    "breakPoint": false,
+                    "actionTitle": " Check Insight Status Schedule ",
+                    "actionNameDisplay": "Check Insight Status Schedule",
+                    "cartesian_product": true
+                },
+                {
+                    "z": 5,
+                    "id": "69654292-f601-44e8-a752-d4e61fb18139",
+                    "a_id": "62b48b37ffb827edf9d635c7",
+                    "size":
+                    {
+                        "width": 180,
+                        "height": 80
+                    },
+                    "type": "devs.Action",
+                    "angle": 0,
+                    "attrs":
+                    {
+                        ".info":
+                        {
+                            "text": ""
+                        },
+                        ".title":
+                        {
+                            "text": "Custom"
+                        },
+                        ".rotatable":
+                        {
+                            "data-type": "Custom"
+                        },
+                        ".description":
+                        {
+                            "text": "Close Incident"
+                        }
+                    },
+                    "ports":
+                    {
+                        "items":
+                        [
+                            {
+                                "id": "in",
+                                "attrs":
+                                {
+                                    ".port-label":
+                                    {
+                                        "text": "in"
+                                    }
+                                },
+                                "group": "in"
+                            },
+                            {
+                                "id": "out",
+                                "attrs":
+                                {
+                                    ".port-label":
+                                    {
+                                        "text": "out"
+                                    }
+                                },
+                                "group": "out"
+                            }
+                        ],
+                        "groups":
+                        {
+                            "in":
+                            {
+                                "z": 0,
+                                "id": "in",
+                                "attrs":
+                                {
+                                    "circle":
+                                    {
+                                        "r": 15,
+                                        "fill": "rgba(255,255,255,0.03)",
+                                        "magnet": "passive",
+                                        "stroke-width": 0
+                                    },
+                                    ".port-body":
+                                    {
+                                        "r": 10,
+                                        "fill": "#fff",
+                                        "magnet": true,
+                                        "stroke": "#000"
+                                    },
+                                    ".port-label":
+                                    {
+                                        "fill": "#000"
+                                    }
+                                },
+                                "group": "in",
+                                "label":
+                                {
+                                    "markup": "<text />",
+                                    "position":
+                                    {
+                                        "args":
+                                        {
+                                            "y": 10
+                                        },
+                                        "name": "top"
+                                    }
+                                },
+                                "markup": "<circle r=\"15\" />",
+                                "position":
+                                {
+                                    "args":
+                                    {
+                                        "x": "0",
+                                        "y": "43"
+                                    },
+                                    "name": "left"
+                                }
+                            },
+                            "out":
+                            {
+                                "z": 0,
+                                "id": "out",
+                                "attrs":
+                                {
+                                    "circle":
+                                    {
+                                        "r": 15,
+                                        "fill": "rgba(255,255,255,0.03)",
+                                        "magnet": "true",
+                                        "stroke-width": 0
+                                    },
+                                    ".port-body":
+                                    {
+                                        "r": 10,
+                                        "fill": "#fff",
+                                        "magnet": true,
+                                        "stroke": "#000"
+                                    },
+                                    ".port-label":
+                                    {
+                                        "fill": "#000"
+                                    }
+                                },
+                                "group": "out",
+                                "label":
+                                {
+                                    "markup": "<text />",
+                                    "position":
+                                    {
+                                        "args":
+                                        {
+                                            "y": 10
+                                        },
+                                        "name": "top"
+                                    }
+                                },
+                                "markup": "<circle r=\"15\" />",
+                                "position":
+                                {
+                                    "args":
+                                    {
+                                        "x": "180",
+                                        "y": "43"
+                                    },
+                                    "name": "left"
+                                }
+                            }
+                        }
+                    },
+                    "actConf":
+                    {
+                        "opt_fields":
+                        [],
+                        "required_fields":
+                        [],
+                        "optSwitch_fields":
+                        []
+                    },
+                    "actToDo": "dynamicCloseIncident(4)_1",
+                    "inPorts":
+                    [
+                        "in"
+                    ],
+                    "actAsset": "",
+                    "outPorts":
+                    [
+                        "out"
+                    ],
+                    "position":
+                    {
+                        "x": 558,
+                        "y": -18
+                    },
+                    "stepType": "action",
+                    "actionDesc": "",
+                    "actionName": "dynamicCloseIncident(4)",
+                    "actionType": "Custom",
+                    "authorizer": "",
+                    "breakPoint": false,
+                    "actionTitle": " Close Incident ",
+                    "actionNameDisplay": "Close Incident (4)",
+                    "cartesian_product": true
+                },
+                {
+                    "z": 8,
+                    "id": "7d693b71-e72e-4046-8df5-a6c3f6cf14b2",
+                    "a_id": "62b48dc0ffb827edf9d635c8",
+                    "size":
+                    {
+                        "width": 180,
+                        "height": 80
+                    },
+                    "type": "devs.Action",
+                    "angle": 0,
+                    "attrs":
+                    {
+                        ".info":
+                        {
+                            "text": ""
+                        },
+                        ".title":
+                        {
+                            "text": "Custom"
+                        },
+                        ".rotatable":
+                        {
+                            "data-type": "Custom"
+                        },
+                        ".description":
+                        {
+                            "text": "Update Incident Phase"
+                        }
+                    },
+                    "ports":
+                    {
+                        "items":
+                        [
+                            {
+                                "id": "in",
+                                "attrs":
+                                {
+                                    ".port-label":
+                                    {
+                                        "text": "in"
+                                    }
+                                },
+                                "group": "in"
+                            },
+                            {
+                                "id": "out",
+                                "attrs":
+                                {
+                                    ".port-label":
+                                    {
+                                        "text": "out"
+                                    }
+                                },
+                                "group": "out"
+                            }
+                        ],
+                        "groups":
+                        {
+                            "in":
+                            {
+                                "z": 0,
+                                "id": "in",
+                                "attrs":
+                                {
+                                    "circle":
+                                    {
+                                        "r": 15,
+                                        "fill": "rgba(255,255,255,0.03)",
+                                        "magnet": "passive",
+                                        "stroke-width": 0
+                                    },
+                                    ".port-body":
+                                    {
+                                        "r": 10,
+                                        "fill": "#fff",
+                                        "magnet": true,
+                                        "stroke": "#000"
+                                    },
+                                    ".port-label":
+                                    {
+                                        "fill": "#000"
+                                    }
+                                },
+                                "group": "in",
+                                "label":
+                                {
+                                    "markup": "<text />",
+                                    "position":
+                                    {
+                                        "args":
+                                        {
+                                            "y": 10
+                                        },
+                                        "name": "top"
+                                    }
+                                },
+                                "markup": "<circle r=\"15\" />",
+                                "position":
+                                {
+                                    "args":
+                                    {
+                                        "x": "0",
+                                        "y": "43"
+                                    },
+                                    "name": "left"
+                                }
+                            },
+                            "out":
+                            {
+                                "z": 0,
+                                "id": "out",
+                                "attrs":
+                                {
+                                    "circle":
+                                    {
+                                        "r": 15,
+                                        "fill": "rgba(255,255,255,0.03)",
+                                        "magnet": "true",
+                                        "stroke-width": 0
+                                    },
+                                    ".port-body":
+                                    {
+                                        "r": 10,
+                                        "fill": "#fff",
+                                        "magnet": true,
+                                        "stroke": "#000"
+                                    },
+                                    ".port-label":
+                                    {
+                                        "fill": "#000"
+                                    }
+                                },
+                                "group": "out",
+                                "label":
+                                {
+                                    "markup": "<text />",
+                                    "position":
+                                    {
+                                        "args":
+                                        {
+                                            "y": 10
+                                        },
+                                        "name": "top"
+                                    }
+                                },
+                                "markup": "<circle r=\"15\" />",
+                                "position":
+                                {
+                                    "args":
+                                    {
+                                        "x": "180",
+                                        "y": "43"
+                                    },
+                                    "name": "left"
+                                }
+                            }
+                        }
+                    },
+                    "actConf":
+                    {
+                        "opt_fields":
+                        [],
+                        "required_fields":
+                        [],
+                        "optSwitch_fields":
+                        []
+                    },
+                    "actToDo": "dynamicUpdateIncidentPhase_1",
+                    "inPorts":
+                    [
+                        "in"
+                    ],
+                    "actAsset": "",
+                    "outPorts":
+                    [
+                        "out"
+                    ],
+                    "position":
+                    {
+                        "x": 306,
+                        "y": -18
+                    },
+                    "stepType": "action",
+                    "actionDesc": "",
+                    "actionName": "dynamicUpdateIncidentPhase",
+                    "actionType": "Custom",
+                    "authorizer": "",
+                    "breakPoint": false,
+                    "actionTitle": " Update Incident Phase ",
+                    "actionNameDisplay": "Update Incident Phase",
+                    "cartesian_product": true
+                }
+            ],
+            "mail_on_error":
+            {},
+            "previewImage": null,
+            "parent_revision_id": null,
+            "type": 13574,
+            "created_by": 93,
+            "nested": false,
+            "type_label": "CSE"
+        }
+    }
+]
