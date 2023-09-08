@@ -79,6 +79,8 @@ This integration is in active development. Actions, or the parameters defined th
   - **Request Body as JSON** - a _textarea_ field to build a JSON result using placeholders.
   - **Request Body (output.raw JSON)** - accepts the raw JSON result from the output of a previous action.
 
+### Get Incident
+- Fetches Incident data (all fields, related incident IDs, as well as external alert data) and returns it in JSON format. This is useful for posting to a CIP HTTP source (using 'Generic HTTP POST' action)
 
 
 ### To upload your own content:

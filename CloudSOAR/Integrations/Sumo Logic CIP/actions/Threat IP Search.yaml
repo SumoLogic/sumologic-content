@@ -1,0 +1,428 @@
+integration: Sumo Logic CIP (Custom)
+name: Threat IP Search
+type: Enrichment
+script:
+  code: |
+    import os
+    import re
+    import sys
+    import json
+    import time
+    import math
+    import html
+    import urllib3
+    import requests
+    import argparse
+    from datetime import datetime, timedelta
+
+    # disabling all urllib3 warnings.
+    urllib3.disable_warnings()
+
+    ### Standard wrapper class for SOAR OIF actions
+    class EnvDefault(argparse.Action):
+        def __init__(self, required=True, default=None, **kwargs):
+            envvar = kwargs.get("dest")
+            default = os.environ.get(envvar, default) if envvar in os.environ else default
+            required = False if required and default else required
+            super(EnvDefault, self).__init__(default=default, required=required, **kwargs)
+
+        def __call__(self, parser, namespace, values, option_string=None):
+            setattr(namespace, self.dest, values)
+
+    ### Function that executes the request with the provided parameters.
+    def send_request(
+            endpoint_url,
+            method="post",
+            params=None,
+            payload=None
+    ):
+        """ Prepares all the parameters of Request and sends it.
+        :param endpoint_url: API URL for the new Request.
+        :param method: method for the Request.
+        :param params: (optional) Dictionary or bytes to be sent in the query string for the Request.
+        :param payload: (optional) json to send in the body of the Request
+        :rtype: requests.Response
+        """
+        global args, verify, proxies, timeout, headers, session
+        request_args = {
+            "auth": (args.accessID, args.accessKey),
+            "headers": headers,
+            'params': params,
+            'json': payload,
+            'timeout': timeout,
+            'proxies': proxies,
+            'verify': verify
+        }
+        responses = getattr(session, method)(endpoint_url, **request_args)
+        responses.raise_for_status()
+        return responses.json()
+
+    ### Handle time arguments when relative time is used (e.g. "last 15 minutes")
+    def prepare_from_and_to_filter(last_periods, time_zone):
+        # docker is utc time
+        now = datetime.utcnow()
+        # set correct timeZone
+        time_to_be_added = "plus"
+        if "-" in time_zone:
+            time_to_be_added = "minus"
+        time_zone = str(time_zone).replace('-', '').replace('+', '')
+        time_zone = time_zone.split(":")
+        if len(time_zone) > 1:
+            try:
+                last_hours = int(time_zone[0])
+            except(ValueError, KeyError):
+                last_hours = 0
+            try:
+                last_minutes = int(time_zone[1])
+            except(ValueError, KeyError):
+                last_minutes = 0
+            if time_to_be_added == "minus":
+                # Adjust the current time according to timezone
+                now = now - timedelta(hours=last_hours, minutes=last_minutes)
+            else:
+                # Adjust the current time according to timezone
+                now = now + timedelta(hours=last_hours, minutes=last_minutes)
+        if last_periods is None or last_periods == "" or str(last_periods).lower() == "none":
+            last_periods = 15
+        try:
+            last_periods = int(last_periods)
+        except(ValueError, KeyError):
+            # if we have some error in converting last_periods into 'int' just set last 15 minutes
+            last_periods = 15
+        # from current time less the last period minutes
+        start_time = (now - timedelta(minutes=last_periods)).strftime("%Y-%m-%dT%H:%M:%S")
+        end_time = now.strftime("%Y-%m-%dT%H:%M:%S")
+        
+        return {'from': start_time, 'to': end_time}
+
+    ### Main code (nested in a try/except block)
+    try:
+
+        ### Action parameters and those inherited from the integration
+        # Integration-level parameters
+        parser = argparse.ArgumentParser()
+        parser.add_argument('--url', help='URL, REQUIRED', required=True, action=EnvDefault)
+        parser.add_argument('--accessID', help='Access ID, REQUIRED', required=True, action=EnvDefault)
+        parser.add_argument('--accessKey', help='Access Key, REQUIRED', required=True, action=EnvDefault)
+        parser.add_argument('--timezone', help='Timezone', required=False, action=EnvDefault)
+        parser.add_argument('--timeout', help='Timeout', required=False, default=180, action=EnvDefault)
+        parser.add_argument('--verify', help='Verify SSL', required=False, action=EnvDefault)
+        parser.add_argument('--proxy_url', help='Proxy URL', required=False, action=EnvDefault)
+
+        # Action-level parameters
+        parser.add_argument('--sourceCategory', help='Source Category=', required=False, action=EnvDefault)
+        parser.add_argument('--ip_address', help='IP Address', required=False, action=EnvDefault)
+        parser.add_argument('--malicious_confidence', help='Malicious Confidence', required=False, action=EnvDefault)
+        parser.add_argument('--lastPeriod', help="Time Range (Relative)", required=False, action=EnvDefault)
+        
+        # Instantiate the arguments passed above.
+        args, unknown = parser.parse_known_args()
+        proxies = {'http': args.proxy_url, 'https': args.proxy_url} if args.proxy_url is not None else None
+        verify = args.verify == 'true'
+        
+        
+        
+        ### URL, Header, and timeout handling
+        # Evaluate timeout
+        try:
+            timeout = float(args.timeout)
+        except(ValueError, KeyError):
+            timeout = 180
+        
+        # URL and headers
+        url = args.url.rstrip('/')
+        headers = {'Content-Type':'application/json','Accept':'application/json'}
+        
+        
+        
+        ### Parse and correct timezone discrepancies
+        if args.timezone is None or args.timezone == '' or args.timezone == 'None':
+            timezone = "+01:00"
+        else:
+            timezone = args.timezone.replace('minus', '-')
+        from_and_to_dict = prepare_from_and_to_filter(args.lastPeriod, timezone)
+        
+        
+        
+        ### Build the search query
+        ### Query arguments split into multiple parts to better handle character escape sequences (ex. regex)
+        
+        # Check if a source category has been provided
+        if args.sourceCategory:
+            part_one = '_sourceCategory="{0}"'.format(args.sourceCategory)
+        else:
+            part_one = '_sourceCategory=*'
+        
+        # Format the list of confidence scores into a concatenated string
+        if args.malicious_confidence:
+            confidence = args.malicious_confidence.split(',')
+            confidence_str = ""
+            for x in range(len(confidence)):
+                if confidence_str == "":
+                    confidence_str = '"{0}"'.format(confidence[x])
+                else:
+                    confidence_str = confidence_str + ',"{0}"'.format(confidence[x])
+        else:
+            confidence_str = '"low","medium","high","unverified"'
+        
+        # Extract IP addresses in search results
+        part_two = '| parse regex "(?<ip_address>\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" multi'
+        
+        # Pass in concat confidence scores built on line 148
+        part_three = '| threatip ip_address| where !isNull(malicious_confidence) and malicious_confidence in({0})'.format(confidence_str)
+        
+        # Pass in IP address and dedup the results
+        # Format both single and list of IP inputs
+        if args.ip_address:
+            ip_addresses = args.ip_address.replace(' ', '').split(',')
+            ip_addresses_str = ""
+            for x in range(len(ip_addresses)):
+                if ip_addresses_str == "":
+                    ip_addresses_str = '"{0}"'.format(ip_addresses[x])
+                else:
+                    ip_addresses_str = ip_addresses_str + ',"{0}"'.format(ip_addresses[x])
+            part_four = '| where ip_address in({0})| dedup by ip_address, _sourceCategory'.format(ip_addresses_str)
+        else:
+            part_four = '| dedup by ip_address, _sourceCategory'
+        
+        # Concatenate the final query string
+        query_string = '{0}{1}{2}{3}'.format(part_one, part_two, part_three, part_four)
+        
+        
+        
+        ### Build the search payload
+        
+        payloads = {
+            'query': query_string,
+            'timeZone': timezone,
+            **from_and_to_dict,
+            'autoParsingMode': 'AutoParse'
+        }
+        # Instantiate the request session
+        session = requests.Session()
+        
+        ### Create the Search Job (returns a job ID)
+        #   https://help.sumologic.com/docs/api/search-job/#create-a-search-job
+        create_search_endpoint = '{0}/api/v1/search/jobs'.format(url)
+        create_search_results = send_request(create_search_endpoint, payload=payloads)
+        
+        # Store results in a list
+        search_messages_results = []
+        search_aggregate_results = []
+        
+        
+        
+        ### Monitor the async job status using job ID
+        #   https://help.sumologic.com/docs/api/search-job/#get-the-current-search-job-status
+        if "id" in create_search_results:
+            search_id = create_search_results["id"]
+            check_search_endpoint = '{url}/{id}'.format(url=create_search_endpoint, id=search_id)
+            check_search_response = send_request(check_search_endpoint, method="get")
+            
+            # Wait for the job to complete before proceeding
+            if "state" in check_search_response:
+                while check_search_response["state"] in ["NOT STARTED", "GATHERING RESULTS", ""]:
+                    time.sleep(5)
+                    check_search_response = send_request(check_search_endpoint, method="get")
+                if check_search_response["state"] == "DONE GATHERING RESULTS":
+                    messages_count = check_search_response.get("messageCount", 0)
+                    
+                    # Handle errors encountred in the search job
+                    if messages_count == 0 and (len(check_search_response.get("pendingErrors", 0)) > 0
+                                                or len(check_search_response.get("pendingWarnings", 0)) > 0):
+                        raise Exception("State: {state}. Error: {error}, Warning: {warning}".format(
+                            state=check_search_response["state"], error=", ".join(check_search_response["pendingErrors"]),
+                            warning=", ".join(check_search_response["pendingWarnings"])))
+                    
+                    # Once completed, without errors, fetch the results of the search
+                    # https://help.sumologic.com/docs/api/search-job/#paging-through-the-messages-found-by-a-search-job
+                    get_messages_endpoint = '{url}/messages'.format(url=check_search_endpoint, id=search_id)
+                    repetitions = math.ceil(messages_count / 10000)
+                    for x in range(repetitions):
+                        get_messages_params = {"offset": x, "limit": 10000}
+                        # get Search results
+                        get_messages_response = send_request(get_messages_endpoint, method="get", params=get_messages_params)
+                        search_messages_results += get_messages_response.get("messages", [])
+                        time.sleep(5)
+                # Return syntax or processing errors encountered with the search query 
+                else:
+                    raise Exception("State: {state}. Error: {error}, Warning: {warning}".format(
+                        state=check_search_response["state"], error=", ".join(check_search_response["pendingErrors"]),
+                        warning=", ".join(check_search_response["pendingWarnings"])))
+            
+            # Delete the job once it has completed (using the URL built on line 200)
+            # https://help.sumologic.com/docs/api/search-job/#delete-a-search-job
+            delete_search_response = send_request(check_search_endpoint, method="delete")
+        else:
+            raise Exception("Something went wrong!")
+        
+        # Dump the action results
+        print(json.dumps({
+            "messages": search_messages_results,
+            "aggregate": search_aggregate_results
+        }))
+        
+        # Exit with a result status of 'success'
+        exit(0)
+
+    # The 'error' side of the try/except block
+    except Exception as e:
+        err = str(e)
+        try:
+            if hasattr(e, "response"):
+                try:
+                    response = e.response.json()
+                    err = response.get("message", "")
+                except ValueError:
+                    err = str(e)
+        except AttributeError:
+            err = str(e)
+        sys.stderr.write(str(err))
+        
+        # Exit with a result status of 'failure'
+        exit(-1)
+
+fields:
+- id: sourceCategory
+  label: 'Source Category'
+  type: text
+  required: false
+  hint: 'If no source category is provided, "*" will be used'
+- id: ip_address
+  label: 'IP Addresses'
+  type: tag
+  required: false
+  hint: 'Filter the IP Address (single or comma-separated) to search for using "threatip()" search operator.'
+- id: malicious_confidence
+  label: 'Malicious Confidence'
+  required: false
+  type: multilist
+  values:
+      'unverified': 'unverified'
+      'low': 'low'
+      'medium': 'medium'
+      'high': 'high'
+  hint: 'If none provided, all results will be returned.'
+- id: lastPeriod
+  label: 'Time Range (Relative)'
+  required: false
+  type: list
+  values:
+    '15': 15 Minutes
+    '30': 30 Minutes
+    '60': 1 Hour
+    '180': 3 Hours
+    '360': 6 Hours
+    '720': 12 Hours
+    '1440': 1 Day
+    '4320': 3 Days
+    '10080': 7 Days
+    '20160': 14 Days
+    '43200': 30 Days
+  hint: 'If none provided, the default is 15 minutes)'
+output:
+  - path: messages.[].map.ipaddress
+    type: text
+    example: '190.169.0.16'
+  - path: messages.[].map._loglevel
+    type: text
+    example: 'INFO'
+  - path: messages.[].map.pod
+    type: text
+    example: 'stg02-useast1'
+  - path: messages.[].map._raw
+    type: text
+  - path: messages.[].map._collectorid
+    type: text
+    example: '292214125'
+  - path: messages.[].map.objects
+    type: text
+    example: '["USER"]'
+  - path: messages.[].map.malicious_confidence
+    type: text
+    example: 'high'
+  - path: messages.[].map._collector
+    type: text
+    example: 'Labs/cloud'
+  - path: messages.[].map._sourcehost
+    type: text
+    example: '52.36.71.65'
+  - path: messages.[].map.type
+    type: text
+    example: 'ip_address'
+  - path: messages.[].map.raw_threat
+    type: text
+    example: '{"id":"ip_address_190.169.0.16","indicator":"190.169.0.16","type":"ip_address", ... }'
+  - path: messages.[].map._messageid
+    type: text
+    example: '4820122254232686484'
+  - path: messages.[].map._size
+    type: text
+    example: '721'
+  - path: messages.[].map.trackingnumber
+    type: text
+    example: 'c048befdbc514030ba4bcbe04c1ddee0'
+  - path: messages.[].map.details
+    type: text
+    example: 'c048befdbc514030ba4bcbe04c1ddee0'
+  - path: messages.[].map.id
+    type: text
+    example: 'de8816cb1693946393234a44500a637c35019a45b979d10bacacb1267f83c269'
+  - path: messages.[].map._version
+    type: text
+    example: 'v7'
+  - path: messages.[].map._blockid
+    type: text
+    example: '2666580040211358720'
+  - path: messages.[].map._messagetime
+    type: text
+    example: '1693946393234'
+  - path: messages.[].map.org
+    type: text
+    example: 'sp-solgrp'
+  - path: messages.[].map.created
+    type: text
+    example: '2023-09-05T20:39:53.234Z'
+  - path: messages.[].map._type
+    type: text
+    example: 'event'
+  - path: messages.[].map._sourceid
+    type: text
+    example: '2112506540'
+  - path: messages.[].map._messagecount
+    type: text
+    example: '81'
+  - path: messages.[].map.ip_address
+    type: text
+    example: '190.169.0.16'
+  - path: messages.[].map._sourcename
+    type: text
+    example: 'Http Input'
+  - path: messages.[].map.actor
+    type: text
+    example: 'Unassigned'
+  - path: messages.[].map._receipttime
+    type: text
+    example: '1693946403051'
+  - path: messages.[].map._sourcecategory
+    type: text
+    example: 'Labs/sailpoint'
+  - path: messages.[].map.name
+    type: text
+    example: 'Logout User Passed'
+  - path: messages.[].map._source
+    type: text
+    example: 'sailpoint'
+  - path: messages.[].map.operation
+    type: text
+    example: 'LOGOUT'
+  - path: messages.[].map.status
+    type: text
+    example: 'PASSED'
+table_view:
+- display_name: IP Address
+  value: messages.[].map.ip_address
+- display_name: Malicious Confidence
+  value: messages.[].map.malicious_confidence
+- display_name: Actor
+  value: messages.[].map.actor
