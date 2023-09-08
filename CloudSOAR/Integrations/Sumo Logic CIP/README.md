@@ -1,7 +1,8 @@
-# Automation Tools
+# Sumo Logic CIP
 
 ## Whats included:
-1. Action YAML Files (Refer to "Action Descriptions" section below for details)
+Additional Action YAML Files that can be used with the OOTB Sumo Logic CIP Integration (Refer to "Action Descriptions" section below for details).
+Note: In order to use this action, the OOTB Sumo Logic CIP integration must be duplicated, and the name of the integration must also match the integration name specified at the top of the Action file.
 
 ## Disclaimer
 This integration is in active development. Actions, or the parameters defined therin may change in subsequent releases.
@@ -22,36 +23,6 @@ This integration is in active development. Actions, or the parameters defined th
   - **Time Range (Relative)** - How far back to search for results. If none specified, the default is 15 minutes)
 
 
-
-### To upload your own content:
-Please see [Sumo Logic Community Ecosystem Apps FAQs](https://help.sumologic.com/docs/integrations/community-ecosystem-apps/#faq).
-
-### To add review/comment to content:
-Please provide a review/comment for this content by following the guidelines below:
-
-- Select the **Comments** folder.
-- Open the **Comments.json** file.
-- Select Edit (pen icon).
-- Add a new line below the current comments, and paste in your review/comment using the following schema:
-
-        {
-            "reviewer":"[githubid/name]",
-            "ratings":{
-                "overall":4,
-                "use-case":5,
-                "design":4,
-                "technical":4
-            },
-            "review":"This app is very useful for knowing x, y, and z. It would be great if the dashboards were broken out by use case instead of being one big dashboard."
-        }
-
-
-- Select **Propose New Changes**.
-- Submit **Pull Request**.
-
-Code owners will review and merge your comments on the content to the repo.
-
-Please see [How to add a review/comment to an app](https://help.sumologic.com/docs/integrations/community-ecosystem-apps/#how-do-i-add-a-reviewrating-to-an-app) for more information.
 
 ### To upload your own content:
 Please see [Sumo Logic Community Ecosystem Apps FAQs](https://help.sumologic.com/docs/integrations/community-ecosystem-apps/#faq).
