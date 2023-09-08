@@ -2,7 +2,8 @@
 
 ## Whats included:
 Additional Action YAML Files that can be used with the OOTB Sumo Logic CIP Integration (Refer to "Action Descriptions" section below for details).
-Note: In order to use this action, the OOTB Sumo Logic CIP integration must be duplicated, and the name of the integration must also match the integration name specified at the top of the Action file.
+
+**Note:** In order to use this action, the OOTB Sumo Logic CIP integration must be duplicated, and the name of the integration must also match the integration name specified at the top of the Action file.
 
 ## Disclaimer
 This integration is in active development. Actions, or the parameters defined therin may change in subsequent releases.
