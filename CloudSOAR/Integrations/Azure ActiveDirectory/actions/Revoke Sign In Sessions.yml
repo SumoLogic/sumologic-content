@@ -1,0 +1,155 @@
+integration: Azure AD
+name: Revoke Sign In Sessions
+type: Containment
+script:
+  code: |
+    import os
+    import sys
+    import json
+    import urllib3
+    import argparse
+    import requests
+    from urllib.parse import urlencode
+
+    # disabling all urllib3 warnings.
+    urllib3.disable_warnings()
+
+    class EnvDefault(argparse.Action):
+        def __init__(self, required=True, default=None, **kwargs):
+            envvar = kwargs.get("dest")
+            default = os.environ.get(envvar, default) if envvar in os.environ else default
+            required = False if required and default else required
+            super(EnvDefault, self).__init__(default=default, required=required, **kwargs)
+
+        def __call__(self, parser, namespace, values, option_string=None):
+            setattr(namespace, self.dest, values)
+
+    def send_request(
+            request_url,
+            request_method="post",
+            request_json=None,
+            request_data=None,
+            request_params=None,
+            request_headers=None,
+            request_timeout=None,
+            request_verify=None,
+            request_proxies=None
+    ):
+        """ Prepares all the parameters of Request and sends it.
+        :param request_url: URL for the new Request.
+        :param request_method: method for the Request.
+        :param request_json: (optional) json to send in the body of the Request
+        :param request_data: (optional) Dictionary, list of tuples, bytes, or file-like object to send in the body of the Request
+        :param request_params: (optional) Dictionary or bytes to be sent in the query string for the Request
+        :param request_headers: (optional) Dictionary of HTTP Headers to send with the Request
+        :param request_timeout: (optional) How long to wait for the server to send data before giving up, as a float
+        :param request_verify: (optional) Either a boolean, in which case it controls whether we verify the server's TLS certificate
+        :param request_proxies: (optional) Dictionary mapping protocol or protocol and hostname to the URL of the proxy.
+        :rtype: dict
+        """
+        request_args = {
+            'json': request_json,
+            'data': request_data,
+            'params': request_params,
+            'headers': request_headers,
+            'timeout': request_timeout,
+            'verify': request_verify,
+            'proxies': request_proxies,
+        }
+        session = requests.Session()
+        responses = getattr(session, request_method)(request_url, **request_args)
+        responses.raise_for_status()
+        return responses.json()
+
+    def get_access_token(tenant, client_id, client_secret, request_timeout, request_verify, request_proxies):
+        auth_url = 'https://login.microsoftonline.com/{tenant}/oauth2/v2.0/token'.format(tenant=tenant)
+        auth_data = {
+            'grant_type': 'client_credentials',
+            'scope': "https://graph.microsoft.com/.default",
+            'client_id': client_id,
+            'client_secret': client_secret
+        }
+        access_token_results = send_request(
+            request_url=auth_url,
+            request_data=urlencode(auth_data),
+            request_timeout=request_timeout,
+            request_verify=request_verify,
+            request_proxies=request_proxies
+        )
+        access_token = access_token_results.get("access_token")
+        if access_token is None:
+            raise Exception("Login failed, Check your Credentials")
+        return access_token
+
+    try:
+        parsers = argparse.ArgumentParser()
+        parsers.add_argument('--api_url', help='API URL, REQUIRED', required=True, action=EnvDefault)
+        parsers.add_argument('--tenant', help='tenant, REQUIRED', required=True, action=EnvDefault)
+        parsers.add_argument('--client_id', help='Client ID, REQUIRED', required=True, action=EnvDefault)
+        parsers.add_argument('--client_secret', help='Client Secret, REQUIRED', required=True, action=EnvDefault)
+        parsers.add_argument('--timeout', help='timeout', required=False, action=EnvDefault)
+        parsers.add_argument('--verify', help='verify', required=False, action=EnvDefault)
+        parsers.add_argument('--proxy_url', help='proxy_url', required=False, action=EnvDefault)
+
+        # https://learn.microsoft.com/en-us/graph/api/user-get?view=graph-rest-1.0&tabs=http
+        parsers.add_argument('--id', help='ID, REQUIRED', required=True, action=EnvDefault)
+        args, unknown = parsers.parse_known_args()
+        proxies = {'http': args.proxy_url, 'https': args.proxy_url} if args.proxy_url is not None else None
+        try:
+            timeout = float(args.timeout)
+        except (ValueError, TypeError):
+            timeout = 180.0
+        verify = args.verify == 'true'
+        bearer_token = get_access_token(args.tenant, args.client_id, args.client_secret, timeout, verify, proxies)
+        headers = {
+            "Authorization": "Bearer {}".format(bearer_token),
+            "Content-Type": "application/json"
+        }
+        user_id = "/{}".format(args.id)
+        if args.id.startswith('$'):
+            user_id = "('{}')".format(args.id)
+        if '#' in args.id:
+            user_id = args.id.replace("#", "%23")
+        # https://learn.microsoft.com/en-us/graph/api/user-revokesigninsessions?view=graph-rest-1.0&tabs=http
+        endpoint_users = "{}/v1.0/users{}/revokeSignInSessions".format(str(args.api_url).rstrip("/"), user_id)
+        users_results = send_request(
+            request_url=endpoint_users,
+            request_method='post',
+            request_headers=headers,
+            request_timeout=timeout,
+            request_verify=verify,
+            request_proxies=proxies
+        )
+        print(json.dumps(users_results))
+        exit(0)
+    except Exception as e:
+        err = str(e)
+        try:
+            if hasattr(e, "response"):
+                try:
+                    response = e.response.json()
+                    error_dict = response.get("error")
+                    if error_dict is not None:
+                        if isinstance(error_dict, dict):
+                            error_cod = error_dict.get("code", "")
+                            error_message = error_dict.get("message", "")
+                            error_dict = "({}) {}".format(str(error_cod), str(error_message))
+                        msg_description = response.get("error_description", "")
+                        err = "API Error: {} {}".format(str(error_dict), str(msg_description))
+                    else:
+                        err = str(response)
+                except ValueError:
+                    err = str(e)
+        except AttributeError:
+            err = str(e)
+        sys.stderr.write(str(err))
+        exit(-1)
+fields:
+  - id: id
+    label: User ID or Principal Name
+    type: text
+    required: true
+    incident_artifacts: true
+output:
+  - path: value
+    type: text

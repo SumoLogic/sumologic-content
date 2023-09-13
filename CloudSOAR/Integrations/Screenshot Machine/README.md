@@ -1,13 +1,21 @@
-# Proofpoint End User Management (Proofpoint Protection Server) CloudSOAR Integration for Sumo Logic
-Sumo Logic Custom CloudSOAR Integration for Proofpoint End User Management (Proofpoint Protection Server), provided by the community. This integration allows you to peform actions on users using the Proofpoint End User Management (Proofpoint Protection Server) API.
+# Screenshot Machine
+Sumo Logic Custom CloudSOAR Integration for Screenshot Machine, provided by the community. 
+
+**This integration will likely be available in App Central in the near future.**
 
 ### Whats included:
-1. Integration YAML File: Integration configurations and test code
+1. Integration YAML File: Integration configurations and test code.
 2. Action YAML File(s):
-    - Change Password (Containment) - Takes user UID or email as input, and forces that user to change their password by sending them an email.
+    - Screenshot Webpage (Enrichment) - This updated action has been enhanced to provide the following:
+        - Render PNG image in an Action Result - Uses output type [image_base64_png](https://help-opensource.sumologic.com/docs/cloud-soar/cloud-soar-integration-framework/#added-more-output-type-for-action).
+        - Provides the encoded base64 string as part of the action result, which can also be used in a playbook when using an action with an 'upload' field type, such as Automation Tools' [Render PNG Image](<../Automation-Tools/actions/Render PNG Image.yaml>) action.
+        - Image attached as an Incident Attachment
+
+![Example 1](reference_01.png)
+![Example 1](reference_02.png)
 
 ### To use the content:
-- Download the Integatration and Action YAML files to your local device.
+- Download the Integration and Action YAML files to your local device.
 - Create a new CloudSOAR integration by logging into CloudSOAR > going to Settings cogwheel (top right) > Automation > Integrations > Plus(+) icon > and selecting the Integration YAML file.
 - Add any Actions you downloaded to that Integration by selecting the Upload icon (hover over the newly added integration), and uploading the Action YAML file(s).
 - For more information on uploading custom Integrations/Actions and how to test them, please see [Working with integrations](https://help-opensource.sumologic.com/docs/cloud-soar/cloud-soar-integration-framework/#working-with-integrations).

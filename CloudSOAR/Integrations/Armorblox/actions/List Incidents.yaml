@@ -1,0 +1,241 @@
+integration: 'Armorblox'
+name: 'List Incidents'
+type: Enrichment
+script:
+  code: |
+    import sys
+    import requests
+    import argparse
+    import urllib3
+    import json
+    urllib3.disable_warnings(urllib3.exceptions.InsecurePlatformWarning)
+    urllib3.disable_warnings(urllib3.exceptions.SNIMissingWarning)
+    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+    try:
+
+        parser = argparse.ArgumentParser()
+        parser.add_argument('--tenant', help='tenant name , REQUIRED', required=True)
+        parser.add_argument('--apiKey', help='apiKey , REQUIRED', required=True)
+        parser.add_argument('--timeout', help='timeout , REQUIRED', required=True)
+        parser.add_argument('--verify', help='verify', required=False)
+        parser.add_argument('--proxy_url', help='proxy_url', required=False)
+        parser.add_argument('--mock', help='mock', required=False)
+
+        parser.add_argument('--timeFilter', help='timeFilter, REQUIRED', required=True)
+        parser.add_argument('--actionTypesFilter', help='actionTypesFilter', required=False)
+        parser.add_argument('--incidentTypesFilter', help='incidentTypesFilter', required=False)
+        parser.add_argument('--priorityTypesFilter', help='priorityTypesFilter', required=False)
+        parser.add_argument('--resolutionStatesTypeFilter', help='resolutionStatesTypeFilter', required=False)
+        parser.add_argument('--receiverEmailFilter', help='receiverEmailFilter', required=False)
+        parser.add_argument('--senderDomainFilter', help='senderDomainFilter', required=False)
+        parser.add_argument('--senderEmailFilter', help='senderEmailFilter', required=False)
+        parser.add_argument('--titleFilter', help='titleFilter', required=False)
+        parser.add_argument('--statusFilter', help='statusFilter', required=False)
+
+        # TODO: pagination ('pageToken', 'PageSize')
+        # params not implemented: 'fromDate', 'toDate'
+
+        args, unknown = parser.parse_known_args()
+        proxies = {'http': args.proxy_url, 'https': args.proxy_url} if args.proxy_url is not None else None
+        try:
+            timeout = float(args.timeout)
+        except ValueError:
+            timeout = 180
+        verify = True if args.verify == "true" else False
+        
+        headers = {
+            'Content-Type': 'application/json',
+            'X-Ab-Authorization': args.apiKey
+        }
+
+        endpoint = "https://{0}.armorblox.io/api/v1beta1/organizations/{1}/incidents".format(args.tenant, args.tenant)
+        mock_endpoint = "https://stoplight.io/mocks/armorblox/public-apis/81683860/api/v1beta1/organizations/{0}/incidents".format(args.tenant)
+        session = requests.Session()
+        params = {
+            'pageSize': 100,
+            'orderBy': 'ASC',
+            'sortBy': 'DATE',
+            'timeFilter': args.timeFilter
+        }
+
+        params['actionTypesFilter'] = args.actionTypesFilter if args.actionTypesFilter is not None else None
+        params['incidentTypesFilter'] = args.incidentTypesFilter if args.incidentTypesFilter is not None else None
+        params['priorityTypesFilter'] = args.priorityTypesFilter if args.priorityTypesFilter is not None else None
+        params['resolutionStatesTypeFilter'] = args.resolutionStatesTypeFilter if args.resolutionStatesTypeFilter is not None else None
+        params['receiverEmailFilter'] = args.receiverEmailFilter if args.receiverEmailFilter is not None else None
+        params['senderDomainFilter'] = args.senderDomainFilter if args.senderDomainFilter is not None else None
+        params['senderEmailFilter'] = args.senderEmailFilter if args.senderEmailFilter is not None else None
+        params['titleFilter'] = args.titleFilter if args.titleFilter is not None else None
+        params['statusFilter'] = args.statusFilter if args.statusFilter is not None else None
+
+        if args.mock == "true":
+            response = session.get(mock_endpoint, headers=headers, params=json.dumps(params), proxies=proxies, verify=verify, timeout=timeout)
+        else:
+            response = session.get(endpoint, headers=headers, params=json.dumps(params), proxies=proxies, verify=verify, timeout=timeout)
+        status_code = response.status_code
+
+        # if str(status_code) == "403":
+        #     raise Exception ("Forbidden or insufficient privileges")
+        # if str(status_code) == "204":
+        #     raise Exception ("API request rate limit exceeded")
+        # response.raise_for_status()
+        print(json.dumps(response.json()))
+        exit(0)
+    except Exception as e:
+        sys.stderr.write(str(e))
+        exit(-1)
+fields:
+  - id: timeFilter
+    label: 'Time Period'
+    type: list
+    required: true
+    hint: 'The time period to search across.'
+    values:
+      lastDay: lastDay
+      last7Days: last7Days
+      lastMonth: lastMonth
+      lastYear: lastYear
+      allTime: allTime
+  - id: actionTypesFilter
+    label: 'Action Types'
+    type: list
+    required: false
+    hint: 'Filter the results by action type.'
+    values:
+      ALERT: ALERT
+      DELETE: DELETE
+      QUARANTINE: QUARANTINE
+      LABEL: LABEL
+      MARK_AS_SAFE: MARK_AS_SAFE
+      LOCK_USER_ACCOUNT: LOCK_USER_ACCOUNT
+  - id: incidentTypesFilter
+    label: 'Incident Type'
+    type: list
+    required: false
+    hint: 'Filter the results by incident type.'
+    values:
+      THREAT_INCIDENT_TYPE: THREAT_INCIDENT_TYPE
+      ABUSE_INCIDENT_TYPE: ABUSE_INCIDENT_TYPE
+      DLP_INCIDENT_TYPE: DLP_INCIDENT_TYPE
+      EAC_INCIDENT_TYPE: EAC_INCIDENT_TYPE
+      GRAYMAIL_INCIDENT_TYPE: GRAYMAIL_INCIDENT_TYPE
+  - id: priorityTypesFilter
+    label: 'Priority Filter'
+    type: list
+    required: false
+    hint: 'Filter the results by incident priority.'
+    values:
+      HIGH: HIGH
+      MEDIUM: MEDIUM
+      LOW: LOW
+  - id: resolutionStatesTypeFilter
+    label: 'Resolution State Filter'
+    type: list
+    required: false
+    hint: 'Fetch open, in-progress, or resolved incidents.'
+    values:
+      OPEN_INCIDENT_RESOLUTION_STATE: OPEN_INCIDENT_RESOLUTION_STATE
+      IN_PROGRESS_INCIDENT_RESOLUTION_STATE: IN_PROGRESS_INCIDENT_RESOLUTION_STATE
+      RESOLVED_INCIDENT_RESOLUTION_STATE: RESOLVED_INCIDENT_RESOLUTION_STATE
+  - id: statusFilter
+    label: 'Status Filter'
+    type: list
+    required: false
+    hint: 'Filter by Deployed or Disabled in UI'
+    values:
+      STATUS_DEVELOPED: STATUS_DEVELOPED
+      STATUS_DISABLED: STATUS_DISABLED
+  - id: receiverEmailFilter
+    label: 'Receiver Email Filter'
+    type: text
+    required: false
+    hint: 'Search by recipient email'
+  - id: senderDomainFilter
+    label: 'Sender Domain Filter'
+    type: text
+    required: false
+    hint: 'Search by sender domain'
+  - id: senderEmailFilter
+    label: 'Sender Email Filter'
+    type: text
+    required: false
+    hint: 'Search by sender email'
+  - id: titleFilter
+    label: 'Title Filter'
+    type: text
+    required: false
+    hint: 'Non-exact subject search'
+output:
+  - path: 'incidents.[].id'
+    type: text
+  - path: 'incidents.[].date'
+    type: text
+  - path: 'incidents.[].policy_names.[]'
+    type: text
+  - path: 'incidents.[].remediation_actions.[]'
+    type: text
+  - path: 'incidents.[].total_count'
+    type: text
+  - path: 'incidents.[].resolutionState'
+    type: text
+  - path: 'incidents.[].tagged'
+    type: text
+  - path: 'incidents.[].object_type'
+    type: text
+  - path: 'incidents.[].remediated_by'
+    type: text
+  - path: 'incidents.[].created_date'
+    type: text
+  - path: 'incidents.[].incident_type'
+    type: text
+  - path: 'incidents.[].research_status'
+    type: text
+  - path: 'incidents.[].earliest_subject'
+    type: text
+  - path: 'incidents.[].app_name'
+    type: text
+  - path: 'incidents.[].senders'
+    type: text
+  - path: 'incidents.[].external_users.[].name'
+    type: text
+  - path: 'incidents.[].external_users.[].email'
+    type: text
+  - path: 'incidents.[].external_users.[].is_vip'
+    type: text
+  - path: 'incidents.[].users.[].user_name'
+    type: text
+  - path: 'incidents.[].users.[].user_address'
+    type: text
+  - path: 'incidents.[].users.[].is_vip'
+    type: text
+  - path: 'incidents.[].users.[].department_name'
+    type: text
+  - path: 'incidents.[].users.[].job_title'
+    type: text
+  - path: 'incidents.[].events.[].event_id'
+    type: text
+  - path: 'incidents.[].events.[].object_id'
+    type: text
+  - path: 'incidents.[].events.[].from_name'
+    type: text
+  - path: 'incidents.[].events.[].from_address'
+    type: text
+  - path: 'incidents.[].events.[].date'
+    type: text
+  - path: 'incidents.[].events.[].event_action.update_by'
+    type: text
+  - path: 'incidents.[].events.[].event_action.action'
+    type: text
+  - path: 'incidents.[].events.[].object_type'
+    type: text
+  - path: 'incidents.[].events.[].title'
+    type: text
+  - path: 'incidents.[].events.[].to_users'
+    type: text
+  - path: 'incidents.[].events.[].to_address'
+    type: text
+  - path: 'incidents.[].events.[].affected_user'
+    type: text
+  - path: 'incidents.[].events.[].attachment_list'
+    type: text

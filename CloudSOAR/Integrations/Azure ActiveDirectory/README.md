@@ -1,13 +1,14 @@
-# Proofpoint End User Management (Proofpoint Protection Server) CloudSOAR Integration for Sumo Logic
-Sumo Logic Custom CloudSOAR Integration for Proofpoint End User Management (Proofpoint Protection Server), provided by the community. This integration allows you to peform actions on users using the Proofpoint End User Management (Proofpoint Protection Server) API.
+# Azure ActiveDirectory
+A supplemental action for Sumo Logic CloudSOAR's AzureAD Integration, provided by the community. This action will likely be available in App Central in the near future.
 
 ### Whats included:
-1. Integration YAML File: Integration configurations and test code
+1. Integration YAML File: Integration configurations and test code.
 2. Action YAML File(s):
-    - Change Password (Containment) - Takes user UID or email as input, and forces that user to change their password by sending them an email.
+    - Revoke SignIn Session (Containment) - Revokes a user's session tokens (should be used after resetting a user's password).
+    - Disable User (Containment) - Disables a user account in Azure AD.
 
 ### To use the content:
-- Download the Integatration and Action YAML files to your local device.
+- Download the Integration and Action YAML files to your local device.
 - Create a new CloudSOAR integration by logging into CloudSOAR > going to Settings cogwheel (top right) > Automation > Integrations > Plus(+) icon > and selecting the Integration YAML file.
 - Add any Actions you downloaded to that Integration by selecting the Upload icon (hover over the newly added integration), and uploading the Action YAML file(s).
 - For more information on uploading custom Integrations/Actions and how to test them, please see [Working with integrations](https://help-opensource.sumologic.com/docs/cloud-soar/cloud-soar-integration-framework/#working-with-integrations).

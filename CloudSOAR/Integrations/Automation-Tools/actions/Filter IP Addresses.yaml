@@ -1,0 +1,57 @@
+integration: 'Automation Tools'
+name: 'Filter IP Addresses'
+type: Custom
+script:
+ code: |
+    import json
+    import sys
+    import argparse
+    import re
+    import ipaddress
+
+    # check a single IP, or list of IPs, and returns a filtered list of IPs (either public or private).
+    try:
+        parser = argparse.ArgumentParser()
+        parser.add_argument('--input', help='String Input', required=True)
+        args, unknown = parser.parse_known_args()
+    
+        result = {}
+        
+        if isinstance(args.input, str):
+            ip_input = args.input.replace(", ", ",")
+            ip_array = ip_input.split(',')
+        elif isinstance(args.input, dict):
+            ip_array = args.input
+        public_ip = []
+        private_ip = []
+        for ip in ip_array:
+            if ipaddress.ip_address(ip).is_private == False:
+                public_ip.append(ip)
+            else:
+                private_ip.append(ip)
+        result["public_ip"] = public_ip
+        result["private_ip"] = private_ip
+
+        print(json.dumps(result))
+        exit(0)
+    except Exception as e:
+        sys.stderr.write(str(e))
+        exit(-1)
+fields:
+  - id: input
+    label: 'IP Address'
+    incident_artifacts: true
+    type: text
+    required: true
+    hint: 'Provide a single or list of IP addresses. Returns a filtered list of IPs.'
+output:
+  - path: 'result'
+    type: text
+  - path: 'result.private_ip'
+    type: text
+  - path: 'result.private_ip.[]'
+    type: text
+  - path: 'result.public_ip'
+    type: text 
+  - path: 'result.public_ip.[]'
+    type: text

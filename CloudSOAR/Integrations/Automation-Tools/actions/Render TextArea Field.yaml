@@ -1,0 +1,54 @@
+integration: 'Automation Tools'
+name: 'Render TextArea Field'
+type: Custom
+script:
+ code: |
+    import re
+    import json
+    import sys
+    import html
+    import urllib3
+    import requests
+    import argparse
+    import unicodedata
+    from datetime import datetime, timedelta
+
+    urllib3.disable_warnings(urllib3.exceptions.InsecurePlatformWarning)
+    urllib3.disable_warnings(urllib3.exceptions.SNIMissingWarning)
+    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+    # a 'textarea' field that can be used to combine multiple strings into a single output, such a combining user and domain to transform to an email address.
+    
+    def remove_p_br_tags(input_value):
+        input_value = re.sub('^<pre>|</pre>$', '', input_value.strip()).strip()
+        input_value = re.sub('^<p>|</p>$', '', input_value.strip()).strip()
+        input_value = re.sub('<br>', '', input_value)
+        return input_value
+
+    try:
+        parser = argparse.ArgumentParser()
+        parser.add_argument('--input', help='Placeholder Input', required=True)
+        args, unknown = parser.parse_known_args()
+            
+        input_string = html.unescape(str(args.input).strip())
+        input_string = unicodedata.normalize("NFKD", input_string).encode("utf-8").decode("utf-8")
+        input_string = remove_p_br_tags(input_string)
+        input_string = input_string.replace('\u200b', '')
+        json_dict = {"data": input_string}
+        print(json.dumps(json_dict))
+        exit(0)
+
+    except Exception as e:
+        err = str(e)
+        sys.stderr.write(str(traceback.print_exc(file=sys.stdout)))
+        # print(traceback.print_exc(file=sys.stdout))
+        exit(-1)
+fields:
+  - id: input
+    label: 'Placeholder Input'
+    type: textarea
+    required: true
+    hint: 'Build a string using dynamic values.'
+output:
+  - path: 'data'
+    type: text

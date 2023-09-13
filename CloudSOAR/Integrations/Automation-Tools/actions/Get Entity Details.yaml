@@ -1,0 +1,91 @@
+integration: 'Automation Tools'
+name: 'Get Entity Details'
+type: Enrichment
+script:
+    code: |
+        import json
+        import argparse
+        import requests
+        import sys
+        import urllib3
+        
+        urllib3.disable_warnings(urllib3.exceptions.InsecurePlatformWarning)
+        urllib3.disable_warnings(urllib3.exceptions.SNIMissingWarning)
+        urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+        
+        # fetches entity (object) details
+        
+        try:
+            parser = argparse.ArgumentParser()
+            parser.add_argument('--token', help='JWT token , REQUIRED', required=True)
+            parser.add_argument('--cloud_soar_url', help='Cloud SOAR URL , REQUIRED', required=True)
+            parser.add_argument('--entity', help='Entity', required=True)
+        
+            args, unknown = parser.parse_known_args()
+        
+            api_url = args.cloud_soar_url.rstrip('/')
+            headers = {
+                'Authorization': 'Bearer {}'.format(args.token),
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+            session = requests.Session()
+            session.verify = False
+
+            # Search For Entity and Extract ID
+            search_payload = {
+                "page_number": 1,
+                "page_size": 150,
+                "filter": args.entity
+            }
+
+            search_url = '{0}/api/v3/entities/search/'.format(api_url)
+            search_res = session.post(search_url, headers=headers, timeout=15, data=json.dumps(search_payload))
+            entity_id = search_res.json()
+            entity_id = entity_id[0]["id"]
+            
+
+            detail_url = '{0}/api/v3/entities/{1}/'.format(api_url, entity_id)
+            detail_res = session.get(detail_url, headers=headers, timeout=15)
+            response = detail_res.json()
+            print(json.dumps(response))
+            exit(0)
+        
+        except Exception as e:
+            err = str(e)
+            try:
+                if hasattr(e, "response"):
+                    try:
+                        response = e.response.json()
+                        msg_error = response.get("error", None)
+                        if msg_error is not None:
+                            msg_description = response.get("description", "")
+                            err = "IncMan API Error: {} {} ".format(str(msg_error), str(msg_description))
+                    except ValueError:
+                        err = str(e)
+            except AttributeError:
+                err = str(e)
+            sys.stderr.write(str(err))
+            exit(-1)
+
+fields:
+  - id: entity
+    label: 'Entity'
+    type: text
+    required: true
+    hint: "The entity to fetch details for."
+output:
+    - path: 'resource'
+      type: string
+    - path: 'type'
+      type: string
+    - path: 'tag.[].value'
+      type: string
+    - path: 'additional_info'
+      type: string
+    - path: 'related_incidents.[]'
+      type: string
+    - path: 'has_attachment'
+      type: string
+    - path: 'deleted'
+      type: string
