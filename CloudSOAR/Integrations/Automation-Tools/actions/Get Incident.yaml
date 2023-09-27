@@ -25,7 +25,7 @@ script:
         
         try:
             parser = argparse.ArgumentParser()
-            parser.add_argument('--token', help='JWT token', required=False, action=EnvDefault)
+            parser.add_argument('--token', help='API token (legacy)', required=False, action=EnvDefault)
             parser.add_argument('--access_id', help='Access ID', required=False, action=EnvDefault)
             parser.add_argument('--access_key', help='Access Key', required=False, action=EnvDefault)
             parser.add_argument('--cloud_soar_url', help='IncMan URL , REQUIRED', required=True, action=EnvDefault)
@@ -80,7 +80,7 @@ script:
 
             # fetch list of external alerts
             get_ext_alert_list = '{0}{1}/incidents/{2}/external_alerts/'.format(args.cloud_soar_url.rstrip('/'), api_path, incidentID)
-            response = session.get(get_ext_alert_list, headers=headers, timeout=15)
+            response = session.get(get_ext_alert_list, headers=headers, auth=(args.access_id, args.access_key) if args.access_id and args.access_key else None, timeout=15)
             response.raise_for_status()
             alert_res = response.json()
             if alert_res == []:
@@ -92,7 +92,7 @@ script:
     
                 # fetch external alert(s) details
                 get_ext_alert = '{0}{1}/incidents/{2}/external_alerts/{3}/?type={4}'.format(args.cloud_soar_url.rstrip('/'), api_path, incidentID, alert_id, alert_type)
-                response = session.get(get_ext_alert, headers=headers, timeout=15)
+                response = session.get(get_ext_alert, headers=headers, auth=(args.access_id, args.access_key) if args.access_id and args.access_key else None, timeout=15)
                 res["external_alert"] = response.json()
         
             print(json.dumps(res))

@@ -8,19 +8,31 @@ script:
     import argparse
     import requests
     import urllib3
+    import os
 
-    urllib3.disable_warnings(urllib3.exceptions.InsecurePlatformWarning)
-    urllib3.disable_warnings(urllib3.exceptions.SNIMissingWarning)
-    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+    # disabling all urllib3 warnings.
+    urllib3.disable_warnings()
+
+    class EnvDefault(argparse.Action):
+        def __init__(self, required=True, default=None, **kwargs):
+            envvar = kwargs.get("dest")
+            default = os.environ.get(envvar, default) if envvar in os.environ else default
+            required = False if required and default else required
+            super(EnvDefault, self).__init__(default=default, required=required, **kwargs)
+
+        def __call__(self, parser, namespace, values, option_string=None):
+            setattr(namespace, self.dest, values)
     
     try:
         parser = argparse.ArgumentParser()
-        parser.add_argument('--APIKey', help='APIKey , REQUIRED', required=True)
-        parser.add_argument('--soarUrl', help='Cloud SOAR URL , REQUIRED', required=True)
-        parser.add_argument('--token', help='Cloud SOAR User JWT Token , REQUIRED', required=True)
-        parser.add_argument('--proxy_url', help='Proxy URL', required=False)
-        parser.add_argument('--verify', help='Verify SSL', required=False)
-        parser.add_argument('--timeout', help='Timeout', required=False)
+        parser.add_argument('--APIKey', help='APIKey , REQUIRED', required=True, action=EnvDefault)
+        parser.add_argument('--cloud_soar_url', help='Cloud SOAR URL , REQUIRED', required=True, action=EnvDefault)
+        parser.add_argument('--access_id', help='Cloud SOAR Access ID', required=False, action=EnvDefault, action=EnvDefault)
+        parser.add_argument('--access_key', help='Cloud SOAR Access Key', required=False, action=EnvDefault, action=EnvDefault)
+        parser.add_argument('--token', help='Cloud SOAR API Token (Legacy) , REQUIRED', required=True, action=EnvDefault)
+        parser.add_argument('--proxy_url', help='Proxy URL', required=False, action=EnvDefault)
+        parser.add_argument('--verify', help='Verify SSL', required=False, action=EnvDefault)
+        parser.add_argument('--timeout', help='Timeout', required=False, action=EnvDefault)
         args, unknown = parser.parse_known_args()
         proxies = {'http': args.proxy_url, 'https': args.proxy_url} if args.proxy_url is not None else None
         verify = args.verify in ['true', '1', True, 1]
@@ -57,15 +69,23 @@ configuration:
       type: password
       required: true
       hint: API Key
-    soarUrl:
+    cloud_soar_url:
       label: Cloud SOAR URL
       type: text
       required: true
-      hint: 'i.e : https://your-cloud-soar-host/incmansuite_ng'
-    token:
-      label: Cloud SOAR User JWT Token
+      hint: 'i.e : "https://api.us2.sumologic.com" or "https://your-cloud-soar-host/incmansuite_ng"'
+    access_id:
+      label: Access ID
+      type: text
+      required: false
+    access_key:
+      label: Access Key
       type: password
-      required: true
+      required: false
+    token:
+      label: Cloud SOAR API Token (Legacy)
+      type: password
+      required: false
     timeout:
       label: Timeout
       type: text

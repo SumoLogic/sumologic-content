@@ -35,9 +35,9 @@ script:
           parser.add_argument('--device', help='Device', required=False, action=EnvDefault)
           parser.add_argument('--dimension', help='Dimension', required=False, action=EnvDefault)
           parser.add_argument('--cloud_soar_url', help='Cloud SOAR URL , REQUIRED', required=True, action=EnvDefault)
-          parser.add_argument('--access_id', help='Access ID', required=False, action=EnvDefault)
-          parser.add_argument('--access_key', help='Access Key', required=False, action=EnvDefault)
-          parser.add_argument('--token', help='API token (legacy) , REQUIRED', required=True, action=EnvDefault)
+          parser.add_argument('--access_id', help='Cloud SOAR Access ID', required=False, action=EnvDefault)
+          parser.add_argument('--access_key', help='Cloud SOAR Access Key', required=False, action=EnvDefault)
+          parser.add_argument('--token', help='Cloud SOAR API token (legacy)', required=False, action=EnvDefault)
           parser.add_argument('--IncmanParamIncidentId', help='Incident ID , REQUIRED', required=False, action=EnvDefault)
           parser.add_argument('--format', help='Format', required=False, action=EnvDefault)
           parser.add_argument('--incidentId', help='Inciden ID', required=False, action=EnvDefault)
@@ -88,15 +88,13 @@ script:
               if args.access_id and args.access_key:
                   api_path = "/api/csoar/v3"
                   headers = {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
+                    'Accept': 'application/json;charset=UTF-8',
                   }
               # legacy endpoint & headers
               elif args.token:
                   api_path = "/api/v3"
                   headers = {
                     'Accept': 'application/json;charset=UTF-8',
-                    'Content-Type': 'application/x-www-form-urlencoded',
                     'Authorization': 'Bearer {}'.format(args.token)
                   }
               else:
@@ -104,18 +102,18 @@ script:
               
               file_name = 'Attachment ' + date_time_file + '.{}'.format(args.format)
               files = [('attachment',(file_name,BytesIO(result.content),'application/octet-stream'))]
-              payload_incMan = {
+              payload = {
                   'file_name': file_name,
                   'additional_info': 'Add attachment from API',
                   'reference': '00'
               }
 
-              end_point = "{0}{1}{2}/attachments/".format(args.cloud_soar_url.rstrip('/'), api_path, incidentID)
-              # end_point = args.cloud_soar_url + end_point2 + args.IncmanParamIncidentId + '/attachments/'
+              end_point = "{0}{1}/incidents/{2}/attachments/".format(args.cloud_soar_url.rstrip('/'), api_path, incidentID)
               
               session = requests.Session()
               session.verify = False
-              resAlerts = session.post(end_point, headers=headers, data=payload_incMan, files=files, proxies=None, timeout=(5, 60))
+              resAlerts = session.post(end_point, headers=headers, auth=(args.access_id, args.access_key) if args.access_id and args.access_key else None, data=payload, files=files, proxies=None, timeout=(5, 60))
+
               resAlerts.raise_for_status()
               resJson = resAlerts.json()
               resJson["url"] = args.url
@@ -132,7 +130,8 @@ script:
               exit(1)
           exit(0)
         except Exception as e:
-            sys.stderr.write(str(e))
+            print(traceback.print_exc())
+            # sys.stderr.write(str(e))
             exit(-1)
 fields:
   - id: url

@@ -29,7 +29,7 @@ script:
         # fetches timeline of an incident in JSON format (audit data).
         try:
             parser = argparse.ArgumentParser()
-            parser.add_argument('--token', help='API token (legacy) , REQUIRED', required=False, action=EnvDefault)
+            parser.add_argument('--token', help='API token (legacy)', required=False, action=EnvDefault)
             parser.add_argument('--access_id', help='Access ID', required=False, action=EnvDefault)
             parser.add_argument('--access_key', help='Access Key', required=False, action=EnvDefault)
             parser.add_argument('--cloud_soar_url', help='Cloud SOAR URL , REQUIRED', required=True, action=EnvDefault)
@@ -72,7 +72,7 @@ script:
             session.verify = False
 
             timeline_url = '{0}{1}incidents/{2}/timeline/'.format(args.cloud_soar_url.rstrip('/'), api_path, incidentID)
-            result = session.get(timeline_url, headers=headers, timeout=15)
+            result = session.get(timeline_url, headers=headers, auth=(args.access_id, args.access_key) if args.access_id and args.access_key else None, timeout=15)
             response = result.json()
             for x in range(0,len(response)):
                 timeline_item = {}
