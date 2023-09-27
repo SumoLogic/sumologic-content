@@ -21,7 +21,7 @@ script:
         if regex:
             result = regex.group(1)
         else: 
-            regex = re.search("[-a-zA-Z0-9@:%._\+~#=]+@([-a-zA-Z0-9@:%._\+~#=]+\.[a-zA-Z0-9()]+)", args.input)
+            regex = re.search("[^@]*@(.*)", args.input)
             if regex:
                 result = regex.group(1)
         result_dict["result"] = result

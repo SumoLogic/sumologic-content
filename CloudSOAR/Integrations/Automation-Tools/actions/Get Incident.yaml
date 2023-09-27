@@ -176,6 +176,12 @@ output:
     example: 'Create incident from template'
   - path: external_alert.result.[]
     type: text
+  - path: incident_data.opt_1
+    type: text
+  - path: incident_data.opt_2
+    type: text
+  - path: incident_data.opt_3
+    type: text
   - path: incident_data.opt_4
     type: text
   - path: incident_data.opt_5

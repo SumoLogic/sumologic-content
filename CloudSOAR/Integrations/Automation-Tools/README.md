@@ -53,7 +53,10 @@ This integration is in active development. Actions, or the parameters defined th
 - Returns the current time and provides an option to compare this time to a user-provided timestamp, returning elapsed time.
 
 ### Extract Domain from URL
-- Extract the root domain from a URL or email address
+- Extract the root domain from a URL
+
+### Extract Domain from Email Address
+- Extract the root domain from an email address
 
 ### Add External Alert to Incident
 - Takes a JSON payload and attaches to a Cloud SOAR incident's "External Alert" section.
