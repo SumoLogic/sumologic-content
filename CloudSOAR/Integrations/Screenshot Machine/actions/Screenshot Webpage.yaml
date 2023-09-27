@@ -11,24 +11,39 @@ script:
         import base64
         import json
         import traceback
+        import os
         from io import BytesIO
-        urllib3.disable_warnings(urllib3.exceptions.InsecurePlatformWarning)
-        urllib3.disable_warnings(urllib3.exceptions.SNIMissingWarning)
-        urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+        # disabling all urllib3 warnings.
+        urllib3.disable_warnings()
+
+        class EnvDefault(argparse.Action):
+            def __init__(self, required=True, default=None, **kwargs):
+                envvar = kwargs.get("dest")
+                default = os.environ.get(envvar, default) if envvar in os.environ else default
+                required = False if required and default else required
+                super(EnvDefault, self).__init__(default=default, required=required, **kwargs)
+
+            def __call__(self, parser, namespace, values, option_string=None):
+                setattr(namespace, self.dest, values)
+
+
         try:
           parser = argparse.ArgumentParser()
-          parser.add_argument('--APIKey', help='APIKey, REQUIRED', required=True)
-          parser.add_argument('--url', help='URL, REQUIRED', required=True)
-          parser.add_argument('--device', help='Device', required=False)
-          parser.add_argument('--dimension', help='Dimension', required=False)
-          parser.add_argument('--soarUrl', help='IncMan URL , REQUIRED', required=True)
-          parser.add_argument('--token', help='JWT Token , REQUIRED', required=True)
-          parser.add_argument('--IncmanParamIncidentId', help='Incident ID , REQUIRED', required=False)
-          parser.add_argument('--format', help='Format', required=False)
-          parser.add_argument('--incidentId', help='Inciden ID', required=False)
-          parser.add_argument('--proxy_url', help='Proxy ', required=False)
-          parser.add_argument('--verify', help='Verify SSL', required=False)
-          parser.add_argument('--timeout', help='Timeout', required=False)
+          parser.add_argument('--APIKey', help='APIKey, REQUIRED', required=True, action=EnvDefault)
+          parser.add_argument('--url', help='URL, REQUIRED', required=True, action=EnvDefault)
+          parser.add_argument('--device', help='Device', required=False, action=EnvDefault)
+          parser.add_argument('--dimension', help='Dimension', required=False, action=EnvDefault)
+          parser.add_argument('--cloud_soar_url', help='Cloud SOAR URL , REQUIRED', required=True, action=EnvDefault)
+          parser.add_argument('--access_id', help='Cloud SOAR Access ID', required=False, action=EnvDefault)
+          parser.add_argument('--access_key', help='Cloud SOAR Access Key', required=False, action=EnvDefault)
+          parser.add_argument('--token', help='Cloud SOAR API token (legacy)', required=False, action=EnvDefault)
+          parser.add_argument('--IncmanParamIncidentId', help='Incident ID , REQUIRED', required=False, action=EnvDefault)
+          parser.add_argument('--format', help='Format', required=False, action=EnvDefault)
+          parser.add_argument('--incidentId', help='Inciden ID', required=False, action=EnvDefault)
+          parser.add_argument('--proxy_url', help='Proxy ', required=False, action=EnvDefault)
+          parser.add_argument('--verify', help='Verify SSL', required=False, action=EnvDefault)
+          parser.add_argument('--timeout', help='Timeout', required=False, action=EnvDefault)
           args, unknown = parser.parse_known_args()
           
           verify = args.verify in ['true', '1', True, 1]
@@ -54,10 +69,12 @@ script:
           }
           result = requests.get(url=api_url, proxies=proxies, params=options, verify=verify, timeout=timeout)
           
-          def check_lenght(result):
+          def check_length(result):
               if len(result.content) <= 10000:
                   raise Exception("Cannot Establish Connection")
-          check_lenght(result)
+          
+          check_length(result)
+
           try:
               # Get the incident id, if empty current incident id will be used
               incidentID = args.IncmanParamIncidentId
@@ -66,27 +83,37 @@ script:
               if incidentID is None or incidentID == '' or int(incidentID) <= 0:
                   raise Exception('Invalid IncMan incident id')
               date_time_file = datetime.datetime.now().strftime("%d-%m-%Y %H:%M:%S")
-              headers = {
-                  'Accept': 'application/json;charset=UTF-8',
-                  'Authorization': 'Bearer ' + args.token
-              }
+              
+              # delivery 2 endpoint & headers
+              if args.access_id and args.access_key:
+                  api_path = "/api/csoar/v3"
+                  headers = {
+                    'Accept': 'application/json;charset=UTF-8',
+                  }
+              # legacy endpoint & headers
+              elif args.token:
+                  api_path = "/api/v3"
+                  headers = {
+                    'Accept': 'application/json;charset=UTF-8',
+                    'Authorization': 'Bearer {}'.format(args.token)
+                  }
+              else:
+                  raise Exception("Access ID and Access Key, or legacy API token are required for authentication")
               
               file_name = 'Attachment ' + date_time_file + '.{}'.format(args.format)
               files = [('attachment',(file_name,BytesIO(result.content),'application/octet-stream'))]
-              payload_incMan = {
+              payload = {
                   'file_name': file_name,
                   'additional_info': 'Add attachment from API',
                   'reference': '00'
               }
-              
-              end_point2 = "api/v3/incidents/" if args.soarUrl.endswith('/') else "/api/v3/incidents/"
 
-              end_point = "{0}{1}{2}/attachments/".format(args.soarUrl, end_point2, incidentID)
-              # end_point = args.soarUrl + end_point2 + args.IncmanParamIncidentId + '/attachments/'
+              end_point = "{0}{1}/incidents/{2}/attachments/".format(args.cloud_soar_url.rstrip('/'), api_path, incidentID)
               
               session = requests.Session()
               session.verify = False
-              resAlerts = session.post(end_point, headers=headers, data=payload_incMan, files=files, proxies=None, timeout=(5, 60))
+              resAlerts = session.post(end_point, headers=headers, auth=(args.access_id, args.access_key) if args.access_id and args.access_key else None, data=payload, files=files, proxies=None, timeout=(5, 60))
+
               resAlerts.raise_for_status()
               resJson = resAlerts.json()
               resJson["url"] = args.url
@@ -103,7 +130,8 @@ script:
               exit(1)
           exit(0)
         except Exception as e:
-            sys.stderr.write(str(e))
+            print(traceback.print_exc())
+            # sys.stderr.write(str(e))
             exit(-1)
 fields:
   - id: url

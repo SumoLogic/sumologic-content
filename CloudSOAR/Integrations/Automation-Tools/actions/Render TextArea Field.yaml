@@ -8,17 +8,26 @@ script:
     import sys
     import html
     import urllib3
+    import os
     import requests
     import argparse
     import unicodedata
     from datetime import datetime, timedelta
 
-    urllib3.disable_warnings(urllib3.exceptions.InsecurePlatformWarning)
-    urllib3.disable_warnings(urllib3.exceptions.SNIMissingWarning)
-    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+    # disabling all urllib3 warnings.
+    urllib3.disable_warnings()
 
-    # a 'textarea' field that can be used to combine multiple strings into a single output, such a combining user and domain to transform to an email address.
-    
+    class EnvDefault(argparse.Action):
+            def __init__(self, required=True, default=None, **kwargs):
+                envvar = kwargs.get("dest")
+                default = os.environ.get(envvar, default) if envvar in os.environ else default
+                required = False if required and default else required
+                super(EnvDefault, self).__init__(default=default, required=required, **kwargs)
+
+            def __call__(self, parser, namespace, values, option_string=None):
+                setattr(namespace, self.dest, values)
+
+
     def remove_p_br_tags(input_value):
         input_value = re.sub('^<pre>|</pre>$', '', input_value.strip()).strip()
         input_value = re.sub('^<p>|</p>$', '', input_value.strip()).strip()
@@ -27,7 +36,7 @@ script:
 
     try:
         parser = argparse.ArgumentParser()
-        parser.add_argument('--input', help='Placeholder Input', required=True)
+        parser.add_argument('--input', help='Placeholder Input', required=True, action=EnvDefault)
         args, unknown = parser.parse_known_args()
             
         input_string = html.unescape(str(args.input).strip())
@@ -41,7 +50,6 @@ script:
     except Exception as e:
         err = str(e)
         sys.stderr.write(str(traceback.print_exc(file=sys.stdout)))
-        # print(traceback.print_exc(file=sys.stdout))
         exit(-1)
 fields:
   - id: input

@@ -8,27 +8,49 @@ script:
         import requests
         import sys
         import urllib3
+        import os
         
-        urllib3.disable_warnings(urllib3.exceptions.InsecurePlatformWarning)
-        urllib3.disable_warnings(urllib3.exceptions.SNIMissingWarning)
-        urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+        # disabling all urllib3 warnings.
+        urllib3.disable_warnings()
+
+        class EnvDefault(argparse.Action):
+            def __init__(self, required=True, default=None, **kwargs):
+                envvar = kwargs.get("dest")
+                default = os.environ.get(envvar, default) if envvar in os.environ else default
+                required = False if required and default else required
+                super(EnvDefault, self).__init__(default=default, required=required, **kwargs)
+
+            def __call__(self, parser, namespace, values, option_string=None):
+                setattr(namespace, self.dest, values)
         
         # fetches entity (object) details
-        
         try:
             parser = argparse.ArgumentParser()
-            parser.add_argument('--token', help='JWT token , REQUIRED', required=True)
-            parser.add_argument('--cloud_soar_url', help='Cloud SOAR URL , REQUIRED', required=True)
-            parser.add_argument('--entity', help='Entity', required=True)
-        
+            parser.add_argument('--token', help='API Token (Legacy)', required=False, action=EnvDefault)
+            parser.add_argument('--access_id', help='Access ID', required=False, action=EnvDefault)
+            parser.add_argument('--access_key', help='Access Key', required=False, action=EnvDefault)
+            parser.add_argument('--cloud_soar_url', help='Cloud SOAR URL , REQUIRED', required=True, action=EnvDefault)
+            parser.add_argument('--entity', help='Entity', required=True, action=EnvDefault)
             args, unknown = parser.parse_known_args()
-        
-            api_url = args.cloud_soar_url.rstrip('/')
-            headers = {
-                'Authorization': 'Bearer {}'.format(args.token),
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
+
+            # delivery 2 endpoint & headers
+            if args.access_id and args.access_key:
+                api_path = "/api/csoar/v3"
+                headers = {
+                  'Content-Type': 'application/json',
+                  'Accept': 'application/json'
+                }
+            # legacy endpoint & headers
+            elif args.token:
+                api_path = "/api/v3"
+                headers = {
+                  'Accept': 'application/json;charset=UTF-8',
+                  'Content-Type': 'application/x-www-form-urlencoded',
+                  'Authorization': 'Bearer {}'.format(args.token)
+                }
+            else:
+                raise Exception("Access ID and Access Key, or legacy API token are required for authentication")
+                
             session = requests.Session()
             session.verify = False
 
@@ -39,14 +61,13 @@ script:
                 "filter": args.entity
             }
 
-            search_url = '{0}/api/v3/entities/search/'.format(api_url)
-            search_res = session.post(search_url, headers=headers, timeout=15, data=json.dumps(search_payload))
+            search_url = '{0}{1}/entities/search/'.format(args.cloud_soar_url.rstrip('/'), api_path)
+            search_res = session.post(search_url, headers=headers, auth=(args.access_id, args.access_key) if args.access_id and args.access_key else None, timeout=15, data=json.dumps(search_payload))
             entity_id = search_res.json()
             entity_id = entity_id[0]["id"]
             
-
-            detail_url = '{0}/api/v3/entities/{1}/'.format(api_url, entity_id)
-            detail_res = session.get(detail_url, headers=headers, timeout=15)
+            detail_url = '{0}{1}/entities/{2}/'.format(args.cloud_soar_url.rstrip('/'), api_path, entity_id)
+            detail_res = session.get(detail_url, headers=headers, auth=(args.access_id, args.access_key) if args.access_id and args.access_key else None, timeout=15)
             response = detail_res.json()
             print(json.dumps(response))
             exit(0)
@@ -60,7 +81,7 @@ script:
                         msg_error = response.get("error", None)
                         if msg_error is not None:
                             msg_description = response.get("description", "")
-                            err = "IncMan API Error: {} {} ".format(str(msg_error), str(msg_description))
+                            err = "API Error: {} {}".format(str(msg_error), str(msg_description))
                     except ValueError:
                         err = str(e)
             except AttributeError:

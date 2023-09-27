@@ -10,20 +10,31 @@ script:
         import urllib3
         import html
         import unicodedata
+        import os
         from datetime import datetime, timedelta
         
-        urllib3.disable_warnings(urllib3.exceptions.InsecurePlatformWarning)
-        urllib3.disable_warnings(urllib3.exceptions.SNIMissingWarning)
-        urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+        # disabling all urllib3 warnings.
+        urllib3.disable_warnings()
+
+        class EnvDefault(argparse.Action):
+            def __init__(self, required=True, default=None, **kwargs):
+                envvar = kwargs.get("dest")
+                default = os.environ.get(envvar, default) if envvar in os.environ else default
+                required = False if required and default else required
+                super(EnvDefault, self).__init__(default=default, required=required, **kwargs)
+
+            def __call__(self, parser, namespace, values, option_string=None):
+                setattr(namespace, self.dest, values)
         
         # fetches timeline of an incident in JSON format (audit data).
-        
         try:
             parser = argparse.ArgumentParser()
-            parser.add_argument('--token', help='JWT token , REQUIRED', required=True)
-            parser.add_argument('--cloud_soar_url', help='Cloud SOAR URL , REQUIRED', required=True)
-            parser.add_argument('--incidentId', help='Incident ID', required=False)
-            parser.add_argument('--IncmanParamIncidentId', help='Incident ID', required=False)
+            parser.add_argument('--token', help='API token (legacy)', required=False, action=EnvDefault)
+            parser.add_argument('--access_id', help='Access ID', required=False, action=EnvDefault)
+            parser.add_argument('--access_key', help='Access Key', required=False, action=EnvDefault)
+            parser.add_argument('--cloud_soar_url', help='Cloud SOAR URL , REQUIRED', required=True, action=EnvDefault)
+            parser.add_argument('--incidentId', help='Incident ID', required=False, action=EnvDefault)
+            parser.add_argument('--IncmanParamIncidentId', help='Incident ID', required=False, action=EnvDefault)
         
             args, unknown = parser.parse_known_args()
 
@@ -32,24 +43,36 @@ script:
             if args.incidentId is not None and args.incidentId != '':
                 incidentID = args.incidentId
             if incidentID is None or incidentID == '' or int(incidentID) <= 0:
-                raise Exception('Invalid IncMan incident id')
+                raise Exception('Please specify a valid Cloud SOAR Incident ID')
         
             timeline_dict = {
                 'incident_id': int(incidentID),
                 'timeline': [] 
             }
             
-            api_url = args.cloud_soar_url.rstrip('/')
-            headers = {
-                'Authorization': 'Bearer {}'.format(args.token),
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
+            # delivery 2 endpoint & headers
+            if args.access_id and args.access_key:
+                api_path = "/api/csoar/v3"
+                headers = {
+                  'Content-Type': 'application/json',
+                  'Accept': 'application/json'
+                }
+            # legacy endpoint & headers
+            elif args.token:
+                api_path = "/api/v3"
+                headers = {
+                  'Accept': 'application/json;charset=UTF-8',
+                  'Content-Type': 'application/x-www-form-urlencoded',
+                  'Authorization': 'Bearer {}'.format(args.token)
+                }
+            else:
+                raise Exception("Access ID and Access Key, or legacy API token are required for authentication")
+
             session = requests.Session()
             session.verify = False
 
-            timeline_url = '{0}/api/v3/incidents/{1}/timeline/'.format(api_url, incidentID)
-            result = session.get(timeline_url, headers=headers, timeout=15)
+            timeline_url = '{0}{1}incidents/{2}/timeline/'.format(args.cloud_soar_url.rstrip('/'), api_path, incidentID)
+            result = session.get(timeline_url, headers=headers, auth=(args.access_id, args.access_key) if args.access_id and args.access_key else None, timeout=15)
             response = result.json()
             for x in range(0,len(response)):
                 timeline_item = {}
@@ -76,7 +99,7 @@ script:
                         msg_error = response.get("error", None)
                         if msg_error is not None:
                             msg_description = response.get("description", "")
-                            err = "IncMan API Error: {} {} ".format(str(msg_error), str(msg_description))
+                            err = "API Error: {} {} ".format(str(msg_error), str(msg_description))
                     except ValueError:
                         err = str(e)
             except AttributeError:

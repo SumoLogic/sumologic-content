@@ -2,7 +2,7 @@ integration: Automation Tools
 name: Generic HTTP POST
 type: Notification
 script:
-  code: |
+code: |
     import os
     import sys
     import json
@@ -126,7 +126,7 @@ script:
                 #     root_message = json_message.get("message", {})
                 #     if len(root_message) > 0 and root_message is not None:
                 #         json_message = root_message
-                    
+
             except ValueError as e:
                 raise Exception("Output parameter JSON is invalid({})".format(str(e)))
         if is_value_exist(args.jsonData):
@@ -186,28 +186,26 @@ script:
         exit(-1)
 fields:
 - id: api_url
-  label: API URL
-  type: text
-  required: true
-  hint: e.g. the Sumo HTTP endpoint URL
+label: API URL
+type: text
+required: true
+hint: e.g. the Sumo HTTP endpoint URL
 - id: jsonData
-  label: Request Body as JSON
-  type: textarea
-  required: false
-  hint: HTTP POST Request body, only accepted valid JSON (set only this field or "Request
-    Body (Raw Output JSON)" but not both)
+label: Request Body as JSON
+type: textarea
+required: false
+hint: HTTP POST Request body, only accepted valid JSON (set only this field or
+    "Request Body (Raw Output JSON)" but not both)
 - id: jsonOutput
-  label: Request Body (output.raw JSON)
-  type: text
-  required: false
-  hint: Use only output.raw as Output/JSON of the Insight action, The Body As JSON
-    you want to send in the POST (set only this field or "Request Body as JSON" but
-    not both)
+label: Request Body (output.raw JSON)
+type: text
+required: false
+hint: Use only output.raw as Output/JSON of the Insight action, The Body As JSON
+    you want to send in the POST (set only this field or "Request Body as JSON"
+    but not both)
 - id: formData
-  label: Request Body as Form-Data
-  type: textarea
-  required: false
-  hint: 'HTTP POST Request body, accept valid JSON as Form-Data or directly Form-Data,
+label: Request Body as Form-Data
+type: textarea
+required: false
+hint: 'HTTP POST Request body, accept valid JSON as Form-Data or directly Form-Data,
     For Example: query=test&type=test'
-
-signature: 'f68e372e47bb458ed06c6ef1ca6aa775d1b11ba91e57e7ec0c8a4b9bbef4213545c15fbd5d8e9671002795198be04e40ae8e3c6af1f59abdf71e1fc90e08178f'
