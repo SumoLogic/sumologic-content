@@ -33,11 +33,11 @@ script:
         if args.weekdays == "True" or args.weekdays == "true":
             if 0 <= now.weekday() <= 4:
                 if time(int(args.time_start)) <= now.time() <= time(int(args.time_end)):
-                    out_of_bounds = False
+                    out_of_bounds = "false"
         elif time(int(args.time_start)) <= now.time() <= time(int(args.time_end)):
-                    out_of_bounds = False
+                    out_of_bounds = "false"
         else:
-            out_of_bounds = True
+            out_of_bounds = "true"
 
         json_dict['time_current'] = str(now)
         json_dict['time_weekday'] = str(now.weekday())
@@ -78,4 +78,4 @@ output:
   - path: 'boundary_end'
     type: text
   - path: 'outside_working_hours'
-    type: text
+    type: string
