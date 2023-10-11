@@ -62,7 +62,7 @@ script:
                 api_path = "/api/v3"
                 headers = {
                   'Accept': 'application/json;charset=UTF-8',
-                  'Content-Type': 'application/x-www-form-urlencoded',
+                  'Content-Type': 'application/json',
                   'Authorization': 'Bearer {}'.format(args.token)
                 }
             else:
@@ -71,7 +71,7 @@ script:
             session = requests.Session()
             session.verify = False
 
-            timeline_url = '{0}{1}incidents/{2}/timeline/'.format(args.cloud_soar_url.rstrip('/'), api_path, incidentID)
+            timeline_url = '{0}{1}/incidents/{2}/timeline/'.format(args.cloud_soar_url.rstrip('/'), api_path, incidentID)
             result = session.get(timeline_url, headers=headers, auth=(args.access_id, args.access_key) if args.access_id and args.access_key else None, timeout=15)
             response = result.json()
             for x in range(0,len(response)):
