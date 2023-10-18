@@ -49,7 +49,7 @@ script:
           # legacy headers
           headers = {
               'Accept': 'application/json;charset=UTF-8',
-              'Content-Type': 'application/x-www-form-urlencoded',
+              'Content-Type': 'application/json',
               'Authorization': 'Bearer {}'.format(args.token)
           }
           endpoint = '{cloud_soar_url}/api/v3/incidents/?only_involved=true'.format(cloud_soar_url=args.cloud_soar_url.rstrip('/'))

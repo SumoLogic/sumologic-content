@@ -78,4 +78,4 @@ output:
   - path: 'boundary_end'
     type: text
   - path: 'outside_working_hours'
-    type: string
+    type: text

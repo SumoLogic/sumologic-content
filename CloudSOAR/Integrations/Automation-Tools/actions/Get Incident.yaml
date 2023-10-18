@@ -52,7 +52,7 @@ script:
                 api_path = "/api/v3"
                 headers = {
                   'Accept': 'application/json;charset=UTF-8',
-                  'Content-Type': 'application/x-www-form-urlencoded',
+                  'Content-Type': 'application/json',
                   'Authorization': 'Bearer {}'.format(args.token)
                 }
             else:
@@ -123,6 +123,9 @@ fields:
     hint: "Incident ID (if empty the current incident ID will be used)"
     validator: integer
 output:
+  - path: incident_data
+    type: text
+    example: '{}'
   - path: incident_data.id
     type: text
     example: '8508'
@@ -189,6 +192,9 @@ output:
   - path: incident_data.generated_by
     type: text
     example: '#incident|8508|OIFDaemon|dynamicSumoLogicInsightsDaemon'
+  - path: external_alert
+    type: text
+    example: '{}'
   - path: external_alert.name
     type: text
     example: 'Sumo Logic CSE Insights'

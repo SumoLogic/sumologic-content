@@ -1,6 +1,6 @@
 integration: 'Automation Tools'
-name: 'Add Entity Metadata'
-type: Notification
+name: 'Add Entity Threat Indicator'
+type: Containment
 script:
     code: |
         import json
@@ -29,12 +29,13 @@ script:
         # adds tags or descriptions to an entity
         try:
             parser = argparse.ArgumentParser()
-            parser.add_argument('--token', help='API token (legacy)', required=False, action=EnvDefault)
+            parser.add_argument('--token', help='API token (legacy) , REQUIRED', required=False, action=EnvDefault)
             parser.add_argument('--access_id', help='Access ID', required=False, action=EnvDefault)
             parser.add_argument('--access_key', help='Access Key', required=False, action=EnvDefault)
             parser.add_argument('--cloud_soar_url', help='Cloud SOAR URL , REQUIRED', required=True, action=EnvDefault)
-            parser.add_argument('--entity', help='Entity', required=True, action=EnvDefault)
-            parser.add_argument('--tag', help='Entity Tag', required=False, action=EnvDefault)
+            parser.add_argument('--entity', help='Entity', required=False, action=EnvDefault)
+            parser.add_argument('--entity_id', help='Entity ID', required=False, action=EnvDefault)
+            parser.add_argument('--threat_ind', help='Threat Indicator', required=True, action=EnvDefault)
             parser.add_argument('--detail', help='Entity Additional Info', required=False, action=EnvDefault)
         
             args, unknown = parser.parse_known_args()
@@ -61,26 +62,31 @@ script:
             session.verify = False
 
             # Search For Entity and Extract ID
-            search_payload = {
-                "page_number": 1,
-                "page_size": 150,
-                "filter": 'value:"{0}"'.format(args.entity)
-            }
+            if args.entity and not args.entity_id:
+              search_payload = {
+                  "page_number": 1,
+                  "page_size": 150,
+                  "filter": 'value:"{0}"'.format(args.entity)
+              }
+              search_url = '{0}{1}/entities/search/'.format(args.cloud_soar_url.rstrip('/'), api_path)
 
-            search_url = '{0}{1}/entities/search/'.format(args.cloud_soar_url.rstrip('/'), api_path)
-
-            search_res = session.post(search_url, headers=headers, auth=(args.access_id, args.access_key) if args.access_id and args.access_key else None, timeout=15, data=json.dumps(search_payload))
-            entity_id = search_res.json()
-            entity_id = entity_id[0]["id"]
+              search_res = session.post(search_url, headers=headers, auth=(args.access_id, args.access_key) if args.access_id and args.access_key else None, timeout=15, data=json.dumps(search_payload))
+              entity_id = search_res.json()
+              entity_id = entity_id[0]["id"]
+            else:
+              entity_id = args.entity_id
             
-            detail_note = html.unescape(str(args.detail).strip())
-            detail_note = unicodedata.normalize("NFKD", detail_note).encode("utf-8").decode("utf-8")
-            detail_note = BeautifulSoup(detail_note, "html.parser").text
-            detail_note = detail_note.replace('\u200b', '')
+            if args.detail:
+              detail_note = html.unescape(str(args.detail).strip())
+              detail_note = unicodedata.normalize("NFKD", detail_note).encode("utf-8").decode("utf-8")
+              detail_note = BeautifulSoup(detail_note, "html.parser").text
+              detail_note = detail_note.replace('\u200b', '')
             
             detail_payload = {}
-            if args.tag:
-                detail_payload["tag"] = args.tag
+            if args.threat_ind == 'malicious':
+              detail_payload["tag"] = '\U0001F534,MALICIOUS'
+            if args.threat_ind == 'suspicious':
+              detail_payload["tag"] = '\U0001F7E0,SUSPICIOUS'
             if args.detail:
                 detail_payload["additional_info"] = detail_note
 
@@ -112,14 +118,22 @@ fields:
   - id: entity
     label: 'Entity'
     type: text
-    required: true
+    required: false
     incident_artifacts: true
-    hint: "The entity to add a tag or a description to"
-  - id: tag
-    label: 'Tag'
+    hint: "The entity to mark. Overridden by 'Entity ID' if specified."
+  - id: entity_id
+    label: 'Entity ID'
     type: text
     required: false
-    hint: "The tag to add to the entity."
+    incident_artifacts: true
+    hint: "The entity ID to mark. Overrides 'Entity' if specified."
+  - id: threat_ind
+    label: 'Threat Indicator'
+    type: list
+    required: true
+    values:
+      malicious: Malicious
+      suspicious: Suspicious
   - id: detail
     label: 'Additional Info'
     type: textarea
