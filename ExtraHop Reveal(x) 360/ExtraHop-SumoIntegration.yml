@@ -1,0 +1,361 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Description: >
+  Uses Lambda and DynamoDB to send new and updated Reveal(x) 360 Detections to Sumo Logic. 
+
+Metadata:
+  AWS::CloudFormation::Interface:
+    ParameterGroups:
+      - Label:
+          default: "Reveal(x) 360"
+        Parameters:
+          - TenantName
+          - Rx360ApiId
+          - Rx360ApiSecret
+      - Label:
+          default: "Sumo Logic"
+        Parameters:
+          - SumoUrl
+      - Label: 
+          default: "AWS"
+        Parameters:
+          - FunctionS3Bucket
+          - FunctionS3Key
+
+    ParameterLabels:
+      TenantName:
+        default: "Tenant Name"
+      Rx360ApiId:
+        default: "API Id"
+      Rx360ApiSecret:
+        default: "API Secret"
+      SumoUrl:
+        default: "HTTP Source URL"
+      FunctionS3Bucket:
+        default: "Lambda S3 Bucket Name"
+      FunctionS3Key: 
+        default: "Lambda S3 Key"
+      
+Parameters:
+  TenantName:
+    Type: String
+    Description: >
+      Tenant Name as indicated by your Reveal(x) 360 Console URL. 
+      E.g. "customername" in https://customername.cloud.extrahop.com
+    Default: customername
+  Rx360ApiId:
+    Type: String
+    Description: Reveal(x) 360 API Id used by ExtraHop-Detection-Sync to retrieve Detections.
+    Default: ChangeMe!
+  Rx360ApiSecret:
+    Type: String
+    Description: Reveal(x) 360 API Secret used by ExtraHop-Detection-Sync to retrieve Detections.
+    Default: ChangeMe!
+  SumoUrl:
+    Type: String
+    Description: >
+      The URL of the Sumo Logic HTTP Logs and Metrics Source which will receive ExtraHop Reveal(x) Detections.
+    Default: https://changeme.sumologic.com/receiver/v1/http/xxxxxxxxxxyyyyyyyyyy
+  FunctionS3Bucket:
+    Type: String
+    Description: >
+      Name of the S3 Bucket containing the ExtraHop-Detection-Sync and ExtraHop-Sumo-Connector lambda code. 
+      The Bucket must be in the same AWS Region as your function. The bucket can be in a different AWS account.
+    Default: my-s3-bucket
+  FunctionS3Key:
+    Type: String
+    Description: >
+      The Amazon S3 key path where the ExtraHop-Detection-Sync.zip and ExtraHop-Sumo-Connector.zip lambda deployment packages reside.
+    Default: my-s3-key
+
+Resources:
+  Rx360ApiUrlParameter:
+    Type: AWS::SSM::Parameter
+    Properties: 
+      Name: /ExtraHop/Rx360/API/URL
+      Description: >
+        The Reveal(x) 360 REST API URL.
+      DataType: text
+      Tier: Standard
+      Type: String
+      Value: !Join [ '', [ 'https://', !Ref TenantName, '.api.cloud.extrahop.com' ] ]
+      Tags:
+        Project: ExtraHop
+        CreatedBy: Cloudformation
+  DetectionSyncLookbackParameter:
+    Type: AWS::SSM::Parameter
+    Properties: 
+      Name: /ExtraHop/Rx360/Administration/DetectionLookback
+      Description: >
+        The lookback period for which ExtraHop-Detection-Sync will retrieve new Detections. 
+        Recommended: 5 minutes (300,000 ms), to coincide with the corresponding CloudWatch Events Rule ("ExtraHop-ScheduledTask-5m"). 
+        Set as an integer, in milliseconds, which will be subtracted from the current epoch time (in milliseconds). 
+      DataType: text
+      Tier: Standard
+      Type: String
+      Value: '300000'
+      Tags:
+        Project: ExtraHop
+        CreatedBy: Cloudformation
+  DetectionSyncSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties: 
+      Name: /ExtraHop/Rx360/API/DetectionSync
+      Description: >
+        Reveal(x) 360 API Credentials used by ExtraHop-Detection-Sync to retrieve Detections.
+      SecretString: 
+        !Sub
+          - '{"rx360_id":"${id}","rx360_secret":"${secret}"}'
+          - id: !Ref Rx360ApiId
+            secret: !Ref Rx360ApiSecret
+      Tags:
+        - Key: Project
+          Value: ExtraHop-Sumo-Integration
+        - Key: CreatedBy
+          Value: CloudFormation
+  DetectionSyncTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ExtraHop-Detections
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions: 
+        - 
+          AttributeName: "detection_id"
+          AttributeType: "N"
+        - 
+          AttributeName: "type"
+          AttributeType: "S"
+      KeySchema: 
+        - 
+          AttributeName: "detection_id"
+          KeyType: "HASH"
+        - 
+          AttributeName: "type"
+          KeyType: "RANGE"
+      StreamSpecification:
+        StreamViewType: NEW_IMAGE
+      Tags:
+        - Key: Project
+          Value: ExtraHop-Sumo-Integration
+        - Key: CreatedBy
+          Value: CloudFormation
+  DetectionSyncFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Description: This function synchronizes Reveal(x)360 Detections with a DynamoDB Table.
+      FunctionName: ExtraHop-Detection-Sync
+      Handler: ExtraHop-Detection-Sync.handler
+      MemorySize: 128
+      Role: !GetAtt DetectionSyncRole.Arn
+      Runtime: python3.8
+      Timeout: 300
+      Code:
+        S3Bucket: !Ref FunctionS3Bucket
+        S3Key: !Join [ '/', [ !Ref FunctionS3Key, 'ExtraHop-Detection-Sync.zip' ] ] 
+      Tags:
+        - Key: Project
+          Value: ExtraHop-Sumo-Integration
+        - Key: CreatedBy
+          Value: CloudFormation 
+  DetectionSyncEventRule:
+    Type: AWS::Events::Rule
+    Properties:
+      Name: ExtraHop-ScheduledTask-5m
+      Description: Trigger for ExtraHop-Detection-Sync 
+      EventBusName: default
+      ScheduleExpression: rate(5 minutes)
+      State:  ENABLED
+      Targets:
+          - 
+            Arn: !GetAtt DetectionSyncFunction.Arn
+            Id: ExtraHop-Detection-Sync
+  DetectionSyncPermission:
+    Type: AWS::Lambda::Permission
+    Properties: 
+      FunctionName: !Ref DetectionSyncFunction
+      Action: lambda:InvokeFunction
+      Principal: events.amazonaws.com
+      SourceArn: !GetAtt DetectionSyncEventRule.Arn
+  DetectionSyncRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: ExtraHop-Detection-Sync
+      Description: Lambda Execution Role for ExtraHop-Detection-Sync. Part of the ExtraHop-DeploymentManagement Serverless Application.
+      Path: /
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          Sid: RoleTrustPolicy
+          Effect: Allow
+          Principal:
+                Service: lambda.amazonaws.com
+          Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - !Ref DetectionSyncPolicy
+      Policies:
+        - PolicyName: PermissionsPolicy
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Sid: SSMActions
+                Effect: Allow
+                Action: ssm:GetParameter
+                Resource: 
+                - !Join ['', ['arn', ':', !Ref AWS::Partition, ':', 'ssm', ':', !Ref AWS::Region, ':', !Ref AWS::AccountId, ':', 'parameter', !Ref DetectionSyncLookbackParameter] ]
+                - !Join ['', ['arn', ':', !Ref AWS::Partition, ':', 'ssm', ':', !Ref AWS::Region, ':', !Ref AWS::AccountId, ':', 'parameter', !Ref Rx360ApiUrlParameter] ]
+              - Sid: CWLogsPublish1
+                Effect: Allow
+                Action:
+                - logs:CreateLogGroup
+                Resource: 
+                - !Join [':', ['arn', !Ref AWS::Partition, 'logs', !Ref AWS::Region, !Ref AWS::AccountId, '*'] ]
+              - Sid: CWLogsPublish2
+                Effect: Allow
+                Action:
+                - logs:CreateLogStream
+                - logs:PutLogEvents
+                Resource: 
+                - !Join [':', ['arn', !Ref AWS::Partition, 'logs', !Ref AWS::Region, !Ref AWS::AccountId, 'log-group', '/aws/lambda/ExtraHop-Detection-Sync', '*'] ]
+      Tags:
+        - Key: Project
+          Value: ExtraHop-Sumo-Integration
+        - Key: CreatedBy
+          Value: CloudFormation 
+  DetectionSyncPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      ManagedPolicyName: ExtraHop-Detection-Sync
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: SecretsManagerActions
+            Effect: Allow
+            Action:
+            - secretsmanager:GetRandomPassword
+            - secretsmanager:ListSecrets
+            Resource: "*"
+          - Sid: GetRx360ApiCreds
+            Effect: Allow
+            Action:
+            - secretsmanager:GetResourcePolicy
+            - secretsmanager:GetSecretValue
+            - secretsmanager:DescribeSecret
+            - secretsmanager:ListSecretVersionIds
+            Resource:
+            - !Ref DetectionSyncSecret
+          - Sid: DynamoDbActions
+            Effect: Allow
+            Action:
+            - dynamodb:ListTables
+            Resource: "*"
+          - Sid: DetectionsTableActions
+            Effect: Allow
+            Action: dynamodb:*
+            Resource:
+            - !GetAtt DetectionSyncTable.Arn
+            - !Join ['', [ !GetAtt DetectionSyncTable.Arn, '/streams/*' ] ]
+  
+  DetectionsTableStream:
+    Type: AWS::Lambda::EventSourceMapping
+    Properties:
+      BatchSize: 1
+      Enabled: True
+      EventSourceArn: !GetAtt DetectionSyncTable.StreamArn
+      FunctionName: !GetAtt SumoConnectorFunction.Arn
+      StartingPosition: LATEST
+  
+  SumoConnectorParameter:
+    Type: AWS::SSM::Parameter
+    Properties: 
+      Name: /ExtraHop/Rx360/Integrations/SumoLogic/ConnectorUrl
+      Description: >
+        This is the private Data Collector URL created in the Sumo Logic organization to receive ExtraHop Detections JSON.
+      DataType: text
+      Tier: Standard
+      Type: String
+      Value: !Ref SumoUrl
+      Tags:
+        Project: ExtraHop
+        CreatedBy: ExtraHop-DeploymentManagement 
+  SumoConnectorFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Description: This function processes detections from the DetectionSyncTable DynamoDB table and forwards them to Sumo Logic.
+      FunctionName: ExtraHop-Sumo-Connector
+      Handler: ExtraHop-Sumo-Connector.handler
+      MemorySize: 128
+      Role: !GetAtt SumoConnectorRole.Arn
+      Runtime: python3.8
+      Timeout: 300
+      Code:
+        S3Bucket: !Ref FunctionS3Bucket
+        S3Key: !Join [ '/', [ !Ref FunctionS3Key, 'ExtraHop-Sumo-Connector.zip' ] ] 
+      Tags:
+        - Key: Project
+          Value: ExtraHop-Sumo-Integration
+        - Key: CreatedBy
+          Value: CloudFormation 
+  SumoConnectorRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: ExtraHop-Sumo-Connector
+      Description: Lambda Execution Role for ExtraHop-Sumo-Connector. Part of the ExtraHop-DeploymentManagement Serverless Application.
+      Path: /
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          Sid: RoleTrustPolicy
+          Effect: Allow
+          Principal:
+                Service: lambda.amazonaws.com
+          Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaDynamoDBExecutionRole
+      Policies:
+        - PolicyName: PermissionsPolicy
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Sid: SSMActions
+                Effect: Allow
+                Action: ssm:GetParameter
+                Resource:
+                - !Join ['', ['arn', ':', !Ref AWS::Partition, ':', 'ssm', ':', !Ref AWS::Region, ':', !Ref AWS::AccountId, ':', 'parameter', !Ref SumoConnectorParameter] ]
+              - Sid: DynamoDbActions
+                Effect: Allow
+                Action:
+                - dynamodb:ListContributorInsights
+                - dynamodb:DescribeReservedCapacityOfferings
+                - dynamodb:ListGlobalTables
+                - dynamodb:ListTables
+                - dynamodb:DescribeReservedCapacity
+                - dynamodb:ListBackups
+                - dynamodb:PurchaseReservedCapacityOfferings
+                - dynamodb:DescribeLimits
+                - dynamodb:ListExports
+                - dynamodb:ListStreams
+                Resource: "*"
+              - Sid: DetectionsTableActions
+                Effect: Allow
+                Action: dynamodb:*
+                Resource:
+                - !Join ['', [ !GetAtt DetectionSyncTable.Arn ] ]
+                - !Join ['', [ !GetAtt DetectionSyncTable.Arn, '/streams/*' ] ]
+              - Sid: CWLogsPublish1
+                Effect: Allow
+                Action:
+                - logs:CreateLogGroup
+                Resource: 
+                - !Join [':', ['arn', !Ref AWS::Partition, 'logs', !Ref AWS::Region, !Ref AWS::AccountId, '*'] ]
+              - Sid: CWLogsPublish2
+                Effect: Allow
+                Action:
+                - logs:CreateLogStream
+                - logs:PutLogEvents
+                Resource: 
+                - !Join [':', ['arn', !Ref AWS::Partition, 'logs', !Ref AWS::Region, !Ref AWS::AccountId, 'log-group', '/aws/lambda/ExtraHop-Sumo-Connector', '*'] ]
+      Tags:
+        - Key: Project
+          Value: ExtraHop-Sumo-Integration
+        - Key: CreatedBy
+          Value: CloudFormation 
