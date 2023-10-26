@@ -1,0 +1,82 @@
+integration: 'Automation Tools'
+name: 'Convert SLA To Decimal Format'
+type: Custom
+script:
+ code: |
+    import json
+    import sys
+    import time
+    from datetime import datetime
+    import argparse
+    import os
+
+    class EnvDefault(argparse.Action):
+            def __init__(self, required=True, default=None, **kwargs):
+                envvar = kwargs.get("dest")
+                default = os.environ.get(envvar, default) if envvar in os.environ else default
+                required = False if required and default else required
+                super(EnvDefault, self).__init__(default=default, required=required, **kwargs)
+
+            def __call__(self, parser, namespace, values, option_string=None):
+                setattr(namespace, self.dest, values)
+    
+    def convert_to_hours(input_str):
+        try:
+            # Split the input string into parts using space as a delimiter
+            parts = input_str.split()
+
+            # Initialize variables for hours, minutes, and seconds
+            hours = 0
+            minutes = 0
+            seconds = 0
+
+            # Loop through the parts and extract hours, minutes, and seconds
+            for i in range(0, len(parts), 2):
+                value = int(parts[i])
+                unit = parts[i + 1].lower()
+
+                if unit == "hours" or unit == "hour":
+                    hours += value
+                elif unit == "minutes" or unit == "minute":
+                    minutes += value
+                elif unit == "seconds" or unit == "second":
+                    seconds += value
+                else:
+                    raise ValueError(f"Invalid unit: {unit}")
+
+            # Convert everything to hours and round the result to two decimal places
+            total_hours = round(hours + (minutes / 60) + (seconds / 3600), 2)
+            return total_hours
+
+        except (ValueError, IndexError):
+            return None
+
+    def main():
+        parser = argparse.ArgumentParser()
+        parser.add_argument('--input_str', help='SLA Input', required=False, action=EnvDefault)
+        args, unknown = parser.parse_known_args()
+        # Split the input string into parts using space as a delimiter
+        input_str = args.input_str
+        result = convert_to_hours(input_str)
+
+        if result is not None:
+            json_dict = {}
+            result = convert_to_hours(input_str)
+            json_dict['sla_decimal'] = str(result)
+            print(json.dumps(json_dict))
+            exit(0)
+        else:
+            print("Invalid input format")
+
+    if __name__ == "__main__":
+        main()
+fields:
+- id: input_str
+  label: 'SLA Input'
+  type: text
+  required: true
+  hint: 'This field represents the input for the SLA Ex: 20 hours 31 minutes 19 seconds'
+output:
+  - path: sla_decimal
+    type: text
+    example: '20.33'
