@@ -1,4 +1,4 @@
-integration: 'Automation Tools V2'
+integration: 'Automation Tools'
 name: 'Offset Unix Timestamp'
 type: Custom
 script:
