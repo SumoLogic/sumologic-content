@@ -1,5 +1,5 @@
 integration: 'Automation Tools'
-name: 'Offset Human Readable Timestamp'
+name: 'Offset Unix Timestamp'
 type: Custom
 script:
  code: |
@@ -22,9 +22,8 @@ script:
     def determine_and_format_timestamp(timestamp):
         formats = [
         "%Y-%m-%dT%H:%M:%S%z",
+        "%d/%m/%Y %H:%M:%S",
         "%Y %b %d %H:%M:%S.%f %Z",
-        "%Y-%m-%dT%H:%M:%S.%f%z",
-        "%Y-%m-%dT%H:%M:%S.%fZ",
         "%b %d %H:%M:%S %Z %Y",
         "%d/%b/%Y:%H:%M:%S %Z",
         "%b %d, %Y %I:%M:%S %p",
@@ -151,6 +150,7 @@ fields:
   label: 'Timestamp Unix Input'
   type: text
   required: true
+  incident_artifacts: true
   hint: 'This field represents the input for the original timestamp in human readable format'
 - id: time_offset
   label: 'Offset In Minutes'
