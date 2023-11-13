@@ -1,7 +1,7 @@
 # Sumo Logic Audit Logging
 Sumo Logic Community Content for Audit Logs.
 
-This content summarizes logins via UI, API activity (configuration changes and search job api access), collector registrations and activity for the sumosupport use. The purpose of this content is to provide you with tools to investigate the scope of the [recent security incident (November 7, 2023)](https://www.sumologic.com/security-response-center/) in your environment.  We have asked the experts at Sumo Logic to compile a list of apps, queries, and custom dashboards to help aid you with your investigation.
+This content summarizes logins via UI, API activity (configuration changes and search job api access), collector registrations and activity for the sumosupport user. The purpose of this content is to provide you with tools to investigate the scope of the [recent security incident (November 7, 2023)](https://www.sumologic.com/security-response-center/) in your environment.  We have asked the experts at Sumo Logic to compile a list of apps, queries, and custom dashboards to help aid you with your investigation.
 
 ![login](Screenshots/login_activity.png)
 
