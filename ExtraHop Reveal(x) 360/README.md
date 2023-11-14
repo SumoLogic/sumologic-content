@@ -30,20 +30,20 @@ This solution sends new and updated Reveal(x) 360 [Detections](https://docs.extr
 
 ### Installation
 
-1. download cloudformation template (`ExtraHop-SumoIntegration.yml`) and both python scripts (`ExtraHop-Detection-Sync.py` and `ExtraHop-Sumo-Connector.py`)
-2. zip python scripts to create Lambda packages:
+1. Download cloudformation template (`ExtraHop-SumoIntegration.yml`) and both python scripts (`ExtraHop-Detection-Sync.py` and `ExtraHop-Sumo-Connector.py`)
+2. Zip python scripts to create Lambda packages:
    ```
    for f in ExtraHop-*.py; do zip "${f%.*}.zip" "$f"; done
    ```
-3. push cloudformation template and Lambda packages to your S3 Bucket:
+3. Push cloudformation template and Lambda packages to your S3 Bucket:
    ```
    b=bucketname && k=s3key && aws s3 sync . s3://$b/$k --exclude "*" --include "ExtraHop-*.yml" --include "ExtraHop-*.zip"
    ```
-4. note the Cloudformation template's S3 Object URL:
+4. Note the Cloudformation template's S3 Object URL:
    ```
    r=$(aws configure get region) && s3objectUrl=https://$b.s3.$r.amazonaws.com/$k/ExtraHop-SumoIntegration.yml
    ```
-5. deploy Cloudformation template using S3 URL (**use your parameter values**):
+5. Create Cloudformation Stack from template using S3 URL (**use your parameter values**):
    ```
    aws cloudformation create-stack \
    --stack-name ExtraHop-SumoIntegration \
