@@ -80,7 +80,7 @@ Resources:
       Type: String
       Value: !Join [ '', [ 'https://', !Ref TenantName, '.api.cloud.extrahop.com' ] ]
       Tags:
-        Project: ExtraHop
+        Project: ExtraHop-Sumo-Integration
         CreatedBy: Cloudformation
   DetectionSyncLookbackParameter:
     Type: AWS::SSM::Parameter
@@ -95,7 +95,7 @@ Resources:
       Type: String
       Value: '300000'
       Tags:
-        Project: ExtraHop
+        Project: ExtraHop-Sumo-Integration
         CreatedBy: Cloudformation
   DetectionSyncSecret:
     Type: AWS::SecretsManager::Secret
@@ -275,7 +275,7 @@ Resources:
       Type: String
       Value: !Ref SumoUrl
       Tags:
-        Project: ExtraHop
+        Project: ExtraHop-Sumo-Integration
         CreatedBy: ExtraHop-DeploymentManagement 
   SumoConnectorFunction:
     Type: AWS::Lambda::Function
