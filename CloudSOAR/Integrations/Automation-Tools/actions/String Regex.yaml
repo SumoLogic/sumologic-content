@@ -1,0 +1,167 @@
+integration: Automation Tools
+name: 'String Regex'
+type: Custom
+script:
+  code: |
+    import re
+    import os
+    import sys
+    import html
+    import json
+    import argparse
+    import unicodedata
+    from bs4 import BeautifulSoup
+
+    class EnvDefault(argparse.Action):
+        def __init__(self, required=True, default=None, **kwargs):
+            envvar = kwargs.get("dest")
+            default = os.environ.get(envvar, default) if envvar in os.environ else default
+            required = False if required and default else required
+            super(EnvDefault, self).__init__(default=default, required=required, **kwargs)
+
+        def __call__(self, parser, namespace, values, option_string=None):
+            setattr(namespace, self.dest, values)
+
+    def is_value_exist(field_value):
+        return True if field_value is not None and field_value != '' and field_value != "None" else False
+
+    def remove_html_tags(query):
+        query = html.unescape(str(query).strip())
+        query = unicodedata.normalize("NFKD", query).encode("utf-8").decode("utf-8")
+        query = BeautifulSoup(query, "html.parser").text
+        query = query.replace('\u200b', '')
+        return str(query).strip()
+
+    try:
+        parser = argparse.ArgumentParser()
+        parser.add_argument('--description', help='description, REQUIRED', required=True, action=EnvDefault)
+        parser.add_argument('--searchType', help='searchType, REQUIRED', required=True, action=EnvDefault)
+        parser.add_argument('--bodyRegex', help='bodyRegex, REQUIRED', required=True, action=EnvDefault)
+        parser.add_argument('--regexFlags', help='regexFlags', required=False, action=EnvDefault)
+        parser.add_argument('--removeDuplicateRegex', help='removeDuplicateRegex', required=False, action=EnvDefault)
+        parser.add_argument('--removeHTMLTagsFromResults', help='remove HTML Tags From Results', required=False, action=EnvDefault)
+        args, unknown = parser.parse_known_args()
+        body_regex = remove_html_tags(args.bodyRegex)
+        email_body = args.description
+        regex_results = {}
+        regex_finds_results = ""
+        actual_flags = 0
+        if is_value_exist(args.regexFlags):
+            if "IGNORECASE" in args.regexFlags:
+                actual_flags |= re.IGNORECASE
+            if "ASCII" in args.regexFlags:
+                actual_flags |= re.ASCII
+            if "MULTILINE" in args.regexFlags:
+                actual_flags |= re.MULTILINE
+            if "VERBOSE" in args.regexFlags:
+                actual_flags |= re.VERBOSE
+            if "UNICODE" in args.regexFlags:
+                actual_flags |= re.UNICODE
+            if "DOTALL" in args.regexFlags:
+                actual_flags |= re.DOTALL
+        if is_value_exist(email_body):
+            if args.searchType == "findall":
+                regex_finds_results = re.findall(r"{}".format(body_regex), email_body, flags=actual_flags)
+                if len(regex_finds_results) > 0 and args.removeDuplicateRegex == "true":
+                    regex_finds_results = list(dict.fromkeys(regex_finds_results))
+            elif args.searchType == "search":
+                regex_finds_search = re.search(r"{}".format(body_regex), email_body, flags=actual_flags)
+                if regex_finds_search is not None:
+                    regex_finds_results = regex_finds_search.group()
+            else:
+                regex_finds_match = re.match(r"{}".format(body_regex), email_body, flags=actual_flags)
+                if regex_finds_match is not None:
+                    regex_finds_results = regex_finds_match.group()
+            if is_value_exist(regex_finds_results) and len(regex_finds_results) > 0:
+                if not isinstance(regex_finds_results, list):
+                    regex_finds_results = [str(regex_finds_results)]
+                regex_results.update({
+                    "regex_result_list": regex_finds_results,
+                })
+                if isinstance(regex_finds_results, list):
+                    regex_result_string = ""
+                    for single_record in regex_finds_results:
+                        if isinstance(single_record, tuple):
+                            single_record = ",".join([x for x in list(single_record) if str(x).strip() != ""])
+                        single_value = str(single_record)
+                        if args.removeHTMLTagsFromResults == "true":
+                            single_value = html.unescape(single_value)
+                            # for converting HTML entities back to plain-text representations
+                            single_value = unicodedata.normalize("NFKD", single_value).encode("utf-8").decode("utf-8")
+                            single_value = re.sub(r'<[^>]*>', ' ', single_value).strip()
+                            single_value = BeautifulSoup(single_value, "lxml").text
+                        regex_result_string += "{}, ".format(str(single_value))
+                    if is_value_exist(regex_result_string):
+                        regex_results.update({"regex_result_string": regex_result_string.rstrip(", ")})
+                regex_results.update({
+                    "status": "match found"
+                })
+        if "regex_result_list" not in regex_results:
+            regex_results.update({"status": "match not found"})
+        regex_results.update({"body": email_body, "regex": body_regex})
+        print(json.dumps(regex_results))
+        exit(0)
+    except Exception as e:
+        sys.stderr.write(str(e))
+        exit(-1)
+fields:
+    - id: description
+      label: 'Description'
+      incident_artifacts: true
+      type: text
+      required: True
+    - id: bodyRegex
+      label: 'Regex'
+      type: textarea
+      required: True
+      hint: "IP Regex Example: ([0-9]+(?:\\.[0-9]+){3})"
+    - id: searchType
+      label: 'Search Type'
+      type: list
+      required: True
+      default: "findall"
+      values:
+        "findall": "findall- Find all substrings/occurrences where the RE matches"
+        "search": "search - Scan through a string, looking for any location where this RE matches"
+        "match": "match - Determine if the RE matches at the beginning of the string"
+      hint: "match: (Match a regular expression pattern to the beginning of a string),
+      search: (Search a string for the presence of a pattern),
+      findall: (Find all occurrences of a pattern in a string)"
+    - id: regexFlags
+      label: 'Regex Flags (Modifiers)'
+      type: multilist
+      required: false
+      values:
+        "IGNORECASE": "IGNORECASE"
+        "ASCII": "ASCII"
+        "MULTILINE": "MULTILINE"
+        "VERBOSE": "VERBOSE"
+        "UNICODE": "UNICODE"
+        "DOTALL": "DOTALL"
+      hint: "ASCII: (Makes several escapes like \\w, \\b, \\s and \\d match only on ASCII
+      characters with the respective property), IGNORECASE: (Do case-insensitive matches),
+      MULTILINE: (Multi-line matching, affecting ^ and $),
+      VERBOSE: (Enable verbose REs, which can be organized more cleanly and understandably,
+      Ignore whitespace and comments for nicer looking REs),
+      DOTALL: (Make . match any character, including newlines),
+      UNICODE: (For compatibility only. Ignored for string patterns, and forbidden for bytes patterns.)"
+    - id: removeDuplicateRegex
+      label: 'Remove Duplicate Result'
+      type: checkbox
+      required: false
+      hint: "only works if field (Search Type) set as (findall), from return results,
+      do you want to remove duplicate ? "
+    - id: removeHTMLTagsFromResults
+      label: 'Remove HTML Tags From Results'
+      type: checkbox
+      required: false
+      hint: "from return results, do you want to remove HTML tags ?"
+output:
+    - path: "regex_result_list.[]"
+      type: string
+    - path: "regex_result_string"
+      type: string
+    - path: "status"
+      type: string
+    - path: "body"
+      type: string
