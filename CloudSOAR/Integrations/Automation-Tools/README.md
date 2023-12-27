@@ -85,6 +85,9 @@ This integration is in active development. Actions, or the parameters defined th
 ### Get Incident
 - Fetches Incident data (all fields, related incident IDs, as well as external alert data) and returns it in JSON format. This is useful for posting to a CIP HTTP source (using 'Generic HTTP POST' action)
 
+### String Regex
+- Searches for the specified regular expression pattern and identifies all occurences. 
+
 
 ### To upload your own content:
 Please see [Sumo Logic Community Ecosystem Apps FAQs](https://help.sumologic.com/docs/integrations/community-ecosystem-apps/#faq).
