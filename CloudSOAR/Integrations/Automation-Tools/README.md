@@ -52,6 +52,9 @@ This integration is in active development. Actions, or the parameters defined th
 ### Get Time
 - Returns the current time and provides an option to compare this time to a user-provided timestamp, returning elapsed time.
 
+### Escape String
+- Escapes Input Strings that contain specific special characters
+
 ### Extract Domain from URL
 - Extract the root domain from a URL
 
