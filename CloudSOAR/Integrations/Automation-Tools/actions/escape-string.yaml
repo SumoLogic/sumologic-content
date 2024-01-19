@@ -1,0 +1,70 @@
+integration: 'Automation Tools'
+name: 'Escape String'
+type: Custom
+script:
+ code: |
+    import json
+    import sys
+    import argparse
+    import os
+    
+    class EnvDefault(argparse.Action):
+            def __init__(self, required=True, default=None, **kwargs):
+                envvar = kwargs.get("dest")
+                default = os.environ.get(envvar, default) if envvar in os.environ else default
+                required = False if required and default else required
+                super(EnvDefault, self).__init__(default=default, required=required, **kwargs)
+
+            def __call__(self, parser, namespace, values, option_string=None):
+                setattr(namespace, self.dest, values)
+    
+    def escape_special_characters(input_str):
+        special_characters = ['\\', '\b', '\f', '\n', '\r', '\t']
+        escaped_str = input_str
+
+        try:
+            for char in special_characters:
+                escaped_str = escaped_str.replace(char, '\\' + char)
+
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            escaped_str = input_str  # Reset the escaped_str to the original input in case of an exception
+
+        return escaped_str
+
+    # Example usage
+    def main():
+        try:
+            json_dict = {}
+            parser = argparse.ArgumentParser()
+            parser.add_argument('--input_str', help='JSON', required=True, action=EnvDefault)
+            args, unknown = parser.parse_known_args()
+            input_str = args.input_str
+        
+            escaped_str = escape_special_characters(input_str)
+        
+            # Create a dictionary with the result
+            json_dict['input_string'] = str(input_str)
+            json_dict['escaped_string'] = str(escaped_str)
+        
+            # Convert the dictionary to JSON format using json.dumps()
+            print(json.dumps(json_dict))
+            exit(0)
+        except ValueError as e:
+            err = str(e)
+            sys.stderr.write(str(e))
+            exit(-1)
+    if __name__ == "__main__":
+        main()
+fields:
+  - id: input_str
+    label: 'String Input'
+    incident_artifacts: true
+    type: text
+    required: true
+    hint: 'Accepts valid string input and returns escaped string in JSON format.'
+output:
+  - path: 'input_string'
+    type: text
+  - path: 'escaped_string'
+    type: text
