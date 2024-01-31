@@ -47,11 +47,14 @@ This integration is in active development. Actions, or the parameters defined th
 - Takes a JSON string, or object and returns it as a JSON result. Helpful for dumping a JSON blob in string format and rendering in JSON format.
 
 ### Sleep
-- Adds a configurable wait time to the execution of a playbook. 
+- Adds a configurable wait time to the execution of a playbook.
 
 ### Get Time
 - Returns the current time and provides an option to compare this time to a user-provided timestamp, returning elapsed time.
 
+### Add Prefix Suffix
+- This action will allow a user to pass an input string and add a prefix and/or a suffix
+  
 ### Escape String
 - Escapes Input Strings that contain specific special characters
 
