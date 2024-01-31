@@ -1,0 +1,100 @@
+integration: 'Automation Tools'
+name: 'Add Prefix Suffix'
+type: Custom
+script:
+ code: |
+    import json
+    import sys
+    import time
+    import argparse
+    import os
+    
+    class EnvDefault(argparse.Action):
+        def __init__(self, required=True, default=None, **kwargs):
+            envvar = kwargs.get("dest")
+            default = os.environ.get(envvar, default) if envvar in os.environ else default
+            required = False if required and default else required
+            super(EnvDefault, self).__init__(default=default, required=required, **kwargs)
+
+        def __call__(self, parser, namespace, values, option_string=None):
+            setattr(namespace, self.dest, values)
+
+    def modify_url(input, prefix, suffix):
+        modified_input = ""
+        
+        try:
+            if prefix:
+                modified_input += prefix
+            
+            modified_input += input
+            
+            if suffix:
+                modified_input += suffix
+            
+            return modified_input
+        except Exception as e:
+            return {"error": str(e)}
+
+    def main():
+        try:
+            parser = argparse.ArgumentParser()
+            parser.add_argument('--input', help='Input String', required=True, action=EnvDefault)
+            parser.add_argument('--prefix', help='Prefix', required=False, action=EnvDefault)
+            parser.add_argument('--suffix', help='Suffix', required=False, action=EnvDefault)
+            args, unknown = parser.parse_known_args()
+            
+            json_dict = {}
+
+            input = args.input
+            prefix = args.prefix
+            suffix = args.suffix
+
+            output_data = modify_url(input, prefix, suffix)
+
+            # Example usage with user-defined variables
+            json_dict['input'] = input
+            json_dict['prefix'] = prefix
+            json_dict['suffix'] = suffix
+            json_dict['modified_input'] = output_data
+            
+            
+            print(json.dumps(json_dict))
+            exit(0)
+        except ValueError as e:
+            err = str(e)
+            sys.stderr.write(str(e))
+            exit(-1)
+    if __name__ == "__main__":
+        main()
+fields:
+  - id: input
+    label: ' input string'
+    incident_artifacts: true
+    type: text
+    required: true
+    hint: 'URL or email address from which to extract the domain'
+  - id: prefix
+    label: 'prefix'
+    incident_artifacts: true
+    type: text
+    required: false
+    hint: 'prefix'
+  - id: suffix
+    label: 'suffix'
+    incident_artifacts: true
+    type: text
+    required: false
+    hint: 'suffix'
+output:
+  - path: input
+    type: text
+    example: 'google'
+  - path: prefix
+    type: text
+    example: 'https://'
+  - path: suffix
+    type: text
+    example: '.com'
+  - path: modified_input
+    type: text
+    example: 'https://google.com'
