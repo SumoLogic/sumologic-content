@@ -1,7 +1,12 @@
-# Sumo Logic for Traces
-Sumo Logic Community Content for Traces that is not published to the [App Catalog](https://help.sumologic.com/docs/integrations/).
+# Sumo Logic Log Searching
+Sumo Logic Community Content for Log Searching that is not published to the [App Catalog](https://help.sumologic.com/docs/integrations/).
 
-This folder is used to share content that is related to Tracing in Sumo Logic (Dashboards, Searches, Alerts, etc).
+This folder is used to share content that is related to Log searching in Sumo Logic, including:
+- Complex queries / query hacks
+- Helpful alerts
+- Search optimizations
+- Best practices
+- etc
 
 ### To use the content:
 - Download the JSON file(s).
@@ -39,5 +44,3 @@ Please provide a review/comment for this content by following the guidelines bel
 Code owners will review and merge your comments on the content to the repo.
 
 Please see [How to add a review/comment to an app](https://help.sumologic.com/docs/integrations/community-ecosystem-apps/#how-do-i-add-a-reviewrating-to-an-app) for more information.
-
-Creator: Patrick Rush (Sumo Logic SE)
