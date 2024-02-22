@@ -1,13 +1,14 @@
-# Sumo Logic for Built-in Content
-Sumo Logic Community Content for built-in tooling that is not published to the [App Catalog](https://help.sumologic.com/docs/integrations/).
+# Sumo Logic for Traces
+Sumo Logic Community Content for Traces that is not published to the [App Catalog](https://help.sumologic.com/docs/integrations/).
+
+This folder is used to share content that is related to Tracing in Sumo Logic (Dashboards, Searches, Alerts, etc).
 
 ### To use the content:
 - Download the JSON file(s).
-- Find/replace all Source Categories within the JSON with your own Source Category (Ex: sourceCategory=yourSourceCategory).
 - [Import](https://help.sumologic.com/docs/get-started/library/#import-content) the content to your desired folder location in Sumo Logic.
 
 ### Collection:
-For instructions on how to collect logs and metrics for use with content, please see [Sumo Logic Documentation](https://help.sumologic.com/docs/send-data/).
+For instructions on how to collect logs, metrics, or traces for use with content, please see [Sumo Logic Documentation](https://help.sumologic.com/docs/send-data/).
 
 ### To upload your own content:
 Please see [Sumo Logic Community Ecosystem Apps FAQs](https://help.sumologic.com/docs/integrations/community-ecosystem-apps/#faq).
@@ -38,3 +39,5 @@ Please provide a review/comment for this content by following the guidelines bel
 Code owners will review and merge your comments on the content to the repo.
 
 Please see [How to add a review/comment to an app](https://help.sumologic.com/docs/integrations/community-ecosystem-apps/#how-do-i-add-a-reviewrating-to-an-app) for more information.
+
+Creator: Patrick Rush (Sumo Logic SE)
