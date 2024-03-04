@@ -69,14 +69,22 @@ script:
         
         # String Replace Function
         elif args.func.lower() == "replace":
+            import re
+            
             if args.param is None:
                 raise Exception("Missing 'Transform Argument'. Please specify the values that will replace the input.")
-            r_param = args.param.replace(", ", ",")
-            args_list = r_param.split(",")
-            result = args.input.replace(args_list[0], args_list[1])
+            
+            # Splitting args.param into pattern and replacement
+            pattern, replacement = args.param.split(",")
+            
+            # Compiling the regular expression pattern
+            regex_pattern = re.compile(pattern)
+            
+            # Performing the replacement
+            result = regex_pattern.sub(replacement, args.input)
         else:
-            raise Exception("Please enter a valid tranformation function")
-        
+            raise Exception("Please enter a valid transformation function")
+            
         result_dict["result"] = result
         print(json.dumps(result_dict))
         exit(0)
