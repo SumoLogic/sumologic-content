@@ -1,8 +1,8 @@
 # Sumo Logic for GitHub Actions
 Sumo Logic Community Content built for GitHub Actions that is not published to the [App Catalog](https://help.sumologic.com/docs/integrations/).
 
-![SDO - Github Actions - Steps Dashboard](/Screenshots/SDO_Github_Actions_Steps.png)
-![SDO - Github Actions - Jobs Dashboard](/Screenshots/SDO_Github_Actions_Jobs.png)
+![SDO - Github Actions - Steps Dashboard](Screenshots/SDO-GithubActions-Steps.png)
+![SDO - Github Actions - Jobs Dashboard](Screenshots/SDO-GithubActions-Jobs.png)
 
 ### To use the content:
 - Download the JSON file(s).
