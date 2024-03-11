@@ -1,0 +1,383 @@
+{
+    "type": "DashboardV2SyncDefinition",
+    "name": "SDO - Github Actions - Steps",
+    "description": "",
+    "title": "SDO - Github Actions - Steps",
+    "theme": "Dark",
+    "topologyLabelMap": {
+        "data": {}
+    },
+    "refreshInterval": 0,
+    "timeRange": {
+        "type": "BeginBoundedTimeRange",
+        "from": {
+            "type": "RelativeTimeRangeBoundary",
+            "relativeTime": "-1d"
+        },
+        "to": null
+    },
+    "layout": {
+        "layoutType": "Grid",
+        "layoutStructures": [
+            {
+                "key": "panel03CDC5949AEA2941",
+                "structure": "{\"height\":8,\"width\":24,\"x\":0,\"y\":34}"
+            },
+            {
+                "key": "panelC02A95FB85A2BB43",
+                "structure": "{\"height\":6,\"width\":24,\"x\":0,\"y\":42}"
+            },
+            {
+                "key": "panelF8D6BFF781F59944",
+                "structure": "{\"height\":10,\"width\":24,\"x\":0,\"y\":48}"
+            },
+            {
+                "key": "panelCCECE2799FE73A47",
+                "structure": "{\"height\":7,\"width\":24,\"x\":0,\"y\":27}"
+            },
+            {
+                "key": "panel1D8A7E6494DCE84A",
+                "structure": "{\"height\":8,\"width\":24,\"x\":0,\"y\":19}"
+            },
+            {
+                "key": "panel1BBEB36FA69F8844",
+                "structure": "{\"height\":10,\"width\":24,\"x\":0,\"y\":9}"
+            },
+            {
+                "key": "panel3A75FADE9C44D944",
+                "structure": "{\"height\":9,\"width\":8,\"x\":0,\"y\":0}"
+            },
+            {
+                "key": "panel7D90976BB80CF84B",
+                "structure": "{\"height\":9,\"width\":8,\"x\":8,\"y\":0}"
+            },
+            {
+                "key": "panel7AD8530D932B984E",
+                "structure": "{\"height\":9,\"width\":8,\"x\":16,\"y\":0}"
+            }
+        ]
+    },
+    "panels": [
+        {
+            "id": null,
+            "key": "panel03CDC5949AEA2941",
+            "title": "Steps Summary",
+            "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"table\",\"displayType\":\"default\"},\"version\":3,\"settings\":{\"table\":{\"version\":2,\"configuration\":{\"textTruncationMode\":\"none\",\"fontSize\":\"medium\",\"fontSizeOverride\":null,\"tableState\":null}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"pie\":{\"chartType\":\"pie\",\"version\":3,\"configuration\":{\"donutMode\":true,\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"label\":{\"truncationMode\":\"middle\"},\"showSliceBorders\":true,\"maxNumOfPieSlices\":\"10\"}}},\"boxplot\":{\"chartType\":\"boxplot\",\"version\":1,\"configuration\":{\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"}},\"yAxis\":{\"title\":null,\"min\":null,\"max\":null}}},\"map\":{\"chartType\":\"map\",\"version\":1,\"configuration\":{\"maptype\":\"cluster\"}},\"svv\":{\"version\":2,\"configuration\":{\"colorOverride\":null,\"backgroundColorEnabled\":false,\"noDataBehavior\":{\"enabled\":false,\"color\":\"#cccccc\",\"value\":null,\"isString\":null},\"valueType\":{\"number\":{\"showNumber\":true,\"unit\":null,\"colorsByValueRange\":null},\"boolean\":{\"trueColor\":\"#6aa84f\",\"falseColor\":\"#cc0000\"}},\"labels\":{\"prefix\":{\"enabled\":false,\"text\":\"\",\"align\":\"left\"},\"postfix\":{\"enabled\":false,\"text\":\"\",\"align\":\"right\"}}}},\"sankey\":{\"version\":1,\"configuration\":{}},\"text\":{\"version\":1,\"configuration\":{\"text\":null}},\"metrics\":{\"version\":2,\"configuration\":{\"blockSettings\":{},\"viewType\":\"timeline\",\"zoom\":\"xy\",\"yAxis\":{\"defaults\":[{\"name\":\"\"},{\"name\":\"\"}],\"custom\":[{},{}]},\"xAxis\":{\"scrubber\":true},\"outliers\":{\"enabled\":true,\"top\":1,\"scope\":\"Chart\",\"cyclicality\":false,\"threshold\":7,\"autoShowBand\":true},\"colorFamily\":\"METRIC_DEFAULT\"}},\"common\":{\"version\":1,\"configuration\":{\"drilldown\":{\"fallback\":{\"target\":{\"id\":null,\"name\":null,\"enabled\":null}}}}}},\"series\":{}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=\"github\" \n| json field=_raw \"workflow_job.runner_group_name\" as gh_action\n| json field=_raw \"workflow_job.steps\" as steps\n| json field=_raw \"workflow_job.runner_name\" as run_name\n| json field=_raw \"workflow_job.html_url\" as link\n| json field=_raw \"workflow_job.name\" as job_name\n| json field=_raw \"repository.name\" as repo_name\n| parse regex field = steps \"(?<json_added_blob>\\{[^\\}]+(?:\\}\\}|\\}))\" multi\n| json field=json_added_blob \"name\", \"status\", \"conclusion\", \"number\", \"started_at\", \"completed_at\" as step_name, step_status, step_result, step_number, step_started_at, step_completed_at nodrop\n| parseDate(step_started_at, \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\") as step_started_epoch\n| parseDate(step_completed_at, \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\") as step_completed_epoch\n| step_completed_epoch - step_started_epoch as ms_step_duration\n| ms_step_duration/1000 as duration_seconds\n| formatDate(step_started_epoch, \"MM/dd/yyyy HH:mm:ss\") as execution_time\n| tourl(link, run_name) as run_link\n| where action = \"completed\"\n| where !isNull(gh_action) \n| where step_result matches \"{{step_result}}\"\n| where job_name matches \"{{job_name}}\"\n| where step_name matches \"{{step_name}}\"\n| where run_name matches \"{{run_name}}\"\n| where repo_name matches \"{{repository}}\"\n| count by execution_time, run_link, step_name, step_number, step_result, job_name, duration_seconds\n| fields - _count",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panelC02A95FB85A2BB43",
+            "title": "Last 10 Failed Steps",
+            "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"table\",\"displayType\":\"default\"},\"version\":3,\"settings\":{\"table\":{\"version\":2,\"configuration\":{\"textTruncationMode\":\"none\",\"fontSize\":\"medium\",\"fontSizeOverride\":null,\"tableState\":null}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"pie\":{\"chartType\":\"pie\",\"version\":3,\"configuration\":{\"donutMode\":true,\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"label\":{\"truncationMode\":\"middle\"},\"showSliceBorders\":true,\"maxNumOfPieSlices\":\"10\"}}},\"boxplot\":{\"chartType\":\"boxplot\",\"version\":1,\"configuration\":{\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"}},\"yAxis\":{\"title\":null,\"min\":null,\"max\":null}}},\"map\":{\"chartType\":\"map\",\"version\":1,\"configuration\":{\"maptype\":\"cluster\"}},\"svv\":{\"version\":2,\"configuration\":{\"colorOverride\":null,\"backgroundColorEnabled\":false,\"noDataBehavior\":{\"enabled\":false,\"color\":\"#cccccc\",\"value\":null,\"isString\":null},\"valueType\":{\"number\":{\"showNumber\":true,\"unit\":null,\"colorsByValueRange\":null},\"boolean\":{\"trueColor\":\"#6aa84f\",\"falseColor\":\"#cc0000\"}},\"labels\":{\"prefix\":{\"enabled\":false,\"text\":\"\",\"align\":\"left\"},\"postfix\":{\"enabled\":false,\"text\":\"\",\"align\":\"right\"}}}},\"sankey\":{\"version\":1,\"configuration\":{}},\"text\":{\"version\":1,\"configuration\":{\"text\":null}},\"metrics\":{\"version\":2,\"configuration\":{\"blockSettings\":{},\"viewType\":\"timeline\",\"zoom\":\"xy\",\"yAxis\":{\"defaults\":[{\"name\":\"\"},{\"name\":\"\"}],\"custom\":[{},{}]},\"xAxis\":{\"scrubber\":true},\"outliers\":{\"enabled\":true,\"top\":1,\"scope\":\"Chart\",\"cyclicality\":false,\"threshold\":7,\"autoShowBand\":true},\"colorFamily\":\"METRIC_DEFAULT\"}},\"common\":{\"version\":1,\"configuration\":{\"drilldown\":{\"fallback\":{\"target\":{\"id\":null,\"name\":null,\"enabled\":null}}}}}},\"series\":{}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=\"github\" \n| json field=_raw \"workflow_job.runner_group_name\" as gh_action\n| json field=_raw \"workflow_job.name\" as job_name\n| json field=_raw \"workflow_job.steps\" as steps\n| json field=_raw \"workflow_job.runner_name\" as run_name\n| json field=_raw \"workflow_job.html_url\" as link\n| json field=_raw \"repository.name\" as repo_name\n| parse regex field = steps \"(?<json_added_blob>\\{[^\\}]+(?:\\}\\}|\\}))\" multi\n| json field=json_added_blob \"name\", \"status\", \"conclusion\", \"number\", \"started_at\", \"completed_at\" as step_name, step_status, step_result, step_number, step_started_at, step_completed_at nodrop\n| parseDate(step_started_at, \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\") as step_started_epoch\n| parseDate(step_completed_at, \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\") as step_completed_epoch\n| step_completed_epoch - step_started_epoch as ms_step_duration\n| ms_step_duration/1000 as duration_seconds\n| formatDate(step_started_epoch, \"MM/dd/yyyy HH:mm:ss\") as execution_time\n| tourl(link, run_name) as run_link\n| where action = \"completed\"\n| where !isNull(gh_action) \n| where step_result in (\"failure\")\n| where job_name matches \"{{job_name}}\"\n| where step_name matches \"{{step_name}}\"\n| where run_name matches \"{{run_name}}\"\n| where repo_name matches \"{{repository}}\"\n| count by execution_time, run_link, step_name, step_number, step_result, job_name, duration_seconds\n| fields - _count\n| sort by execution_time\n| limit 10",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panelF8D6BFF781F59944",
+            "title": "20 Slowest Steps (seconds)",
+            "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"table\",\"displayType\":\"default\"},\"version\":3,\"settings\":{\"table\":{\"version\":2,\"configuration\":{\"textTruncationMode\":\"none\",\"fontSize\":\"medium\",\"fontSizeOverride\":null,\"tableState\":null}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"pie\":{\"chartType\":\"pie\",\"version\":3,\"configuration\":{\"donutMode\":true,\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"label\":{\"truncationMode\":\"middle\"},\"showSliceBorders\":true,\"maxNumOfPieSlices\":\"10\"}}},\"boxplot\":{\"chartType\":\"boxplot\",\"version\":1,\"configuration\":{\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"}},\"yAxis\":{\"title\":null,\"min\":null,\"max\":null}}},\"map\":{\"chartType\":\"map\",\"version\":1,\"configuration\":{\"maptype\":\"cluster\"}},\"svv\":{\"version\":2,\"configuration\":{\"colorOverride\":null,\"backgroundColorEnabled\":false,\"noDataBehavior\":{\"enabled\":false,\"color\":\"#cccccc\",\"value\":null,\"isString\":null},\"valueType\":{\"number\":{\"showNumber\":true,\"unit\":null,\"colorsByValueRange\":null},\"boolean\":{\"trueColor\":\"#6aa84f\",\"falseColor\":\"#cc0000\"}},\"labels\":{\"prefix\":{\"enabled\":false,\"text\":\"\",\"align\":\"left\"},\"postfix\":{\"enabled\":false,\"text\":\"\",\"align\":\"right\"}}}},\"sankey\":{\"version\":1,\"configuration\":{}},\"text\":{\"version\":1,\"configuration\":{\"text\":null}},\"metrics\":{\"version\":2,\"configuration\":{\"blockSettings\":{},\"viewType\":\"timeline\",\"zoom\":\"xy\",\"yAxis\":{\"defaults\":[{\"name\":\"\"},{\"name\":\"\"}],\"custom\":[{},{}]},\"xAxis\":{\"scrubber\":true},\"outliers\":{\"enabled\":true,\"top\":1,\"scope\":\"Chart\",\"cyclicality\":false,\"threshold\":7,\"autoShowBand\":true},\"colorFamily\":\"METRIC_DEFAULT\"}},\"common\":{\"version\":1,\"configuration\":{\"drilldown\":{\"fallback\":{\"target\":{\"id\":null,\"name\":null,\"enabled\":null}}}}}},\"series\":{}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=\"github\" \n| json field=_raw \"workflow_job.runner_group_name\" as gh_action\n| json field=_raw \"workflow_job.name\" as job_name\n| json field=_raw \"workflow_job.steps\" as steps\n| json field=_raw \"workflow_job.runner_name\" as run_name\n| json field=_raw \"workflow_job.html_url\" as link\n| json field=_raw \"repository.name\" as repo_name\n| parse regex field = steps \"(?<json_added_blob>\\{[^\\}]+(?:\\}\\}|\\}))\" multi\n| json field=json_added_blob \"name\", \"status\", \"conclusion\", \"number\", \"started_at\", \"completed_at\" as step_name, step_status, step_result, step_number, step_started_at, step_completed_at nodrop\n| parseDate(step_started_at, \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\") as step_started_epoch\n| parseDate(step_completed_at, \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\") as step_completed_epoch\n| step_completed_epoch - step_started_epoch as ms_step_duration\n| ms_step_duration/1000 as duration_seconds\n| formatDate(step_started_epoch, \"MM/dd/yyyy HH:mm:ss\") as execution_time\n| tourl(link, run_name) as run_link\n| where action = \"completed\"\n| where !isNull(gh_action) \n| where step_result matches \"{{step_result}}\"\n| where job_name matches \"{{job_name}}\"\n| where step_name matches \"{{step_name}}\"\n| where run_name matches \"{{run_name}}\"\n| where repo_name matches \"{{repository}}\"\n| count by execution_time, run_link, step_name, step_number, step_result, job_name, duration_seconds\n| fields - _count\n| sort by duration_seconds\n| limit 20",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panelCCECE2799FE73A47",
+            "title": "Top 20 Slowest Steps (seconds) by Run",
+            "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"column\",\"displayType\":\"default\"},\"settings\":{\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}}},\"series\":{},\"overrides\":[]}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=\"github\" \n| json field=_raw \"workflow_job.runner_group_name\" as gh_action\n| json field=_raw \"workflow_job.steps\" as steps\n| json field=_raw \"workflow_job.runner_name\" as run_name\n| json field=_raw \"repository.name\" as repo_name\n| json field=_raw \"workflow_job.name\" as job_name\n| parse regex field = steps \"(?<json_added_blob>\\{[^\\}]+(?:\\}\\}|\\}))\" multi\n| json field=json_added_blob \"name\", \"status\", \"conclusion\", \"number\", \"started_at\", \"completed_at\" as step_name, step_status, step_result, step_number, step_started_at, step_completed_at nodrop\n| parseDate(step_started_at, \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\") as step_started_epoch\n| parseDate(step_completed_at, \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\") as step_completed_epoch\n| step_completed_epoch - step_started_epoch as ms_step_duration\n| ms_step_duration/1000 as duration_seconds\n| where action = \"completed\"\n| where !isNull(gh_action) \n| where step_result matches \"{{step_result}}\"\n| where job_name matches \"{{job_name}}\"\n| where step_name matches \"{{step_name}}\"\n| where run_name matches \"{{run_name}}\"\n| where repo_name matches \"{{repository}}\"\n| sum(duration_seconds) as step_duration_seconds by run_name, step_name\n| order by step_duration_seconds\n| limit 20    \n| transpose row run_name  column step_name",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panel1D8A7E6494DCE84A",
+            "title": "Top 10 Average Step Duration (seconds)",
+            "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"column\",\"displayType\":\"default\"},\"settings\":{\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}}},\"series\":{},\"overrides\":[]}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=\"github\" \n| json field=_raw \"workflow_job.runner_group_name\" as gh_action\n| json field=_raw \"workflow_job.steps\" as steps\n| json field=_raw \"workflow_job.runner_name\" as run_name\n| json field=_raw \"repository.name\" as repo_name\n| json field=_raw \"workflow_job.name\" as job_name\n| parse regex field = steps \"(?<json_added_blob>\\{[^\\}]+(?:\\}\\}|\\}))\" multi\n| json field=json_added_blob \"name\", \"status\", \"conclusion\", \"number\", \"started_at\", \"completed_at\" as step_name, step_status, step_result, step_number, step_started_at, step_completed_at nodrop\n| parseDate(step_started_at, \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\") as step_started_epoch\n| parseDate(step_completed_at, \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\") as step_completed_epoch\n| step_completed_epoch - step_started_epoch as ms_step_duration\n| ms_step_duration/1000 as duration_seconds\n| where action = \"completed\"\n| where !isNull(gh_action) \n| where step_result matches \"{{step_result}}\"\n| where job_name matches \"{{job_name}}\"\n| where step_name matches \"{{step_name}}\"\n| where run_name matches \"{{run_name}}\"\n| where repo_name matches \"{{repository}}\"\n| avg(duration_seconds) as avg_duration_seconds by step_name\n| sort by avg_duration_seconds\n| limit 10",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panel1BBEB36FA69F8844",
+            "title": "Average Job Duration (seconds)",
+            "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"column\",\"displayType\":\"stacked\"},\"settings\":{\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"legend\":{\"position\":\"right\",\"enabled\":true},\"xAxis\":{\"title\":\"\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"\",\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{}}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"legend\":{\"position\":\"right\",\"enabled\":true},\"xAxis\":{\"title\":\"\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"\",\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{}}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"legend\":{\"position\":\"right\",\"enabled\":true},\"xAxis\":{\"title\":\"\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"\",\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{}}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"legend\":{\"position\":\"right\",\"enabled\":true},\"xAxis\":{\"title\":\"\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"\",\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{}}},\"pie\":{\"chartType\":\"pie\",\"version\":2,\"configuration\":{\"legend\":{\"position\":\"right\",\"enabled\":true},\"xAxis\":{\"title\":\"\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"\",\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{}}},\"table\":{\"chartType\":\"table\",\"version\":2,\"configuration\":{\"legend\":{\"position\":\"right\",\"enabled\":true},\"xAxis\":{\"title\":\"\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"\",\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{}}},\"map\":{\"chartType\":\"map\",\"version\":2,\"configuration\":{\"legend\":{\"position\":\"right\",\"enabled\":true},\"xAxis\":{\"title\":\"\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"\",\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{}}},\"sankey\":{\"chartType\":\"sankey\",\"version\":1,\"configuration\":{\"legend\":{\"position\":\"right\",\"enabled\":true},\"xAxis\":{\"title\":\"\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"\",\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{}}}},\"series\":{},\"overrides\":[]}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=\"github\" \n| json field=_raw \"workflow_job.runner_group_name\" as gh_action\n| json field=_raw \"workflow_job.steps\" as steps\n| json field=_raw \"workflow_job.runner_name\" as run_name\n| json field=_raw \"workflow_job.name\" as job_name\n| json field=_raw \"repository.name\" as repo_name\n| parse regex field = steps \"(?<json_added_blob>\\{[^\\}]+(?:\\}\\}|\\}))\" multi\n| json field=json_added_blob \"name\", \"status\", \"conclusion\", \"number\", \"started_at\", \"completed_at\" as step_name, step_status, step_result, step_number, step_started_at, step_completed_at nodrop\n| parseDate(step_started_at, \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\") as step_started_epoch\n| parseDate(step_completed_at, \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\") as step_completed_epoch\n| step_completed_epoch - step_started_epoch as ms_step_duration\n| ms_step_duration/1000 as duration_seconds\n| where action = \"completed\"\n| where !isNull(gh_action) \n| where step_result matches \"{{step_result}}\"\n| where job_name matches \"{{job_name}}\"\n| where step_name matches \"{{step_name}}\"\n| where run_name matches \"{{run_name}}\"\n| where repo_name matches \"{{repository}}\"\n| avg(duration_seconds) as avg_duration_seconds by step_name, job_name\n| transpose row job_name column step_name",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panel3A75FADE9C44D944",
+            "title": "Run Count by Job",
+            "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"pie\",\"displayType\":\"default\"},\"version\":3,\"settings\":{\"table\":{\"version\":2,\"configuration\":{\"textTruncationMode\":\"none\",\"fontSize\":\"medium\",\"fontSizeOverride\":null,\"tableState\":null}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"pie\":{\"chartType\":\"pie\",\"version\":3,\"configuration\":{\"donutMode\":true,\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"label\":{\"truncationMode\":\"middle\"},\"showSliceBorders\":true,\"maxNumOfPieSlices\":\"10\"}}},\"boxplot\":{\"chartType\":\"boxplot\",\"version\":1,\"configuration\":{\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"}},\"yAxis\":{\"title\":null,\"min\":null,\"max\":null}}},\"map\":{\"chartType\":\"map\",\"version\":1,\"configuration\":{\"maptype\":\"cluster\"}},\"svv\":{\"version\":2,\"configuration\":{\"colorOverride\":null,\"backgroundColorEnabled\":false,\"noDataBehavior\":{\"enabled\":false,\"color\":\"#cccccc\",\"value\":null,\"isString\":null},\"valueType\":{\"number\":{\"showNumber\":true,\"unit\":null,\"colorsByValueRange\":null},\"boolean\":{\"trueColor\":\"#6aa84f\",\"falseColor\":\"#cc0000\"}},\"labels\":{\"prefix\":{\"enabled\":false,\"text\":\"\",\"align\":\"left\"},\"postfix\":{\"enabled\":false,\"text\":\"\",\"align\":\"right\"}}}},\"sankey\":{\"version\":1,\"configuration\":{}},\"text\":{\"version\":1,\"configuration\":{\"text\":null}},\"metrics\":{\"version\":2,\"configuration\":{\"blockSettings\":{},\"viewType\":\"timeline\",\"zoom\":\"xy\",\"yAxis\":{\"defaults\":[{\"name\":\"\"},{\"name\":\"\"}],\"custom\":[{},{}]},\"xAxis\":{\"scrubber\":true},\"outliers\":{\"enabled\":true,\"top\":1,\"scope\":\"Chart\",\"cyclicality\":false,\"threshold\":7,\"autoShowBand\":true},\"colorFamily\":\"METRIC_DEFAULT\"}},\"common\":{\"version\":1,\"configuration\":{\"drilldown\":{\"fallback\":{\"target\":{\"id\":null,\"name\":null,\"enabled\":null}}}}}},\"series\":{}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=\"github\" \n| json field=_raw \"workflow_job.runner_group_name\" as gh_action\n| json field=_raw \"workflow_job.name\" as job_name\n| json field=_raw \"workflow_job.steps\" as steps\n| json field=_raw \"workflow_job.runner_name\" as run_name\n| json field=_raw \"workflow_job.html_url\" as link\n| json field=_raw \"repository.name\" as repo_name\n| parse regex field = steps \"(?<json_added_blob>\\{[^\\}]+(?:\\}\\}|\\}))\" multi\n| json field=json_added_blob \"name\", \"status\", \"conclusion\", \"number\", \"started_at\", \"completed_at\" as step_name, step_status, step_result, step_number, step_started_at, step_completed_at nodrop\n| parseDate(step_started_at, \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\") as step_started_epoch\n| parseDate(step_completed_at, \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\") as step_completed_epoch\n| step_completed_epoch - step_started_epoch as ms_step_duration\n| ms_step_duration/1000 as duration_seconds\n| formatDate(step_started_epoch, \"MM/dd/yyyy HH:mm:ss\") as execution_time\n| tourl(link, run_name) as run_link\n| where action = \"completed\"\n| where !isNull(gh_action) \n//| where step_result in (\"failure\")\n| where step_result matches \"{{step_result}}\"\n| where job_name matches \"{{job_name}}\"\n| where step_name matches \"{{step_name}}\"\n| where run_name matches \"{{run_name}}\"\n| where repo_name matches \"{{repository}}\"\n| count_distinct (run_name) as count by job_name\n| sort by count\n",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panel7D90976BB80CF84B",
+            "title": "Step Count",
+            "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"pie\",\"displayType\":\"default\"},\"version\":3,\"settings\":{\"table\":{\"version\":2,\"configuration\":{\"textTruncationMode\":\"none\",\"fontSize\":\"medium\",\"fontSizeOverride\":null,\"tableState\":null}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"pie\":{\"chartType\":\"pie\",\"version\":3,\"configuration\":{\"donutMode\":true,\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"label\":{\"truncationMode\":\"middle\"},\"showSliceBorders\":true,\"maxNumOfPieSlices\":\"10\"}}},\"boxplot\":{\"chartType\":\"boxplot\",\"version\":1,\"configuration\":{\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"}},\"yAxis\":{\"title\":null,\"min\":null,\"max\":null}}},\"map\":{\"chartType\":\"map\",\"version\":1,\"configuration\":{\"maptype\":\"cluster\"}},\"svv\":{\"version\":2,\"configuration\":{\"colorOverride\":null,\"backgroundColorEnabled\":false,\"noDataBehavior\":{\"enabled\":false,\"color\":\"#cccccc\",\"value\":null,\"isString\":null},\"valueType\":{\"number\":{\"showNumber\":true,\"unit\":null,\"colorsByValueRange\":null},\"boolean\":{\"trueColor\":\"#6aa84f\",\"falseColor\":\"#cc0000\"}},\"labels\":{\"prefix\":{\"enabled\":false,\"text\":\"\",\"align\":\"left\"},\"postfix\":{\"enabled\":false,\"text\":\"\",\"align\":\"right\"}}}},\"sankey\":{\"version\":1,\"configuration\":{}},\"text\":{\"version\":1,\"configuration\":{\"text\":null}},\"metrics\":{\"version\":2,\"configuration\":{\"blockSettings\":{},\"viewType\":\"timeline\",\"zoom\":\"xy\",\"yAxis\":{\"defaults\":[{\"name\":\"\"},{\"name\":\"\"}],\"custom\":[{},{}]},\"xAxis\":{\"scrubber\":true},\"outliers\":{\"enabled\":true,\"top\":1,\"scope\":\"Chart\",\"cyclicality\":false,\"threshold\":7,\"autoShowBand\":true},\"colorFamily\":\"METRIC_DEFAULT\"}},\"common\":{\"version\":1,\"configuration\":{\"drilldown\":{\"fallback\":{\"target\":{\"id\":null,\"name\":null,\"enabled\":null}}}}}},\"series\":{}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=\"github\" \n| json field=_raw \"workflow_job.runner_group_name\" as gh_action\n| json field=_raw \"workflow_job.name\" as job_name\n| json field=_raw \"workflow_job.steps\" as steps\n| json field=_raw \"workflow_job.runner_name\" as run_name\n| json field=_raw \"repository.name\" as repo_name\n| parse regex field = steps \"(?<json_added_blob>\\{[^\\}]+(?:\\}\\}|\\}))\" multi\n| json field=json_added_blob \"name\", \"status\", \"conclusion\", \"number\", \"started_at\", \"completed_at\" as step_name, step_status, step_result, step_number, step_started_at, step_completed_at nodrop\n| parseDate(step_started_at, \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\") as step_started_epoch\n| parseDate(step_completed_at, \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\") as step_completed_epoch\n| step_completed_epoch - step_started_epoch as ms_step_duration\n| ms_step_duration/1000 as duration_seconds\n| formatDate(step_started_epoch, \"MM/dd/yyyy HH:mm:ss\") as execution_time\n| where action = \"completed\"\n| where !isNull(gh_action) \n| where step_result matches \"{{step_result}}\"\n| where job_name matches \"{{job_name}}\"\n| where step_name matches \"{{step_name}}\"\n| where run_name matches \"{{run_name}}\"\n| where repo_name matches \"{{repository}}\"\n//| where step_result in (\"failure\")\n| count as count by step_name\n| sort by count\n",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panel7AD8530D932B984E",
+            "title": "Failed Steps",
+            "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"pie\",\"displayType\":\"default\"},\"version\":3,\"settings\":{\"table\":{\"version\":2,\"configuration\":{\"textTruncationMode\":\"none\",\"fontSize\":\"medium\",\"fontSizeOverride\":null,\"tableState\":null}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"pie\":{\"chartType\":\"pie\",\"version\":3,\"configuration\":{\"donutMode\":true,\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"label\":{\"truncationMode\":\"middle\"},\"showSliceBorders\":true,\"maxNumOfPieSlices\":\"10\"}}},\"boxplot\":{\"chartType\":\"boxplot\",\"version\":1,\"configuration\":{\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"}},\"yAxis\":{\"title\":null,\"min\":null,\"max\":null}}},\"map\":{\"chartType\":\"map\",\"version\":1,\"configuration\":{\"maptype\":\"cluster\"}},\"svv\":{\"version\":2,\"configuration\":{\"colorOverride\":null,\"backgroundColorEnabled\":false,\"noDataBehavior\":{\"enabled\":false,\"color\":\"#cccccc\",\"value\":null,\"isString\":null},\"valueType\":{\"number\":{\"showNumber\":true,\"unit\":null,\"colorsByValueRange\":null},\"boolean\":{\"trueColor\":\"#6aa84f\",\"falseColor\":\"#cc0000\"}},\"labels\":{\"prefix\":{\"enabled\":false,\"text\":\"\",\"align\":\"left\"},\"postfix\":{\"enabled\":false,\"text\":\"\",\"align\":\"right\"}}}},\"sankey\":{\"version\":1,\"configuration\":{}},\"text\":{\"version\":1,\"configuration\":{\"text\":null}},\"metrics\":{\"version\":2,\"configuration\":{\"blockSettings\":{},\"viewType\":\"timeline\",\"zoom\":\"xy\",\"yAxis\":{\"defaults\":[{\"name\":\"\"},{\"name\":\"\"}],\"custom\":[{},{}]},\"xAxis\":{\"scrubber\":true},\"outliers\":{\"enabled\":true,\"top\":1,\"scope\":\"Chart\",\"cyclicality\":false,\"threshold\":7,\"autoShowBand\":true},\"colorFamily\":\"METRIC_DEFAULT\"}},\"common\":{\"version\":1,\"configuration\":{\"drilldown\":{\"fallback\":{\"target\":{\"id\":null,\"name\":null,\"enabled\":null}}}}}},\"series\":{}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=\"github\" \n| json field=_raw \"workflow_job.runner_group_name\" as gh_action\n| json field=_raw \"workflow_job.name\" as job_name\n| json field=_raw \"workflow_job.steps\" as steps\n| json field=_raw \"workflow_job.runner_name\" as run_name\n| json field=_raw \"repository.name\" as repo_name\n| parse regex field = steps \"(?<json_added_blob>\\{[^\\}]+(?:\\}\\}|\\}))\" multi\n| json field=json_added_blob \"name\", \"status\", \"conclusion\", \"number\", \"started_at\", \"completed_at\" as step_name, step_status, step_result, step_number, step_started_at, step_completed_at nodrop\n| parseDate(step_started_at, \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\") as step_started_epoch\n| parseDate(step_completed_at, \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\") as step_completed_epoch\n| step_completed_epoch - step_started_epoch as ms_step_duration\n| ms_step_duration/1000 as duration_seconds\n| formatDate(step_started_epoch, \"MM/dd/yyyy HH:mm:ss\") as execution_time\n| where action = \"completed\"\n| where !isNull(gh_action) \n| where step_result in (\"failure\")\n| where job_name matches \"{{job_name}}\"\n| where step_name matches \"{{step_name}}\"\n| where run_name matches \"{{run_name}}\"\n| where repo_name matches \"{{repository}}\"\n| count as count by step_name\n| sort by count\n",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        }
+    ],
+    "variables": [
+        {
+            "id": null,
+            "name": "job_name",
+            "displayName": "job_name",
+            "defaultValue": "*",
+            "sourceDefinition": {
+                "variableSourceType": "LogQueryVariableSourceDefinition",
+                "query": "_sourceCategory=\"github\" \n| json field=_raw \"workflow_job.runner_group_name\" as gh_action\n| json field=_raw \"workflow_job.steps\" as steps\n| json field=_raw \"repository.name\" as repo_name\n| json field=_raw \"workflow_job.name\" as job_name\n| json field=_raw \"workflow_job.runner_name\" as run_name\n| parse regex field = steps \"(?<json_added_blob>\\{[^\\}]+(?:\\}\\}|\\}))\" multi\n| json field=json_added_blob \"name\", \"status\", \"conclusion\", \"number\", \"started_at\", \"completed_at\" as step_name, step_status, step_result, step_number, step_started_at, step_completed_at nodrop\n| where action = \"completed\"\n| where !isNull(gh_action) ",
+                "field": "job_name"
+            },
+            "allowMultiSelect": false,
+            "includeAllOption": true,
+            "hideFromUI": false,
+            "valueType": "Any"
+        },
+        {
+            "id": null,
+            "name": "step_result",
+            "displayName": "step_result",
+            "defaultValue": "*",
+            "sourceDefinition": {
+                "variableSourceType": "LogQueryVariableSourceDefinition",
+                "query": "_sourceCategory=\"github\" \n| json field=_raw \"workflow_job.runner_group_name\" as gh_action\n| json field=_raw \"workflow_job.steps\" as steps\n| json field=_raw \"repository.name\" as repo_name\n| json field=_raw \"workflow_job.name\" as job_name\n| json field=_raw \"workflow_job.runner_name\" as run_name\n| parse regex field = steps \"(?<json_added_blob>\\{[^\\}]+(?:\\}\\}|\\}))\" multi\n| json field=json_added_blob \"name\", \"status\", \"conclusion\", \"number\", \"started_at\", \"completed_at\" as step_name, step_status, step_result, step_number, step_started_at, step_completed_at nodrop\n| where action = \"completed\"\n| where !isNull(gh_action) ",
+                "field": "step_result"
+            },
+            "allowMultiSelect": false,
+            "includeAllOption": true,
+            "hideFromUI": false,
+            "valueType": "Any"
+        },
+        {
+            "id": null,
+            "name": "step_name",
+            "displayName": "step_name",
+            "defaultValue": "*",
+            "sourceDefinition": {
+                "variableSourceType": "LogQueryVariableSourceDefinition",
+                "query": "_sourceCategory=\"github\" \n| json field=_raw \"workflow_job.runner_group_name\" as gh_action\n| json field=_raw \"workflow_job.steps\" as steps\n| json field=_raw \"repository.name\" as repo_name\n| json field=_raw \"workflow_job.name\" as job_name\n| json field=_raw \"workflow_job.runner_name\" as run_name\n| parse regex field = steps \"(?<json_added_blob>\\{[^\\}]+(?:\\}\\}|\\}))\" multi\n| json field=json_added_blob \"name\", \"status\", \"conclusion\", \"number\", \"started_at\", \"completed_at\" as step_name, step_status, step_result, step_number, step_started_at, step_completed_at nodrop\n| where action = \"completed\"\n| where !isNull(gh_action) ",
+                "field": "step_name"
+            },
+            "allowMultiSelect": false,
+            "includeAllOption": true,
+            "hideFromUI": false,
+            "valueType": "Any"
+        },
+        {
+            "id": null,
+            "name": "run_name",
+            "displayName": "run_name",
+            "defaultValue": "*",
+            "sourceDefinition": {
+                "variableSourceType": "LogQueryVariableSourceDefinition",
+                "query": "_sourceCategory=\"github\" \n| json field=_raw \"workflow_job.runner_group_name\" as gh_action\n| json field=_raw \"workflow_job.steps\" as steps\n| json field=_raw \"repository.name\" as repo_name\n| json field=_raw \"workflow_job.name\" as job_name\n| json field=_raw \"workflow_job.runner_name\" as run_name\n| parse regex field = steps \"(?<json_added_blob>\\{[^\\}]+(?:\\}\\}|\\}))\" multi\n| json field=json_added_blob \"name\", \"status\", \"conclusion\", \"number\", \"started_at\", \"completed_at\" as step_name, step_status, step_result, step_number, step_started_at, step_completed_at nodrop\n| where action = \"completed\"\n| where !isNull(gh_action) ",
+                "field": "run_name"
+            },
+            "allowMultiSelect": false,
+            "includeAllOption": true,
+            "hideFromUI": false,
+            "valueType": "Any"
+        },
+        {
+            "id": null,
+            "name": "repository",
+            "displayName": "repository",
+            "defaultValue": "*",
+            "sourceDefinition": {
+                "variableSourceType": "LogQueryVariableSourceDefinition",
+                "query": "_sourceCategory=\"github\" \n| json field=_raw \"workflow_job.runner_group_name\" as gh_action\n| json field=_raw \"workflow_job.steps\" as steps\n| json field=_raw \"repository.name\" as repo_name\n| json field=_raw \"workflow_job.name\" as job_name\n| json field=_raw \"workflow_job.runner_name\" as run_name\n| parse regex field = steps \"(?<json_added_blob>\\{[^\\}]+(?:\\}\\}|\\}))\" multi\n| json field=json_added_blob \"name\", \"status\", \"conclusion\", \"number\", \"started_at\", \"completed_at\" as step_name, step_status, step_result, step_number, step_started_at, step_completed_at nodrop\n| where action = \"completed\"\n| where !isNull(gh_action) ",
+                "field": "repo_name"
+            },
+            "allowMultiSelect": false,
+            "includeAllOption": true,
+            "hideFromUI": false,
+            "valueType": "Any"
+        }
+    ],
+    "coloringRules": []
+}
