@@ -1,0 +1,174 @@
+integration: 'Automation Tools'
+name: 'Build Signal Output'
+type: Custom
+script:
+ code: |
+    import json
+    import sys
+    import argparse
+    import traceback
+    from datetime import datetime
+    import pytz
+
+    def sanitize_json(json_string):
+        # Replace single quotes with double quotes
+        json_string = json_string.replace("'", "\'")
+        return json_string
+
+    def format_signals(json_string,output_timezone):
+        aggregate_list = []
+
+        # Load JSON data from input string
+        signal = json.loads(json_string)
+
+        # Initialize aggregate list
+        aggregate_list = []
+    
+        # Extract relevant information
+        name = signal['name']
+        signal_time = signal['timestamp']
+        entity_name = signal['entity']['name']
+        summary = signal['description']
+        rule_name = signal['name']
+        stage = signal['stage']
+        additional_fields = ""
+        if 'srcDeviceIp' in signal['allRecords'][0]:
+            additional_fields += f"<br/><b>{'src Device Ip'}:</b> {signal['allRecords'][0]['srcDeviceIp']}"
+        if 'srcDeviceHostname' in signal['allRecords'][0]:
+            additional_fields += f"<br/><b>{'src Device Hostname'}:</b> {signal['allRecords'][0]['srcDeviceHostname']}"
+        if 'dstDeviceIp' in signal['allRecords'][0]:
+            additional_fields += f"<br/><b>{'dst Device Ip'}:</b> {signal['allRecords'][0]['dstDeviceIp']}"
+        if 'dstDeviceHostname' in signal['allRecords'][0]:
+            additional_fields += f"<br/><b>{'dst Device Hostname'}:</b> {signal['allRecords'][0]['dstDeviceHostname']}"
+        if 'resourceType' in signal['allRecords'][0]:
+            additional_fields += f"<br/><b>{'resourceType'}:</b> {signal['allRecords'][0]['resourceType']}"
+        if 'resource' in signal['allRecords'][0]:
+            additional_fields += f"<br/><b>{'resource'}:</b> {signal['allRecords'][0]['resource']}"
+        if 'targetUser_username' in signal['allRecords'][0]:
+            additional_fields += f"<br/><b>{'Target Username'}:</b> {signal['allRecords'][0]['targetUser_username']}"
+        if 'parentBaseImage' in signal['allRecords'][0]:
+            additional_fields += f"<br/><b>{'Parent base image'}:</b> {signal['allRecords'][0]['parentBaseImage']}"
+        if 'commandLine' in signal['allRecords'][0]:
+            additional_fields += f"<br/><b>{'Command Line'}:</b> {signal['allRecords'][0]['commandLine']}"
+        if 'baseImage' in signal['allRecords'][0]:
+            additional_fields += f"<br/><b>{'Base Image'}:</b> {signal['allRecords'][0]['baseImage']}"
+        if 'event.ParentImageFileName' in signal['allRecords'][0]['fields']:
+            additional_fields += f"<br/><b>{'Parent Image FileName'}:</b> {signal['allRecords'][0]['fields']['event.ParentImageFileName']}"
+        if 'event.CommandLine' in signal['allRecords'][0]['fields']:
+            additional_fields += f"<br/><b>{'csCommandLine'}:</b> {signal['allRecords'][0]['fields']['event.CommandLine']}"
+        if 'event.PatternDispositionFlags.FsOperationBlocked' in signal['allRecords'][0]['fields']:
+            additional_fields += f"<br/><b>{'Disposition FsOperationBlocked'}:</b> {signal['allRecords'][0]['fields']['event.PatternDispositionFlags.FsOperationBlocked']}"
+        if 'event.PatternDispositionFlags.QuarantineFile' in signal['allRecords'][0]['fields']:
+            additional_fields += f"<br/><b>{'Disposition QuarantineFile'}:</b> {signal['allRecords'][0]['fields']['event.PatternDispositionFlags.QuarantineFile']}"
+        if 'event.PatternDispositionFlags.QuarantineMachine' in signal['allRecords'][0]['fields']:
+            additional_fields += f"<br/><b>{'Disposition QuarantineMachine'}:</b> {signal['allRecords'][0]['fields']['event.PatternDispositionFlags.QuarantineMachine']}"
+        if 'event.PatternDispositionFlags.HandleOperationDowngraded' in signal['allRecords'][0]['fields']:
+            additional_fields += f"<br/><b>{'Disposition HandleOperationDowngraded'}:</b> {signal['allRecords'][0]['fields']['event.PatternDispositionFlags.HandleOperationDowngraded']}"
+        if 'event.PatternDispositionFlags.OperationBlocked' in signal['allRecords'][0]['fields']:
+            additional_fields += f"<br/><b>{'Disposition OperationBlocked'}:</b> {signal['allRecords'][0]['fields']['event.PatternDispositionFlags.OperationBlocked']}" 
+        if 'event.PatternDispositionFlags.RegistryOperationBlocked' in signal['allRecords'][0]['fields']:
+            additional_fields += f"<br/><b>{'Disposition RegistryOperationBlocked'}:</b> {signal['allRecords'][0]['fields']['event.PatternDispositionFlags.RegistryOperationBlocked']}"
+        if 'event.PatternDispositionFlags.SuspendProcess' in signal['allRecords'][0]['fields']:
+            additional_fields += f"<br/><b>{'Disposition SuspendProcess'}:</b> {signal['allRecords'][0]['fields']['event.PatternDispositionFlags.SuspendProcess']}"
+        if 'event.PatternDispositionFlags.Rooting' in signal['allRecords'][0]['fields']:
+            additional_fields += f"<br/><b>{'Disposition Rooting'}:</b> {signal['allRecords'][0]['fields']['event.PatternDispositionFlags.Rooting']}"
+        if 'event.PatternDispositionFlags.InddetMask' in signal['allRecords'][0]['fields']:
+            additional_fields += f"<br/><b>{'Disposition InddetMask'}:</b> {signal['allRecords'][0]['fields']['event.PatternDispositionFlags.InddetMask']}"
+        if 'event.PatternDispositionFlags.KillSubProcess' in signal['allRecords'][0]['fields']:
+            additional_fields += f"<br/><b>{'Disposition KillSubProcess'}:</b> {signal['allRecords'][0]['fields']['event.PatternDispositionFlags.KillSubProcess']}"
+        if 'event.PatternDispositionFlags.SuspendParent' in signal['allRecords'][0]['fields']:
+            additional_fields += f"<br/><b>{'Disposition SuspendParent'}:</b> {signal['allRecords'][0]['fields']['event.PatternDispositionFlags.SuspendParent']}"
+        if 'event.PatternDispositionFlags.KillProcess' in signal['allRecords'][0]['fields']:
+            additional_fields += f"<br/><b>{'Disposition KillProcess'}:</b> {signal['allRecords'][0]['fields']['event.PatternDispositionFlags.KillProcess']}"
+        if 'event.PatternDispositionFlags.SensorOnly' in signal['allRecords'][0]['fields']:
+            additional_fields += f"<br/><b>{'Disposition SensorOnly'}:</b> {signal['allRecords'][0]['fields']['event.PatternDispositionFlags.SensorOnly']}"
+        if 'event.PatternDispositionFlags.BootupSafeguardEnabled' in signal['allRecords'][0]['fields']:
+            additional_fields += f"<br/><b>{'Disposition BootupSafeguardEnabled'}:</b> {signal['allRecords'][0]['fields']['event.PatternDispositionFlags.BootupSafeguardEnabled']}"
+        if 'event.PatternDispositionFlags.KillParent' in signal['allRecords'][0]['fields']:
+            additional_fields += f"<br/><b>{'Disposition KillParent'}:</b> {signal['allRecords'][0]['fields']['event.PatternDispositionFlags.KillParent']}"
+        if 'event.PatternDispositionFlags.BlockingUnsupportedOrDisabled' in signal['allRecords'][0]['fields']:
+            additional_fields += f"<br/><b>{'Disposition BlockingUnsupportedOrDisabled'}:</b> {signal['allRecords'][0]['fields']['event.PatternDispositionFlags.BlockingUnsupportedOrDisabled']}"
+        if 'event.PatternDispositionFlags.Detect' in signal['allRecords'][0]['fields']:
+            additional_fields += f"<br/><b>{'Disposition Detect'}:</b> {signal['allRecords'][0]['fields']['event.PatternDispositionFlags.Detect']}"
+        if 'event.PatternDispositionFlags.CriticalProcessDisabled' in signal['allRecords'][0]['fields']:
+            additional_fields += f"<br/><b>{'Disposition CriticalProcessDisabled'}:</b> {signal['allRecords'][0]['fields']['event.PatternDispositionFlags.CriticalProcessDisabled']}"
+        if 'event.PatternDispositionFlags.KillActionFailed' in signal['allRecords'][0]['fields']:
+            additional_fields += f"<br/><b>{'Disposition KillActionFailed'}:</b> {signal['allRecords'][0]['fields']['event.PatternDispositionFlags.KillActionFailed']}"
+        if 'event.PatternDispositionFlags.ProcessBlocked' in signal['allRecords'][0]['fields']:
+            additional_fields += f"<br/><b>{'Disposition ProcessBlocked'}:</b> {signal['allRecords'][0]['fields']['event.PatternDispositionFlags.ProcessBlocked']}"
+        if 'event.PatternDispositionFlags.PolicyDisabled' in signal['allRecords'][0]['fields']:
+            additional_fields += f"<br/><b>{'Disposition PolicyDisabled'}:</b> {signal['allRecords'][0]['fields']['event.PatternDispositionFlags.PolicyDisabled']}"
+        if 'user_username' in signal['allRecords'][0]:
+            additional_fields += f"<br/><b>{'Username'}:</b> {signal['allRecords'][0]['user_username']}"
+        if 'threat_referenceUrl' in signal['allRecords'][0]:
+            additional_fields += f"<br/><b>{'Threat ReferenceUrl'}:</b> {signal['allRecords'][0]['threat_referenceUrl']}"
+        if 'threat_name' in signal['allRecords'][0]:
+            additional_fields += f"<br/><b>{'Threat name'}:</b> {signal['allRecords'][0]['threat_name']}"
+        if 'metadata_deviceEventId' in signal['allRecords'][0]:
+            additional_fields += f"<br/><b>{'Event Id'}:</b> {signal['allRecords'][0]['metadata_deviceEventId']}"
+        if 'file_basename' in signal['allRecords'][0]:
+            additional_fields += f"<br/><b>{'File Basename'}:</b> {signal['allRecords'][0]['file_basename']}"
+        if 'device_ip' in signal['allRecords'][0]:
+            additional_fields += f"<br/><b>{'Device ip'}:</b> {signal['allRecords'][0]['device_ip']}"
+        if 'device_hostname' in signal['allRecords'][0]:
+            additional_fields += f"<br/><b>{'Device Hostname'}:</b> {signal['allRecords'][0]['device_hostname']}"
+        if 'accountId' in signal['allRecords'][0]:
+            additional_fields += f"<br/><b>{'AccountId'}:</b> {signal['allRecords'][0]['accountId']}"
+        if 'action' in signal['allRecords'][0]:
+            additional_fields += f"<br/><b>{'Action'}:</b> {signal['allRecords'][0]['action']}"
+        if 'application' in signal['allRecords'][0]:
+            additional_fields += f"<br/><b>{'Application'}:</b> {signal['allRecords'][0]['application']}"
+        
+        #formatTime
+        signal_time = signal_time + " +0000"
+        signal_time = datetime.strptime(signal_time, '%Y-%m-%dT%H:%M:%S.%f %z')
+        signal_time = signal_time.astimezone(pytz.timezone(output_timezone))
+
+        # Format output as a map and add to the aggregate list
+        formatted_map = {"signaldata": f"<br/><b>Signal time:</b> {signal_time}<br/><b>Name:</b> {name}<br/><b>Summary:</b> {summary}<br/><b>Rule name:</b> {rule_name}<br/><b>Stage:</b> {stage}<br/><b>Entity Name:</b> {entity_name}{additional_fields}<br/>"}
+
+        # Print the formatted output
+        print(json.dumps(formatted_map))
+
+    def main():
+        try:
+            json_dict = {}
+            parser = argparse.ArgumentParser()
+            parser.add_argument('--input_str', help='JSON', required=True)
+            parser.add_argument('--output_timezone', help='valid TZ identifiers', required=False)
+            args, unknown = parser.parse_known_args()
+            input_str = args.input_str
+            output_timezone = args.output_timezone
+            if not output_timezone:
+                output_timezone="UTC"
+
+            # Example usage with JSON input string
+            sanitized_input = sanitize_json(input_str)
+            format_signals(sanitized_input,output_timezone)
+            # Create a dictionary with the result
+        
+            # Convert the dictionary to JSON format using json.dumps()
+            exit(0)
+        except ValueError as e:
+            err = str(e)
+            sys.stderr.write(str(e))
+            exit(-1)
+    if __name__ == "__main__":
+        main()
+fields:
+  - id: input_str
+    label: 'String Input'
+    incident_artifacts: true
+    type: text
+    required: true
+    hint: 'Accepts valid string input and returns escaped string in JSON format.'
+  - id: output_timezone
+    label: 'Display Time of Timezone Output'
+    type: text
+    hint: 'Accepts valid TZ identifiers: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones'
+    
+output:
+  - path: 'input_string'
+    type: text
+  - path: 'signaldata'
+    type: text
