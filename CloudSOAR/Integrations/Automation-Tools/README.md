@@ -95,7 +95,7 @@ This integration is in active development. Actions, or the parameters defined th
 - Searches for the specified regular expression pattern and identifies all occurences. 
 
 ### Validate JSON
-- takes a text field and validates if the input is a valid JSON. If it is not a valid JSON then out puts the error and the exact input that it tested.
+- Takes a text field and validates if the input is a valid JSON. If it is not a valid JSON then out puts the error and the exact input that it tested.
 
 ### Build Singal Output
 - Must be used after a Get Insight V2 action from the the Sumo Logic CSE integration and then takes all signals from the output and converts it into a formated signal output to be used (example the output has been used in an email, ticketing system, or a notes section of the CSOAR incident) You can choose to either exclude or include any CSE schema fields: https://github.com/SumoLogic/cloud-siem-content-catalog/blob/master/schema/full_schema.md
