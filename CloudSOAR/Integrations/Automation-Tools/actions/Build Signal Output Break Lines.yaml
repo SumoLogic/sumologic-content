@@ -1,5 +1,5 @@
 integration: 'Automation Tools'
-name: 'Build Signal Output'
+name: 'Build Signal Output Break Lines'
 type: Custom
 script:
  code: |
@@ -10,6 +10,7 @@ script:
     from datetime import datetime
     import pytz
     import os
+    import re
 
     def determine_and_format_timestamp(timestamp):
         formats = [
@@ -106,10 +107,20 @@ script:
         for record in signal['allRecords'][0]:
             if excludes_list or not includes_list:
                 if signal['allRecords'][0][record] != {} and signal['allRecords'][0][record] != [] and record != "fields" and record not in excludes_list:
-                    additional_fields += f"<br/><b>{str(record)}:</b> {signal['allRecords'][0][record]}"
+                    newField= signal['allRecords'][0][record]
+                    if type(newField) == str:
+                        newField= newField.replace('\\"', "'")
+                        newField= newField.replace('"', "'")
+                        newField= newField.replace('\\', '\\\\')
+                    additional_fields += f"\\n{str(record)}: {newField}"
             elif includes_list:
                 if signal['allRecords'][0][record] != {} and signal['allRecords'][0][record] != [] and record != "fields" and record in includes_list:
-                    additional_fields += f"<br/><b>{str(record)}:</b> {signal['allRecords'][0][record]}"
+                    newField= signal['allRecords'][0][record]
+                    if type(newField) == str:
+                        newField= newField.replace('\\"', "'")
+                        newField= newField.replace('"', "'")
+                        newField= newField.replace('\\', '\\\\')
+                    additional_fields += f"\\n{str(record)}: {newField}"
         #formatTime
         formatted_timestamp, timestamp_format = determine_and_format_timestamp(signal_time)
         if  "%z" not in timestamp_format and "%Z" not in timestamp_format:
@@ -119,7 +130,7 @@ script:
         signal_time = signal_time.astimezone(pytz.timezone(output_timezone))
 
         # Format output as a map and add to the aggregate list
-        formatted_map = {"signaldata": f"<br/><b>Signal time:</b> {signal_time}<br/><b>Name:</b> {name}<br/><b>Summary:</b> {summary}<br/><b>Rule ID:</b> {rule_id}<br/><b>Stage:</b> {stage}<br/><b>Entity Name:</b> {entity_name}{additional_fields}<br/>"}
+        formatted_map = {"signaldata": f"\\nSignal time: {signal_time}\\nSignal Name: {name}\\nSummary: {summary}\\nRule ID: {rule_id}\\nStage: {stage}\\nEntity Name: {entity_name}{additional_fields}\\n"}
 
         # Print the formatted output
         print(json.dumps(formatted_map))
