@@ -97,53 +97,20 @@ This integration is in active development. Actions, or the parameters defined th
 ### Validate JSON
 - Takes a text field and validates if the input is a valid JSON. If it is not a valid JSON then out puts the error and the exact input that it tested.
 
-### Build Singal Output
-- Must be used after a Get Insight V2 action from the the Sumo Logic CSE integration and then takes all signals from the output and converts it into a formated signal output to be used (example the output has been used in an email, ticketing system, or a notes section of the CSOAR incident) You can choose to either exclude or include any CSE schema fields: https://github.com/SumoLogic/cloud-siem-content-catalog/blob/master/schema/full_schema.md
-
-### Build Singal Output
+### Build Signal Output
 - Must be used after a Get Insight V2 action from the the Sumo Logic CSE integration and then takes all signals from the output and converts it into a formated signal output to be used (example the output has been used in an email, ticketing system, or a notes section of the CSOAR incident) You can choose to either exclude or include any CSE schema fields: https://github.com/SumoLogic/cloud-siem-content-catalog/blob/master/schema/full_schema.md
 
 - Exlude fields take precedence over include fields
 
 - Must add the field singals to the output section of the Get Insight V2 action from the the Sumo Logic CSE integration
 
-### Build Singal Output Break Lines
+### Build Signal Output Break Lines
 - This is the same as the Build Signal Output, but replaces break lines with new lines and properly escapes special characters to be used in a JSON value.
 
-### To upload your own content:
+## To upload your own content:
 Please see [Sumo Logic Community Ecosystem Apps FAQs](https://help.sumologic.com/docs/integrations/community-ecosystem-apps/#faq).
 
-### To add review/comment to content:
-Please provide a review/comment for this content by following the guidelines below:
-
-- Select the **Comments** folder.
-- Open the **Comments.json** file.
-- Select Edit (pen icon).
-- Add a new line below the current comments, and paste in your review/comment using the following schema:
-
-        {
-            "reviewer":"[githubid/name]",
-            "ratings":{
-                "overall":4,
-                "use-case":5,
-                "design":4,
-                "technical":4
-            },
-            "review":"This app is very useful for knowing x, y, and z. It would be great if the dashboards were broken out by use case instead of being one big dashboard."
-        }
-
-
-- Select **Propose New Changes**.
-- Submit **Pull Request**.
-
-Code owners will review and merge your comments on the content to the repo.
-
-Please see [How to add a review/comment to an app](https://help.sumologic.com/docs/integrations/community-ecosystem-apps/#how-do-i-add-a-reviewrating-to-an-app) for more information.
-
-### To upload your own content:
-Please see [Sumo Logic Community Ecosystem Apps FAQs](https://help.sumologic.com/docs/integrations/community-ecosystem-apps/#faq).
-
-### To add review/comment to content:
+## To add review/comment to content:
 Please provide a review/comment for this content by following the guidelines below:
 
 - Select the **Comments** folder.
