@@ -1,0 +1,196 @@
+integration: 'Automation Tools'
+name: 'Build Signal Output'
+type: Custom
+script:
+ code: |
+    import json
+    import sys
+    import argparse
+    import traceback
+    from datetime import datetime
+    import pytz
+    import os
+
+    def determine_and_format_timestamp(timestamp):
+        formats = [
+        "%Y-%m-%dT%H:%M:%S%z",
+        "%d/%m/%Y %H:%M:%S",
+        "%Y %b %d %H:%M:%S.%f %Z",
+        "%b %d %H:%M:%S %Z %Y",
+        "%d/%b/%Y:%H:%M:%S %Z",
+        "%b %d, %Y %I:%M:%S %p",
+        "%b %d %Y %H:%M:%S",
+        "%b %d %H:%M:%S %Y",
+        "%b %d %H:%M:%S %Z",
+        "%b %d %H:%M:%S",
+        "%Y-%m-%dT%H:%M:%S%z",
+        "%Y-%m-%dT%H:%M:%SZ",
+        "%Y-%m-%d %H:%M:%S %Z",
+        "%Y-%m-%d %H:%M:%S%z",
+        "%Y-%m-%d %H:%M:%S,%f",
+        "%Y/%m/%d*H:%M:%S",
+        "%Y %b %d %H:%M:%S.%f*%Z",
+        "%Y %b %d %H:%M:%S.%f",
+        "%Y-%m-%d %H:%M:%S,%f%Z",
+        "%Y-%m-%d %H:%M:%S.%f",
+        "%Y-%m-%dT%H:%M:%S.%f",
+        "%Y-%m-%dT%H:%M:%S",
+        "%Y-%m-%dT%H:%M:%SZ",
+        "%Y-%m-%dT%H:%M:%S.%f",
+        "%Y-%m-%dT%H:%M:%S",
+        "%Y-%m-%d*H:%M:%S:%f",
+        "%Y-%m-%d*H:%M:%S",
+        "%y-%m-%d %H:%M:%S,%f %Z",
+        "%y-%m-%d %H:%M:%S,%f",
+        "%y-%m-%d %H:%M:%S %Z",
+        "%y-%m-%d %H:%M:%S",
+        "%y/%m/%d %H:%M:%S",
+        "%y%m%d %H:%M:%S",
+        "%Y%m%d %H:%M:%S.%f",
+        "%m/%d/%y*H:%M:%S",
+        "%m/%d/%Y*H:%M:%S",
+        "%m/%d/%Y*H:%M:%S*%f",
+        "%m/%d/%y %H:%M:%S %Z",
+        "%m/%d/%Y %H:%M:%S %Z",
+        "%H:%M:%S",
+        "%H:%M:%S.%f",
+        "%H:%M:%S,%f",
+        "%d/%b %H:%M:%S,%f",
+        "%d/%b/%Y:%H:%M:%S,%f",
+        "%d/%b/%Y %H:%M:%S",
+        "%d-%b-%Y %H:%M:%S",
+        "%d %b %Y %H:%M:%S",
+        "%d %b %Y %H:%M:%S.%f",
+        "%m%d_%H:%M:%S",
+        "%m%d_%H:%M:%S.%f",
+        "%m/%d/%Y %I:%M:%S %p"
+        ]
+        
+        for date_format in formats:
+            try:
+                # Try parsing the timestamp with the current format
+                dt_object = datetime.strptime(timestamp, date_format)
+        
+                # Return the formatted timestamp and format type if successful
+                return dt_object.strftime(date_format), date_format
+            except ValueError:
+                pass
+        
+        # If none of the formats match, raise an exception or return a default value
+        raise ValueError("Invalid timestamp format")
+
+    def sanitize_json(json_string):
+        # Replace single quotes with double quotes
+        json_string = json_string.replace("'", "\'")
+        return json_string
+
+    def format_signals(json_string,output_timezone,exclude_fields,include_fields):
+        aggregate_list = []
+        excludes_list = exclude_fields
+        includes_list=include_fields
+        # Load JSON data from input string
+        signal = json.loads(json_string)
+
+        # Initialize aggregate list
+        aggregate_list = []
+    
+        # Extract relevant information
+        name = signal['name']
+        signal_time = signal['timestamp']
+        entity_name = signal['entity']['name']
+        summary = signal['description']
+        rule_id = signal['ruleId']
+        stage = signal['stage']
+        additional_fields = ""
+
+        for record in signal['allRecords'][0]:
+            if excludes_list or not includes_list:
+                if signal['allRecords'][0][record] != {} and signal['allRecords'][0][record] != [] and record != "fields" and record not in excludes_list:
+                    additional_fields += f"<br/><b>{str(record)}:</b> {signal['allRecords'][0][record]}"
+            elif includes_list:
+                if signal['allRecords'][0][record] != {} and signal['allRecords'][0][record] != [] and record != "fields" and record in includes_list:
+                    additional_fields += f"<br/><b>{str(record)}:</b> {signal['allRecords'][0][record]}"
+        #formatTime
+        formatted_timestamp, timestamp_format = determine_and_format_timestamp(signal_time)
+        if  "%z" not in timestamp_format and "%Z" not in timestamp_format:
+            formatted_timestamp = formatted_timestamp+"+0000"
+            timestamp_format = timestamp_format+"%z"
+        signal_time = datetime.strptime(formatted_timestamp, timestamp_format)
+        signal_time = signal_time.astimezone(pytz.timezone(output_timezone))
+
+        # Format output as a map and add to the aggregate list
+        formatted_map = {"signaldata": f"<br/><b>Signal time:</b> {signal_time}<br/><b>Name:</b> {name}<br/><b>Summary:</b> {summary}<br/><b>Rule ID:</b> {rule_id}<br/><b>Stage:</b> {stage}<br/><b>Entity Name:</b> {entity_name}{additional_fields}<br/>"}
+
+        # Print the formatted output
+        print(json.dumps(formatted_map))
+
+    class EnvDefault(argparse.Action):
+            def __init__(self, required=False, default=None, **kwargs):
+                envvar = kwargs.get("dest")
+                default = os.environ.get(envvar, default) if envvar in os.environ else default
+                required = False if required and default else required
+                super(EnvDefault, self).__init__(default=default, required=required, **kwargs)
+        
+            def __call__(self, parser, namespace, values, option_string=None):
+                setattr(namespace, self.dest, values)
+    try:
+        json_dict = {}
+        parser = argparse.ArgumentParser()
+        parser.add_argument('--input_str', help='JSON', required=True, action=EnvDefault)
+        parser.add_argument('--output_timezone', help='valid TZ identifiers', required=False, action=EnvDefault)
+        parser.add_argument('--exclude_fields', help='Fields to Exlude from output', required=False, action=EnvDefault)
+        parser.add_argument('--include_fields', help='Fields to Exlude from output', required=False, action=EnvDefault)
+        args, unknown = parser.parse_known_args()
+        input_str = args.input_str
+        output_timezone = args.output_timezone
+        #exclude_fields = args.exclude_fields
+        if args.exclude_fields is not None:
+            exclude_fields = list(args.exclude_fields.split(",")) 
+        else:
+            exclude_fields = []
+        if args.include_fields is not None:
+            include_fields = list(args.include_fields.split(",")) 
+        else:
+            include_fields = []
+        if not output_timezone:
+            output_timezone="UTC"
+        # Example usage with JSON input string
+        sanitized_input = sanitize_json(input_str)
+        format_signals(sanitized_input,output_timezone,exclude_fields,include_fields)
+        # Create a dictionary with the result
+    
+        # Convert the dictionary to JSON format using json.dumps()
+        #print(json.dumps(aggregate_map))
+        exit(0)
+    except ValueError as e:
+        err = str(e)
+        sys.stderr.write(str(e))
+        exit(-1)
+
+fields:
+  - id: input_str
+    label: 'String Input'
+    incident_artifacts: true
+    type: text
+    required: true
+    hint: 'Accepts valid string input and returns escaped string in JSON format.'
+  - id: output_timezone
+    label: 'Display Time of Timezone Output'
+    type: text
+    required: false
+    hint: 'Accepts valid TZ identifiers: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones'
+  - id: exclude_fields
+    label: 'Fields to Exclude from output'
+    type: tag
+    required: false
+  - id: include_fields
+    label: 'Fields to include from output'
+    type: tag
+    required: false
+    hint: 'Exclude fields take precedence over include fields.'
+    
+output:
+  - path: 'input_string'
+    type: text
+  - path: 'signaldata'
+    type: text

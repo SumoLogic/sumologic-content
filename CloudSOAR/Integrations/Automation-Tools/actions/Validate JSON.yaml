@@ -1,0 +1,69 @@
+integration: 'Automation Tools'
+name: 'Validate Json'
+type: Custom
+script:
+  code: |
+    import argparse
+    import urllib3
+    import base64
+    import sys
+    import json
+    import os
+    import html
+    import unicodedata
+    from bs4 import BeautifulSoup
+
+    urllib3.disable_warnings(urllib3.exceptions.InsecurePlatformWarning)
+    urllib3.disable_warnings(urllib3.exceptions.SNIMissingWarning)
+    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+
+    def clean_textarea_output(x):
+        x = html.unescape(str(x).strip())
+        x = unicodedata.normalize("NFKD", x).encode("utf-8").decode("utf-8")
+        x = BeautifulSoup(x, "html.parser").text
+        x = x.replace('\u200b', '')
+        return x
+
+
+    class EnvDefault(argparse.Action):
+        def __init__(self, required=True, default=None, **kwargs):
+            envvar = kwargs.get("dest")
+            default = os.environ.get(envvar, default) if envvar in os.environ else default
+            required = False if required and default else required
+            super(EnvDefault, self).__init__(default=default, required=required, **kwargs)
+
+        def __call__(self, parser, namespace, values, option_string=None):
+            setattr(namespace, self.dest, values)
+
+
+    try:
+        parser = argparse.ArgumentParser()
+        parser.add_argument('--jsonQuery', help='json', required=False, action=EnvDefault)
+        parser.add_argument('--timeout', help='timeout', required=False, action=EnvDefault)
+        parser.add_argument('--verify', help='verify', required=False, action=EnvDefault)
+        parser.add_argument('--proxy_url', help='Proxy URL', required=False, action=EnvDefault)
+        args, unknown = parser.parse_known_args()
+        proxies = {'http': args.proxy_url, 'https': args.proxy_url} if args.proxy_url is not None else None
+        
+        if args.jsonQuery is not None and args.jsonQuery != '' and str(args.jsonQuery).lower() != 'none':
+            try:
+                data = json.loads(clean_textarea_output(args.jsonQuery))
+            except Exception as error:
+                raise Exception("Query must be a valid JSON:", error, args.jsonQuery )
+        print(json.dumps(data))
+        exit(0)
+    except Exception as e:
+        err = str(e)
+        sys.stderr.write(str(err))
+        exit(-1)
+fields:
+- id: jsonQuery
+  label: JSON Query
+  type: textarea
+  required: false
+  hint: Field names and values of all parameters within the newly created record.
+    For more info on building Json Query check REST API Explorer
+output:
+  - path: 'data'
+    type: text
