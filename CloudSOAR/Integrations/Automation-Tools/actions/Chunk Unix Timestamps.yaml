@@ -1,0 +1,117 @@
+integration: 'Automation Tools'
+name: 'Chunk Unix Timestamps'
+type: Custom
+script:
+ code: |
+    from datetime import datetime, timedelta
+    import json
+    import argparse
+    import os
+
+    class EnvDefault(argparse.Action):
+            def __init__(self, required=True, default=None, **kwargs):
+                envvar = kwargs.get("dest")
+                default = os.environ.get(envvar, default) if envvar in os.environ else default
+                required = False if required and default else required
+                super(EnvDefault, self).__init__(default=default, required=required, **kwargs)
+
+            def __call__(self, parser, namespace, values, option_string=None):
+                setattr(namespace, self.dest, values)
+
+    def chunk_timestamps(start_timestamp, end_timestamp, chunk_interval, interval_type):
+        start_time = datetime.strptime(start_timestamp, '%Y-%m-%dT%H:%M:%S.%f')
+        end_time = datetime.strptime(end_timestamp, '%Y-%m-%dT%H:%M:%S.%f')
+        
+        chunks = []
+        counter = 0
+        if interval_type == 'minutes':
+            interval = timedelta(minutes=chunk_interval)
+        elif interval_type == 'hours':
+            interval = timedelta(hours=chunk_interval)
+        elif interval_type == 'days':
+            interval = timedelta(days=chunk_interval)
+        elif interval_type == 'weeks':
+            interval = timedelta(weeks=chunk_interval)
+        elif interval_type == 'months':
+            # Handle month-based interval
+            interval = timedelta(days=30*chunk_interval)
+        else:
+            raise ValueError("Invalid interval type. Must be 'minutes', 'days', 'weeks', or 'months'.")
+
+        while start_time < end_time:
+            next_chunk = start_time + interval
+            if next_chunk > end_time:
+                next_chunk = end_time
+            
+            chunks.append({
+                "start_time": start_time.strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3],
+                "end_time": next_chunk.strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3],
+                "file_name": "file_name_" + start_time.strftime('%Y%m%d%H%M%S') + "_" + str(counter) + ".csv"
+                
+            })
+            
+            start_time = next_chunk
+            counter += 1
+        
+        return chunks
+
+    if __name__ == "__main__":
+        json_dict = {}
+        parser = argparse.ArgumentParser()
+        parser.add_argument('--start_time', help='Start Timestamp Input', required=False, action=EnvDefault)
+        parser.add_argument('--end_time', help='Timestamp Offset', required=False, action=EnvDefault)
+        parser.add_argument('--chunk_interval', help='Offset Direction', required=False, action=EnvDefault)
+        parser.add_argument('--interval_type', help='Offset Direction', required=False, action=EnvDefault)
+        args, unknown = parser.parse_known_args()
+        start_timestamp = args.start_time
+        end_timestamp = args.end_time
+        chunk_interval = int(args.chunk_interval)
+        interval_type = args.interval_type
+        
+        chunks = chunk_timestamps(start_timestamp, end_timestamp, chunk_interval, interval_type)
+        json_dict = {
+            "start_time": [chunk["start_time"] for chunk in chunks],
+            "end_time": [chunk["end_time"] for chunk in chunks],
+            "file_name": [chunk["file_name"] for chunk in chunks]
+        }
+        
+        print(json.dumps(json_dict))
+fields:
+- id: start_time
+  label: 'Start Time Input'
+  type: text
+  required: true
+  incident_artifacts: true
+  hint: 'This field represents the start_time'
+- id: end_time
+  label: 'End Time Input'
+  type: text
+  required: true
+  incident_artifacts: true
+  hint: 'This field represents the end_time'
+- id: chunk_interval
+  label: 'Chunk Interval'
+  type: text
+  required: true
+  hint: 'This field represents the number of minutes, hours, days, months'
+- id: interval_type
+  label: 'Interval Type'
+  type: list
+  required: false
+  values:
+    'minutes': 'minutes'
+    'hours': 'hours'
+    'days': 'days'
+    'weeks': 'weeks'
+    'months': 'months'
+  hint: 'This field represents the interval_type'
+output:
+  - path: start_time.[]
+    type: text
+    example: '2024-03-27T00:00:00.000'
+  - path: end_time.[]
+    type: text
+    example: '2024-03-28T00:00:00.000'
+  - path: file_name.[]
+    type: text
+    example: 'file_name_1.csv'
