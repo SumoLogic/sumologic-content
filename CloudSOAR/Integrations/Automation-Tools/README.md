@@ -40,6 +40,9 @@ This integration is in active development. Actions, or the parameters defined th
 ### Check Time Boundaries
 - Evaluates whether the current time is within business hours. Configurable start and end times. 24-hour format.
 
+### Chunk Unix Timestamps
+- Evaluates two timestamps and chunks the timestamps based on the chunk value. Ex: Two timestamps (1 year apart) with 1 month chunks, will output 12 chunks
+
 ### Build JSON Object
 - Provide the action with JSON key placeholder or string to build a new JSON object with the specified key/values.
 
