@@ -27,6 +27,9 @@ This integration is in active development. Actions, or the parameters defined th
   - **Transform Argument** - Function input (e.g. regex pattern (w/ capture groups), replace argument (a,b) or split delimiter).
   - **Array Element** - Optional: if using 'split' function, select the element to return. Otherwise return the entire array.
   
+### Data Transform V2
+- Same Functionality as Data Transform but adds an additional input field for Replace. This allows for user-provided value to be replace within the 'Transform Argument' and an user-provided value to be replace with in the 'Replace Argument'. Customers were having issues with the replace function when the character they wanted to replace was a ','.
+
 ### Filter IP Addresses
 - Check a single IP, or list of IPs, and return a filtered list of IPs (sort into public IP and private IP lists).
 
@@ -39,6 +42,9 @@ This integration is in active development. Actions, or the parameters defined th
 
 ### Check Time Boundaries
 - Evaluates whether the current time is within business hours. Configurable start and end times. 24-hour format.
+
+### Check Time Boundaries V2
+- ALlows an event time input value and evaluates whether that time is within business hours. Configurable start and end times. 24-hour format. Can input different time formats (including Epoch) for the event time and select the timezone of the event (default is UTC).
 
 ### Chunk Unix Timestamps
 - Evaluates two timestamps and chunks the timestamps based on the chunk value. Ex: Two timestamps (1 year apart) with 1 month chunks, will output 12 chunks
@@ -109,6 +115,9 @@ This integration is in active development. Actions, or the parameters defined th
 
 ### Build Signal Output Break Lines
 - This is the same as the Build Signal Output, but replaces break lines with new lines and properly escapes special characters to be used in a JSON value.
+
+### Check Internal IP
+- Allows an input of an IP or IP range to check weather it is internal or an external IP. Allows for additional user-provided IP's or ranges that should be classify as internal.
 
 ## To upload your own content:
 Please see [Sumo Logic Community Ecosystem Apps FAQs](https://help.sumologic.com/docs/integrations/community-ecosystem-apps/#faq).

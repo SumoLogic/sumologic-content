@@ -1,0 +1,135 @@
+integration: 'Automation Tools'
+name: 'Data Transform V2'
+type: Custom
+script:
+ code: |
+    import json
+    import sys
+    import argparse
+    import traceback
+    import re
+    import ipaddress
+    import os
+    
+    class EnvDefault(argparse.Action):
+        def __init__(self, required=True, default=None, **kwargs):
+            envvar = kwargs.get("dest")
+            default = os.environ.get(envvar, default) if envvar in os.environ else default
+            required = False if required and default else required
+            super(EnvDefault, self).__init__(default=default, required=required, **kwargs)
+
+        def __call__(self, parser, namespace, values, option_string=None):
+            setattr(namespace, self.dest, values)
+
+
+    try:
+        parser = argparse.ArgumentParser()
+        parser.add_argument('--input', help='String Input', required=True, action=EnvDefault)
+        parser.add_argument('--func', help='Transform Function', required=True, action=EnvDefault)
+        parser.add_argument('--param', help='Transform Argument', required=True, action=EnvDefault)
+        parser.add_argument('--array_p', help='Array Element', required=False, action=EnvDefault)
+        parser.add_argument('--replace', help='if using replace function', required=False, action=EnvDefault)
+        args, unknown = parser.parse_known_args()
+    
+        result_dict = {"result":{}}
+        
+        # Split Function
+        if args.func.lower() == "split":
+            if args.param is None:
+                args.param = ","
+            result = args.input.split(args.param)
+            if args.array_p:
+                result = result[int(args.array_p)]
+        
+        # Strip Function        
+        elif args.func.lower() == "strip":
+            if args.param is None:
+                args.param = " "
+            result = args.input.strip(args.param)
+            
+        # Regex Search Function
+        elif args.func.lower() == "regex":
+            if args.param is None:
+                raise Exception("Missing 'Transform Argument'. Please specify a regex pattern.")
+            if re.search(args.param, args.input):
+                regex = re.search(args.param, args.input)
+                result = regex.group(1)
+            else:
+                result = None
+        
+        # String Append/Prepend Function
+        elif args.func.lower() == ("append" or "prepend"):
+            if args.param is None:
+                raise Exception("Missing 'Transform Argument'. Please specify a value to add to the string.")
+            if args.func.lower() == "prepend":
+                result = "{0}{1}".format(args.param, args.input)
+            if args.func.lower() == "append":
+                result = "{0}{1}".format(args.input,args.param)
+            else:
+                result = None
+        
+        # String Replace Function
+        elif args.func.lower() == "replace":
+            import re
+            
+            if args.param is None:
+                raise Exception("Missing 'Transform Argument'. Please specify the values that will replace the input.")
+            #if args.replace is None:
+            #     raise Exception("Missing 'Transform Argument'. Please specify the values that will replace the input.")
+            # Splitting args.param into pattern and replacement
+            pattern = args.param
+            if args.replace is None:
+               replacement =''
+            else:
+                replacement = args.replace
+            # Compiling the regular expression pattern
+            regex_pattern = re.compile(pattern)
+            
+            # Performing the replacement
+            result = regex_pattern.sub(replacement, args.input)
+        else:
+            raise Exception("Please enter a valid transformation function")
+            
+        result_dict["result"] = result
+        print(json.dumps(result_dict))
+        exit(0)
+    except Exception as e:
+        sys.stderr.write(str(e))
+        exit(-1)
+fields:
+  - id: input
+    label: 'String Input'
+    incident_artifacts: true
+    type: text
+    required: true
+  - id: func
+    label: 'Transform Function'
+    type: list
+    required: true
+    values:
+      split: Split
+      strip: Strip
+      replace: Replace
+      prepend: Prepend
+      append: Append
+      regex: Regex Search
+    default: split
+    hint: "The type of data transform to execute"
+  - id: param
+    label: 'Transform Argument'
+    type: text
+    required: false
+    hint: "Function input - e.g. regex pattern (w/ capture groups), replace argument (value you want to replace), delimiter to split a string, value to prepend/append."
+  - id: array_p
+    label: 'Array Element'
+    type: text
+    required: false
+    hint: "Optional: if using 'split' function, select the element to return. Otherwise returns the entire array."
+  - id: replace
+    label: 'Replace Argument'
+    type: text
+    required: false
+    hint: "Optional: if using 'replace' function, select the value you want to replace with. Otherwise replace value is blank."
+output:
+  - path: 'result'
+    type: text

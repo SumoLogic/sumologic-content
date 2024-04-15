@@ -1,0 +1,194 @@
+integration: 'Automation Tools'
+name: 'Check Time Boundaries V2'
+type: Custom
+script:
+ code: |
+    import json
+    import sys
+    import time
+    from datetime import datetime, time, timezone
+    import pytz
+    import argparse
+    import os
+    
+    def is_epoch_time(time_str):
+        try:
+            # Try converting the time string to a datetime object
+    
+            time_float = float(time_str)
+            
+            # Convert the epoch time to datetime object
+            if len(time_str) == 10:  # Check if the time string represents seconds epoch time
+                dt = datetime.fromtimestamp(int(time_float), tz=timezone.utc)
+            elif len(time_str) == 13:  # Check if the time string represents milliseconds epoch time
+                dt = datetime.fromtimestamp(int(time_float / 1000), tz=timezone.utc)
+            # If the conversion is successful, and the time string is in epoch format
+            # return True, else return False
+            return True,dt
+        except ValueError:
+            return False,0
+
+    def determine_and_format_timestamp(timestamp):
+        formats = [
+        "%Y-%m-%dT%H:%M:%S%z",
+        "%d/%m/%Y %H:%M:%S",
+        "%Y %b %d %H:%M:%S.%f %Z",
+        "%b %d %H:%M:%S %Z %Y",
+        "%d/%b/%Y:%H:%M:%S %Z",
+        "%b %d, %Y %I:%M:%S %p",
+        "%b %d %Y %H:%M:%S",
+        "%b %d %H:%M:%S %Y",
+        "%b %d %H:%M:%S %Z",
+        "%b %d %H:%M:%S",
+        "%Y-%m-%dT%H:%M:%S%z",
+        "%Y-%m-%dT%H:%M:%SZ",
+        "%Y-%m-%d %H:%M:%S %Z",
+        "%Y-%m-%d %H:%M:%S%z",
+        "%Y-%m-%d %H:%M:%S,%f",
+        "%Y/%m/%d*H:%M:%S",
+        "%Y %b %d %H:%M:%S.%f*%Z",
+        "%Y %b %d %H:%M:%S.%f",
+        "%Y-%m-%d %H:%M:%S,%f%Z",
+        "%Y-%m-%d %H:%M:%S.%f",
+        "%Y-%m-%dT%H:%M:%S.%f",
+        "%Y-%m-%dT%H:%M:%S",
+        "%Y-%m-%dT%H:%M:%SZ",
+        "%Y-%m-%dT%H:%M:%S.%f",
+        "%Y-%m-%dT%H:%M:%S",
+        "%Y-%m-%d*H:%M:%S:%f",
+        "%Y-%m-%d*H:%M:%S",
+        "%y-%m-%d %H:%M:%S,%f %Z",
+        "%y-%m-%d %H:%M:%S,%f",
+        "%y-%m-%d %H:%M:%S %Z",
+        "%y-%m-%d %H:%M:%S",
+        "%y/%m/%d %H:%M:%S",
+        "%y%m%d %H:%M:%S",
+        "%Y%m%d %H:%M:%S.%f",
+        "%m/%d/%y*H:%M:%S",
+        "%m/%d/%Y*H:%M:%S",
+        "%m/%d/%Y*H:%M:%S*%f",
+        "%m/%d/%y %H:%M:%S %Z",
+        "%m/%d/%Y %H:%M:%S %Z",
+        "%H:%M:%S",
+        "%H:%M:%S.%f",
+        "%H:%M:%S,%f",
+        "%d/%b %H:%M:%S,%f",
+        "%d/%b/%Y:%H:%M:%S,%f",
+        "%d/%b/%Y %H:%M:%S",
+        "%d-%b-%Y %H:%M:%S",
+        "%d %b %Y %H:%M:%S",
+        "%d %b %Y %H:%M:%S.%f",
+        "%m%d_%H:%M:%S",
+        "%m%d_%H:%M:%S.%f",
+        "%m/%d/%Y %I:%M:%S %p"
+        ]
+        
+        for date_format in formats:
+            try:
+                # Try parsing the timestamp with the current format
+                dt_object = datetime.strptime(timestamp, date_format)
+        
+                # Return the formatted timestamp and format type if successful
+                return dt_object.strftime(date_format), date_format
+            except ValueError:
+                pass
+        
+        # If none of the formats match, raise an exception or return a default value
+        raise ValueError("Invalid timestamp format")
+        
+    class EnvDefault(argparse.Action):
+        def __init__(self, required=True, default=None, **kwargs):
+            envvar = kwargs.get("dest")
+            default = os.environ.get(envvar, default) if envvar in os.environ else default
+            required = False if required and default else required
+            super(EnvDefault, self).__init__(default=default, required=required, **kwargs)
+
+        def __call__(self, parser, namespace, values, option_string=None):
+            setattr(namespace, self.dest, values)
+
+    try:
+        parser = argparse.ArgumentParser()
+        parser.add_argument('--event_time', help='Event Time, REQUIRED', required=True, action=EnvDefault)
+        parser.add_argument('--event_timezone', help='valid TZ identifiers', required=False, action=EnvDefault)
+        parser.add_argument('--time_start', help='Start Boundary (24hr), REQUIRED', required=True, action=EnvDefault)
+        parser.add_argument('--time_end', help='End Boundary (24hr), REQUIRED', required=True, action=EnvDefault)
+        parser.add_argument('--weekdays', help='Evaluate Weekday', required=False, action=EnvDefault)
+        args, unknown = parser.parse_known_args()
+        event_time =args.event_time
+        event_timezone = args.event_timezone
+        if not event_timezone:
+            event_timezone="UTC"
+        isEpoch,formatedEpochtime=is_epoch_time(event_time)
+        if isEpoch:
+            event_time=str(formatedEpochtime)
+        #formatTime
+        formatted_timestamp, timestamp_format = determine_and_format_timestamp(event_time)
+        if  "%z" not in timestamp_format and "%Z" not in timestamp_format:
+            formatted_timestamp = formatted_timestamp+"+0000"
+            timestamp_format = timestamp_format+"%z"
+        event_time = datetime.strptime(formatted_timestamp, timestamp_format)
+        event_time = event_time.astimezone(pytz.timezone(event_timezone))
+        json_dict = {}
+        if args.weekdays == "True" or args.weekdays == "true":
+            if 0 <= event_time.weekday() <= 4:
+                if time(int(args.time_start)) <= event_time.time() <= time(int(args.time_end)):
+                    out_of_bounds = "false"
+                else:
+                    out_of_bounds = "true"
+            else:
+                out_of_bounds = "true"
+        elif time(int(args.time_start)) <= event_time.time() <= time(int(args.time_end)):
+                    out_of_bounds = "false"
+        else:
+            out_of_bounds = "true"
+
+        json_dict['event_time'] = str(event_time)
+        json_dict['time_weekday'] = str(event_time.weekday())
+        json_dict['boundary_start'] = str(time(int(args.time_start)))
+        json_dict['boundary_end'] = str(time(int(args.time_end)))
+        json_dict['outside_working_hours'] = out_of_bounds
+        
+        print(json.dumps(json_dict))
+        exit(0)
+    except Exception as e:
+        err = str(e)
+        sys.stderr.write(str(e))
+        exit(-1)
+fields:
+  - id: event_time
+    label: 'Event Time'
+    type: text
+    incident_artifacts: true
+    required: true
+  - id: time_start
+    label: 'Start Boundary (24hr)'
+    type: text
+    required: true
+    hint: 'The starting hour of business hours (24hr format)(ex. "8").'
+  - id: time_end
+    label: 'End Boundary (24hr)'
+    type: text
+    required: true
+    hint: 'The final hour of business hours (24hr format)(ex. "17").'
+  - id: weekdays
+    label: 'Evaluate Day of the Week'
+    type: checkbox
+    required: false
+    hint: 'Enable if the weekend should be excluded from business hours.'
+  - id: event_timezone
+    label: 'Timezone of the Event Time'
+    type: text
+    required: false
+    hint: 'Accepts valid TZ identifiers: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones'
+
+output:
+  - path: 'event_time'
+    type: text
+  - path: 'time_weekday'
+    type: text
+  - path: 'boundary_start'
+    type: text
+  - path: 'boundary_end'
+    type: text
+  - path: 'outside_working_hours'
+    type: text
