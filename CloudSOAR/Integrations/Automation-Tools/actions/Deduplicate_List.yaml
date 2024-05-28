@@ -1,0 +1,54 @@
+integration: Automation Tools
+name: Deduplicate List
+type: Custom
+script:
+ code: |
+    from datetime import datetime, timedelta
+    import json
+    import argparse
+    import os
+
+    class EnvDefault(argparse.Action):
+            def __init__(self, required=True, default=None, **kwargs):
+                envvar = kwargs.get("dest")
+                default = os.environ.get(envvar, default) if envvar in os.environ else default
+                required = False if required and default else required
+                super(EnvDefault, self).__init__(default=default, required=required, **kwargs)
+
+            def __call__(self, parser, namespace, values, option_string=None):
+                setattr(namespace, self.dest, values)
+    def unique_emails(email_list):
+        # Split the comma-delimited string into a list of emails
+        emails = email_list.split(',')
+        
+        # Remove duplicates by converting the list to a set
+        unique_emails_set = set(emails)
+        
+        # Convert the set back to a list
+        unique_emails_list = list(unique_emails_set)
+        
+        return unique_emails_list
+  
+  
+    if __name__ == "__main__":
+        json_dict = {}
+        parser = argparse.ArgumentParser()
+        parser.add_argument('--array', help='array', required=False, action=EnvDefault)
+        args, unknown = parser.parse_known_args()
+        input_emails = args.array
+        unique_emails_list = unique_emails(input_emails)
+    
+        # Output the unique emails as a JSON array
+        result = {"unique_emails_list": unique_emails_list}
+        json_dict = json.dumps(result)
+        print(json_dict)
+fields:
+- id: array
+  label: 'List Value'
+  type: text
+  required: true
+  incident_artifacts: true
+  hint: 'This field represents the comma delimmted list'
+output:
+  - path: unique_emails_list.[]
+    type: text
