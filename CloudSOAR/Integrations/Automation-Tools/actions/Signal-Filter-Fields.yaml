@@ -1,0 +1,122 @@
+integration: Automation Tools
+name: Signal Filter Fields
+type: Custom
+script:
+   code: |
+      import os
+      import re
+      import sys
+      import ast
+      import html
+      import json
+      import argparse
+      import unicodedata
+      from bs4 import BeautifulSoup
+
+      class EnvDefault(argparse.Action):
+          def __init__(self, required=True, default=None, **kwargs):
+              envvar = kwargs.get("dest")
+              default = os.environ.get(envvar, default) if envvar in os.environ else default
+              required = False if required and default else required
+              super(EnvDefault, self).__init__(default=default, required=required, **kwargs)
+
+          def __call__(self, parser, namespace, values, option_string=None):
+              setattr(namespace, self.dest, values)
+
+      def filter_records(payload_input, filter_field, field_values, fields):
+          filtered_records = []
+
+          for signal in payload_input.get('signals', []):
+              for record in signal.get('allRecords', []):
+                  record_field_value = record.get(filter_field, '')
+                  if record_field_value in field_values:
+                      filtered_record = {}
+                      for field in fields:
+                          filtered_record[field] = record.get(field)
+                      filtered_records.append(filtered_record)
+
+          result_json = {"result": filtered_records}
+          return result_json
+
+      def remove_html_tags(field_value, new_line=False):
+          field_value = html.unescape(str(field_value).strip())
+          field_value = unicodedata.normalize("NFKD", field_value).encode("utf-8").decode("utf-8")
+          if new_line:
+              field_value = re.sub(r'<p>|</p>|<br>', '\n', field_value.strip()).strip()
+          field_value = BeautifulSoup(field_value, "html.parser").text
+          field_value = field_value.replace('\u200b', '')
+          return str(field_value).strip()
+
+      def prepare_payload_json(payload_input_data):
+          try:
+              try:
+                  try:
+                      with open(payload_input_data) as json_file:
+                          json_data = json.load(json_file)
+                          if isinstance(json_data, dict):
+                              payload_input_json = json_data.get("message", json_data)
+                          else:
+                              payload_input_json = json_data
+                  except Exception as __:
+                      payload_input_json = json.loads(str(payload_input_data).strip(), strict=False)
+              except Exception as __:
+                  payload_input_values = ast.literal_eval(str(payload_input_data).strip())
+                  if isinstance(payload_input_values, dict) or isinstance(payload_input_values, list):
+                      payload_input_json = payload_input_values
+                  else:
+                      raise Exception("payload Input parameter JSON is invalid")
+          except Exception as ee:
+              raise Exception("Payload Input JSON is invalid({})".format(str(ee)))
+          return payload_input_json
+
+
+      if __name__ == "__main__":
+          try:
+              parser = argparse.ArgumentParser()
+              parser.add_argument('--filter_field', help='Filter field', required=False, action=EnvDefault)
+              parser.add_argument('--field_values', help='Field values', required=False, action=EnvDefault)
+              parser.add_argument('--fields_to_pull', help='Fields to pull', required=False, action=EnvDefault)
+              parser.add_argument('--payload_input', help='JSON payload input', required=False, action=EnvDefault)
+              args, unknown = parser.parse_known_args()
+              payload_input = {}
+              if args.payload_input is not None and args.payload_input != "":
+                  payload_input = prepare_payload_json(args.payload_input)
+              filter_field = args.filter_field
+              field_values = args.field_values.split(',') if args.field_values else []
+              fields_to_pull = args.fields_to_pull.split(',') if args.fields_to_pull else []
+              result = filter_records(payload_input, filter_field, field_values, fields_to_pull)
+              json_dict = json.dumps(result)
+              print(json_dict)
+              exit(0)
+          except Exception as e:
+              sys.stderr.write(str(e))
+              exit(-1)
+fields:
+  - id: payload_input
+    label: 'payload_input'
+    type: text
+    required: true
+    incident_artifacts: true
+    hint: 'Input of the Payload. I.E output.raw from GetInsightV2'
+  - id: filter_field
+    label: 'filter_field'
+    type: text
+    required: true
+    hint: 'Field to filter on within the records I.E threat_name'
+  - id: field_values
+    label: 'field_values'
+    type: tag
+    required: true
+    hint: 'Values of the field to filter on I.E. "Unfamiliar sign-in properties"'
+  - id: fields_to_pull
+    label: 'fields_to_pull'
+    type: tag
+    required: true
+    hint: 'Fields to Pull from the Filtered Signal'
+output:
+  - path: result.[].device_ip
+    type: text
+  - path: result.[].srcDevice_ip
+    type: text
+  - path: result.[].user_username
+    type: text
