@@ -33,6 +33,12 @@ This integration is in active development. Actions, or the parameters defined th
 ### Filter IP Addresses
 - Check a single IP, or list of IPs, and return a filtered list of IPs (sort into public IP and private IP lists).
 
+### Signal Filter
+-  Deconstructs a CSE Insight based on an assigned filter in order to retrieve specific field elements from the Signal Array that match the criteria.
+
+### Deduplicate List
+-  Allows you to deduplicate a list of values.
+
 ### Generate Password
 - Generates a random password. Length and character makeup are configurable.
 
