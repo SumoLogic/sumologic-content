@@ -1,0 +1,703 @@
+{
+    "type": "FolderSyncDefinition",
+    "name": "All Searchable Data",
+    "description": "",
+    "children": [
+        {
+            "type": "DashboardV2SyncDefinition",
+            "name": "All Searchable Metadata In Sumo",
+            "description": "Uses Data Volume Index",
+            "title": "All Searchable Metadata In Sumo",
+            "theme": "Dark",
+            "topologyLabelMap": {
+                "data": {}
+            },
+            "refreshInterval": 0,
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "RelativeTimeRangeBoundary",
+                    "relativeTime": "-3d"
+                },
+                "to": null
+            },
+            "layout": {
+                "layoutType": "Grid",
+                "layoutStructures": [
+                    {
+                        "key": "panelPANE-0",
+                        "structure": "{\"height\":8,\"width\":6,\"x\":0,\"y\":3}"
+                    },
+                    {
+                        "key": "panelPANE-2",
+                        "structure": "{\"height\":8,\"width\":6,\"x\":6,\"y\":3}"
+                    },
+                    {
+                        "key": "panelPANE-4",
+                        "structure": "{\"height\":8,\"width\":6,\"x\":18,\"y\":3}"
+                    },
+                    {
+                        "key": "panelD7762643BE136B46",
+                        "structure": "{\"height\":8,\"width\":6,\"x\":12,\"y\":3}"
+                    },
+                    {
+                        "key": "panelF4F16127B0CA4847",
+                        "structure": "{\"height\":8,\"width\":16,\"x\":8,\"y\":11}"
+                    },
+                    {
+                        "key": "panelPANE-A336E87293803B42",
+                        "structure": "{\"height\":3,\"width\":24,\"x\":0,\"y\":0}"
+                    },
+                    {
+                        "key": "panel94C279D9BBE2F942",
+                        "structure": "{\"height\":8,\"width\":8,\"x\":0,\"y\":11}"
+                    }
+                ]
+            },
+            "panels": [
+                {
+                    "id": null,
+                    "key": "panelPANE-0",
+                    "title": "Source Categories Available (_sourceCategory)",
+                    "visualSettings": "{\"title\":{\"fontSize\":16},\"general\":{\"mode\":\"distribution\",\"type\":\"table\",\"displayType\":\"default\",\"outlierBandColor\":\"#FDECF5\",\"outlierBandMarkerColor\":\"#F032A9\",\"outlierBandFillOpacity\":0.3,\"outlierBandLineThickness\":2,\"outlierBandMarkerSize\":10,\"outlierBandMarkerType\":\"triangle\",\"fillOpacity\":1,\"aggregationType\":\"average\",\"groupBy\":[],\"decimals\":0,\"fontSize\":14},\"axes\":{},\"legend\":{},\"color\":{},\"hiddenQueryKeys\":[],\"overrides\":[],\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "_index=sumologic_volume _sourceCategory = \"sourcecategory_and_tier_volume\"\n| parse regex \"(?<data>\\{[^\\{]+\\})\" multi\n| json field=data \"field\",\"dataTier\" as sourcecategory, dataTier\n| where dataTier matches \"{{Tier}}\"\n| where !isEmpty(sourcecategory)\n| if (\"{{Filter}}\"=\"*\", \"*\", concat(\"*\", toLowerCase(\"{{Filter}}\"), \"*\")) as filter\n| where toLowerCase(sourcecategory) matches filter\n| count by sourcecategory\n| sort sourcecategory asc\n| fields -_count",
+                            "queryType": "Logs",
+                            "queryKey": "A",
+                            "metricsQueryMode": null,
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Manual",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelPANE-2",
+                    "title": "Collectors Available (_collector)",
+                    "visualSettings": "{\"title\":{\"fontSize\":16},\"general\":{\"mode\":\"distribution\",\"type\":\"table\",\"displayType\":\"default\",\"outlierBandColor\":\"#FDECF5\",\"outlierBandMarkerColor\":\"#F032A9\",\"outlierBandFillOpacity\":0.3,\"outlierBandLineThickness\":2,\"outlierBandMarkerSize\":10,\"outlierBandMarkerType\":\"triangle\",\"fillOpacity\":1,\"aggregationType\":\"average\",\"groupBy\":[],\"decimals\":0,\"fontSize\":14},\"axes\":{},\"legend\":{},\"color\":{},\"hiddenQueryKeys\":[],\"overrides\":[],\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "_index=sumologic_volume _sourceCategory = \"collector_and_tier_volume\"\n| parse regex \"(?<data>\\{[^\\{]+\\})\" multi\n| json field=data \"field\",\"dataTier\" as collector, dataTier\n| where dataTier matches \"{{Tier}}\"\n| where !isEmpty(collector)\n| if (\"{{Filter}}\"=\"*\", \"*\", concat(\"*\", toLowerCase(\"{{Filter}}\"), \"*\")) as filter\n| where toLowerCase(collector) matches filter\n| count by collector\n| sort collector asc\n| fields -_count",
+                            "queryType": "Logs",
+                            "queryKey": "A",
+                            "metricsQueryMode": null,
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Manual",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelPANE-4",
+                    "title": "Source Hosts Available (_sourceHost)",
+                    "visualSettings": "{\"title\":{\"fontSize\":16},\"general\":{\"mode\":\"distribution\",\"type\":\"table\",\"displayType\":\"default\",\"outlierBandColor\":\"#FDECF5\",\"outlierBandMarkerColor\":\"#F032A9\",\"outlierBandFillOpacity\":0.3,\"outlierBandLineThickness\":2,\"outlierBandMarkerSize\":10,\"outlierBandMarkerType\":\"triangle\",\"fillOpacity\":1,\"aggregationType\":\"average\",\"groupBy\":[],\"decimals\":0,\"fontSize\":14},\"axes\":{},\"legend\":{},\"color\":{},\"hiddenQueryKeys\":[],\"overrides\":[],\"series\":{}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "_index=sumologic_volume _sourceCategory = \"sourcehost_and_tier_volume\"\n| parse regex \"(?<data>\\{[^\\{]+\\})\" multi\n| json field=data \"field\",\"dataTier\" as sourceHost, dataTier\n| where dataTier matches \"{{Tier}}\"\n| where !isEmpty(sourceHost)\n| if (\"{{Filter}}\"=\"*\", \"*\", concat(\"*\", toLowerCase(\"{{Filter}}\"), \"*\")) as filter\n| where toLowerCase(sourceHost) matches filter\n| count by sourceHost\n| sort sourceHost asc\n| fields -_count",
+                            "queryType": "Logs",
+                            "queryKey": "A",
+                            "metricsQueryMode": null,
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Manual",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelD7762643BE136B46",
+                    "title": "Sources Available (_source)",
+                    "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"table\",\"displayType\":\"default\",\"fontSize\":14},\"settings\":{\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"pie\":{\"chartType\":\"pie\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"table\":{\"chartType\":\"table\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"map\":{\"chartType\":\"map\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"sankey\":{\"chartType\":\"sankey\",\"version\":1,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}}},\"series\":{},\"title\":{\"fontSize\":16}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "_index=sumologic_volume _sourceCategory = \"source_and_tier_volume\"\n| parse regex \"(?<data>\\{[^\\{]+\\})\" multi\n| json field=data \"field\",\"dataTier\" as source, dataTier\n| where dataTier matches \"{{Tier}}\"\n| where !isEmpty(source)\n| if (\"{{Filter}}\"=\"*\", \"*\", concat(\"*\", toLowerCase(\"{{Filter}}\"), \"*\")) as filter\n| where toLowerCase(source) matches filter\n| count by source\n| sort source asc\n| fields -_count",
+                            "queryType": "Logs",
+                            "queryKey": "A",
+                            "metricsQueryMode": null,
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Manual",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelF4F16127B0CA4847",
+                    "title": "Source Names Available (_sourceName)",
+                    "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"table\",\"displayType\":\"default\",\"fontSize\":14},\"settings\":{\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"pie\":{\"chartType\":\"pie\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"table\":{\"chartType\":\"table\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"map\":{\"chartType\":\"map\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"sankey\":{\"chartType\":\"sankey\",\"version\":1,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}}},\"series\":{},\"title\":{\"fontSize\":16}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "_index=sumologic_volume _sourceCategory = \"sourcename_and_tier_volume\"\n| parse regex \"(?<data>\\{[^\\{]+\\})\" multi\n| json field=data \"field\",\"dataTier\" as sourcename, dataTier\n| where dataTier matches \"{{Tier}}\"\n| where !isEmpty(sourcename)\n| if (\"{{Filter}}\"=\"*\", \"*\", concat(\"*\", toLowerCase(\"{{Filter}}\"), \"*\")) as filter\n| where toLowerCase(sourcename) matches filter\n| count by sourcename\n| sort sourcename asc\n| fields -_count",
+                            "queryType": "Logs",
+                            "queryKey": "A",
+                            "metricsQueryMode": null,
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Manual",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelPANE-A336E87293803B42",
+                    "title": "Untitled",
+                    "visualSettings": "{\"general\":{\"mode\":\"TextPanel\",\"type\":\"text\",\"displayType\":\"default\",\"roundDataPoints\":true},\"title\":{\"fontSize\":14},\"series\":{},\"legend\":{\"enabled\":false},\"text\":{\"format\":\"markdownV2\",\"showTitle\":false}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "TextPanel",
+                    "text": "This dashboard does NOT take your Role Search Filter into consideration. It uses the data volume index to display the built-in metadata fields available across all data in Sumo. You can use the filter above to see which data is available to based on Data Tier.\nSee [Sumo Built-In Metadata](https://help-opensource.sumologic.com/docs/search/get-started-with-search/search-basics/built-in-metadata/) for more details."
+                },
+                {
+                    "id": null,
+                    "key": "panel94C279D9BBE2F942",
+                    "title": "Indexes/Views Available (_index or _view)",
+                    "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"table\",\"displayType\":\"default\",\"fontSize\":14},\"settings\":{\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"pie\":{\"chartType\":\"pie\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"table\":{\"chartType\":\"table\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"map\":{\"chartType\":\"map\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"sankey\":{\"chartType\":\"sankey\",\"version\":1,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}}},\"series\":{},\"title\":{\"fontSize\":16}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "_index=sumologic_volume _sourceCategory = \"view_and_tier_volume\"\n| parse regex \"(?<data>\\{[^\\{]+\\})\" multi\n| json field=data \"field\",\"dataTier\" as index, dataTier\n| where dataTier matches \"{{Tier}}\"\n| where !isEmpty(index)\n| if (\"{{Filter}}\"=\"*\", \"*\", concat(\"*\", toLowerCase(\"{{Filter}}\"), \"*\")) as filter\n| where toLowerCase(index) matches filter\n| count by index\n| sort index asc\n| fields -_count",
+                            "queryType": "Logs",
+                            "queryKey": "A",
+                            "metricsQueryMode": null,
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Manual",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                }
+            ],
+            "variables": [
+                {
+                    "id": null,
+                    "name": "Tier",
+                    "displayName": "Tier",
+                    "defaultValue": "*",
+                    "sourceDefinition": {
+                        "variableSourceType": "CsvVariableSourceDefinition",
+                        "values": "Continuous,Frequent,Infrequent,CSE"
+                    },
+                    "allowMultiSelect": false,
+                    "includeAllOption": true,
+                    "hideFromUI": false,
+                    "valueType": "Any"
+                },
+                {
+                    "id": null,
+                    "name": "Filter",
+                    "displayName": "Filter",
+                    "defaultValue": "*",
+                    "sourceDefinition": {
+                        "variableSourceType": "CsvVariableSourceDefinition",
+                        "values": ""
+                    },
+                    "allowMultiSelect": false,
+                    "includeAllOption": true,
+                    "hideFromUI": false,
+                    "valueType": "Any"
+                }
+            ],
+            "coloringRules": []
+        },
+        {
+            "type": "DashboardV2SyncDefinition",
+            "name": "All Searchable Metrics Metadata in Sumo",
+            "description": "",
+            "title": "All Searchable Metrics Metadata in Sumo",
+            "theme": "Dark",
+            "topologyLabelMap": {
+                "data": {}
+            },
+            "refreshInterval": 0,
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "RelativeTimeRangeBoundary",
+                    "relativeTime": "-15m"
+                },
+                "to": null
+            },
+            "layout": {
+                "layoutType": "Grid",
+                "layoutStructures": [
+                    {
+                        "key": "panelDAC28338BA670842",
+                        "structure": "{\"height\":8,\"width\":8,\"x\":0,\"y\":0}"
+                    },
+                    {
+                        "key": "panel30263E55888EFB48",
+                        "structure": "{\"height\":8,\"width\":8,\"x\":8,\"y\":0}"
+                    },
+                    {
+                        "key": "panel431458189F401946",
+                        "structure": "{\"height\":8,\"width\":8,\"x\":16,\"y\":0}"
+                    },
+                    {
+                        "key": "panel4CED514088E1894E",
+                        "structure": "{\"height\":7,\"width\":12,\"x\":0,\"y\":8}"
+                    },
+                    {
+                        "key": "panel134196C0AC8CB84E",
+                        "structure": "{\"height\":7,\"width\":12,\"x\":12,\"y\":8}"
+                    }
+                ]
+            },
+            "panels": [
+                {
+                    "id": null,
+                    "key": "panelDAC28338BA670842",
+                    "title": "Source Categories Available (_sourceCategory)",
+                    "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"table\",\"displayType\":\"default\",\"fontSize\":14},\"settings\":{\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"legend\":{\"position\":\"bottom\",\"enabled\":true},\"xAxis\":{\"title\":\"sourcecategory\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"DPM\",\"logScale\":false,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{\"DPM\":{\"yAxis\":0,\"color\":\"#1677B6\"}}}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"legend\":{\"position\":\"bottom\",\"enabled\":true},\"xAxis\":{\"title\":\"sourcecategory\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"DPM\",\"logScale\":false,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{\"DPM\":{\"yAxis\":0,\"color\":\"#1677B6\"}}}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"legend\":{\"position\":\"bottom\",\"enabled\":true},\"xAxis\":{\"title\":\"sourcecategory\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"DPM\",\"logScale\":false,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{\"DPM\":{\"yAxis\":0,\"color\":\"#1677B6\"}}}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"legend\":{\"position\":\"bottom\",\"enabled\":true},\"xAxis\":{\"title\":\"sourcecategory\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"DPM\",\"logScale\":false,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{\"DPM\":{\"yAxis\":0,\"color\":\"#1677B6\"}}}},\"pie\":{\"chartType\":\"pie\",\"version\":2,\"configuration\":{\"legend\":{\"position\":\"bottom\",\"enabled\":true},\"xAxis\":{\"title\":\"sourcecategory\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"DPM\",\"logScale\":false,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{\"DPM\":{\"yAxis\":0,\"color\":\"#1677B6\"}}}},\"table\":{\"chartType\":\"table\",\"version\":2,\"configuration\":{\"legend\":{\"position\":\"bottom\",\"enabled\":true},\"xAxis\":{\"title\":\"sourcecategory\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"DPM\",\"logScale\":false,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{\"DPM\":{\"yAxis\":0,\"color\":\"#1677B6\"}}}},\"map\":{\"chartType\":\"map\",\"version\":2,\"configuration\":{\"legend\":{\"position\":\"bottom\",\"enabled\":true},\"xAxis\":{\"title\":\"sourcecategory\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"DPM\",\"logScale\":false,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{\"DPM\":{\"yAxis\":0,\"color\":\"#1677B6\"}}}},\"sankey\":{\"chartType\":\"sankey\",\"version\":1,\"configuration\":{\"legend\":{\"position\":\"bottom\",\"enabled\":true},\"xAxis\":{\"title\":\"sourcecategory\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"DPM\",\"logScale\":false,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{\"DPM\":{\"yAxis\":0,\"color\":\"#1677B6\"}}}}},\"series\":{},\"title\":{\"fontSize\":16}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "_index=sumologic_volume _sourceCategory=\"sourcecategory_metrics_volume\" datapoints\n| parse regex \"\\\"(?<sourcecategory>[^\\\"]+)\\\"\\:\\{\\\"dataPoints\\\"\\:(?<datapoints>\\d+)\\}\" multi\n| if (\"{{Filter}}\"=\"*\", \"*\", concat(\"*\", toLowerCase(\"{{Filter}}\"), \"*\")) as filter\n| where sourcecategory matches filter\n| where !isEmpty(sourcecategory)\n| count by sourcecategory\n| sort sourcecategory asc\n| fields -_count",
+                            "queryType": "Logs",
+                            "queryKey": "A",
+                            "metricsQueryMode": null,
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Manual",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panel30263E55888EFB48",
+                    "title": "Collectors Available (_collector)",
+                    "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"table\",\"displayType\":\"default\",\"fontSize\":14},\"settings\":{\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"legend\":{\"position\":\"bottom\",\"enabled\":true},\"xAxis\":{\"title\":\"collector\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"DPM\",\"logScale\":false,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{\"DPM\":{\"yAxis\":0,\"color\":\"#1677B6\"}}}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"legend\":{\"position\":\"bottom\",\"enabled\":true},\"xAxis\":{\"title\":\"collector\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"DPM\",\"logScale\":false,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{\"DPM\":{\"yAxis\":0,\"color\":\"#1677B6\"}}}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"legend\":{\"position\":\"bottom\",\"enabled\":true},\"xAxis\":{\"title\":\"collector\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"DPM\",\"logScale\":false,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{\"DPM\":{\"yAxis\":0,\"color\":\"#1677B6\"}}}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"legend\":{\"position\":\"bottom\",\"enabled\":true},\"xAxis\":{\"title\":\"collector\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"DPM\",\"logScale\":false,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{\"DPM\":{\"yAxis\":0,\"color\":\"#1677B6\"}}}},\"pie\":{\"chartType\":\"pie\",\"version\":2,\"configuration\":{\"legend\":{\"position\":\"bottom\",\"enabled\":true},\"xAxis\":{\"title\":\"collector\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"DPM\",\"logScale\":false,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{\"DPM\":{\"yAxis\":0,\"color\":\"#1677B6\"}}}},\"table\":{\"chartType\":\"table\",\"version\":2,\"configuration\":{\"legend\":{\"position\":\"bottom\",\"enabled\":true},\"xAxis\":{\"title\":\"collector\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"DPM\",\"logScale\":false,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{\"DPM\":{\"yAxis\":0,\"color\":\"#1677B6\"}}}},\"map\":{\"chartType\":\"map\",\"version\":2,\"configuration\":{\"legend\":{\"position\":\"bottom\",\"enabled\":true},\"xAxis\":{\"title\":\"collector\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"DPM\",\"logScale\":false,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{\"DPM\":{\"yAxis\":0,\"color\":\"#1677B6\"}}}},\"sankey\":{\"chartType\":\"sankey\",\"version\":1,\"configuration\":{\"legend\":{\"position\":\"bottom\",\"enabled\":true},\"xAxis\":{\"title\":\"collector\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"DPM\",\"logScale\":false,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{\"DPM\":{\"yAxis\":0,\"color\":\"#1677B6\"}}}}},\"series\":{},\"title\":{\"fontSize\":16}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "_index=sumologic_volume _sourceCategory=\"collector_metrics_volume\" datapoints\n| parse regex \"\\\"(?<collector>[^\\\"]+)\\\"\\:\\{\\\"dataPoints\\\"\\:(?<datapoints>\\d+)\\}\" multi\n| if (\"{{Filter}}\"=\"*\", \"*\", concat(\"*\", toLowerCase(\"{{Filter}}\"), \"*\")) as filter\n| where toLowerCase(collector) matches filter\n| where !isEmpty(collector)\n| count by collector\n| sort collector asc\n| fields -_count",
+                            "queryType": "Logs",
+                            "queryKey": "A",
+                            "metricsQueryMode": null,
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Manual",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panel431458189F401946",
+                    "title": "Sources Available (_source)",
+                    "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"table\",\"displayType\":\"default\",\"fontSize\":14},\"settings\":{\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"legend\":{\"position\":\"bottom\",\"enabled\":true},\"xAxis\":{\"title\":\"source\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"DPM\",\"logScale\":false,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{\"DPM\":{\"yAxis\":0,\"color\":\"#1677B6\"}}}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"legend\":{\"position\":\"bottom\",\"enabled\":true},\"xAxis\":{\"title\":\"source\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"DPM\",\"logScale\":false,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{\"DPM\":{\"yAxis\":0,\"color\":\"#1677B6\"}}}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"legend\":{\"position\":\"bottom\",\"enabled\":true},\"xAxis\":{\"title\":\"source\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"DPM\",\"logScale\":false,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{\"DPM\":{\"yAxis\":0,\"color\":\"#1677B6\"}}}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"legend\":{\"position\":\"bottom\",\"enabled\":true},\"xAxis\":{\"title\":\"source\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"DPM\",\"logScale\":false,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{\"DPM\":{\"yAxis\":0,\"color\":\"#1677B6\"}}}},\"pie\":{\"chartType\":\"pie\",\"version\":2,\"configuration\":{\"legend\":{\"position\":\"bottom\",\"enabled\":true},\"xAxis\":{\"title\":\"source\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"DPM\",\"logScale\":false,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{\"DPM\":{\"yAxis\":0,\"color\":\"#1677B6\"}}}},\"table\":{\"chartType\":\"table\",\"version\":2,\"configuration\":{\"legend\":{\"position\":\"bottom\",\"enabled\":true},\"xAxis\":{\"title\":\"source\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"DPM\",\"logScale\":false,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{\"DPM\":{\"yAxis\":0,\"color\":\"#1677B6\"}}}},\"map\":{\"chartType\":\"map\",\"version\":2,\"configuration\":{\"legend\":{\"position\":\"bottom\",\"enabled\":true},\"xAxis\":{\"title\":\"source\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"DPM\",\"logScale\":false,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{\"DPM\":{\"yAxis\":0,\"color\":\"#1677B6\"}}}},\"sankey\":{\"chartType\":\"sankey\",\"version\":1,\"configuration\":{\"legend\":{\"position\":\"bottom\",\"enabled\":true},\"xAxis\":{\"title\":\"source\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"DPM\",\"logScale\":false,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{\"DPM\":{\"yAxis\":0,\"color\":\"#1677B6\"}}}}},\"series\":{},\"title\":{\"fontSize\":16}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "_index=sumologic_volume _sourceCategory=\"source_metrics_volume\" datapoints\n| parse regex \"\\\"(?<source>[^\\\"]+)\\\"\\:\\{\\\"dataPoints\\\"\\:(?<datapoints>\\d+)\\}\" multi\n| if (\"{{Filter}}\"=\"*\", \"*\", concat(\"*\", toLowerCase(\"{{Filter}}\"), \"*\")) as filter\n| where toLowerCase(source) matches filter\n| where !isEmpty(source)\n| count by source\n| sort source asc\n| fields -_count",
+                            "queryType": "Logs",
+                            "queryKey": "A",
+                            "metricsQueryMode": null,
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Manual",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panel4CED514088E1894E",
+                    "title": "Source Hosts Available (_sourceHost)",
+                    "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"table\",\"displayType\":\"default\",\"fontSize\":14},\"settings\":{\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"legend\":{\"position\":\"bottom\",\"enabled\":true},\"xAxis\":{\"title\":\"sourcehost\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"DPM\",\"logScale\":false,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{\"DPM\":{\"yAxis\":0,\"color\":\"#1677B6\"}}}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"legend\":{\"position\":\"bottom\",\"enabled\":true},\"xAxis\":{\"title\":\"sourcehost\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"DPM\",\"logScale\":false,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{\"DPM\":{\"yAxis\":0,\"color\":\"#1677B6\"}}}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"legend\":{\"position\":\"bottom\",\"enabled\":true},\"xAxis\":{\"title\":\"sourcehost\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"DPM\",\"logScale\":false,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{\"DPM\":{\"yAxis\":0,\"color\":\"#1677B6\"}}}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"legend\":{\"position\":\"bottom\",\"enabled\":true},\"xAxis\":{\"title\":\"sourcehost\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"DPM\",\"logScale\":false,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{\"DPM\":{\"yAxis\":0,\"color\":\"#1677B6\"}}}},\"pie\":{\"chartType\":\"pie\",\"version\":2,\"configuration\":{\"legend\":{\"position\":\"bottom\",\"enabled\":true},\"xAxis\":{\"title\":\"sourcehost\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"DPM\",\"logScale\":false,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{\"DPM\":{\"yAxis\":0,\"color\":\"#1677B6\"}}}},\"table\":{\"chartType\":\"table\",\"version\":2,\"configuration\":{\"legend\":{\"position\":\"bottom\",\"enabled\":true},\"xAxis\":{\"title\":\"sourcehost\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"DPM\",\"logScale\":false,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{\"DPM\":{\"yAxis\":0,\"color\":\"#1677B6\"}}}},\"map\":{\"chartType\":\"map\",\"version\":2,\"configuration\":{\"legend\":{\"position\":\"bottom\",\"enabled\":true},\"xAxis\":{\"title\":\"sourcehost\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"DPM\",\"logScale\":false,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{\"DPM\":{\"yAxis\":0,\"color\":\"#1677B6\"}}}},\"sankey\":{\"chartType\":\"sankey\",\"version\":1,\"configuration\":{\"legend\":{\"position\":\"bottom\",\"enabled\":true},\"xAxis\":{\"title\":\"sourcehost\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"DPM\",\"logScale\":false,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{\"DPM\":{\"yAxis\":0,\"color\":\"#1677B6\"}}}}},\"series\":{},\"title\":{\"fontSize\":16}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "_index=sumologic_volume _sourceCategory=\"sourcehost_metrics_volume\" datapoints\n| parse regex \"\\\"(?<sourcehost>[^\\\"]+)\\\"\\:\\{\\\"dataPoints\\\"\\:(?<datapoints>\\d+)\\}\" multi\n| if (\"{{Filter}}\"=\"*\", \"*\", concat(\"*\", toLowerCase(\"{{Filter}}\"), \"*\")) as filter\n| where toLowerCase(sourcehost) matches filter\n| where !isEmpty(sourcehost)\n| count by sourcehost\n| sort sourcehost asc\n| fields -_count",
+                            "queryType": "Logs",
+                            "queryKey": "A",
+                            "metricsQueryMode": null,
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Manual",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panel134196C0AC8CB84E",
+                    "title": "Source Names Available (_sourceName)",
+                    "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"table\",\"displayType\":\"default\",\"fontSize\":14},\"settings\":{\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"legend\":{\"position\":\"bottom\",\"enabled\":true},\"xAxis\":{\"title\":\"sourcecategory\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"DPM\",\"logScale\":false,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{\"DPM\":{\"yAxis\":0,\"color\":\"#1677B6\"}}}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"legend\":{\"position\":\"bottom\",\"enabled\":true},\"xAxis\":{\"title\":\"sourcecategory\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"DPM\",\"logScale\":false,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{\"DPM\":{\"yAxis\":0,\"color\":\"#1677B6\"}}}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"legend\":{\"position\":\"bottom\",\"enabled\":true},\"xAxis\":{\"title\":\"sourcecategory\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"DPM\",\"logScale\":false,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{\"DPM\":{\"yAxis\":0,\"color\":\"#1677B6\"}}}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"legend\":{\"position\":\"bottom\",\"enabled\":true},\"xAxis\":{\"title\":\"sourcecategory\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"DPM\",\"logScale\":false,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{\"DPM\":{\"yAxis\":0,\"color\":\"#1677B6\"}}}},\"pie\":{\"chartType\":\"pie\",\"version\":2,\"configuration\":{\"legend\":{\"position\":\"bottom\",\"enabled\":true},\"xAxis\":{\"title\":\"sourcecategory\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"DPM\",\"logScale\":false,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{\"DPM\":{\"yAxis\":0,\"color\":\"#1677B6\"}}}},\"table\":{\"chartType\":\"table\",\"version\":2,\"configuration\":{\"legend\":{\"position\":\"bottom\",\"enabled\":true},\"xAxis\":{\"title\":\"sourcecategory\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"DPM\",\"logScale\":false,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{\"DPM\":{\"yAxis\":0,\"color\":\"#1677B6\"}}}},\"map\":{\"chartType\":\"map\",\"version\":2,\"configuration\":{\"legend\":{\"position\":\"bottom\",\"enabled\":true},\"xAxis\":{\"title\":\"sourcecategory\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"DPM\",\"logScale\":false,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{\"DPM\":{\"yAxis\":0,\"color\":\"#1677B6\"}}}},\"sankey\":{\"chartType\":\"sankey\",\"version\":1,\"configuration\":{\"legend\":{\"position\":\"bottom\",\"enabled\":true},\"xAxis\":{\"title\":\"sourcecategory\",\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":\"DPM\",\"logScale\":false,\"bands\":null,\"minorTickInterval\":null}],\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"seriesInfo\":{\"DPM\":{\"yAxis\":0,\"color\":\"#1677B6\"}}}}},\"series\":{},\"title\":{\"fontSize\":16}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "_index=sumologic_volume _sourceCategory=\"sourcename_metrics_volume\" datapoints\n| parse regex \"\\\"(?<sourcename>[^\\\"]+)\\\"\\:\\{\\\"dataPoints\\\"\\:(?<datapoints>\\d+)\\}\" multi\n| if (\"{{Filter}}\"=\"*\", \"*\", concat(\"*\", toLowerCase(\"{{Filter}}\"), \"*\")) as filter\n| where toLowerCase(sourcename) matches filter\n| where !isEmpty(sourcename)\n| count by sourcename\n| sort sourcename asc\n| fields -_count",
+                            "queryType": "Logs",
+                            "queryKey": "A",
+                            "metricsQueryMode": null,
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Manual",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                }
+            ],
+            "variables": [
+                {
+                    "id": null,
+                    "name": "Filter",
+                    "displayName": "Filter",
+                    "defaultValue": "*",
+                    "sourceDefinition": {
+                        "variableSourceType": "CsvVariableSourceDefinition",
+                        "values": ""
+                    },
+                    "allowMultiSelect": false,
+                    "includeAllOption": true,
+                    "hideFromUI": false,
+                    "valueType": "Any"
+                }
+            ],
+            "coloringRules": []
+        },
+        {
+            "type": "DashboardV2SyncDefinition",
+            "name": "Searchable Continuous Metadata Available To Me",
+            "description": "",
+            "title": "Searchable Continuous Metadata Available To Me",
+            "theme": "Dark",
+            "topologyLabelMap": {
+                "data": {}
+            },
+            "refreshInterval": 0,
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "RelativeTimeRangeBoundary",
+                    "relativeTime": "-3h"
+                },
+                "to": null
+            },
+            "layout": {
+                "layoutType": "Grid",
+                "layoutStructures": [
+                    {
+                        "key": "panel5FEFBC4A8B2B5B42",
+                        "structure": "{\"height\":8,\"width\":6,\"x\":0,\"y\":3}"
+                    },
+                    {
+                        "key": "panelF118B5FF8A74194A",
+                        "structure": "{\"height\":8,\"width\":6,\"x\":12,\"y\":3}"
+                    },
+                    {
+                        "key": "panelF432A32D910C6843",
+                        "structure": "{\"height\":8,\"width\":6,\"x\":18,\"y\":3}"
+                    },
+                    {
+                        "key": "panel724350BC8984DA4D",
+                        "structure": "{\"height\":8,\"width\":16,\"x\":8,\"y\":11}"
+                    },
+                    {
+                        "key": "panelA64F506482266B42",
+                        "structure": "{\"height\":8,\"width\":6,\"x\":6,\"y\":3}"
+                    },
+                    {
+                        "key": "panelPANE-5E36662B9CC73A41",
+                        "structure": "{\"height\":3,\"width\":24,\"x\":0,\"y\":0}"
+                    },
+                    {
+                        "key": "panel669B72F482D0C841",
+                        "structure": "{\"height\":8,\"width\":8,\"x\":0,\"y\":11}"
+                    }
+                ]
+            },
+            "panels": [
+                {
+                    "id": null,
+                    "key": "panel5FEFBC4A8B2B5B42",
+                    "title": "Source Categories Available (_sourceCategory)",
+                    "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"table\",\"displayType\":\"default\",\"fontSize\":14},\"version\":3,\"settings\":{\"table\":{\"version\":2,\"configuration\":{\"textTruncationMode\":\"none\",\"fontSize\":\"medium\",\"fontSizeOverride\":null,\"tableState\":null}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\",\"dimensions\":{\"width\":null,\"height\":null}},\"plotOptions\":{\"stacking\":null,\"lineToArea\":false},\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"},\"minorTickInterval\":null},\"yAxis\":[{\"title\":null,\"logScale\":false,\"min\":null,\"max\":null,\"bands\":null,\"minorTickInterval\":null}],\"seriesInfo\":{},\"showLineMarker\":true,\"lineMouseTracking\":true,\"multiSeriesTooltipOrder\":\"none\"}},\"pie\":{\"chartType\":\"pie\",\"version\":3,\"configuration\":{\"donutMode\":true,\"colors\":{\"index\":null,\"overrides\":null},\"legend\":{\"enabled\":true,\"position\":\"right\"},\"plotOptions\":{\"label\":{\"truncationMode\":\"middle\"},\"showSliceBorders\":true,\"maxNumOfPieSlices\":\"10\"}}},\"boxplot\":{\"chartType\":\"boxplot\",\"version\":1,\"configuration\":{\"xAxis\":{\"title\":null,\"label\":{\"truncationMode\":\"middle\"}},\"yAxis\":{\"title\":null,\"min\":null,\"max\":null}}},\"map\":{\"chartType\":\"map\",\"version\":1,\"configuration\":{\"maptype\":\"cluster\"}},\"svv\":{\"version\":2,\"configuration\":{\"colorOverride\":null,\"backgroundColorEnabled\":false,\"noDataBehavior\":{\"enabled\":false,\"color\":\"#cccccc\",\"value\":null,\"isString\":null},\"valueType\":{\"number\":{\"showNumber\":true,\"unit\":null,\"colorsByValueRange\":null},\"boolean\":{\"trueColor\":\"#6aa84f\",\"falseColor\":\"#cc0000\"}},\"labels\":{\"prefix\":{\"enabled\":false,\"text\":\"\",\"align\":\"left\"},\"postfix\":{\"enabled\":false,\"text\":\"\",\"align\":\"right\"}}}},\"sankey\":{\"version\":1,\"configuration\":{}},\"text\":{\"version\":1,\"configuration\":{\"text\":null}},\"metrics\":{\"version\":2,\"configuration\":{\"blockSettings\":{},\"viewType\":\"timeline\",\"zoom\":\"xy\",\"yAxis\":{\"defaults\":[{\"name\":\"\"},{\"name\":\"\"}],\"custom\":[{},{}]},\"xAxis\":{\"scrubber\":true},\"outliers\":{\"enabled\":true,\"top\":1,\"scope\":\"Chart\",\"cyclicality\":false,\"threshold\":7,\"autoShowBand\":true},\"colorFamily\":\"METRIC_DEFAULT\"}},\"common\":{\"version\":1,\"configuration\":{\"drilldown\":{\"fallback\":{\"target\":{\"id\":null,\"name\":null,\"enabled\":null}}}}}},\"series\":{},\"title\":{\"fontSize\":16}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "_sourceCategory=*{{Filter}}*\n| where !isEmpty(_sourceCategory)\n| count by _sourceCategory\n| sort _sourceCategory asc\n| fields -_count",
+                            "queryType": "Logs",
+                            "queryKey": "A",
+                            "metricsQueryMode": null,
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelF118B5FF8A74194A",
+                    "title": "Sources Available (_source)",
+                    "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"table\",\"displayType\":\"default\",\"fontSize\":14},\"settings\":{\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"pie\":{\"chartType\":\"pie\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"table\":{\"chartType\":\"table\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"map\":{\"chartType\":\"map\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"sankey\":{\"chartType\":\"sankey\",\"version\":1,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}}},\"series\":{},\"title\":{\"fontSize\":16}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "_source=*{{Filter}}*\n| where !isEmpty(_source)\n| count by _source\n| sort _source asc\n| fields -_count",
+                            "queryType": "Logs",
+                            "queryKey": "A",
+                            "metricsQueryMode": null,
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelF432A32D910C6843",
+                    "title": "Source Hosts Available (_sourceHost)",
+                    "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"table\",\"displayType\":\"default\",\"fontSize\":14},\"settings\":{\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"pie\":{\"chartType\":\"pie\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"table\":{\"chartType\":\"table\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"map\":{\"chartType\":\"map\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"sankey\":{\"chartType\":\"sankey\",\"version\":1,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}}},\"series\":{},\"title\":{\"fontSize\":16}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "_sourceHost=*{{Filter}}*\n| where !isEmpty(_sourceHost)\n| count by _sourceHost\n| sort _sourceHost asc\n| fields -_count",
+                            "queryType": "Logs",
+                            "queryKey": "A",
+                            "metricsQueryMode": null,
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panel724350BC8984DA4D",
+                    "title": "Source Names Available (_sourcename)",
+                    "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"table\",\"displayType\":\"default\",\"fontSize\":14},\"settings\":{\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"pie\":{\"chartType\":\"pie\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"table\":{\"chartType\":\"table\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"map\":{\"chartType\":\"map\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"sankey\":{\"chartType\":\"sankey\",\"version\":1,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}}},\"series\":{},\"title\":{\"fontSize\":16}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "_sourceName=*{{Filter}}*\n| where !isEmpty(_sourceName)\n| count by _sourceName\n| sort _sourceName asc\n| fields -_count",
+                            "queryType": "Logs",
+                            "queryKey": "A",
+                            "metricsQueryMode": null,
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelA64F506482266B42",
+                    "title": "Collectors Available (_collector)",
+                    "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"table\",\"displayType\":\"default\",\"fontSize\":14},\"settings\":{\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"pie\":{\"chartType\":\"pie\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"table\":{\"chartType\":\"table\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"map\":{\"chartType\":\"map\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"sankey\":{\"chartType\":\"sankey\",\"version\":1,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}}},\"series\":{},\"title\":{\"fontSize\":16}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "_collector=*{{Filter}}*\n| where !isEmpty(_collector)\n| count by _collector\n| sort _collector asc\n| fields -_count",
+                            "queryType": "Logs",
+                            "queryKey": "A",
+                            "metricsQueryMode": null,
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                },
+                {
+                    "id": null,
+                    "key": "panelPANE-5E36662B9CC73A41",
+                    "title": "Untitled",
+                    "visualSettings": "{\"general\":{\"mode\":\"TextPanel\",\"type\":\"text\",\"displayType\":\"default\",\"roundDataPoints\":true},\"title\":{\"fontSize\":14},\"series\":{},\"text\":{\"format\":\"markdownV2\",\"showTitle\":false},\"legend\":{\"enabled\":false}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "TextPanel",
+                    "text": "This dashboard takes your Role Search Filter into consideration. You will only see metadata fields that you have access to for data in the Continuous Tier. Use the Filter above to scope which metadata is available to search. See [Sumo Built-In Metadata](https://help-opensource.sumologic.com/docs/search/get-started-with-search/search-basics/built-in-metadata/) for more details."
+                },
+                {
+                    "id": null,
+                    "key": "panel669B72F482D0C841",
+                    "title": "Indexes/Views Available (_index or _view)",
+                    "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"table\",\"displayType\":\"default\",\"fontSize\":14},\"settings\":{\"line\":{\"chartType\":\"line\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"area\":{\"chartType\":\"area\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"bar\":{\"chartType\":\"bar\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"column\":{\"chartType\":\"column\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"pie\":{\"chartType\":\"pie\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"table\":{\"chartType\":\"table\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"map\":{\"chartType\":\"map\",\"version\":2,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}},\"sankey\":{\"chartType\":\"sankey\",\"version\":1,\"configuration\":{\"seriesInfo\":{\"undefined\":{\"yAxis\":0}}}}},\"series\":{},\"title\":{\"fontSize\":16}}",
+                    "keepVisualSettingsConsistentWithParent": true,
+                    "panelType": "SumoSearchPanel",
+                    "queries": [
+                        {
+                            "transient": false,
+                            "queryString": "_sourceCategory=*\n| _view as index\n| where !isEmpty(index)\n| if (\"{{Filter}}\"=\"*\", \"*\", concat(\"*\", toLowerCase(\"{{Filter}}\"), \"*\")) as filter\n| where index matches filter\n| count by index\n| sort index asc\n| fields -_count",
+                            "queryType": "Logs",
+                            "queryKey": "A",
+                            "metricsQueryMode": null,
+                            "metricsQueryData": null,
+                            "tracesQueryData": null,
+                            "spansQueryData": null,
+                            "parseMode": "Auto",
+                            "timeSource": "Message",
+                            "outputCardinalityLimit": 1000
+                        }
+                    ],
+                    "description": "",
+                    "timeRange": null,
+                    "coloringRules": null,
+                    "linkedDashboards": []
+                }
+            ],
+            "variables": [
+                {
+                    "id": null,
+                    "name": "Filter",
+                    "displayName": "Filter",
+                    "defaultValue": "*",
+                    "sourceDefinition": {
+                        "variableSourceType": "CsvVariableSourceDefinition",
+                        "values": ""
+                    },
+                    "allowMultiSelect": false,
+                    "includeAllOption": true,
+                    "hideFromUI": false,
+                    "valueType": "Any"
+                }
+            ],
+            "coloringRules": []
+        }
+    ]
+}

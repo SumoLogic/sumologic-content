@@ -1,0 +1,10 @@
+{
+  "reviewer":"[itsthepo/Brandon]",
+  "ratings":{
+    "overall":"[4]",
+    "use-case":"[4]",
+    "design":"[4]",
+    "technical":"[4]"
+  },
+  "review":"[This app is great with the visualizations it provides, especially with pre-defined filters, nice touch. Is there a way to provide some OOTB searches that may help me derive more value (i.e., some queries I could use to troubleshoot an issue further that I identified on the dashboard?]"
+}
