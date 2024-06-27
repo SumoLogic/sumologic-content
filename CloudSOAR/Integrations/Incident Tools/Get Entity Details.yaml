@@ -1,0 +1,112 @@
+integration: 'Automation Tools'
+name: 'Get Entity Details'
+type: Enrichment
+script:
+    code: |
+        import json
+        import argparse
+        import requests
+        import sys
+        import urllib3
+        import os
+        
+        # disabling all urllib3 warnings.
+        urllib3.disable_warnings()
+
+        class EnvDefault(argparse.Action):
+            def __init__(self, required=True, default=None, **kwargs):
+                envvar = kwargs.get("dest")
+                default = os.environ.get(envvar, default) if envvar in os.environ else default
+                required = False if required and default else required
+                super(EnvDefault, self).__init__(default=default, required=required, **kwargs)
+
+            def __call__(self, parser, namespace, values, option_string=None):
+                setattr(namespace, self.dest, values)
+        
+        # fetches entity (object) details
+        try:
+            parser = argparse.ArgumentParser()
+            parser.add_argument('--token', help='API Token (Legacy)', required=False, action=EnvDefault)
+            parser.add_argument('--access_id', help='Access ID', required=False, action=EnvDefault)
+            parser.add_argument('--access_key', help='Access Key', required=False, action=EnvDefault)
+            parser.add_argument('--cloud_soar_url', help='Cloud SOAR URL , REQUIRED', required=True, action=EnvDefault)
+            parser.add_argument('--entity', help='Entity', required=True, action=EnvDefault)
+            args, unknown = parser.parse_known_args()
+
+            # delivery 2 endpoint & headers
+            if args.access_id and args.access_key:
+                api_path = "/api/csoar/v3"
+                headers = {
+                  'Content-Type': 'application/json',
+                  'Accept': 'application/json'
+                }
+            # legacy endpoint & headers
+            elif args.token:
+                api_path = "/api/v3"
+                headers = {
+                  'Accept': 'application/json;charset=UTF-8',
+                  'Content-Type': 'application/json',
+                  'Authorization': 'Bearer {}'.format(args.token)
+                }
+            else:
+                raise Exception("Access ID and Access Key, or legacy API token are required for authentication")
+                
+            session = requests.Session()
+            session.verify = False
+
+            # Search For Entity and Extract ID
+            search_payload = {
+                "page_number": 1,
+                "page_size": 150,
+                "filter": args.entity
+            }
+
+            search_url = '{0}{1}/entities/search/'.format(args.cloud_soar_url.rstrip('/'), api_path)
+            search_res = session.post(search_url, headers=headers, auth=(args.access_id, args.access_key) if args.access_id and args.access_key else None, timeout=15, data=json.dumps(search_payload))
+            entity_id = search_res.json()
+            entity_id = entity_id[0]["id"]
+            
+            detail_url = '{0}{1}/entities/{2}/'.format(args.cloud_soar_url.rstrip('/'), api_path, entity_id)
+            detail_res = session.get(detail_url, headers=headers, auth=(args.access_id, args.access_key) if args.access_id and args.access_key else None, timeout=15)
+            response = detail_res.json()
+            print(json.dumps(response))
+            exit(0)
+        
+        except Exception as e:
+            err = str(e)
+            try:
+                if hasattr(e, "response"):
+                    try:
+                        response = e.response.json()
+                        msg_error = response.get("error", None)
+                        if msg_error is not None:
+                            msg_description = response.get("description", "")
+                            err = "API Error: {} {}".format(str(msg_error), str(msg_description))
+                    except ValueError:
+                        err = str(e)
+            except AttributeError:
+                err = str(e)
+            sys.stderr.write(str(err))
+            exit(-1)
+
+fields:
+  - id: entity
+    label: 'Entity'
+    type: text
+    required: true
+    hint: "The entity to fetch details for."
+output:
+    - path: 'resource'
+      type: string
+    - path: 'type'
+      type: string
+    - path: 'tag.[].value'
+      type: string
+    - path: 'additional_info'
+      type: string
+    - path: 'related_incidents.[]'
+      type: string
+    - path: 'has_attachment'
+      type: string
+    - path: 'deleted'
+      type: string
