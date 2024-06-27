@@ -1,11 +1,10 @@
 integration: 'Automation Tools'
-name: 'Render PNG Image'
-type: Enrichment
+name: 'Decode Base64'
+type: Custom
 script:
     code: |
         import sys
         import argparse
-        import urllib3
         import base64
         import json
         import os
@@ -25,27 +24,31 @@ script:
             parser = argparse.ArgumentParser()
             parser.add_argument('--base64', help='File Content, REQUIRED', required=True, action=EnvDefault)
             parser.add_argument('--base64_key', help='JSON Key, REQUIRED', required=True, action=EnvDefault)
-            parser.add_argument('--image_name', help='Image Name', required=False, action=EnvDefault)
             parser.add_argument('--utf_bool', help='Enabled UTF-8 Encoding', required=False, action=EnvDefault)
             
             args, unknown = parser.parse_known_args()
             
-            with open(args.base64, "r") as file:
-                data = json.load(file)
+            try:
+            
+                with open(args.base64, "r") as file:
+                    raw = json.load(file)
+                    
+                    json_msg = raw.get("message", {})
+                    if len(json_msg) > 0 and json_msg is not None:
+                        json_data = json_msg
+                    else:
+                        raise Exception('Unable to extract encoded data. Please validate the JSON input.')
+                    base64_unicode = json_data[args.base64_key]
+                    
+                    if args.utf_bool == "true" or args.utf_bool == "1":
+                        base64_unicode = str(base64_unicode,'utf-8')
+                decoded = base64.b64decode(base64_unicode)
                 
-                raw_data = data.get("message", {})
-                base64_unicode = raw_data[args.base64_key]
-                
-                # base64_unicode = data['message'][args.base64_key]
-                if args.utf_bool == "true" or args.utf_bool == "1":
-                    base64_unicode = str(base64_unicode,'utf-8')
+            except ValueError as e:
+                raise Exception("Invalid JSON input ({0})".format(str(e)))
             
             resJson = {}
-            if args.image_name:
-                resJson["image_name"] = args.image_name
-            else:
-                resJson["image_name"] = file_name
-            resJson["base64"] = base64_unicode
+            resJson['content'] = decoded
             print(json.dumps(resJson))
             exit(0)
         
@@ -59,11 +62,6 @@ fields:
     type: upload
     required: true
     hint: 'Use "output.raw" from a previous action that has a base64-encoded string as a JSON element.'
-  - id: image_name
-    label: 'Image Name'
-    type: text
-    required: false
-    hint: 'Optional: File name, URL, etc.'
   - id: base64_key
     label: 'JSON Key'
     type: text
@@ -75,8 +73,6 @@ fields:
     required: false
     hint: 'If errors are encountered, selecting this option will try passing the base64 content as a UTF-8 encoded string.'
 output:
-    - path: 'image_name'
+    - path: 'content'
       type: string
-    - path: 'base64'
-      type: string
-image_base64_png: 'base64'
+src_doc: 'content'
