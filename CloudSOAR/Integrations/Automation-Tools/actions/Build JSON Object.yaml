@@ -7,6 +7,7 @@ script:
     import sys
     import argparse
     import os
+    import ast
 
     class EnvDefault(argparse.Action):
         def __init__(self, required=True, default=None, **kwargs):
@@ -17,67 +18,80 @@ script:
 
         def __call__(self, parser, namespace, values, option_string=None):
             setattr(namespace, self.dest, values)
-
     
-    def build_json(field_key: str, value: str):
-        results_dict = {}
-        field_key = str(field_key)
-        value = str(value)
+    
+    def prepare_data(str_data_or_json):
         try:
-            raw = str(value).strip("'<>() ").replace('\'', '\"')
-            value = json.loads(raw)
-        except Exception as e:
-            pass
-        if isinstance(value, str) or isinstance(value, int):
-            results_dict.update({field_key: value})
-        elif isinstance(value, dict):
-            if value.get(field_key, None):
-                if isinstance(value[field_key], list):
-                    if isinstance(list(value.values())[0], list):
-                        results_dict[field_key] = list(value.values())[0]
+            try:
+                try:
+                    with open(str_data_or_json) as json_file:
+                        json_data = json.load(json_file)
+                        if isinstance(json_data, dict):
+                            json_results = json_data.get("message", json_data)
+                        else:
+                            json_results = json_data
+                except Exception as __:
+                    json_results = json.loads(str(str_data_or_json).strip(), strict=False)
+            except Exception as __:
+                json_or_str_values = ast.literal_eval(str(str_data_or_json).strip())
+                if isinstance(json_or_str_values, dict) or isinstance(json_or_str_values, list):
+                    json_results = json_or_str_values
+                else:
+                    json_results = str_data_or_json
+        except Exception as __:
+            json_results = str_data_or_json
+        return json_results
+        
+    
+    def build_json(field_key, value):
+        try:
+            results_dict = {}
+            value = prepare_data(value)
+            if isinstance(value, dict):
+                if value.get(field_key, None):
+                    if isinstance(value[field_key], list):
+                        results_dict[field_key] = list(value.values())
+                else:
+                    results_dict.update({field_key: value})
             else:
                 results_dict.update({field_key: value})
-        elif field_key in value:
-            if isinstance(value[field_key], list):
-                if isinstance(list(value.values())[0], list):
-                    results_dict[field_key] = list(value.values())[0]
-        elif type(value) not in [str, list, dict, int]:
-            raise ValueError("Invalid value type \"{val_type}\"".format(val_type=type(value)))
 
-        else:
-            results_dict.update({field_key: value})
+        except ValueError as e:
+                raise Exception("Type '{0}' is not a valid input ({1})".format(str(e), type(value)))
         return results_dict
 
 
     try:
         parser = argparse.ArgumentParser()
         parser.add_argument('--name', help='JSON Root Name', required=False, action=EnvDefault)
-        parser.add_argument('--key1', help='JSON Key Name 1', required=False, action=EnvDefault)
-        parser.add_argument('--val1', help='JSON Input 1', required=False, action=EnvDefault)
-        parser.add_argument('--key2', help='JSON Key Name 2', required=False, action=EnvDefault)
-        parser.add_argument('--val2', help='JSON Input 2', required=False, action=EnvDefault)
-        parser.add_argument('--key3', help='JSON Key Name 3', required=False, action=EnvDefault)
-        parser.add_argument('--val3', help='JSON Input 3', required=False, action=EnvDefault)
-        parser.add_argument('--key4', help='JSON Key Name 4', required=False, action=EnvDefault)
-        parser.add_argument('--val4', help='JSON Input 4', required=False, action=EnvDefault)
-        parser.add_argument('--key5', help='JSON Key Name 5', required=False, action=EnvDefault)
-        parser.add_argument('--val5', help='JSON Input 5', required=False, action=EnvDefault)
+        parser.add_argument('--key1', help='JSON Key 1', required=False, action=EnvDefault)
+        parser.add_argument('--val1', help='JSON Value 1', required=False, action=EnvDefault)
+        parser.add_argument('--key2', help='JSON Key 2', required=False, action=EnvDefault)
+        parser.add_argument('--val2', help='JSON Value 2', required=False, action=EnvDefault)
+        parser.add_argument('--key3', help='JSON Key 3', required=False, action=EnvDefault)
+        parser.add_argument('--val3', help='JSON Value 3', required=False, action=EnvDefault)
+        parser.add_argument('--key4', help='JSON Key 4', required=False, action=EnvDefault)
+        parser.add_argument('--val4', help='JSON Value 4', required=False, action=EnvDefault)
+        parser.add_argument('--key5', help='JSON Key 5', required=False, action=EnvDefault)
+        parser.add_argument('--val5', help='JSON Value 5', required=False, action=EnvDefault)
         args, unknown = parser.parse_known_args()
-        #print(args)
-        #exit(0)
 
         json_dict = {}
-        if args.val1 is not None:
+        if args.val1:
             json_dict.update(build_json(args.key1, args.val1))
-        if args.val2 is not None:
+        if args.val2:
             json_dict.update(build_json(args.key2, args.val2))
-        if args.val3 is not None:
+        if args.val3:
             json_dict.update(build_json(args.key3, args.val3))
-        if args.val4 is not None and args.key4 is not None:
+        if args.val4:
             json_dict.update(build_json(args.key4, args.val4))
-        if args.val5 is not None and args.key5 is not None:
+        if args.val5:
             json_dict.update(build_json(args.key5, args.val5))
-        print(json.dumps({"message": {str(args.name): json_dict}}))
+        
+        if args.name:
+            print(json.dumps({"message": {str(args.name): json_dict}}))
+        else:
+            print(json.dumps({"message": json_dict}))
         exit(0)
     except Exception as e:
         sys.stderr.write(str(e))
@@ -89,61 +103,61 @@ fields:
     incident_artifacts: true
     type: text
     required: false
-    hint: 'Optional name to assign to the root JSON output.'
+    hint: 'Optional - Nest JSON results in a root JSON object (e.g. "data":{...}).'
   - id: key1
-    label: 'JSON Key Name 1'
+    label: 'JSON Key 1'
     incident_artifacts: true
     type: text
     required: false
     hint: 'Key name for the selected JSON input.'
   - id: val1
-    label: 'JSON Input 1'
+    label: 'JSON Value 1'
     incident_artifacts: true
     type: text
     required: false
-    hint: 'String, integer or json data input. Lists also accepted when nested within a dictionary (use "Generate JSON List" to capture lists).'
+    hint: 'String, integer or json data input. Lists also accepted when nested within a dictionary.'
   - id: key2
-    label: 'JSON Key Name 2'
+    label: 'JSON Key 2'
     incident_artifacts: true
     type: text
     required: false
     hint: 'Key name for the selected JSON input.'
   - id: val2
-    label: 'JSON Input 2'
+    label: 'JSON Value 2'
     type: text
     incident_artifacts: true
     required: false
-    hint: 'String, integer or json data input. Lists also accepted when nested within a dictionary (use "Generate JSON List" to capture lists).'
+    hint: 'String, integer or json data input. Lists also accepted when nested within a dictionary.'
   - id: key3
-    label: 'JSON Key Name 3'
+    label: 'JSON Key 3'
     type: text
     required: false
     hint: 'Key name for the selected JSON input.'
   - id: val3
-    label: 'JSON Input 3'
+    label: 'JSON Value 3'
     type: text
     required: false
-    hint: 'String, integer or json data input. Lists also accepted when nested within a dictionary (use "Generate JSON List" to capture lists).'
+    hint: 'String, integer or json data input. Lists also accepted when nested within a dictionary.'
   - id: key4
-    label: 'JSON Key Name 4'
+    label: 'JSON Key 4'
     type: text
     required: false
     hint: 'Key name for the selected JSON input.'
   - id: val4
-    label: 'JSON Input 4'
+    label: 'JSON Value 4'
     type: text
     required: false
-    hint: 'String, integer or json data input. Lists also accepted when nested within a dictionary (use "Generate JSON List" to capture lists).'
+    hint: 'String, integer or json data input. Lists also accepted when nested within a dictionary.'
   - id: key5
-    label: 'JSON Key Name 5'
+    label: 'JSON Key 5'
     type: text
     required: false
     hint: 'Key name for the selected JSON input.'
   - id: val5
-    label: 'JSON Input 5'
+    label: 'JSON Value 5'
     type: text
     required: false
-    hint: 'String, integer or json data input. Lists also accepted when nested within a dictionary (use "Generate JSON List" to capture lists).'
+    hint: 'String, integer or json data input. Lists also accepted when nested within a dictionary.'
 output:
   - path: 'message'
     type: text

@@ -1,0 +1,98 @@
+integration: 'Automation Tools'
+name: 'Filter JSON Array'
+type: Custom
+script:
+  code: |
+    import json
+    import sys
+    import argparse
+    import os
+
+    class EnvDefault(argparse.Action):
+        def __init__(self, required=True, default=None, **kwargs):
+            envvar = kwargs.get("dest")
+            default = os.environ.get(envvar, default) if envvar in os.environ else default
+            required = False if required and default else required
+            super(EnvDefault, self).__init__(default=default, required=required, **kwargs)
+
+        def __call__(self, parser, namespace, values, option_string=None):
+            setattr(namespace, self.dest, values)
+
+    def is_value_exist(field_value):
+        return True if field_value is not None and field_value != '' and field_value != "None" else False
+        
+    try:
+        parser = argparse.ArgumentParser()
+        parser.add_argument('--jsonOutput', help='JSON Raw Payload', required=True, action=EnvDefault)
+        parser.add_argument('--arrayObject', help='Array to Filter', required=True, action=EnvDefault)
+        parser.add_argument('--filterKey', help='JSON Key Filter', required=True, action=EnvDefault)
+        parser.add_argument('--filterValue', help='JSON Value Filter', required=True, action=EnvDefault)
+        args, unknown = parser.parse_known_args()
+
+        results = {'data':[]}
+
+        if is_value_exist(args.jsonOutput):
+            try:
+                with open(args.jsonOutput) as json_file:
+                    json_message = json.load(json_file)
+                    root_message = json_message.get("message", {})
+                    if len(root_message) > 0 and root_message is not None:
+                        json_message = root_message
+                    json_data = json_message[args.arrayObject]
+            except ValueError as e:
+                raise Exception("Output parameter JSON is invalid({})".format(str(e)))
+
+        for x in range(0,len(json_data)):
+          if json_data[x].get(args.filterKey) == args.filterValue:
+            if json_data[x] not in results['data']:
+                results['data'].append(json_data[x])
+        
+        # # jmespath method
+        # for x in range(0, len(json_data)):
+        #   if jmespath.search(args.filterKey, json_data[x]) == args.filterValue:
+        #     if json_data[x] not in results['data']:
+        #         results['data'].append(json_data[x])
+
+        print(json.dumps(results))
+        exit(0)
+    except Exception as e:
+        sys.stderr.write(str(e))
+        exit(-1)
+
+fields:
+- id: jsonOutput
+  label: 'Raw JSON Payload (output.raw)'
+  type: text
+  required: true
+  hint: 'Only "output.raw" from the "Get Insight" action is accepted'
+- id: arrayObject
+  label: 'Array Object'
+  type: text
+  required: true
+  incident_artifacts: true
+  hint: "This should point to the root of the array object."
+- id: filterKey
+  label: 'JSON Key Filter'
+  type: text
+  required: true
+  incident_artifacts: true
+  hint: "The JSON key used that points to the value filter of the array (use with 'JSON Value filter')."
+- id: filterValue
+  label: 'JSON Value Filter'
+  type: text
+  required: true
+  incident_artifacts: true
+  hint: "The JSON value used to filter the array."
+output:
+  - path: involvedEntities.[].entityType
+    type: text
+    example: '_ip'
+  - path: involvedEntities.[].id
+    type: text
+    example: '_ip-125.118.246.104'
+  - path: involvedEntities.[].sensorZone
+    type: text
+    example: 'null'
+  - path: involvedEntities.[].value
+    type: text
+    example: '125.118.246.104'

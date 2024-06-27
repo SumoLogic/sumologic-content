@@ -1,5 +1,5 @@
-integration: Automation Tools
-name: Filter IP Addresses
+integration: 'Automation Tools'
+name: 'Filter IP Addresses'
 type: Custom
 script:
   code: |
@@ -29,11 +29,8 @@ script:
 
         result = {}
 
-        if isinstance(args.input, str):
-            ip_input = args.input.replace(", ", ",")
-            ip_array = ip_input.split(',')
-        elif isinstance(args.input, dict):
-            ip_array = args.input
+        ip_input = args.input.replace(", ", ",")
+        ip_array = ip_input.split(',')
         public_ip = []
         private_ip = []
         for ip in ip_array:
@@ -55,7 +52,7 @@ fields:
   incident_artifacts: true
   type: text
   required: true
-  hint: Provide a single or list of IP addresses. Returns a filtered list of IPs.
+  hint: Provide a single or list of IP addresses. Returns a filtered list of public and private IPs.
 output:
 - path: result
   type: text

@@ -1,0 +1,58 @@
+integration: 'Automation Tools'
+name: 'Render JSON Data'
+type: Custom
+script:
+ code: |
+    import json
+    import sys
+    import argparse
+    import os
+    import html
+    import unicodedata
+    from bs4 import BeautifulSoup
+
+    class EnvDefault(argparse.Action):
+        def __init__(self, required=True, default=None, **kwargs):
+            envvar = kwargs.get("dest")
+            default = os.environ.get(envvar, default) if envvar in os.environ else default
+            required = False if required and default else required
+            super(EnvDefault, self).__init__(default=default, required=required, **kwargs)
+
+    def __call__(self, parser, namespace, values, option_string=None):
+        setattr(namespace, self.dest, values)
+
+    try:
+        parser = argparse.ArgumentParser()
+        parser.add_argument('--jsonData', help='JSON Input', required=True, action=EnvDefault)
+        args, unknown = parser.parse_known_args()
+
+        # handle textarea input
+        json_data = {}
+
+        try:
+            json_data = html.unescape(str(args.jsonData).strip())
+            json_data = unicodedata.normalize("NFKD", json_data).encode("utf-8").decode("utf-8")
+            json_data = BeautifulSoup(json_data, "html.parser").text
+            json_data = json_data.replace('\u200b', '')
+            json_data = json.loads(str(json_data).strip(), strict=False)
+        #except ValueError as e:
+        except Exception as e:
+            raise Exception("Invalid JSON provided ({})".format(str(e)))
+        
+        json_output = {"data":{json_data}}
+        
+        print(json.dumps(json_output))
+        exit(0)
+    except Exception as e:
+        err = str(e)
+        sys.stderr.write(err)
+        exit(-1)
+fields:
+- id: jsonData
+  label: 'JSON Input'
+  type: textarea
+  required: true
+  hint: 'Accepts valid JSON. Use placeholders to populate data.'
+output:
+  - path: 'data'
+    type: text

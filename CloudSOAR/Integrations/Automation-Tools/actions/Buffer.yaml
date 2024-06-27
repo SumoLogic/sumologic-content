@@ -7,32 +7,51 @@ script:
     import sys
     import argparse
     import os
-    
-    class EnvDefault(argparse.Action):
-            def __init__(self, required=False, default=None, **kwargs):
-                envvar = kwargs.get("dest")
-                default = os.environ.get(envvar, default) if envvar in os.environ else default
-                required = False if required and default else required
-                super(EnvDefault, self).__init__(default=default, required=required, **kwargs)
-        
-            def __call__(self, parser, namespace, values, option_string=None):
-                setattr(namespace, self.dest, values)
+    import ast
 
+    class EnvDefault(argparse.Action):
+        def __init__(self, required=False, default=None, **kwargs):
+            envvar = kwargs.get("dest")
+            default = os.environ.get(envvar, default) if envvar in os.environ else default
+            required = False if required and default else required
+            super(EnvDefault, self).__init__(default=default, required=required, **kwargs)
+
+    def __call__(self, parser, namespace, values, option_string=None):
+        setattr(namespace, self.dest, values)
+
+    def prepare_data(str_data_or_json):
+        try:
+            try:
+                try:
+                    with open(str_data_or_json) as json_file:
+                        json_data = json.load(json_file)
+                        if isinstance(json_data, dict):
+                            json_results = json_data.get("message", json_data)
+                        else:
+                            json_results = json_data
+                except Exception as __:
+                    json_results = json.loads(str(str_data_or_json).strip(), strict=False)
+            except Exception as __:
+                json_or_str_values = ast.literal_eval(str(str_data_or_json).strip())
+                if isinstance(json_or_str_values, dict) or isinstance(json_or_str_values, list):
+                    json_results = json_or_str_values
+                else:
+                    json_results = str_data_or_json
+        except Exception as __:
+            json_results = str_data_or_json
+        return json_results
 
     try:
         parser = argparse.ArgumentParser()
         parser.add_argument('--input', help='JSON', required=True, action=EnvDefault)
         args, unknown = parser.parse_known_args()
-    
+
         json_dict = {"data":{}}
         try:
-            din = str(args.input).strip("'<>() ").replace('\'', '\"')
-            json_dict["data"] = json.loads(din)
-            
+            json_data = prepare_data(args.input)
+            json_dict["data"] = json_data
         except Exception as e:
-            pass
-            if  type(args.input) is str:
-                json_dict["data"] = args.input
+            raise Exception("Invalid JSON or string provided ({})".format(str(e)))
         
         print(json.dumps(json_dict))
         exit(0)

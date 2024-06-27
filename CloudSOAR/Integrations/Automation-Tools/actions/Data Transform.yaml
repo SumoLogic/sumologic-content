@@ -10,6 +10,7 @@ script:
     import re
     import ipaddress
     import os
+    import re
     
     class EnvDefault(argparse.Action):
         def __init__(self, required=True, default=None, **kwargs):
@@ -26,65 +27,137 @@ script:
         parser = argparse.ArgumentParser()
         parser.add_argument('--input', help='String Input', required=True, action=EnvDefault)
         parser.add_argument('--func', help='Transform Function', required=True, action=EnvDefault)
-        parser.add_argument('--param', help='Transform Argument', required=True, action=EnvDefault)
+        parser.add_argument('--param', help='Transform Argument', required=False, action=EnvDefault)
         parser.add_argument('--array_p', help='Array Element', required=False, action=EnvDefault)
+        parser.add_argument('--rep', help='Replace Argument', required=False, action=EnvDefault)
         args, unknown = parser.parse_known_args()
     
         result_dict = {"result":{}}
         
         # Split Function
-        if args.func.lower() == "split":
+        if args.func == "split":
             if args.param is None:
                 args.param = ","
             result = args.input.split(args.param)
             if args.array_p:
-                result = result[int(args.array_p)]
+                try:
+                    result = result[int(args.array_p)]
+                except Exception as e:
+                    raise Exception("{0} is not an integer. Expecting the object position in the array: '{1}'".format(args.array_p, e))
         
         # Strip Function        
-        elif args.func.lower() == "strip":
-            if args.param is None:
-                args.param = " "
-            result = args.input.strip(args.param)
+        elif args.func in ["strip", "lstrip", "rstrip"]:
+            if args.func == "strip":
+                if args.param:
+                    result = args.input.strip(args.param)
+                else:
+                    result = args.input.strip()
+            if args.func == "lstrip":
+                if args.param:
+                    result = args.input.lstrip(args.param)
+                else:
+                    result = args.input.lstrip()
+            if args.func == "rstrip":
+                if args.param:
+                    result = args.input.rstrip(args.param)
+                else:
+                    result = args.input.rstrip()
             
         # Regex Search Function
-        elif args.func.lower() == "regex":
+        elif args.func == "regex":
             if args.param is None:
                 raise Exception("Missing 'Transform Argument'. Please specify a regex pattern.")
             if re.search(args.param, args.input):
-                regex = re.search(args.param, args.input)
-                result = regex.group(1)
+                try:
+                    regex = re.search(args.param, args.input)
+                except:
+                    raise Exception("'{0}' is not a valid regular expression: '{1}'".format(args.param, e))
+                try:
+                    # return single capture group
+                    if args.array_p:
+                        result = regex.group(args.array_p)
+                    # return full match
+                    else:
+                        result = regex.group()
+                except Exception as e:
+                    raise Exception("Invalid regular expression or capture group: '{0}'".format(e))
             else:
                 result = None
         
         # String Append/Prepend Function
-        elif args.func.lower() == ("append" or "prepend"):
+        elif args.func in ["append", "prepend"]:
             if args.param is None:
                 raise Exception("Missing 'Transform Argument'. Please specify a value to add to the string.")
-            if args.func.lower() == "prepend":
+            if args.func == "prepend":
                 result = "{0}{1}".format(args.param, args.input)
-            if args.func.lower() == "append":
+            if args.func == "append":
                 result = "{0}{1}".format(args.input,args.param)
             else:
                 result = None
         
         # String Replace Function
-        elif args.func.lower() == "replace":
-            import re
-            
+        elif args.func == "replace":
+            if args.param is None:
+                raise Exception("Missing 'Transform Argument'. Please specify the values that will replace the input.")
+            if args.rep is None:
+                replacement = ''
+            else:
+                replacement = args.rep
+            result = args.input.replace(args.param, replacement)
+                
+        # String Regex Replace Function
+        elif args.func == "regex_replace":
             if args.param is None:
                 raise Exception("Missing 'Transform Argument'. Please specify the values that will replace the input.")
             
             # Splitting args.param into pattern and replacement
-            pattern, replacement = args.param.split(",")
-            
+            if args.rep is None:
+                replacement = ''
+            else:
+                replacement = args.rep
+
             # Compiling the regular expression pattern
-            regex_pattern = re.compile(pattern)
+            regex_pattern = re.compile(args.param)
             
             # Performing the replacement
             result = regex_pattern.sub(replacement, args.input)
+            
+        
+        # Upper/Lower/Title/Capitalize Functions
+        elif args.func in ["upper", "lower", "title", "capitalize"]:
+            if isinstance(args.input, str):
+                if args.func == "upper":
+                    result = args.input.upper()
+                if args.func == "lower":
+                    result = args.input.lower()
+                if args.func == "title":
+                    result = args.input.title()
+                if args.func == "capitalize":
+                    result = args.input.capitalize()
+            else:
+                raise Exception("Invalid input type. Only string inputs are supported.")
+        
+        # Count Function
+        elif args.func == "count":
+            result = args.input.count(args.param)
+        
+        # Encode UTF-8 Function
+        elif args.func == "encode_utf8":
+            if args.param:
+                result = args.input.encode(encoding="utf8", errors=args.param)
+            else:
+                result = args.input.encode(encoding="utf8")
+        
+        # Encode ASCII Function
+        elif args.func == "encode_ascii":
+            if args.param:
+                result = args.input.encode(encoding="ascii",errors=args.param)
+            else:
+                result = args.input.encode(encoding="ascii")
+        
         else:
             raise Exception("Please enter a valid transformation function")
-            
+        
         result_dict["result"] = result
         print(json.dumps(result_dict))
         exit(0)
@@ -104,22 +177,36 @@ fields:
     values:
       split: Split
       strip: Strip
+      lstrip: Left Strip
+      rstrip: Right Strip
       replace: Replace
+      regex_replace: Regex Replace
       prepend: Prepend
       append: Append
       regex: Regex Search
+      upper: Uppercase
+      lower: Lowercase
+      title: Title Case
+      capitalize: Capitalize
+      encode_utf8: Encode UTF8
+      encode_ascii: Encode ASCII
     default: split
     hint: "The type of data transform to execute"
   - id: param
     label: 'Transform Argument'
     type: text
     required: false
-    hint: "Function input - e.g. regex pattern (w/ capture groups), replace argument (a,b), delimiter to split a string, value to prepend/append."
+    hint: "Function input - e.g. regex pattern (capture groups supported), replace argument (a,b), delimiter to split a string, value to prepend/append."
   - id: array_p
     label: 'Array Element'
+    type: number
+    required: false
+    hint: "Optional: if using 'split' or 'regex' functions, select the array element or capture group to return. Otherwise returns the entire result."
+  - id: rep
+    label: 'Replace Argument'
     type: text
     required: false
-    hint: "Optional: if using 'split' function, select the element to return. Otherwise returns the entire array."
+    hint: "Optional: if using 'replace' function, select the value you want to replace with. Otherwise replace value is blank."
 output:
   - path: 'result'
     type: text

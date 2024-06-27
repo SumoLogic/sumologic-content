@@ -7,9 +7,96 @@ script:
     import sys
     import time
     from datetime import datetime
+    import pytz
     import argparse
     import os
+
+    def is_epoch_time(time_str):
+        try:
+            # Try converting the time string to a datetime object
     
+            time_float = float(time_str)
+            
+            # Convert the epoch time to datetime object
+            if len(time_str) == 10:  # Check if the time string represents seconds epoch time
+                dt = datetime.fromtimestamp(int(time_float), tz=timezone.utc)
+            elif len(time_str) == 13:  # Check if the time string represents milliseconds epoch time
+                dt = datetime.fromtimestamp(int(time_float / 1000), tz=timezone.utc)
+            # If the conversion is successful, and the time string is in epoch format
+            # return True, else return False
+            return True,dt
+        except ValueError:
+            return False,0
+
+    def determine_and_format_timestamp(timestamp):
+        formats = [
+        "%Y-%m-%dT%H:%M:%S%z",
+        "%d/%m/%Y %H:%M:%S",
+        "%Y %b %d %H:%M:%S.%f %Z",
+        "%b %d %H:%M:%S %Z %Y",
+        "%d/%b/%Y:%H:%M:%S %Z",
+        "%b %d, %Y %I:%M:%S %p",
+        "%b %d %Y %H:%M:%S",
+        "%b %d %H:%M:%S %Y",
+        "%b %d %H:%M:%S %Z",
+        "%b %d %H:%M:%S",
+        "%Y-%m-%dT%H:%M:%S%z",
+        "%Y-%m-%dT%H:%M:%SZ",
+        "%Y-%m-%d %H:%M:%S %Z",
+        "%Y-%m-%d %H:%M:%S%z",
+        "%Y-%m-%d %H:%M:%S,%f",
+        "%Y/%m/%d*H:%M:%S",
+        "%Y %b %d %H:%M:%S.%f*%Z",
+        "%Y %b %d %H:%M:%S.%f",
+        "%Y-%m-%d %H:%M:%S,%f%Z",
+        "%Y-%m-%d %H:%M:%S.%f",
+        "%Y-%m-%dT%H:%M:%S.%f",
+        "%Y-%m-%dT%H:%M:%S",
+        "%Y-%m-%dT%H:%M:%SZ",
+        "%Y-%m-%dT%H:%M:%S.%f",
+        "%Y-%m-%dT%H:%M:%S",
+        "%Y-%m-%d*H:%M:%S:%f",
+        "%Y-%m-%d*H:%M:%S",
+        "%y-%m-%d %H:%M:%S,%f %Z",
+        "%y-%m-%d %H:%M:%S,%f",
+        "%y-%m-%d %H:%M:%S %Z",
+        "%y-%m-%d %H:%M:%S",
+        "%y/%m/%d %H:%M:%S",
+        "%y%m%d %H:%M:%S",
+        "%Y%m%d %H:%M:%S.%f",
+        "%m/%d/%y*H:%M:%S",
+        "%m/%d/%Y*H:%M:%S",
+        "%m/%d/%Y*H:%M:%S*%f",
+        "%m/%d/%y %H:%M:%S %Z",
+        "%m/%d/%Y %H:%M:%S %Z",
+        "%H:%M:%S",
+        "%H:%M:%S.%f",
+        "%H:%M:%S,%f",
+        "%d/%b %H:%M:%S,%f",
+        "%d/%b/%Y:%H:%M:%S,%f",
+        "%d/%b/%Y %H:%M:%S",
+        "%d-%b-%Y %H:%M:%S",
+        "%d %b %Y %H:%M:%S",
+        "%d %b %Y %H:%M:%S.%f",
+        "%m%d_%H:%M:%S",
+        "%m%d_%H:%M:%S.%f",
+        "%m/%d/%Y %I:%M:%S %p"
+        ]
+        
+        for date_format in formats:
+            try:
+                # Try parsing the timestamp with the current format
+                dt_object = datetime.strptime(timestamp, date_format)
+        
+                # Return the formatted timestamp and format type if successful
+                return dt_object.strftime(date_format), date_format
+            except ValueError:
+                pass
+        
+        # If none of the formats match, raise an exception or return a default value
+        raise ValueError("Invalid timestamp format")
+        
+
     class EnvDefault(argparse.Action):
         def __init__(self, required=True, default=None, **kwargs):
             envvar = kwargs.get("dest")
@@ -23,40 +110,57 @@ script:
 
     try:
         parser = argparse.ArgumentParser()
-        # parser.add_argument('--time_operator', help='Time Operation, REQUIRED', required=True, action=EnvDefault)
         parser.add_argument('--time_dt', help='Timestamp Input', required=False, action=EnvDefault)
         parser.add_argument('--time_str', help='Timestamp to Compare', required=False, action=EnvDefault)
+        parser.add_argument('--time_tz', help='valid TZ identifiers', required=False, action=EnvDefault)
         args, unknown = parser.parse_known_args()
-    
+        
         json_dict = {}
-        now = datetime.now()
         if args.time_dt:
-            past = args.time_dt
+            time_input = args.time_dt
         else:
-            past = args.time_str
+            time_input = args.time_str
+        
+        if args.time_tz:
+            time_tz = args.time_tz
+        else:
+            time_tz = "UTC"
+            
+        isEpoch,formatedEpochtime=is_epoch_time(time_input)
+        if isEpoch:
+            time_input = str(formatedEpochtime)
+        
+        # Format timestamp input
+        formatted_timestamp, timestamp_format = determine_and_format_timestamp(time_input)
+        if  "%z" not in timestamp_format and "%Z" not in timestamp_format:
+            formatted_timestamp = formatted_timestamp+"+0000"
+            timestamp_format = timestamp_format+"%z"
+            
+        time_input = datetime.strptime(formatted_timestamp, timestamp_format)
+        
+        # override UTC timezone and replace with selected timezone
+        tz = pytz.timezone(time_tz)
+        time_input = tz.localize(time_input.replace(tzinfo=None))
+        
+        # Format current timestamp
+        time_current = datetime.now()
+        time_current = datetime.strftime(time_current, "%Y-%m-%d %H:%M:%S.%f")
 
-        try:
-            past_time = datetime.strptime(past,"%Y-%m-%dT%H:%M:%S.%fZ")
-        except:
-            past.strip('Zz')
-            try:
-                past_time = datetime.strptime(past,"%Y-%m-%dT%H:%M:%S.%f")
-            except:
-                past_time = datetime.strptime(past,"%Y-%m-%dT%H:%M:%S")
+        formatted_timestamp, timestamp_format = determine_and_format_timestamp(time_current)
+        if  "%z" not in timestamp_format and "%Z" not in timestamp_format:
+            formatted_timestamp = formatted_timestamp+"+0000"
+            timestamp_format = timestamp_format+"%z"
+        time_current = datetime.strptime(formatted_timestamp, timestamp_format)
+        time_current = time_current.astimezone(pytz.timezone(time_tz))
 
-        start_time = datetime.strptime(str(now), "%Y-%m-%d %H:%M:%S.%f")
-
-        time_compare = start_time - past_time
+        time_compare = time_current - time_input
         time_diff = time_compare.days
 
-        json_dict['time_current'] = str(start_time)
-        json_dict['time_compared'] = str(past_time)
+        json_dict['time_compared'] = str(time_input)
+        json_dict['time_current'] = str(time_current)
         json_dict['time_elapsed'] = str(time_compare)
         json_dict['days_elapsed'] = int(time_diff)
 
-        # now = datetime.now()
-        # json_dict['end_time'] = time.strftime("%m/%d/%y %H:%M:%S")
-        
         print(json.dumps(json_dict))
         exit(0)
     except Exception as e:
@@ -68,13 +172,18 @@ fields:
     label: 'Timestamp Datetime Input'
     type: datetime
     required: false
-    hint: 'Time used to determine how much time has elasped since the current time. Overrides "Timestamp String Input".'
+    hint: 'Time used to determine how much time has elasped since the current time. Use this field or "Timestamp String Input".'
   - id: time_str
     label: 'Timestamp String Input'
     type: text
     required: false
     incident_artifacts: true
-    hint: 'Time used to determine how much time has elasped since the current time.'
+    hint: 'Time used to determine how much time has elasped since the current time. '
+  - id: time_tz
+    label: 'Timezone of Timestamp Input'
+    type: text
+    required: false
+    hint: 'Accepts valid TZ identifiers (Reference: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones). Ex. "America/New_York". Defaults to "UTC".'
 
 output:
   - path: 'time_current'

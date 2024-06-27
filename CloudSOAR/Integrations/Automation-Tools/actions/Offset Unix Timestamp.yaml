@@ -7,6 +7,7 @@ script:
     import sys
     import time
     from datetime import datetime
+    import pytz
     import argparse
     import os
 
@@ -24,6 +25,8 @@ script:
         "%Y-%m-%dT%H:%M:%S%z",
         "%d/%m/%Y %H:%M:%S",
         "%Y %b %d %H:%M:%S.%f %Z",
+        "%Y-%m-%dT%H:%M:%S.%f%z",
+        "%Y-%m-%dT%H:%M:%S.%fZ",
         "%b %d %H:%M:%S %Z %Y",
         "%d/%b/%Y:%H:%M:%S %Z",
         "%b %d, %Y %I:%M:%S %p",
@@ -97,12 +100,29 @@ script:
             parser.add_argument('--time_unix', help='Timestamp Input', required=False, action=EnvDefault)
             parser.add_argument('--time_offset', help='Timestamp Offset', required=False, action=EnvDefault)
             parser.add_argument('--offset_direction', help='Offset Direction', required=False, action=EnvDefault)
+            parser.add_argument('--time_tz', help='valid TZ identifiers', required=False, action=EnvDefault)
             args, unknown = parser.parse_known_args()
+            
             json_dict = {}
+            
             # Get Unix timestamp from the user
             input_timestamp = args.time_unix
             formatted_timestamp, timestamp_format = determine_and_format_timestamp(input_timestamp)
             unix_timestamp = datetime.strptime(args.time_unix, timestamp_format)
+            
+            
+            
+            # if args.time_tz:
+            #     time_tz = args.time_tz
+            # else:
+            #     time_tz = "UTC"
+            
+            # override UTC timezone and replace with selected timezone
+            # tz = pytz.timezone(time_tz)
+            # unix_timestamp = tz.localize(unix_timestamp.replace(tzinfo=None))
+            
+            
+            
             unix_timestamp_ms = int(unix_timestamp.timestamp() * 1000)
 
             # Get offset value from the user in minutes
@@ -150,7 +170,6 @@ fields:
   label: 'Timestamp Unix Input'
   type: text
   required: true
-  incident_artifacts: true
   hint: 'This field represents the input for the original timestamp in human readable format'
 - id: time_offset
   label: 'Offset In Minutes'
