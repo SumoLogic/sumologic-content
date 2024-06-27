@@ -19,16 +19,16 @@ This integration is in active development. Actions, or the parameters defined th
   - **String Input** - The value to transform.
   - **Transform Function** - Which string operation to use. Valid options are 'Split', 'Strip', 'Replace' or 'Regex'
       - **Split**: Splits a string into an array based on the delimiter provided in the "Transform Argument" parameter.
-      - **Strip**: Removes leading and trailing characters from a string. Space is the default character to remove, unless specified otherwise in the "Transform Argument" parameter.
+      - **Strip / lstrip / rstrip**: Removes leading and trailing characters from a string. Space is the default character to remove, unless specified otherwise in the "Transform Argument" parameter.
       - **Append**: Attaches a string to the end of a string (String Input > Transform Argument)
       - **Prepend**: Attaches a string to the beginning of a string (Transform Argument > String Input)
-      - **Replace**: Replace a specified string/word/character with the value specified in the "Transform Argument" parameter.
+      - **Replace**: Replace a specified string/word/character with the value specified in the "Transform Argument" and "Replace" parameters.
+      - **Regex Replace**: Replace a specified string/word/character with the value specified as a regular expression. This allows for user-provided value to be replace within the 'Transform Argument' and an user-provided value to be replace with in the 'Replace' argument.
       - **Regex**: Match a string with a regex pattern (python regex). Currently, this will return only the first capture group/match in an array. Could be further modified to accept an array num input.
+      - **Encode UTF8 / Encode ASCII**: Encodes a string in UTF8 or ASCII formats
+      - **Lowercase / Uppercase / Title Case / Capitalize**: Converts the case of a string based on the desired case type.
   - **Transform Argument** - Function input (e.g. regex pattern (w/ capture groups), replace argument (a,b) or split delimiter).
   - **Array Element** - Optional: if using 'split' function, select the element to return. Otherwise return the entire array.
-  
-### Data Transform V2
-- Same Functionality as Data Transform but adds an additional input field for Replace. This allows for user-provided value to be replace within the 'Transform Argument' and an user-provided value to be replace with in the 'Replace Argument'. Customers were having issues with the replace function when the character they wanted to replace was a ','.
 
 ### Filter IP Addresses
 - Check a single IP, or list of IPs, and return a filtered list of IPs (sort into public IP and private IP lists).
@@ -47,9 +47,6 @@ This integration is in active development. Actions, or the parameters defined th
   - Optionally returns the time elapsed from "now" when provided a timestamp to compare the current time with.
 
 ### Check Time Boundaries
-- Evaluates whether the current time is within business hours. Configurable start and end times. 24-hour format.
-
-### Check Time Boundaries V2
 - ALlows an event time input value and evaluates whether that time is within business hours. Configurable start and end times. 24-hour format. Can input different time formats (including Epoch) for the event time and select the timezone of the event (default is UTC).
 
 ### Chunk Unix Timestamps
@@ -74,37 +71,10 @@ This integration is in active development. Actions, or the parameters defined th
 - Escapes Input Strings that contain specific special characters
 
 ### Extract Domain from URL
-- Extract the root domain from a URL
-
-### Extract Domain from Email Address
-- Extract the root domain from an email address
-
-### Add External Alert to Incident
-- Takes a JSON payload and attaches to a Cloud SOAR incident's "External Alert" section.
-
-### Get External Alert
-- Fetches the external alert(s) attached to an incident
-
-  - _Note: You will need to specify yaml output mappings for each external alert you wish to fetch in order for this action to be usable within a playbook._
-
-### Add Entity Metadata
-- Searches for the specified entity object (IP, URL, etc.), locates the entity's ID first, and then adds a tag and/or description to this entity.
+- Extract the root domain from a URL or Email Address
 
 ### Render TextArea Field
 - Uses a _textarea_ field to build a string using dynamic placeholders.
-
-### Get War Room Timeline
-- Grabs the Incident's audit timeline and returns it in JSON format. This is useful for posting to a CIP HTTP source (using 'Generic HTTP POST' action)
-
-### Generic HTTP POST
-- Make a generic POST request.
-- Usage:
-  - **API URL** - The HTTP Endpoint to make the request to.
-  - **Request Body as JSON** - a _textarea_ field to build a JSON result using placeholders.
-  - **Request Body (output.raw JSON)** - accepts the raw JSON result from the output of a previous action.
-
-### Get Incident
-- Fetches Incident data (all fields, related incident IDs, as well as external alert data) and returns it in JSON format. This is useful for posting to a CIP HTTP source (using 'Generic HTTP POST' action)
 
 ### String Regex
 - Searches for the specified regular expression pattern and identifies all occurences. 
@@ -124,6 +94,15 @@ This integration is in active development. Actions, or the parameters defined th
 
 ### Check Internal IP
 - Allows an input of an IP or IP range to check weather it is internal or an external IP. Allows for additional user-provided IP's or ranges that should be classify as internal.
+
+### Filter JSON Array
+- When supplied with a array or JSON array, this action will filter based on a provided key/value.
+
+### Render JSON Data
+- Build a JSON payload using a 'Textarea' field; enables the use of placeholders to populate JSON.
+
+### Decode Base64
+- When supplied with a JSON payload containing a base64 encoded string (requires output.raw), this action will decode it into usable data. Uses 'upload' field type.
 
 ## To upload your own content:
 Please see [Sumo Logic Community Ecosystem Apps FAQs](https://help.sumologic.com/docs/integrations/community-ecosystem-apps/#faq).
