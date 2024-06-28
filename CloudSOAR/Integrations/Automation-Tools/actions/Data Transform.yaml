@@ -29,7 +29,7 @@ script:
         parser.add_argument('--func', help='Transform Function', required=True, action=EnvDefault)
         parser.add_argument('--param', help='Transform Argument', required=False, action=EnvDefault)
         parser.add_argument('--array_p', help='Array Element', required=False, action=EnvDefault)
-        parser.add_argument('--rep', help='Replace Argument', required=False, action=EnvDefault)
+        parser.add_argument('--repsuff', help='Replace/Suffix Argument', required=False, action=EnvDefault)
         args, unknown = parser.parse_known_args()
     
         result_dict = {"result":{}}
@@ -85,13 +85,15 @@ script:
                 result = None
         
         # String Append/Prepend Function
-        elif args.func in ["append", "prepend"]:
-            if args.param is None:
-                raise Exception("Missing 'Transform Argument'. Please specify a value to add to the string.")
-            if args.func == "prepend":
+        elif args.func == "prefix_suffix":
+            if (args.param is None or args.param == '') and (args.repsuff is None or args.repsuff == ''):
+                raise Exception("Missing 'Transform' and 'Replace/Suffix' Argument. Please specify a value to add to the string.")
+            if args.param and (args.repsuff is None or args.repsuff == ''):
                 result = "{0}{1}".format(args.param, args.input)
-            if args.func == "append":
-                result = "{0}{1}".format(args.input,args.param)
+            elif args.repsuff and (args.param is None or args.param == ''):
+                 result = "{0}{1}".format(args.input,args.repsuff)
+            elif args.repsuff and args.param:
+                result = "{0}{1}{2}".format(args.param,args.input,args.repsuff)
             else:
                 result = None
         
@@ -99,10 +101,10 @@ script:
         elif args.func == "replace":
             if args.param is None:
                 raise Exception("Missing 'Transform Argument'. Please specify the values that will replace the input.")
-            if args.rep is None:
+            if args.repsuff is None:
                 replacement = ''
             else:
-                replacement = args.rep
+                replacement = args.repsuff
             result = args.input.replace(args.param, replacement)
                 
         # String Regex Replace Function
@@ -111,10 +113,10 @@ script:
                 raise Exception("Missing 'Transform Argument'. Please specify the values that will replace the input.")
             
             # Splitting args.param into pattern and replacement
-            if args.rep is None:
+            if args.repsuff is None:
                 replacement = ''
             else:
-                replacement = args.rep
+                replacement = args.repsuff
 
             # Compiling the regular expression pattern
             regex_pattern = re.compile(args.param)
@@ -155,6 +157,20 @@ script:
             else:
                 result = args.input.encode(encoding="ascii")
         
+        # Escape String Function
+        elif args.func == "escape_string":
+            special_characters = ['\\', '\b', '\f', '\n', '\r', '\t']
+            escaped_str = args.input
+    
+            try:
+                for char in special_characters:
+                    escaped_str = escaped_str.replace(char, '\\' + char)
+                result = escaped_str
+    
+            except Exception as e:
+                print(f"An error occurred: {e}")
+                escaped_str = input_str  # Reset the escaped_str to the original input in case of an exception
+            
         else:
             raise Exception("Please enter a valid transformation function")
         
@@ -181,8 +197,7 @@ fields:
       rstrip: Right Strip
       replace: Replace
       regex_replace: Regex Replace
-      prepend: Prepend
-      append: Append
+      prefix_suffix: Prefix and/or Suffix
       regex: Regex Search
       upper: Uppercase
       lower: Lowercase
@@ -190,23 +205,24 @@ fields:
       capitalize: Capitalize
       encode_utf8: Encode UTF8
       encode_ascii: Encode ASCII
+      escape_string: Escape String
     default: split
     hint: "The type of data transform to execute"
   - id: param
     label: 'Transform Argument'
     type: text
     required: false
-    hint: "Function input - e.g. regex pattern (capture groups supported), replace argument (a,b), delimiter to split a string, value to prepend/append."
+    hint: "Function input - e.g. regex pattern (capture groups supported), replace argument (a,b), delimiter to split a string, value to prepend/append. For the 'Prefix and Suffix' function use this for the Prefix value."
   - id: array_p
     label: 'Array Element'
     type: number
     required: false
     hint: "Optional: if using 'split' or 'regex' functions, select the array element or capture group to return. Otherwise returns the entire result."
-  - id: rep
-    label: 'Replace Argument'
+  - id: repsuff
+    label: 'Replace/Suffix Argument'
     type: text
     required: false
-    hint: "Optional: if using 'replace' function, select the value you want to replace with. Otherwise replace value is blank."
+    hint: "Optional: If using 'replace' function, select the value you want to replace with, Otherwise replace value is blank. If using the 'Prefix and Suffix' function, select the value you want to Suffix with. Otherwise Suffix value is blank."
 output:
   - path: 'result'
     type: text
