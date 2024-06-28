@@ -5,62 +5,142 @@ script:
   code: |
     import json
     import sys
-    import argparse
-    import re
     import ipaddress
+    import argparse
     import os
-
+    
+    def is_internal_ip(ip,additionalPrivateIP,additionalPrivateIPRanges):
+        try:
+            # for ip in ips
+            cidr_obj=''
+            ip_obj=''
+            # Convert the IP address string to an ipaddress.IPv4Address or ipaddress.IPv6Address object
+            if str(ipaddress.ip_network(ip)) == str(ip):
+                cidr_obj = ipaddress.ip_network(ip)
+            else        :
+                ip_obj = ipaddress.ip_address(ip)
+            
+            # Check if the IP address is within the ranges of internal IP addresses
+            if ip_obj:
+                isPrivate=ip_obj.is_private
+            elif cidr_obj:
+                isPrivate=cidr_obj.is_private
+                
+            if ip_obj and (any(ip_obj in ip_range for ip_range in additionalPrivateIPRanges) or ip_obj in additionalPrivateIP):
+                isPrivate=True
+            elif cidr_obj and any(cidr_obj.subnet_of(ip_range) for ip_range in additionalPrivateIPRanges):
+                isPrivate=True
+                
+            return isPrivate
+        except ValueError:
+            # If the IP address is invalid, return False
+            return False
+    
+    def separate_ips_and_ranges(ip_list):
+        ips = []
+        ip_ranges = []
+        invalid_ip_or_range= []
+    
+        for item in ip_list:
+            try:            
+                if str(ipaddress.ip_network(item)) == str(item) :
+                    ip_ranges.append(ipaddress.ip_network(item))
+                elif ipaddress.ip_address(item):
+                    ips.append(ipaddress.ip_address(item))
+            except ValueError:
+                invalid_ip_or_range.append(str(item))
+    
+        return ips, ip_ranges, invalid_ip_or_range
+    
     class EnvDefault(argparse.Action):
         def __init__(self, required=True, default=None, **kwargs):
             envvar = kwargs.get("dest")
             default = os.environ.get(envvar, default) if envvar in os.environ else default
             required = False if required and default else required
             super(EnvDefault, self).__init__(default=default, required=required, **kwargs)
-
+    
         def __call__(self, parser, namespace, values, option_string=None):
             setattr(namespace, self.dest, values)
-
-
-    # check a single IP, or list of IPs, and returns a filtered list of IPs (either public or private).
+    
+    
     try:
         parser = argparse.ArgumentParser()
-        parser.add_argument('--input', help='String Input', required=True, action=EnvDefault)
+        parser.add_argument('--ip_address', help='json', required=True, action=EnvDefault)
+        parser.add_argument('--additional_ips_and_ranges', required=False, action=EnvDefault)
+        parser.add_argument('--timeout', help='timeout', required=False, action=EnvDefault)
+        parser.add_argument('--verify', help='verify', required=False, action=EnvDefault)
+        parser.add_argument('--proxy_url', help='Proxy URL', required=False, action=EnvDefault)
         args, unknown = parser.parse_known_args()
-
-        result = {}
-
-        ip_input = args.input.replace(", ", ",")
-        ip_array = ip_input.split(',')
+        proxies = {'http': args.proxy_url, 'https': args.proxy_url} if args.proxy_url is not None else None
+        
+        ip_address = list(args.ip_address.split(",")) 
+    
+        if args.additional_ips_and_ranges is not None:
+            additional_ips_and_ranges = list(args.additional_ips_and_ranges.split(",")) 
+        else:
+            additional_ips_and_ranges = []
+    
+        # Separate IPs and IP ranges
+        additional_internal_ips, additional_internal_ip_ranges,invalid_ip_or_range = separate_ips_and_ranges(additional_ips_and_ranges)
+       
+        merged_dict = []
         public_ip = []
         private_ip = []
-        for ip in ip_array:
-            if ipaddress.ip_address(ip).is_private == False:
-                public_ip.append(ip)
-            else:
-                private_ip.append(ip)
-        result["public_ip"] = public_ip
-        result["private_ip"] = private_ip
-
-        print(json.dumps(result))
+        private_ip_dict = {}
+        public_ip_dict = {}
+        for ip in ip_address:
+            is_internal=is_internal_ip(ip,additional_internal_ips,additional_internal_ip_ranges)
+            additional_internal_ips_str = [str(addip) for addip in additional_internal_ips]
+            additional_internal_ip_ranges_str = [str(ip_range) for ip_range in additional_internal_ip_ranges]
+            
+            json_dict = {}
+            json_dict['ip_address'] = str(ip)
+            json_dict['additional_internal_ips'] = str(additional_internal_ips_str)
+            json_dict['additional_internal_ip_ranges'] = str(additional_internal_ip_ranges_str)
+            json_dict['invalid_ip_or_range'] = str(invalid_ip_or_range)
+            json_dict['is_internal'] = str(is_internal)
+            if is_internal:
+                private_ip.append(str(ip))
+            else: 
+                public_ip.append(str(ip))
+            merged_dict.append(json_dict)
+        private_ip_dict['private_ip'] = private_ip
+        merged_dict.append(private_ip_dict)
+        public_ip_dict['public_ip'] = public_ip
+        merged_dict.append(public_ip_dict)
+        
+        print(json.dumps(merged_dict))
         exit(0)
     except Exception as e:
+        err = str(e)
         sys.stderr.write(str(e))
         exit(-1)
+
+
 fields:
-- id: input
+- id: ip_address
   label: IP Address
+  type: text
   incident_artifacts: true
-  type: text
-  required: true
-  hint: Provide a single or list of IP addresses. Returns a filtered list of public and private IPs.
+  required: True
+- id: additional_ips_and_ranges
+  label: 'Additional Internal IPs and Ranges'
+  type: tag
+  required: false
+  hint: 'Include IP and CIDR Ranges that are considered internal.'
+table_view:
+- display_name: Name
+  value: '[].ip_address'
+- display_name: internal
+  value: '[].is_internal'
 output:
-- path: result
-  type: text
-- path: result.private_ip
-  type: text
-- path: result.private_ip.[]
-  type: text
-- path: result.public_ip
-  type: text
-- path: result.public_ip.[]
-  type: text
+  - path: '[].ip_address'
+    type: text
+  - path: '[].additional_internal_ips'
+    type: text
+  - path: '[].additional_internal_ip_ranges'
+    type: text
+  - path: '[].invalid_ip_or_range'
+    type: text
+  - path: '[].is_internal'
+    type: text
