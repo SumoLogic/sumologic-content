@@ -110,8 +110,6 @@ script:
             formatted_timestamp, timestamp_format = determine_and_format_timestamp(input_timestamp)
             unix_timestamp = datetime.strptime(args.time_unix, timestamp_format)
             
-            
-            
             # if args.time_tz:
             #     time_tz = args.time_tz
             # else:
@@ -120,9 +118,7 @@ script:
             # override UTC timezone and replace with selected timezone
             # tz = pytz.timezone(time_tz)
             # unix_timestamp = tz.localize(unix_timestamp.replace(tzinfo=None))
-            
-            
-            
+
             unix_timestamp_ms = int(unix_timestamp.timestamp() * 1000)
 
             # Get offset value from the user in minutes

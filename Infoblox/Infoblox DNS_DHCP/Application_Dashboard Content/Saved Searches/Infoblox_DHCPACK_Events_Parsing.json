@@ -1,0 +1,15 @@
+{
+    "type": "SavedSearchWithScheduleSyncDefinition",
+    "name": "Infoblox DHCPACK Events Parsing",
+    "search": {
+        "queryText": "_sourceCategory=\"cloud/http/dns\"\n| where(_raw contains \"DHCPACK\")\n| \"\" as device_ip\n| \"\" as device_mac\n| \"\" as lease_duration\n| \"\" as interface\n| \"\" as relay_ip\n| \"\" as hostname\n| \"\" as relay\n//| where event_type = \"dhcp_ack\"\n| parse regex \".*DHCPACK\\son\\s(?<device_ip>.+?)\\sto\\s(?<device_mac>[a-f0-9:]+?)\\s\\((?<hostname>.+?)\\)\\s.+lease-duration\\s(?<lease_duration>\\d+)\" nodrop\n| parse regex \".*DHCPACK\\son\\s(?<device_ip>.+?)\\sto\\s(?<device_mac>[a-f0-9:]+?)\\svia\\s(?<interface>.+?)\\srelay\\s(?<relay_ip>.+?)\\slease-duration\\s(?<lease_duration>\\d+)\" nodrop\n| parse regex \".*DHCPACK\\sto\\s(?<device_ip>.+?)\\s\\((?<device_mac>[a-f0-9:]+?)\\)\" nodrop\n| parse regex \".*DHCPACK on (?<device_ip>.*?)\\sto\\s(?<device_mac>[a-f0-9:]+?)\\s(?<hostname>.*?)\\svia\\s(?<interface>.*?)\\srelay\\s(?<relay>.*?)\\slease-duration\\s(?<lease_duration>.*?)\\s.*\" nodrop",
+        "byReceiptTime": false,
+        "viewName": "",
+        "viewStartTime": "1970-01-01T00:00:00Z",
+        "queryParameters": [],
+        "parsingMode": "AutoParse",
+        "defaultTimeRange": "-15m"
+    },
+    "searchSchedule": null,
+    "description": ""
+}

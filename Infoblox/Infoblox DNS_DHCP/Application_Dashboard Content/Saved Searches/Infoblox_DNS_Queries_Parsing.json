@@ -1,0 +1,15 @@
+{
+    "type": "SavedSearchWithScheduleSyncDefinition",
+    "name": "Infoblox DNS Queries Parsing",
+    "search": {
+        "queryText": "_sourceCategory=\"cloud/http/dns\"\n| where(_raw contains \"query:\")\n| \"\" as device_ip\n| \"\" as dns_flags\n| \"\" as dns_record_type\n| \"\" as dns_query\n| \"\" as dns_class\n| \"\" as hostname\n| \"\" as client_id\n| \"\" as source_port\n| \"\" as dns_response\n| parse \"client @* *#* (*):\" as client_id,device_ip,source_port,hostname nodrop\n| parse \"client *#*:\" as device_ip,source_port nodrop\n| parse regex \".*query:\\s(?<dns_query>.+?)\\s(?<dns_class>.+?)\\s(?<dns_record_type>.+?)(?:\\sresponse:\\s|\\s)(?<dns_flags>\\S*)\\s?\\(?(?<dns_response>[^\\)]+)\\)?\" nodrop",
+        "byReceiptTime": false,
+        "viewName": "",
+        "viewStartTime": "1970-01-01T00:00:00Z",
+        "queryParameters": [],
+        "parsingMode": "AutoParse",
+        "defaultTimeRange": "-15m"
+    },
+    "searchSchedule": null,
+    "description": ""
+}

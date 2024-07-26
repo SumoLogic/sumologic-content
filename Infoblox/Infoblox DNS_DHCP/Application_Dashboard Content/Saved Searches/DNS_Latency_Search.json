@@ -1,0 +1,15 @@
+{
+    "type": "SavedSearchWithScheduleSyncDefinition",
+    "name": "DNS Latency Search",
+    "search": {
+        "queryText": "((_sourceCategory=\"cloud/http/dns\") \"DNS update latency:\")\n| parse \"latency: */*/*/* micro seconds\" as latency_5,latency_15,latency_60,latency\n\n| timeslice 5m\n| count by _timeslice, latency, _sourcehost\n//| avg(latency) as latency by _sourcehost\n| transpose row _timeslice, latency column _sourcehost",
+        "byReceiptTime": false,
+        "viewName": "",
+        "viewStartTime": "1970-01-01T00:00:00Z",
+        "queryParameters": [],
+        "parsingMode": "AutoParse",
+        "defaultTimeRange": "03/12/2024 1:23:08 PM to 03/12/2024 1:38:08 PM"
+    },
+    "searchSchedule": null,
+    "description": ""
+}
