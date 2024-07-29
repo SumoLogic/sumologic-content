@@ -1,7 +1,7 @@
 # Sumo Logic Dashboard for Monitoring Automation Service Action and Playbooks
 Sumo Logic Community Content built for Monitoring Action and Playbooks in Automation Service or Cloud SOAR that is not published to the [App Catalog](https://help.sumologic.com/docs/integrations/).
 
-![Playbook Monitoring Dashboard](Screenshots/github_actions_screenshot.png)
+![Playbook Monitoring Dashboard](Screenshots/playbook_monitoring_screenshot.png)
 
 ### To use the content:
 - Download the JSON file(s).
