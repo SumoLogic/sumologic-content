@@ -1,0 +1,15 @@
+{
+    "type": "SavedSearchWithScheduleSyncDefinition",
+    "name": "Infoblox DHCP Lookup",
+    "search": {
+        "queryText": "((_sourceCategory=\"cloud/http/dns\"))\n| where event_type = \"dhcp_resolve\"\n| parse \"response [data: *,\" as resolved_ip\n| parse \"qname: *,\" as dhcp_name",
+        "byReceiptTime": true,
+        "viewName": "",
+        "viewStartTime": "1970-01-01T00:00:00Z",
+        "queryParameters": [],
+        "parsingMode": "AutoParse",
+        "defaultTimeRange": "Last 6 Hours"
+    },
+    "searchSchedule": null,
+    "description": ""
+}

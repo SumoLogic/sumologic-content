@@ -1,0 +1,15 @@
+{
+    "type": "SavedSearchWithScheduleSyncDefinition",
+    "name": "Infoblox DHCP Requests Parsing",
+    "search": {
+        "queryText": "_sourceCategory=\"cloud/http/dns\"\n| where(_raw contains \"DHCPREQUEST\")\n| \"\" as device_ip\n| \"\" as device_ip2\n| \"\" as device_mac\n| \"\" as transaction_id\n| \"\" as uid\n| \"\" as interface\n| \"\" as relay_ip\n| \"\" as hostname\n| parse regex \".*DHCPREQUEST\\sfor\\s(?<device_ip>.+?)\\sfrom\\s(?<device_mac>[a-f0-9:]+?)\\s\\((?<hostname>.*?)\\)\\svia\\s(?<interface>.*?)\\sTransID\\s(?<transaction_id>.*?)\\suid\\s(?<uid>.*?)\\s.*\" nodrop\n| parse regex \".*DHCPREQUEST\\sfor\\s(?<device_ip>.+?)\\s\\((?<device_ip2>.*?)\\)\\sfrom\\s(?<device_mac>[a-f0-9:]+?)\\svia\\s(?<relay_ip>.*?)\\sTransID\\s(?<transaction_id>.*?)$\" nodrop\n//| parse regex \".*DHCPREQUEST\\sfor\\s(?<device_ip>.+?)\\s(\\((?<device_ip2>.*?)\\)\\s)?from\\s(?<device_mac>[a-f0-9:]+?)\\s\\((?<hostname>.*?)\\)\\svia\\s(?<relay_ip>.*?)\\sTransID\\s(?<transaction_id>\\S+)\" nodrop\n| parse regex \".*DHCPREQUEST\\sfor\\s(?<device_ip>.+?)\\sfrom\\s(?<device_mac>[a-f0-9:]+?)\\svia\\s(?<relay_ip>.*?)\\sTransID\\s(?<transaction_id>.*?)\\suid\\s(?<uid>.*?)\\s.*\" nodrop\n| parse regex \".*DHCPREQUEST\\sfor\\s(?<device_ip>.+?)\\sfrom\\s(?<device_mac>[a-f0-9:]+?)\\svia\\s(?<relay_ip>.*?)\\sTransID\\s(?<transaction_id>.*?)$\" nodrop",
+        "byReceiptTime": false,
+        "viewName": "",
+        "viewStartTime": "1970-01-01T00:00:00Z",
+        "queryParameters": [],
+        "parsingMode": "AutoParse",
+        "defaultTimeRange": "-15m"
+    },
+    "searchSchedule": null,
+    "description": ""
+}

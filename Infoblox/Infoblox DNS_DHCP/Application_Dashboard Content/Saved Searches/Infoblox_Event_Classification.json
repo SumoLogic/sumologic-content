@@ -1,0 +1,15 @@
+{
+    "type": "SavedSearchWithScheduleSyncDefinition",
+    "name": "Infoblox Event Classification",
+    "search": {
+        "queryText": "((_sourceCategory=\"cloud/http/dns\" and _collector=\"Hosted (Network)\"))\n| if(_raw contains \"query:\", \"dns_query\", event_type) as event_type\n| if(_raw contains \"updating zone\", \"zone_update\", event_type) as event_type\n| if(_raw contains \"DHCPACK\", \"dhcp_ack\", event_type) as event_type\n| if(_raw contains \"DHCPDISCOVER\", \"dhcp_discover\", event_type) as event_type\n| if(_raw contains \"DHCPOFFER\", \"dhcp_offer\", event_type) as event_type\n| if(_raw contains \"DHCPREQUEST\", \"dhcp_request\", event_type) as event_type\n| if(_raw contains \"request [\", \"dhcp_resolve\", event_type) as event_type\n| if(_raw contains \"DHCPINFORM\", \"dhcp_inform\", event_type) as event_type\n| if(_raw contains \"ZRQ\", \"zrq\", event_type) as event_type\n| if(_raw contains \"SERVFAIL\", \"serv_fail\", event_type) as event_type",
+        "byReceiptTime": false,
+        "viewName": "",
+        "viewStartTime": "1970-01-01T00:00:00Z",
+        "queryParameters": [],
+        "parsingMode": "AutoParse",
+        "defaultTimeRange": "03/05/2024 3:37:36 PM to 03/06/2024 3:37:36 PM"
+    },
+    "searchSchedule": null,
+    "description": ""
+}
