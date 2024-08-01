@@ -1,0 +1,176 @@
+integration: Sumo Logic Cloud SIEM
+name: List Threat Intel Sources
+type: Enrichment
+script:
+  code: |
+    import sys
+    import os
+    import html
+    import json
+    import urllib3
+    import argparse
+    import requests
+    import unicodedata
+    from bs4 import BeautifulSoup
+    urllib3.disable_warnings(urllib3.exceptions.InsecurePlatformWarning)
+    urllib3.disable_warnings(urllib3.exceptions.SNIMissingWarning)
+    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+    def execute_call(params, method="get"):
+        global args, verify, proxies, timeout
+        request_args = {
+            "timeout": timeout,
+            "verify": verify,
+            "proxies": proxies,
+            "params":  params
+        }
+        endpoint_url = str(args.url.rstrip('/')).lower()
+        # check if the CSE URL ends with 'jask.ai' or 'jask.ui'
+        if endpoint_url.endswith('jask.ai') or "jask.ai" in endpoint_url or endpoint_url.endswith('jask.ui') \
+                or "jask.ui" in endpoint_url:
+            if not is_value_exist(args.apiKey):
+                raise Exception('For Domain "jask.ai" you must have to set API Key in the resource configuration')
+            endpoint_url = "{}/api/v1".format(endpoint_url)
+            request_args.update({
+                "headers": {
+                    'X-API-Key': args.apiKey
+                }
+            })
+        else:  # Else case the CSE URL ends with 'sumologic.com' or 'sumologic.net' or '*.nl' or '*.ephemeral.in' etc...
+            if not is_value_exist(args.access_id):
+                raise Exception('For({}) you must have to set Access ID in the resource configuration'.format(endpoint_url))
+            if not is_value_exist(args.access_key):
+                raise Exception('For({}) you must have to set Access Key in the resource configuration'.format(endpoint_url))
+            endpoint_url = "{}/api/sec/v1".format(endpoint_url)
+            request_args.update({
+                "auth": (args.access_id, args.access_key)
+            })
+        endpoint_url = "{}/threat-intel-sources".format(endpoint_url)
+        session = requests.Session()
+        response = getattr(session, method)(endpoint_url, **request_args)
+        response.raise_for_status()
+        return response.json().get("data", {})
+
+    def is_value_exist(field_value):
+        return True if field_value is not None and field_value != '' and field_value != "None" else False
+
+    class EnvDefault(argparse.Action):
+        def __init__(self, required=True, default=None, **kwargs):
+            envvar = kwargs.get("dest")
+            default = os.environ.get(envvar, default) if envvar in os.environ else default
+            required = False if required and default else required
+            super(EnvDefault, self).__init__(default=default, required=required, **kwargs)
+
+        def __call__(self, parser, namespace, values, option_string=None):
+            setattr(namespace, self.dest, values)
+
+    try:
+
+        parser = argparse.ArgumentParser()
+        parser.add_argument('--url', help='CSE URL, Required', required=True, action=EnvDefault)
+        parser.add_argument('--apiKey', help='X-API-Key', required=False, action=EnvDefault)
+        parser.add_argument('--access_id', help='Access ID', required=False, action=EnvDefault)
+        parser.add_argument('--access_key', help='Access Key', required=False, action=EnvDefault)
+        parser.add_argument('--verify', help='Verify SSL', required=False, action=EnvDefault)
+        parser.add_argument('--timeout', help='timeout', required=False, type=int, default=180, action=EnvDefault)
+        parser.add_argument('--proxy_url', help='Proxy URL', required=False, action=EnvDefault)
+
+        parser.add_argument('--offset', help='offset', required=False, type=int, default=0, action=EnvDefault)
+        parser.add_argument('--limit', help='limit', required=False, type=int, default=20, action=EnvDefault)
+        args, unknown = parser.parse_known_args()
+
+        proxies = {'http': args.proxy_url, 'https': args.proxy_url} if args.proxy_url is not None else None
+        verify = args.verify == 'true'
+        try:
+            timeout = float(args.timeout)
+        except(ValueError, TypeError):
+            timeout = 180
+        try:
+            offset = int(args.offset)
+        except ValueError:
+            offset = 0
+        try:
+            limit = int(args.limit)
+        except ValueError:
+            limit = 100
+        params = {
+            "offset": int(offset),
+            "limit": int(limit)
+        }
+        sources_response = execute_call(params)
+        print(json.dumps(sources_response))
+        exit(0)
+    except Exception as e:
+        err = str(e)
+        try:
+            if hasattr(e, "response"):
+                try:
+                    responses = e.response.json()
+                    msg_error = responses.get("errors", None)
+                    if msg_error is not None and isinstance(msg_error, list):
+                        if len(msg_error) > 0:
+                            err_message = msg_error[0].get("message", None)
+                            if err_message is not None:
+                                err = "API Error: {} ".format(str(err_message))
+                except ValueError:
+                    err = str(e)
+        except AttributeError:
+            err = str(e)
+        sys.stderr.write(str(err))
+        exit(-1)
+fields:
+- id: offset
+  label: Offset
+  type: text
+  required: false
+  validator: integer
+  default: '0'
+  hint: The number of items to skip before starting to collect the result set
+- id: limit
+  label: Limit
+  type: text
+  required: false
+  validator: integer
+  default: '100'
+  hint: The numbers of items to return
+output:
+  - path: hasNextPage
+    type: text
+    example: 'false'
+  - path: total
+    type: text
+    example: '3'
+  - path: objects.[].id
+    type: text
+    example: '2'
+  - path: objects.[].name
+    type: text
+    example: 'Sample TI Source'
+  - path: objects.[].description
+    type: text
+    example: 'Lorem ipsum dolor sit amet...'
+  - path: objects.[].sourceType
+    type: text
+    example: 'CUSTOM'
+  - path: objects.[].created
+    type: text
+    example: '2024-01-09T22:22:43.109746+00:00'
+  - path: objects.[].createdBy
+    type: text
+    example: 'foo@sumologic.com'
+  - path: objects.[].lastUpdated
+    type: text
+    example: '2024-01-09T22:22:43.135409+00:00'
+  - path: objects.[].lastUpdatedBy
+    type: text
+    example: 'bar@sumologic.com'
+
+table_view:
+- display_name: ID
+  value: objects.[].id
+- display_name: Name
+  value: objects.[].name
+- display_name: Description
+  value: objects.[].description
+- display_name: Source Type
+  value: objects.[].sourceType

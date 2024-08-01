@@ -1,0 +1,178 @@
+integration: Sumo Logic Cloud SIEM
+name: Get Threat Intel Indicator
+type: Enrichment
+script:
+  code: |
+    import sys
+    import os
+    import html
+    import json
+    import urllib3
+    import argparse
+    import requests
+    import unicodedata
+    from bs4 import BeautifulSoup
+    urllib3.disable_warnings(urllib3.exceptions.InsecurePlatformWarning)
+    urllib3.disable_warnings(urllib3.exceptions.SNIMissingWarning)
+    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+    def execute_call(params, method="get"):
+        global args, verify, proxies, timeout
+        request_args = {
+            "timeout": timeout,
+            "verify": verify,
+            "proxies": proxies,
+            "params": params
+        }
+        endpoint_url = str(args.url.rstrip('/')).lower()
+        # check if the CSE URL ends with 'jask.ai' or 'jask.ui'
+        if endpoint_url.endswith('jask.ai') or "jask.ai" in endpoint_url or endpoint_url.endswith('jask.ui') \
+                or "jask.ui" in endpoint_url:
+            if not is_value_exist(args.apiKey):
+                raise Exception('For Domain "jask.ai" you must have to set API Key in the resource configuration')
+            endpoint_url = "{}/api/v1".format(endpoint_url)
+            request_args.update({
+                "headers": {
+                    'X-API-Key': args.apiKey
+                }
+            })
+        else:  # Else case the CSE URL ends with 'sumologic.com' or 'sumologic.net' or '*.nl' or '*.ephemeral.in' etc...
+            if not is_value_exist(args.access_id):
+                raise Exception('For({}) you must have to set Access ID in the resource configuration'.format(endpoint_url))
+            if not is_value_exist(args.access_key):
+                raise Exception('For({}) you must have to set Access Key in the resource configuration'.format(endpoint_url))
+            endpoint_url = "{}/api/sec/v1".format(endpoint_url)
+            request_args.update({
+                "auth": (args.access_id, args.access_key)
+            })
+        endpoint_url = "{0}/threat-intel-indicators/{1}".format(endpoint_url, args.indicator_id)
+        session = requests.Session()
+        response = getattr(session, method)(endpoint_url, **request_args)
+        response.raise_for_status()
+        return response.json().get("data", {})
+
+    def is_value_exist(field_value):
+        return True if field_value is not None and field_value != '' and field_value != "None" else False
+
+    class EnvDefault(argparse.Action):
+        def __init__(self, required=True, default=None, **kwargs):
+            envvar = kwargs.get("dest")
+            default = os.environ.get(envvar, default) if envvar in os.environ else default
+            required = False if required and default else required
+            super(EnvDefault, self).__init__(default=default, required=required, **kwargs)
+
+        def __call__(self, parser, namespace, values, option_string=None):
+            setattr(namespace, self.dest, values)
+
+    try:
+
+        parser = argparse.ArgumentParser()
+        parser.add_argument('--url', help='CSE URL, Required', required=True, action=EnvDefault)
+        parser.add_argument('--apiKey', help='X-API-Key', required=False, action=EnvDefault)
+        parser.add_argument('--access_id', help='Access ID', required=False, action=EnvDefault)
+        parser.add_argument('--access_key', help='Access Key', required=False, action=EnvDefault)
+        parser.add_argument('--verify', help='Verify SSL', required=False, action=EnvDefault)
+        parser.add_argument('--timeout', help='timeout', required=False, type=int, default=180, action=EnvDefault)
+        parser.add_argument('--proxy_url', help='Proxy URL', required=False, action=EnvDefault)
+
+        parser.add_argument('--indicator_id', help='Indicator ID, Required', required=True, action=EnvDefault)
+        args, unknown = parser.parse_known_args()
+
+        proxies = {'http': args.proxy_url, 'https': args.proxy_url} if args.proxy_url is not None else None
+        verify = args.verify == 'true'
+        try:
+            timeout = float(args.timeout)
+        except(ValueError, TypeError):
+            timeout = 180
+            
+        params = {
+            "expand": "source"
+        }
+        
+        indicator_response = execute_call(params)
+        print(json.dumps(indicator_response))
+        exit(0)
+    except Exception as e:
+        err = str(e)
+        try:
+            if hasattr(e, "response"):
+                try:
+                    responses = e.response.json()
+                    msg_error = responses.get("errors", None)
+                    if msg_error is not None and isinstance(msg_error, list):
+                        if len(msg_error) > 0:
+                            err_message = msg_error[0].get("message", None)
+                            if err_message is not None:
+                                err = "API Error: {} ".format(str(err_message))
+                except ValueError:
+                    err = str(e)
+        except AttributeError:
+            err = str(e)
+        sys.stderr.write(str(err))
+        exit(-1)
+fields:
+- id: indicator_id
+  label: Indicator ID
+  type: text
+  required: true
+  hint: The ID of the threat intel indicator to fetch.
+output:
+  - path: id
+    type: text
+    example: 'f396ae69aa223c049ff639b3649ba1dda45b9b25e0a23f34b7a39e0462c3475d7468726561745f49705f546573745f54495f536f757263655f32'
+  - path: value
+    type: text
+    example: '1.0.0.1'
+  - path: active
+    type: text
+    example: 'true'
+  - path: expiration
+    type: text
+    example: 'null'
+  - path: meta.description
+    type: text
+    example: 'test'
+  - path: meta.created.username
+    type: text
+    example: 'cmcpherson@sumologic.com'
+  - path: meta.created.when
+    type: text
+    example: '2024-01-09T23:18:54'
+  - path: meta.updated
+    type: text
+    example: 'null'
+  - path: source.id
+    type: text
+    example: '2'
+  - path: source.name
+    type: text
+    example: 'Test TI Source 2'
+  - path: source.description
+    type: text
+    example: 'Testing...'
+  - path: source.sourceType
+    type: text
+    example: 'CUSTOM'
+  - path: source.created
+    type: text
+    example: '2024-01-09T22:22:43.109746+00:00'
+  - path: source.createdBy
+    type: text
+    example: 'cmcpherson@sumologic.com'
+  - path: source.lastUpdated
+    type: text
+    example: '2024-01-09T22:22:43.135409+00:00'
+  - path: source.lastUpdatedBy
+    type: text
+    example: 'cmcpherson@sumologic.com'
+table_view:
+- display_name: ID
+  value: id
+- display_name: Value
+  value: value
+- display_name: Description
+  value: meta.description
+- display_name: Active
+  value: active
+- display_name: Source
+  value: source.name
