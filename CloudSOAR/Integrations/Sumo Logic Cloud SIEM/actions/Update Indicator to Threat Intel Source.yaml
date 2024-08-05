@@ -1,0 +1,149 @@
+integration: Sumo Logic Cloud SIEM
+name: Update Threat Intel Indicator
+type: Notification
+script:
+  code: |
+    import sys
+    import time
+    from datetime import datetime, time
+    import pytz
+    import os
+    import json
+    import urllib3
+    import argparse
+    import requests
+
+    # disabling all urllib3 warnings.
+    urllib3.disable_warnings()
+
+    def execute_call(data, method="put"):
+        global args, verify, proxies, timeout
+        request_args = {
+            "timeout": timeout,
+            "verify": verify,
+            "proxies": proxies,
+            "data": json.dumps(data)
+        }
+        endpoint_url = str(args.url.rstrip('/')).lower()
+        if not is_value_exist(args.access_id):
+            raise Exception('For({}) you must have to set Access ID in the resource configuration'.format(endpoint_url))
+        if not is_value_exist(args.access_key):
+            raise Exception('For({}) you must have to set Access Key in the resource configuration'.format(endpoint_url))
+        endpoint_url = "{}/api/sec/v1".format(endpoint_url)
+        request_args.update({
+            "auth": (args.access_id, args.access_key)
+        })
+        endpoint_url = "{0}/threat-intel-indicators/{1}".format(endpoint_url, args.indicator_id)
+        session = requests.Session()
+        response = getattr(session, method)(endpoint_url, **request_args)
+        response.raise_for_status()
+        return response.json().get("data", {})
+
+    def is_value_exist(field_value):
+        return True if field_value is not None and field_value != '' and field_value != "None" else False
+
+    class EnvDefault(argparse.Action):
+        def __init__(self, required=True, default=None, **kwargs):
+            envvar = kwargs.get("dest")
+            default = os.environ.get(envvar, default) if envvar in os.environ else default
+            required = False if required and default else required
+            super(EnvDefault, self).__init__(default=default, required=required, **kwargs)
+
+        def __call__(self, parser, namespace, values, option_string=None):
+            setattr(namespace, self.dest, values)
+
+    try:
+
+        parser = argparse.ArgumentParser()
+        parser.add_argument('--url', help='CSE URL, Required', required=True, action=EnvDefault)
+        parser.add_argument('--apiKey', help='X-API-Key', required=False, action=EnvDefault)
+        parser.add_argument('--access_id', help='Access ID', required=False, action=EnvDefault)
+        parser.add_argument('--access_key', help='Access Key', required=False, action=EnvDefault)
+        parser.add_argument('--verify', help='Verify SSL', required=False, action=EnvDefault)
+        parser.add_argument('--timeout', help='timeout', required=False, type=int, default=180, action=EnvDefault)
+        parser.add_argument('--proxy_url', help='Proxy URL', required=False, action=EnvDefault)
+
+        parser.add_argument('--indicator_id', help='Indicator ID, Required', required=True, action=EnvDefault)
+        parser.add_argument('--active', help='active', required=True, action=EnvDefault)
+        parser.add_argument('--expiration', help='expiration', required=False, action=EnvDefault)
+        parser.add_argument('--description', help='description', required=True, action=EnvDefault)
+        args, unknown = parser.parse_known_args()
+
+        proxies = {'http': args.proxy_url, 'https': args.proxy_url} if args.proxy_url is not None else None
+        verify = args.verify == 'true'
+        try:
+            timeout = float(args.timeout)
+        except(ValueError, TypeError):
+            timeout = 180
+        
+        if args.active.lower() == "true":
+          is_active = True
+        else:
+          is_active = False
+
+        data = {
+          "fields":
+          {
+            "active": is_active,
+            "description": args.description
+          }
+        }
+
+        if args.expiration:
+          exp_input = args.expiration
+          try:
+              expiration = datetime.strptime(exp_input,"%Y-%m-%dT%H:%M:%S.%fZ")
+          except:
+              exp_input.strip('Zz')
+              try:
+                  expiration = datetime.strptime(exp_input,"%Y-%m-%dT%H:%M:%S.%f")
+              except:
+                  expiration = datetime.strptime(exp_input,"%Y-%m-%dT%H:%M:%S")
+          data["indicators"][0]["expiration"] = args.expiration
+
+        add_ioc_response = execute_call(data)
+        print(json.dumps(add_ioc_response))
+        exit(0)
+    except Exception as e:
+        err = str(e)
+        try:
+            if hasattr(e, "response"):
+                try:
+                    responses = e.response.json()
+                    msg_error = responses.get("errors", None)
+                    if msg_error is not None and isinstance(msg_error, list):
+                        if len(msg_error) > 0:
+                            err_message = msg_error[0].get("message", None)
+                            if err_message is not None:
+                                err = "API Error: {} ".format(str(err_message))
+                except ValueError:
+                    err = str(e)
+        except AttributeError:
+            err = str(e)
+        sys.stderr.write(str(err))
+        exit(-1)
+fields:
+- id: indicator_id
+  label: Indicator ID
+  type: text
+  required: true
+  hint: 'The ID of the threat intel indicator to update.'
+- id: active
+  label: Active
+  type: text
+  required: true
+  hint: 'Is this an active indicator? ("True" or "False")'
+- id: expiration
+  label: Expiration
+  type: text
+  required: false
+  hint: 'Optional: The expiration date of the indicator (e.g. "2024-01-09T21:54:33Z")' 
+- id: description
+  label: Description
+  type: text
+  required: true
+  hint: 'The description of the indicator.'
+output:
+  - path: ok
+    type: text
+    example: 'true'
