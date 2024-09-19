@@ -38,28 +38,12 @@
             "field": null
         }
     ],
-    "timeZone": "Etc/UTC",
+    "timeZone": "America/New_York",
     "notifications":
-    [
-        {
-            "notification":
-            {
-                "connectionType": "Email",
-                "recipients":
-                [],
-                "subject": "Sumo Logic Security Alert - {{ResultsJson.readableid}} {{ResultsJson.insight_name}}",
-                "messageBody": "An Insight alert was generated from Sumo Logic's Cloud SIEM platform.  \nGo to the Insight here <input Sumo Logic service URL>/{{ResultsJson.readableid}}\n\n{{ResultsJson.readableid}} {{ResultsJson.insight_name}} with description of {{ResultsJson.insight_desc}} fired at {{ResultsJson.eventtime}}.\n\n{{ResultsJson.readableid}} fired on the entity type {{ResultsJson.entity_type}} for entity {{ResultsJson.entity}} with severity {{ResultsJson.sevname}}.  \n\n{{ResultsJson.readableid}} contains the following Signals: \nNote: duplicates may exist when entity or Rules are not well tuned.\n{{ResultsJson.signals}}\n\n\n\n\n\n",
-                "timeZone": null
-            },
-            "runForTriggerTypes":
-            [
-                "Warning"
-            ]
-        }
-    ],
+    [],
     "isDisabled": false,
     "groupNotifications": true,
-    "playbook": "",
+    "playbook": "Example payload for Alert:\n\nFor email subject:  Sumo Logic Security Alert - {{ResultsJson.readableid}} {{ResultsJson.insight_name}}\n                \nFor body: \nAn Insight alert was generated from Sumo Logic's Cloud SIEM platform. \nGo to the Insight here https://service.us2.sumologic.com/sec/insight/{{ResultsJson.readableid}}\n\n{{ResultsJson.readableid}} {{ResultsJson.insight_name}} with description of {{ResultsJson.insight_desc}} fired at {{ResultsJson.eventtime}}.\n\n{{ResultsJson.readableid}} fired on the entity type {{ResultsJson.entity_type}} for entity {{ResultsJson.entity}} with severity {{ResultsJson.sevname}}.\n\n{{ResultsJson.readableid}} contains the following Signals: \nNote: duplicates may exist when entity or Rules are not well tuned.\n{{ResultsJson.signals}}",
     "sloId": null,
     "monitorTemplateId": null,
     "tags": null,
