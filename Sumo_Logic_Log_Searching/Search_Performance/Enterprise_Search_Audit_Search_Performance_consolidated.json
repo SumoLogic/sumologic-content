@@ -1,0 +1,491 @@
+{
+    "type": "DashboardV2SyncDefinition",
+    "name": "Enterprise Search Audit - Search Performance",
+    "description": "",
+    "title": "Enterprise Search Audit - Search Performance",
+    "theme": "Dark",
+    "topologyLabelMap": {
+        "data": {}
+    },
+    "refreshInterval": 0,
+    "timeRange": {
+        "type": "BeginBoundedTimeRange",
+        "from": {
+            "type": "RelativeTimeRangeBoundary",
+            "relativeTime": "-1d"
+        },
+        "to": null
+    },
+    "layout": {
+        "layoutType": "Grid",
+        "layoutStructures": [
+            {
+                "key": "panel3C015563A7B4584C",
+                "structure": "{\"height\":8,\"width\":12,\"x\":0,\"y\":2}"
+            },
+            {
+                "key": "panel4799C18289E3484F",
+                "structure": "{\"height\":8,\"width\":12,\"x\":12,\"y\":18}"
+            },
+            {
+                "key": "panel886D14F2BDDCCA4C",
+                "structure": "{\"height\":11,\"width\":12,\"x\":0,\"y\":55}"
+            },
+            {
+                "key": "panelA27EEEC69837BB4C",
+                "structure": "{\"height\":11,\"width\":12,\"x\":12,\"y\":55}"
+            },
+            {
+                "key": "panel8BFAE602AE0E4B40",
+                "structure": "{\"height\":8,\"width\":12,\"x\":0,\"y\":37}"
+            },
+            {
+                "key": "panelADB9B601BC35CB44",
+                "structure": "{\"height\":8,\"width\":12,\"x\":12,\"y\":37}"
+            },
+            {
+                "key": "panel89AD0F889B468B40",
+                "structure": "{\"height\":8,\"width\":12,\"x\":0,\"y\":10}"
+            },
+            {
+                "key": "panelE09FDAF49F8B2B45",
+                "structure": "{\"height\":8,\"width\":12,\"x\":0,\"y\":18}"
+            },
+            {
+                "key": "panel928D9945A775A947",
+                "structure": "{\"height\":9,\"width\":24,\"x\":0,\"y\":26}"
+            },
+            {
+                "key": "panel61315962ADB8EA40",
+                "structure": "{\"height\":8,\"width\":12,\"x\":12,\"y\":45}"
+            },
+            {
+                "key": "panel902B1160877F5A49",
+                "structure": "{\"height\":8,\"width\":12,\"x\":0,\"y\":45}"
+            },
+            {
+                "key": "panelPANE-D7C5BEEB97EE194B",
+                "structure": "{\"height\":2,\"width\":24,\"x\":0,\"y\":0}"
+            },
+            {
+                "key": "panel27536833BB50BB4B",
+                "structure": "{\"height\":2,\"width\":24,\"x\":0,\"y\":35}"
+            },
+            {
+                "key": "panel8DE46B65BC98EA4C",
+                "structure": "{\"height\":2,\"width\":24,\"x\":0,\"y\":53}"
+            },
+            {
+                "key": "panel917F234D83F64B4C",
+                "structure": "{\"height\":8,\"width\":12,\"x\":12,\"y\":2}"
+            },
+            {
+                "key": "panel8D2146FAB3767B40",
+                "structure": "{\"height\":8,\"width\":12,\"x\":12,\"y\":10}"
+            }
+        ]
+    },
+    "panels": [
+        {
+            "id": null,
+            "key": "panel3C015563A7B4584C",
+            "title": "Execution Time Percentiles",
+            "visualSettings": "{\"general\":{\"mode\":\"timeSeries\",\"type\":\"line\",\"displayType\":\"smooth\",\"markerSize\":null,\"lineDashType\":\"solid\",\"markerType\":\"none\",\"lineThickness\":2},\"title\":{\"fontSize\":14},\"axes\":{\"axisX\":{\"hideLabels\":false,\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"hideLabels\":false,\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12,\"logarithmic\":false,\"gridColor\":\"\",\"unit\":{\"value\":\"s\",\"isCustom\":false},\"unitDecimals\":1}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"right\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":true,\"wrap\":true},\"color\":{\"family\":\"Categorical Default\"},\"thresholdsSettings\":{\"fillRemainingGreen\":false,\"showThresholds\":false,\"thresholds\":{\"warning\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":80},\"critical\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":100}}},\"series\":{},\"overrides\":[{\"series\":[\"_query_time_s_pct_50\"],\"queries\":[],\"properties\":{\"name\":\"pct_50\"}},{\"series\":[\"_query_time_s_pct_90\"],\"queries\":[],\"properties\":{\"name\":\"pct_90\"}},{\"series\":[\"_query_time_s_pct_95\"],\"queries\":[],\"properties\":{\"name\":\"pct_95\"}},{\"series\":[\"_query_time_s_pct_99\"],\"queries\":[],\"properties\":{\"name\":\"pct_99\"}}]}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_view=sumologic_search_usage_per_query \n| round(execution_duration_ms/1000) as duration_seconds \n| execution_duration_ms / 1000 as query_time_s\n| timeslice 15m\n| pct(query_time_s,50,90,95,99) by _timeslice",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Manual",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panel4799C18289E3484F",
+            "title": "Search Statistics",
+            "visualSettings": "{\"general\":{\"mode\":\"table\",\"type\":\"table\",\"displayType\":\"default\",\"paginationPageSize\":25,\"decimals\":5,\"fontSize\":12},\"series\":{},\"thresholdsSettings\":{\"fillRemainingGreen\":false,\"showThresholds\":false,\"thresholds\":{\"warning\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":80},\"critical\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":100}}},\"title\":{\"fontSize\":14}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_view=sumologic_search_usage_per_query\n| round(execution_duration_ms/1000) as duration_seconds \n| execution_duration_ms / 1000 as query_time_s\n| count as total_searches, count_distinct(user_name) as users, pct(query_time_s,50,95,99), sum(scanned_message_count) as scanned_events, sum(retrieved_message_count) as retrieved_events, sum(data_scanned_bytes) as scanned_bytes by query_type \n| sort query_type asc\n| format(\"%,.1f\",_query_time_s_pct_50) as median_s\n| format(\"%,.1f\",_query_time_s_pct_95) as pct_90_s\n| format(\"%,.1f\",_query_time_s_pct_99) as pct_99_s\n| round(scanned_bytes / 1Gi ) as scanned_GB\n| fields -_query_time_s_pct_50, _query_time_s_pct_95, _query_time_s_pct_99, scanned_bytes\n| order by scanned_events\n\n\n",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Manual",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panel886D14F2BDDCCA4C",
+            "title": "Top 10 Users by Data Scanned (GB)",
+            "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"bar\",\"displayType\":\"default\",\"roundDataPoints\":true,\"fillOpacity\":1},\"title\":{\"fontSize\":14},\"axes\":{\"axisX\":{\"hideLabels\":false,\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12,\"crosshair\":{\"enabled\":false}},\"axisY\":{\"hideLabels\":false,\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12,\"logarithmic\":false,\"gridColor\":\"\",\"minimum\":null,\"maximum\":null}},\"color\":{\"family\":\"Categorical Dark\"},\"thresholdsSettings\":{\"fillRemainingGreen\":false,\"showThresholds\":false,\"thresholds\":{\"warning\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":80},\"critical\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":100}}},\"series\":{},\"overrides\":[],\"legend\":{\"enabled\":false,\"verticalAlign\":\"right\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":false,\"wrap\":true}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_view=sumologic_search_usage_per_query\n| where user_name matches \"*\" AND analytics_tier matches \"*\"\n| sum(data_scanned_bytes) as scanned by user_name\n| int(scanned/1Gi) as scanned \n| order by scanned \n| limit 10",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Manual",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panelA27EEEC69837BB4C",
+            "title": "Top 10 Users by Data Retrieved (GB)",
+            "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"bar\",\"displayType\":\"default\",\"roundDataPoints\":true,\"fillOpacity\":1},\"title\":{\"fontSize\":14},\"axes\":{\"axisX\":{\"hideLabels\":false,\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12,\"crosshair\":{\"enabled\":false}},\"axisY\":{\"hideLabels\":false,\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12,\"logarithmic\":false,\"gridColor\":\"\",\"minimum\":null,\"maximum\":null}},\"color\":{\"family\":\"Categorical Default\"},\"thresholdsSettings\":{\"fillRemainingGreen\":false,\"showThresholds\":false,\"thresholds\":{\"warning\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":80},\"critical\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":100}}},\"series\":{},\"overrides\":[],\"legend\":{\"enabled\":false,\"verticalAlign\":\"right\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":false,\"wrap\":true}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_view=sumologic_search_usage_per_query\n|where user_name matches \"*\" AND analytics_tier matches \"*\"\n|sum(data_retrieved_bytes) as retrieved by user_name\n| int(retrieved/1Gi) as retrieved \n| order by retrieved | limit 10",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Manual",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panel8BFAE602AE0E4B40",
+            "title": "Top 10 Source Categories Referenced by Queries",
+            "visualSettings": "{\"title\":{\"fontSize\":14},\"axes\":{\"axisX\":{\"hideLabels\":false,\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"hideLabels\":false,\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12,\"logarithmic\":false,\"gridColor\":\"\",\"minimum\":null,\"maximum\":null}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"right\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":false,\"wrap\":true},\"color\":{\"family\":\"Colorsafe\"},\"thresholdsSettings\":{\"fillRemainingGreen\":false,\"showThresholds\":false,\"thresholds\":{\"warning\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":80},\"critical\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":100}}},\"series\":{},\"general\":{\"type\":\"column\",\"displayType\":\"default\",\"roundDataPoints\":true,\"fillOpacity\":1,\"mode\":\"timeSeries\"},\"overrides\":[]}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_view=sumologic_search_usage_per_query \n| toLowerCase(query) as queryLower\n| parse regex field=queryLower \"^(?<scope_section_raw>[^\\|]+)\" nodrop \n| parse regex field=scope_section_raw \"_sourcecategory\\s*=\\s*(?<meta_sourcecategory>[^\\s\\|\\)]+)\" multi nodrop\n| where meta_sourcecategory != \"\"\n| where query_type matches \"*\" AND user_name matches \"*\"\n| count by meta_sourcecategory \n| sort by _count\n| top 10 meta_sourcecategory by _count",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Manual",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panelADB9B601BC35CB44",
+            "title": "Top 10 Partitions and Views Referenced by Queries",
+            "visualSettings": "{\"general\":{\"mode\":\"timeSeries\",\"type\":\"column\",\"displayType\":\"default\",\"fillOpacity\":1},\"title\":{\"fontSize\":14},\"axes\":{\"axisX\":{\"hideLabels\":false,\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"hideLabels\":false,\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12,\"logarithmic\":false,\"gridColor\":\"\",\"minimum\":null,\"maximum\":null}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"right\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":false,\"wrap\":true},\"color\":{\"family\":\"Sequential 2\"},\"thresholdsSettings\":{\"fillRemainingGreen\":false,\"showThresholds\":false,\"thresholds\":{\"warning\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":80},\"critical\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":100}}},\"overrides\":[],\"series\":{}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_view=sumologic_search_usage_per_query \n| toLowerCase(query) as queryLower\n| parse regex field=queryLower \"^(?<scope_section_raw>[^\\|]+)\" nodrop \n| parse regex field=scope_section_raw \"(?:_index|_view)\\s*=\\s*(?<meta_index>[^\\s\\|\\)]+)\" multi nodrop \n| where meta_index!=\"\"\n| where query_type matches \"*\" AND user_name matches \"*\"\n| count by meta_index \n| sort by _count\n| top 10 meta_index by _count",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Manual",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panel89AD0F889B468B40",
+            "title": "Total GB Scanned and Retrieved",
+            "visualSettings": "{\"general\":{\"mode\":\"timeSeries\",\"type\":\"line\",\"displayType\":\"smooth\",\"markerSize\":null,\"lineDashType\":\"solid\",\"markerType\":\"none\",\"lineThickness\":2},\"title\":{\"fontSize\":14},\"axes\":{\"axisX\":{\"hideLabels\":false,\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"hideLabels\":false,\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12,\"logarithmic\":true,\"gridColor\":\"\",\"unit\":{\"value\":\"GB\",\"isCustom\":false}}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"right\",\"horizontalAlign\":\"right\",\"maxWidth\":224,\"maxHeight\":50,\"fontFamily\":\"Roboto\",\"fontSize\":12,\"fontWeight\":\"normal\",\"showAsTable\":true,\"wrap\":true,\"shownStatistics\":[]},\"color\":{\"family\":\"Categorical Default\"},\"thresholdsSettings\":{\"fillRemainingGreen\":false,\"showThresholds\":false,\"thresholds\":{\"warning\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":80},\"critical\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":100}}},\"series\":{},\"overrides\":[{\"series\":[\"Continuous|total_retrieved\"],\"queries\":[],\"properties\":{\"name\":\"continuous | total_retrieved\"}},{\"series\":[\"Continuous|total_scanned\"],\"queries\":[],\"properties\":{\"name\":\"continuous | total_scanned\"}}]}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_view=sumologic_search_usage_per_query\n| timeslice 15m\n| sum(data_scanned_bytes) as total_scanned, sum(data_retrieved_bytes) as total_retrieved by _timeslice, analytics_tier\n| int(total_scanned/1Gi) as total_scanned \n| int(total_retrieved/1Gi) as total_retrieved\n| transpose row _timeslice column analytics_tier",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Manual",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "RelativeTimeRangeBoundary",
+                    "relativeTime": "-1d"
+                },
+                "to": null
+            },
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panelE09FDAF49F8B2B45",
+            "title": "Average Run Time by Type",
+            "visualSettings": "{\"general\":{\"mode\":\"timeSeries\",\"type\":\"line\",\"displayType\":\"smooth\",\"markerSize\":null,\"lineDashType\":\"solid\",\"markerType\":\"none\",\"lineThickness\":2},\"title\":{\"fontSize\":14},\"axes\":{\"axisX\":{\"hideLabels\":false,\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"hideLabels\":false,\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12,\"logarithmic\":false,\"gridColor\":\"\",\"minimum\":null,\"maximum\":null,\"unit\":{\"value\":\"s\",\"isCustom\":false}}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"right\",\"horizontalAlign\":\"right\",\"maxWidth\":196,\"maxHeight\":50,\"fontFamily\":\"Roboto\",\"fontSize\":12,\"fontWeight\":\"normal\",\"showAsTable\":true,\"wrap\":true,\"shownStatistics\":[]},\"color\":{\"family\":\"Categorical Default\"},\"thresholdsSettings\":{\"fillRemainingGreen\":false,\"showThresholds\":false,\"thresholds\":{\"warning\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":80},\"critical\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":100}}},\"series\":{},\"overrides\":[]}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_view=sumologic_search_usage_per_query analytics_tier=Continuous \n| timeslice 15m \n| avg(execution_duration_ms) as query_time by query_type, _timeslice \n| query_time/1000 as query_time\n| transpose row _timeslice column query_type",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Manual",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "RelativeTimeRangeBoundary",
+                    "relativeTime": "-1d"
+                },
+                "to": null
+            },
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panel928D9945A775A947",
+            "title": "Unoptimized Queries",
+            "visualSettings": "{\"general\":{\"mode\":\"timeSeries\",\"type\":\"table\",\"displayType\":\"default\",\"fontSize\":12},\"series\":{},\"thresholdsSettings\":{\"fillRemainingGreen\":false,\"showThresholds\":false,\"thresholds\":{\"warning\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":80},\"critical\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":100}}},\"title\":{\"fontSize\":14}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_view=sumologic_search_usage_per_query \n//(query_type=\"Scheduled Search\" or query_type=\"Interactive Dashboard\" or query_type=\"Search API\")\n| count as qCount, sum(data_scanned_bytes) as scanned by query,user_name,query_type\n| toLowerCase(query) as queryLower \n| parse regex field=queryLower \"^(?<scope_section_raw>[^\\|]+)\" nodrop \n| replace(scope_section_raw,\" \",\"\") as scope_section | if (scope_section=\"\" or isNull(scope_section) or scope_section=\"*\",1, 0) as  select_all\n| parse regex field=scope_section_raw \"_(?<meta>sourcecategory|sourcehost|collector|source|sourcename)\\s*=\"  nodrop  | if (meta!=\"\",1,0) as use_meta\n| parse regex field=scope_section_raw \"_(?<idx>view|index)\\s*=\"  nodrop  | if (idx!=\"\",1,0) as use_idx\n| parse regex field=scope_section_raw \"(?:^|\\s+)(?<kfield>\\w+)\\s*=\"  nodrop  | if (kfield!=\"\" and !(kfield in (\"sourcecategory\",\"collector\",\"index\",\"view\",\"source\",\"sourcehost\",\"sourcename\")),1,0) as use_field\n| 0 as use_kw | parse regex field=scope_section_raw \"(?:^|\\s+)(?<first>\\\"[^\\\"]+\\\"|\\'[^\\']+\\'|[\\w\\\"\\']+)(?<bridge>\\s*=\\s*|\\s+|$)(?<second>\\w+|$)\" multi nodrop | if ( !(bridge matches \"*=*\") and select_all!=1,1,use_kw) as use_kw\n| max(use_kw) as use_kw, max(use_field) as use_field, max(use_meta) as use_meta, max(use_idx) as use_idx, max(qCount) as queries, max(scanned) as scanned_bytes by query,user_name, query_type \n| (scanned_bytes/1Gi) as scanned_gbytes | fields -scanned_bytes\n| (use_kw+use_field+use_meta+use_idx) as optimizations\n| where optimizations =0\n| fields -use_kw,use_field,use_idx,optimizations,use_meta\n| sort by scanned_gbytes\n",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Manual",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panel61315962ADB8EA40",
+            "title": "Scheduled Searches without Metadata",
+            "visualSettings": "{\"general\":{\"mode\":\"timeSeries\",\"type\":\"table\",\"displayType\":\"default\",\"fontSize\":12},\"series\":{},\"thresholdsSettings\":{\"fillRemainingGreen\":false,\"showThresholds\":false,\"thresholds\":{\"warning\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":80},\"critical\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":100}}},\"title\":{\"fontSize\":14}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_view=sumologic_search_usage_per_query query_type=\"Scheduled Search\"\n| sum(data_scanned_bytes) as scanned_bytes, sum(data_retrieved_bytes) as retrieved_bytes by user_name, query, session_id, execution_duration_ms \n| round(execution_duration_ms/1000) as duration_seconds \n| toLowerCase(query) as queryLower \n| parse regex field=queryLower \"^(?<scope_section_raw>[^\\|]+)\" nodrop \n| replace(scope_section_raw,\" \",\"\") as scope_section \n| parse regex field=scope_section_raw \"_(?<meta>sourcecategory|sourcehost|collector|source|sourcename)\\s*=\"  nodrop\n| parse regex field=scope_section_raw \"_(?<idx>view|index)\\s*=\"  nodrop  \n| where ( isEmpty(idx) AND isEmpty(meta) )\n| fields -queryLower,session_id,execution_duration_ms, scope_section_raw,_some_matched, scope_section,meta,idx",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Manual",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panel902B1160877F5A49",
+            "title": "Interactive Dashboard Queries without Metadata",
+            "visualSettings": "{\"general\":{\"mode\":\"timeSeries\",\"type\":\"table\",\"displayType\":\"default\",\"fontSize\":12,\"noDataMessage\":\"All Dashboards have queries with metadata!  ✅\"},\"series\":{},\"thresholdsSettings\":{\"fillRemainingGreen\":false,\"showThresholds\":false,\"thresholds\":{\"warning\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":80},\"critical\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":100}}},\"title\":{\"fontSize\":14}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_view=sumologic_search_usage_per_query query_type=\"Interactive Dashboard\"\n| sum(data_scanned_bytes) as scanned_bytes, sum(data_retrieved_bytes) as retrieved_bytes by user_name, query, session_id, execution_duration_ms \n| round(execution_duration_ms/1000) as duration_seconds \n| toLowerCase(query) as queryLower \n| parse regex field=queryLower \"^(?<scope_section_raw>[^\\|]+)\" nodrop \n| replace(scope_section_raw,\" \",\"\") as scope_section \n| parse regex field=scope_section_raw \"_(?<meta>sourcecategory|sourcehost|collector|source|sourcename)\\s*=\"  nodrop\n| parse regex field=scope_section_raw \"_(?<idx>view|index)\\s*=\"  nodrop  \n| where ( isEmpty(idx) AND isEmpty(meta))\n| fields -queryLower,session_id,execution_duration_ms, scope_section_raw,_some_matched, scope_section,meta,idx",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Manual",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panelPANE-D7C5BEEB97EE194B",
+            "title": "",
+            "visualSettings": "{\"general\":{\"mode\":\"TextPanel\",\"type\":\"text\",\"displayType\":\"default\",\"roundDataPoints\":true},\"title\":{\"fontSize\":14},\"series\":{},\"text\":{\"format\":\"markdownV2\",\"horizontalAlignment\":\"center\",\"verticalAlignment\":\"center\",\"showTitle\":false,\"backgroundColor\":\"#007ca6\",\"textColor\":\"#000000\",\"fontSize\":24},\"legend\":{\"enabled\":false}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "TextPanel",
+            "text": "Query Statistics"
+        },
+        {
+            "id": null,
+            "key": "panel27536833BB50BB4B",
+            "title": "",
+            "visualSettings": "{\"general\":{\"mode\":\"TextPanel\",\"type\":\"text\",\"displayType\":\"default\",\"roundDataPoints\":true},\"title\":{\"fontSize\":14},\"series\":{},\"text\":{\"format\":\"markdownV2\",\"horizontalAlignment\":\"center\",\"verticalAlignment\":\"center\",\"showTitle\":false,\"backgroundColor\":\"#007ca6\",\"textColor\":\"#000000\",\"fontSize\":24},\"legend\":{\"enabled\":false}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "TextPanel",
+            "text": "Metadata Statistics"
+        },
+        {
+            "id": null,
+            "key": "panel8DE46B65BC98EA4C",
+            "title": "",
+            "visualSettings": "{\"general\":{\"mode\":\"TextPanel\",\"type\":\"text\",\"displayType\":\"default\",\"roundDataPoints\":true},\"title\":{\"fontSize\":14},\"series\":{},\"text\":{\"format\":\"markdownV2\",\"horizontalAlignment\":\"center\",\"verticalAlignment\":\"center\",\"showTitle\":false,\"backgroundColor\":\"#007ca6\",\"textColor\":\"#000000\",\"fontSize\":24},\"legend\":{\"enabled\":false}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "TextPanel",
+            "text": "User Statistics"
+        },
+        {
+            "id": null,
+            "key": "panel917F234D83F64B4C",
+            "title": "Execution Time Range",
+            "visualSettings": "{\"general\":{\"mode\":\"timeSeries\",\"type\":\"line\",\"displayType\":\"smooth\",\"roundDataPoints\":true,\"markerSize\":5,\"lineDashType\":\"solid\",\"markerType\":\"none\",\"lineThickness\":2},\"legend\":{\"enabled\":true,\"verticalAlign\":\"right\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":true,\"wrap\":true},\"xy\":{\"xDimension\":[],\"yDimension\":[],\"zDimension\":[]},\"svp\":{},\"series\":{},\"axes\":{\"axisY\":{\"logarithmic\":true,\"unit\":{\"value\":\"s\",\"isCustom\":false},\"title\":\"\"},\"axisX\":{}},\"thresholdsSettings\":{\"type\":\"number\",\"fillRemainingGreen\":false,\"showThresholds\":false,\"numberThresholds\":{\"warning\":{\"display\":true,\"comparator\":\"greater_or_equal\",\"value\":80},\"critical\":{\"display\":false,\"comparator\":\"greater_or_equal\",\"value\":100}},\"rangeNumericThresholds\":[{\"color\":\"#B4D6EB\",\"value\":null,\"id\":0}],\"conditionalThresholds\":[{\"color\":\"#B4D6EB\",\"condition\":null,\"id\":0}],\"column\":\"\",\"formattingOption\":\"Numeric\",\"thresholdDisplay\":\"lineAndFillArea\"},\"hiddenQueryKeys\":[\"B\",\"C\"],\"overrides\":[{\"series\":[\"avg_query_time_s\"],\"queries\":[],\"properties\":{\"name\":\"avg\"}},{\"series\":[\"max_query_time_s\"],\"queries\":[],\"properties\":{\"name\":\"max\"}},{\"series\":[\"min_query_time_s\"],\"queries\":[],\"properties\":{\"name\":\"min\"}}]}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_view=sumologic_search_usage_per_query\n| round(execution_duration_ms/1000) as duration_seconds \n| execution_duration_ms / 1000 as query_time_s\n| timeslice 15m\n| avg(query_time_s) as avg_query_time_s, max(query_time_s) as max_query_time_s, min(query_time_s) as min_query_time_s by _timeslice",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Manual",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panel8D2146FAB3767B40",
+            "title": "Total Messages Scanned and Retrieved",
+            "visualSettings": "{\"general\":{\"mode\":\"timeSeries\",\"type\":\"line\",\"displayType\":\"smooth\",\"roundDataPoints\":true,\"markerSize\":5,\"lineDashType\":\"solid\",\"markerType\":\"none\",\"lineThickness\":2},\"series\":{\"A_Continuous|total_retrieved\":{\"visible\":true},\"A_Continuous|total_scanned\":{\"visible\":true}},\"axes\":{\"axisY\":{\"logarithmic\":true}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"right\",\"horizontalAlign\":\"right\",\"maxWidth\":248,\"maxHeight\":50,\"fontFamily\":\"Roboto\",\"fontSize\":12,\"fontWeight\":\"normal\",\"showAsTable\":true,\"wrap\":true,\"shownStatistics\":[]},\"xy\":{\"xDimension\":[],\"yDimension\":[],\"zDimension\":[]},\"svp\":{},\"overrides\":[{\"series\":[\"Continuous|total_retrieved\"],\"queries\":[],\"properties\":{\"name\":\"continuous | total_retrieved\"}},{\"series\":[\"Continuous|total_scanned\"],\"queries\":[],\"properties\":{\"name\":\"continuous | total_scanned\"}}]}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_view=sumologic_search_usage_per_query\n| timeslice 15m\n| sum(retrieved_message_count) as total_retrieved, sum(scanned_message_count) as total_scanned by _timeslice, analytics_tier\n| int(total_scanned/1Gi) as total_scanned \n| int(total_retrieved/1Gi) as total_retrieved\n| transpose row _timeslice column analytics_tier\n| fillmissing timeslice",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Manual",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "RelativeTimeRangeBoundary",
+                    "relativeTime": "-1d"
+                },
+                "to": null
+            },
+            "coloringRules": null,
+            "linkedDashboards": []
+        }
+    ],
+    "variables": [],
+    "coloringRules": []
+}
