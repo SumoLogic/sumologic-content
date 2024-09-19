@@ -1,3 +1,5 @@
+# Search Performance Dashboard
+
 The dashboard is a consolidated view of queries that give a user a high level of query performance.  The analytics covers query performance throughout Sumo Logic's platform, including, query performance across all forms of content (log searches, dashboards, monitors, and scheduled searches) and also performance from source categories, indexes, and scheduled views. 
 
 
