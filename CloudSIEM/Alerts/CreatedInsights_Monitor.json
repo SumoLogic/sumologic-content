@@ -1,0 +1,68 @@
+{
+    "name": "Cloud SIEM Insight Alert",
+    "description": "",
+    "type": "MonitorsLibraryMonitorExport",
+    "monitorType": "Logs",
+    "evaluationDelay": "0m",
+    "alertName": null,
+    "runAs": null,
+    "notificationGroupFields":
+    [
+        "readableid"
+    ],
+    "queries":
+    [
+        {
+            "rowId": "A",
+            "query": "(_index=sumologic_system_events or _index=sumologic_audit_events) \"InsightCreated\"\n| json field=_raw \"insight.signals[*].name\" as signals\n| json field=_raw \"insight.severityName\" as sevname\n| json field=_raw \"insight.entityValue\" as entity\n| json field=_raw \"insight.entityType\" as entity_type\n| json field=_raw \"insight.description\" as insight_desc\n| json field=_raw \"insight.name\" as insight_name\n| json field=_raw \"insight.readableId\" as readableid\n| json field=_raw \"eventTime\" as eventtime\n| count by readableid, insight_name, insight_desc, eventtime, entity, entity_type, sevname, signals"
+        }
+    ],
+    "triggers":
+    [
+        {
+            "detectionMethod": "LogsStaticCondition",
+            "triggerType": "Warning",
+            "resolutionWindow": null,
+            "timeRange": "-1h",
+            "threshold": 0,
+            "thresholdType": "GreaterThan",
+            "field": null
+        },
+        {
+            "detectionMethod": "LogsStaticCondition",
+            "triggerType": "ResolvedWarning",
+            "resolutionWindow": "-1h",
+            "timeRange": "-1h",
+            "threshold": 0,
+            "thresholdType": "LessThanOrEqual",
+            "field": null
+        }
+    ],
+    "timeZone": "Etc/UTC",
+    "notifications":
+    [
+        {
+            "notification":
+            {
+                "connectionType": "Email",
+                "recipients":
+                [],
+                "subject": "Sumo Logic Security Alert - {{ResultsJson.readableid}} {{ResultsJson.insight_name}}",
+                "messageBody": "An Insight alert was generated from Sumo Logic's Cloud SIEM platform.  \nGo to the Insight here <input Sumo Logic service URL>/{{ResultsJson.readableid}}\n\n{{ResultsJson.readableid}} {{ResultsJson.insight_name}} with description of {{ResultsJson.insight_desc}} fired at {{ResultsJson.eventtime}}.\n\n{{ResultsJson.readableid}} fired on the entity type {{ResultsJson.entity_type}} for entity {{ResultsJson.entity}} with severity {{ResultsJson.sevname}}.  \n\n{{ResultsJson.readableid}} contains the following Signals: \nNote: duplicates may exist when entity or Rules are not well tuned.\n{{ResultsJson.signals}}\n\n\n\n\n\n",
+                "timeZone": null
+            },
+            "runForTriggerTypes":
+            [
+                "Warning"
+            ]
+        }
+    ],
+    "isDisabled": false,
+    "groupNotifications": true,
+    "playbook": "",
+    "sloId": null,
+    "monitorTemplateId": null,
+    "tags": null,
+    "automatedPlaybookIds":
+    []
+}
