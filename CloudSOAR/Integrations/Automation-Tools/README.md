@@ -92,6 +92,9 @@ This integration is in active development. Actions, or the parameters defined th
 ### Build Signal Output Break Lines
 - This is the same as the Build Signal Output, but replaces break lines with new lines and properly escapes special characters to be used in a JSON value.
 
+### Build Signal Output Break Lines Format Options
+- This action combines the Build Signal Output Break Lines and Build Signal Output Raw Break Lines (email) into one action. The action asks which format you would like the output to be in (either linebreak or HTML).
+
 ### Check Internal IP
 - Allows an input of an IP or IP range to check weather it is internal or an external IP. Allows for additional user-provided IP's or ranges that should be classify as internal.
 
