@@ -197,7 +197,7 @@
                     "visualSettings": "{\"general\":{\"mode\":\"TextPanel\",\"type\":\"text\",\"displayType\":\"default\",\"roundDataPoints\":true},\"title\":{\"fontSize\":14},\"series\":{},\"legend\":{\"enabled\":false},\"text\":{\"format\":\"markdownV2\",\"showTitle\":false}}",
                     "keepVisualSettingsConsistentWithParent": true,
                     "panelType": "TextPanel",
-                    "text": "This dashboard does NOT take your Role Search Filter into consideration. It uses the data volume index to display the built-in metadata fields available across all data in Sumo. You can use the filter above to see which data is available to based on Data Tier.\nSee [Sumo Built-In Metadata](https://help-opensource.sumologic.com/docs/search/get-started-with-search/search-basics/built-in-metadata/) for more details."
+                    "text": "This dashboard does NOT take your Role Search Filter into consideration. It uses the data volume index to display the built-in metadata fields available across all data in Sumo. You can use the filter above to see which data is available to based on Data Tier.\nSee [Sumo Built-In Metadata](https://help.sumologic.com/docs/search/get-started-with-search/search-basics/built-in-metadata/) for more details."
                 },
                 {
                     "id": null,
@@ -651,7 +651,7 @@
                     "visualSettings": "{\"general\":{\"mode\":\"TextPanel\",\"type\":\"text\",\"displayType\":\"default\",\"roundDataPoints\":true},\"title\":{\"fontSize\":14},\"series\":{},\"text\":{\"format\":\"markdownV2\",\"showTitle\":false},\"legend\":{\"enabled\":false}}",
                     "keepVisualSettingsConsistentWithParent": true,
                     "panelType": "TextPanel",
-                    "text": "This dashboard takes your Role Search Filter into consideration. You will only see metadata fields that you have access to for data in the Continuous Tier. Use the Filter above to scope which metadata is available to search. See [Sumo Built-In Metadata](https://help-opensource.sumologic.com/docs/search/get-started-with-search/search-basics/built-in-metadata/) for more details."
+                    "text": "This dashboard takes your Role Search Filter into consideration. You will only see metadata fields that you have access to for data in the Continuous Tier. Use the Filter above to scope which metadata is available to search. See [Sumo Built-In Metadata](https://help.sumologic.com/docs/search/get-started-with-search/search-basics/built-in-metadata/) for more details."
                 },
                 {
                     "id": null,

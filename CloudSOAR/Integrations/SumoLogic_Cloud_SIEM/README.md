@@ -12,11 +12,11 @@ This integration is in active development. Actions, or the parameters defined th
 - Download the Integration and Action YAML files to your local device.
 - Create a new Cloud SOAR integration by logging into CloudSOAR > going to Settings (⚙)(top right) > Automation > Integrations > Plus(+) icon > and selecting the Integration YAML file.
 - Add any Actions you downloaded to that Integration by selecting the Upload icon (hover over the newly added integration), and uploading the Action YAML file(s).
-- For more information on uploading custom Integrations/Actions and how to test them, please see [Working with integrations](https://help-opensource.sumologic.com/docs/cloud-soar/cloud-soar-integration-framework/#working-with-integrations).
+- For more information on uploading custom Integrations/Actions and how to test them, please see [Working with integrations](https://help.sumologic.com/docs/cloud-soar/cloud-soar-integration-framework/#working-with-integrations).
 
 ## Action Descriptions 
 ### Add Indicator to Threat Intel Source
-- Accepts a single IP, or comma-separated list of IPs and searches for IOCs using Sumo Logic's [threatip()](https://help-opensource.sumologic.com/docs/search/search-query-language/search-operators/threatip/) operator. 
+- Accepts a single IP, or comma-separated list of IPs and searches for IOCs using Sumo Logic's [threatip()](https://help.sumologic.com/docs/search/search-query-language/search-operators/threatip/) operator. 
 ### Create Threat Intel Source
 - Creates a [Threat Intel Source](https://help.sumologic.com/docs/cse/rules/about-cse-rules/#threat-intelligence) in Cloud SIEM.
 ### Get Threat Intel Indicator

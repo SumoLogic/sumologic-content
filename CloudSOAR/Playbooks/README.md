@@ -25,7 +25,7 @@ Playbooks in Cloud SOAR, when exported, are delivered as a zip archive. However,
 ### Using an Imported Playbook
 Note: Once a playbook is imported, it is not functional out-of-the-box. You must edit the playbook to provide **Action Type** and **Action** parameters, though the inputs to these action should be pre-populated once selected.
 
-For more information on working with playbooks in Cloud SOAR, please see [Cloud SOAR Playbooks](https://help-opensource.sumologic.com/docs/cloud-soar/automation/#playbook).
+For more information on working with playbooks in Cloud SOAR, please see [Cloud SOAR Playbooks](https://help.sumologic.com/docs/cloud-soar/automation/#playbook).
 
 
 ### To upload your own content:

@@ -7,7 +7,7 @@ See [Integrations](https://github.com/SumoLogic/sumologic-content/tree/master/Cl
 - Download the Integatration and Action YAML files to your local device.
 - Create a new CloudSOAR integration by logging into CloudSOAR > going to Settings cogwheel (top right) > Automation > Integrations > Plus(+) icon > and selecting the Integration YAML file.
 - Add any Actions you downloaded to that Integration by selecting the Upload icon (hover over the newly added integration), and uploading the Action YAML file(s).
-- For more information on uploading custom Integrations/Actions and how to test them, please see [Working with integrations](https://help-opensource.sumologic.com/docs/cloud-soar/cloud-soar-integration-framework/#working-with-integrations).
+- For more information on uploading custom Integrations/Actions and how to test them, please see [Working with integrations](https://help.sumologic.com/docs/cloud-soar/cloud-soar-integration-framework/#working-with-integrations).
 
 ### To upload your own content:
 Please see [Sumo Logic Community Ecosystem Apps FAQs](https://help.sumologic.com/docs/integrations/community-ecosystem-apps/#faq).

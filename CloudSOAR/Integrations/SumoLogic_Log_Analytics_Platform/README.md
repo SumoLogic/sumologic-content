@@ -12,11 +12,11 @@ This integration is in active development. Actions, or the parameters defined th
 - Download the Integration and Action YAML files to your local device.
 - Create a new CloudSOAR integration by logging into CloudSOAR > going to Settings (⚙)(top right) > Automation > Integrations > Plus(+) icon > and selecting the Integration YAML file.
 - Add any Actions you downloaded to that Integration by selecting the Upload icon (hover over the newly added integration), and uploading the Action YAML file(s).
-- For more information on uploading custom Integrations/Actions and how to test them, please see [Working with integrations](https://help-opensource.sumologic.com/docs/cloud-soar/cloud-soar-integration-framework/#working-with-integrations).
+- For more information on uploading custom Integrations/Actions and how to test them, please see [Working with integrations](https://help.sumologic.com/docs/cloud-soar/cloud-soar-integration-framework/#working-with-integrations).
 
 ## Action Descriptions 
 ### Threat IP Search
-- Accepts a single IP, or comma-separated list of IPs and searches for IOCs using Sumo Logic's [threatip()](https://help-opensource.sumologic.com/docs/search/search-query-language/search-operators/threatip/ operator. 
+- Accepts a single IP, or comma-separated list of IPs and searches for IOCs using Sumo Logic's [threatip()](https://help.sumologic.com/docs/search/search-query-language/search-operators/threatip/ operator. 
   - **IP Addresses** - IP Address(es) (single or comma-separated) to search for using "threatip()" search operator (e.g. "0.0.0.0, 0.0.0.0" or manually input each IP and hit 'enter').
     - Tip: The Automation Tools > "Render Textarea Field" action would be useful here to "build" a list of IPs composed of a series of JSON placeholders.
   - **Source Category** - If no source category is provided, a wildcard ("*") will be used.

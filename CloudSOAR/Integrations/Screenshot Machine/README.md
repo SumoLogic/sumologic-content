@@ -7,7 +7,7 @@ Sumo Logic Custom CloudSOAR Integration for Screenshot Machine, provided by the 
 1. Integration YAML File: Integration configurations and test code.
 2. Action YAML File(s):
     - Screenshot Webpage (Enrichment) - This updated action has been enhanced to provide the following:
-        - Render PNG image in an Action Result - Uses output type [image_base64_png](https://help-opensource.sumologic.com/docs/cloud-soar/cloud-soar-integration-framework/#added-more-output-type-for-action).
+        - Render PNG image in an Action Result - Uses output type [image_base64_png](https://help.sumologic.com/docs/cloud-soar/cloud-soar-integration-framework/#added-more-output-type-for-action).
         - Provides the encoded base64 string as part of the action result, which can also be used in a playbook when using an action with an 'upload' field type, such as Automation Tools' [Render PNG Image](<../Automation-Tools/actions/Render PNG Image.yaml>) action.
         - Image attached as an Incident Attachment
 
@@ -18,7 +18,7 @@ Sumo Logic Custom CloudSOAR Integration for Screenshot Machine, provided by the 
 - Download the Integration and Action YAML files to your local device.
 - Create a new CloudSOAR integration by logging into CloudSOAR > going to Settings cogwheel (top right) > Automation > Integrations > Plus(+) icon > and selecting the Integration YAML file.
 - Add any Actions you downloaded to that Integration by selecting the Upload icon (hover over the newly added integration), and uploading the Action YAML file(s).
-- For more information on uploading custom Integrations/Actions and how to test them, please see [Working with integrations](https://help-opensource.sumologic.com/docs/cloud-soar/cloud-soar-integration-framework/#working-with-integrations).
+- For more information on uploading custom Integrations/Actions and how to test them, please see [Working with integrations](https://help.sumologic.com/docs/cloud-soar/cloud-soar-integration-framework/#working-with-integrations).
 
 ### To upload your own content:
 Please see [Sumo Logic Community Ecosystem Apps FAQs](https://help.sumologic.com/docs/integrations/community-ecosystem-apps/#faq).
