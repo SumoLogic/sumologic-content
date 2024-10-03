@@ -1,0 +1,15 @@
+{
+    "type": "SavedSearchWithScheduleSyncDefinition",
+    "name": "Method to find source categories that cross over partitions",
+    "search": {
+        "queryText": "// Run and export results of this query twice for tiers that you want to compare\n// Export both search results into an excel spreadsheet to find source categories from both lists\n_index=sumologic_volume _sourceCategory = \"sourcecategory_and_tier_volume\"\n| parse regex \"(?<data>\\{[^\\{]+\\})\" multi\n| json field=data \"field\",\"dataTier\",\"sizeInBytes\",\"count\" as sourcecategory, dataTier, bytes, count\n| where dataTier matches \"*\" // Continuous, Frequent, Infrequent\n| bytes/1024/1024 as mbytes \n| sum(mbytes) as mbytes by sourceCategory\n| round(mbytes,2) as mbytes\n| ((queryEndTime() - queryStartTime())/(1000*60*60*24)) as duration_in_day\n| mbytes / duration_in_day as %\"MB/Day\"\n| fields - duration_in_day\n| where %\"MB/Day\" > 1\n| sort by %\"MB/Day\" desc",
+        "byReceiptTime": false,
+        "viewName": "",
+        "viewStartTime": "1970-01-01T00:00:00Z",
+        "queryParameters": [],
+        "parsingMode": "AutoParse",
+        "defaultTimeRange": "Last 7 Days"
+    },
+    "searchSchedule": null,
+    "description": ""
+}
