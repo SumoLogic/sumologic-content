@@ -1,0 +1,15 @@
+{
+    "type": "SavedSearchWithScheduleSyncDefinition",
+    "name": "Top 20 SourceCat Over Time",
+    "search": {
+        "queryText": "_index=sumologic_volume _sourceCategory = \"sourcecategory_and_tier_volume\"\n| parse regex \"(?<data>\\{[^\\{]+\\})\" multi\n| json field=data \"field\",\"dataTier\",\"sizeInBytes\",\"count\" as sourcecategory, dataTier, bytes, count\n//| where dataTier matches \"Continuous\"\n| where [subquery: _index=sumologic_volume _sourceCategory = \"sourcecategory_and_tier_volume\"\n        | parse regex \"(?<data>\\{[^\\{]+\\})\" multi\n        | json field=data \"field\",\"dataTier\",\"sizeInBytes\",\"count\" as sourcecategory, dataTier, bytes, count           \n        | where !(sourcecategory matches \"*_and_*_volume\")\n        | bytes/1Gi as gbytes \n        | sum(gbytes) as gbytes by sourceCategory\n        | sort by gbytes\n        | limit 20\n        | compose sourcecategory\n        ]\n| bytes/1Gi as gbytes \n| timeslice 1d\n| sum(gbytes) as ingest by _timeslice, sourcecategory\n| transpose row _timeslice column sourcecategory",
+        "byReceiptTime": false,
+        "viewName": "",
+        "viewStartTime": "1970-01-01T00:00:00Z",
+        "queryParameters": [],
+        "parsingMode": "AutoParse",
+        "defaultTimeRange": "Last 14 Days"
+    },
+    "searchSchedule": null,
+    "description": ""
+}
