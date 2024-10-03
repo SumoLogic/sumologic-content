@@ -1,0 +1,15 @@
+{
+    "type": "SavedSearchWithScheduleSyncDefinition",
+    "name": "30d time compare of top 20 source categories",
+    "search": {
+        "queryText": "_index=sumologic_volume _sourceCategory = \"sourcecategory_and_tier_volume\"\n| parse regex \"(?<data>\\{[^\\{]+\\})\" multi\n| json field=data \"field\",\"dataTier\",\"sizeInBytes\",\"count\" as sourcecategory, dataTier, bytes, count\n| where dataTier matches \"*\"\n| bytes/1024/1024 as mbytes \n| sum(mbytes) as mbytes by sourceCategory\n| round(mbytes,2) as mbytes\n| ((queryEndTime() - queryStartTime())/(1000*60*60*24)) as duration_in_day\n| mbytes / duration_in_day as %\"MB/Day\"\n| round(%\"MB/Day\",2) as %\"MB/Day\"\n| top 20 sourceCategory by mbytes, %\"MB/Day\"\n| compare with timeshift 30d 1\n| mbytes / mbytes_30d as ratio\n| where ratio > 1",
+        "byReceiptTime": false,
+        "viewName": "",
+        "viewStartTime": "1970-01-01T00:00:00Z",
+        "queryParameters": [],
+        "parsingMode": "AutoParse",
+        "defaultTimeRange": "Last 3 Days"
+    },
+    "searchSchedule": null,
+    "description": ""
+}
