@@ -1,0 +1,538 @@
+{
+    "type": "DashboardV2SyncDefinition",
+    "name": "SLURM Metrics Dashboard",
+    "description": "",
+    "title": "SLURM Metrics Dashboard",
+    "theme": "Dark",
+    "topologyLabelMap":
+    {
+        "data":
+        {}
+    },
+    "refreshInterval": 0,
+    "timeRange":
+    {
+        "type": "BeginBoundedTimeRange",
+        "from":
+        {
+            "type": "RelativeTimeRangeBoundary",
+            "relativeTime": "-1h"
+        },
+        "to": null
+    },
+    "layout":
+    {
+        "layoutType": "Grid",
+        "layoutStructures":
+        [
+            {
+                "key": "panelA000DD86B44CB948",
+                "structure": "{\"height\":9,\"width\":12,\"x\":0,\"y\":0}"
+            },
+            {
+                "key": "panel59A35ABDA1D4BB4B",
+                "structure": "{\"height\":9,\"width\":12,\"x\":12,\"y\":0}"
+            },
+            {
+                "key": "panelD7D693F28714AA4F",
+                "structure": "{\"height\":9,\"width\":12,\"x\":0,\"y\":9}"
+            },
+            {
+                "key": "panel820249BE8370394B",
+                "structure": "{\"height\":9,\"width\":12,\"x\":12,\"y\":9}"
+            },
+            {
+                "key": "panel1B9E0243B798EA41",
+                "structure": "{\"height\":6,\"width\":10,\"x\":0,\"y\":18}"
+            },
+            {
+                "key": "panelF6EB72488CCB694C",
+                "structure": "{\"height\":6,\"width\":5,\"x\":7,\"y\":24}"
+            },
+            {
+                "key": "panelF0468D1D8CCE4942",
+                "structure": "{\"height\":6,\"width\":3,\"x\":4,\"y\":24}"
+            },
+            {
+                "key": "panelC60BE4BD9494C84A",
+                "structure": "{\"height\":6,\"width\":14,\"x\":10,\"y\":18}"
+            },
+            {
+                "key": "panelFE76DC0B83C0584C",
+                "structure": "{\"height\":12,\"width\":12,\"x\":0,\"y\":30}"
+            },
+            {
+                "key": "panel72242B769D65C940",
+                "structure": "{\"height\":9,\"width\":12,\"x\":12,\"y\":24}"
+            },
+            {
+                "key": "panel4A33FB69B1A65B4C",
+                "structure": "{\"height\":9,\"width\":12,\"x\":12,\"y\":33}"
+            },
+            {
+                "key": "panel55A02BD3A31B0B4A",
+                "structure": "{\"height\":9,\"width\":12,\"x\":0,\"y\":42}"
+            },
+            {
+                "key": "panel700DE15CB13ECB4F",
+                "structure": "{\"height\":10,\"width\":12,\"x\":12,\"y\":42}"
+            },
+            {
+                "key": "panel4DB4326186125842",
+                "structure": "{\"height\":6,\"width\":4,\"x\":0,\"y\":24}"
+            }
+        ]
+    },
+    "panels":
+    [
+        {
+            "id": null,
+            "key": "panelA000DD86B44CB948",
+            "title": "Cluster Nodes",
+            "visualSettings": "{\"title\":{\"fontSize\":14},\"axes\":{\"axisX\":{\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"titleFontSize\":12,\"labelFontSize\":12,\"logarithmic\":false}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"bottom\",\"horizontalAlign\":\"right\",\"maxWidth\":400,\"maxHeight\":78,\"fontFamily\":\"Roboto\",\"fontSize\":12,\"fontWeight\":\"normal\",\"showAsTable\":true,\"wrap\":true,\"shownStatistics\":[\"latest\",\"min\",\"max\",\"avg\"]},\"color\":{\"family\":\"Categorical Default\"},\"general\":{\"type\":\"area\",\"displayType\":\"default\",\"roundDataPoints\":true,\"markerSize\":5,\"lineDashType\":\"solid\",\"markerType\":\"none\",\"lineThickness\":1,\"fillOpacity\":0.25,\"mode\":\"timeSeries\"},\"series\":{},\"overrides\":[{\"series\":[\"_metricId=Yfuw32YOqPhgD56nFAwZBA metric=slurm_nodes_alloc_gauge\"],\"queries\":[],\"properties\":{\"name\":\"Allocated Nodes\"}},{\"series\":[\"_metricId=Ahp96zZnet4Wf_mFEjnZdw metric=slurm_nodes_comp_gauge\"],\"queries\":[],\"properties\":{\"name\":\"Completed Nodes\"}},{\"series\":[\"_metricId=IJHTEkRqynPJzk5JirZY9Q metric=slurm_nodes_idle_gauge\"],\"queries\":[],\"properties\":{\"name\":\"Idle Nodes\"}},{\"series\":[],\"queries\":[\"B\"],\"properties\":{\"name\":\"Total nodes\"}}]}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries":
+            [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=* metric=(slurm_nodes_idle_gauge OR slurm_nodes_comp_gauge OR slurm_nodes_alloc_gauge)",
+                    "queryType": "Metrics",
+                    "queryKey": "A",
+                    "metricsQueryMode": "Advanced",
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                },
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=* metric=(slurm_nodes_idle_gauge OR slurm_nodes_comp_gauge OR slurm_nodes_alloc_gauge) | sum",
+                    "queryType": "Metrics",
+                    "queryKey": "B",
+                    "metricsQueryMode": "Advanced",
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards":
+            []
+        },
+        {
+            "id": null,
+            "key": "panel59A35ABDA1D4BB4B",
+            "title": "Other Node Types (drain/error/fail/down/maint/mix/resv)",
+            "visualSettings": "{\"title\":{\"fontSize\":14},\"axes\":{\"axisX\":{\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"titleFontSize\":12,\"labelFontSize\":12,\"logarithmic\":false}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"bottom\",\"horizontalAlign\":\"right\",\"maxWidth\":400,\"maxHeight\":79,\"fontFamily\":\"Roboto\",\"fontSize\":12,\"fontWeight\":\"normal\",\"showAsTable\":true,\"wrap\":true,\"shownStatistics\":[\"latest\",\"min\",\"max\",\"avg\"]},\"color\":{\"family\":\"Categorical Default\"},\"general\":{\"type\":\"area\",\"displayType\":\"default\",\"roundDataPoints\":true,\"markerSize\":5,\"lineDashType\":\"solid\",\"markerType\":\"none\",\"lineThickness\":1,\"fillOpacity\":0.25,\"mode\":\"timeSeries\"},\"series\":{},\"overrides\":[{\"series\":[\"_metricId=r7R5x7MG1cZ7IzLRr1YnBA metric=slurm_nodes_down_gauge\"],\"queries\":[],\"properties\":{\"name\":\"Down Nodes\"}},{\"series\":[\"_metricId=rPynSBrL87esmsdoTZV7tg metric=slurm_nodes_drain_gauge\"],\"queries\":[],\"properties\":{\"name\":\"Draining Nodes\"}},{\"series\":[\"_metricId=JTuuUMG9ElycvtP3mLLg0g metric=slurm_nodes_fail_gauge\"],\"queries\":[],\"properties\":{\"name\":\"Nodes in *fail* state\"}},{\"series\":[\"_metricId=F0CaMjB0bP4_p0J5agi4vA metric=slurm_nodes_err_gauge\"],\"queries\":[],\"properties\":{\"name\":\"Nodes in *error* state\"}},{\"series\":[\"_metricId=w1bD583ZOXNrgHndv5Y5BA metric=slurm_nodes_resv_gauge\"],\"queries\":[],\"properties\":{\"name\":\"Reserved Nodes\"}},{\"series\":[\"_metricId=R_dkZhq66yEdrg5k9FtWjw metric=slurm_nodes_maint_gauge\"],\"queries\":[],\"properties\":{\"name\":\"Nodes in *maintenance* state\"}},{\"series\":[\"_metricId=Q1k_bZfQXkf_bL6quwuFbg metric=slurm_nodes_mix_gauge\"],\"queries\":[],\"properties\":{\"name\":\"Mixed Nodes\"}}]}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries":
+            [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=* metric=(slurm_nodes_down_gauge  OR slurm_nodes_drain_gauge  OR slurm_nodes_err_gauge OR slurm_nodes_fail_gauge OR slurm_nodes_maint_gauge OR slurm_nodes_mix_gauge OR slurm_nodes_resv_gauge)",
+                    "queryType": "Metrics",
+                    "queryKey": "A",
+                    "metricsQueryMode": "Advanced",
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards":
+            []
+        },
+        {
+            "id": null,
+            "key": "panelD7D693F28714AA4F",
+            "title": "Running / Completed(ing) / Pending Jobs",
+            "visualSettings": "{\"title\":{\"fontSize\":14},\"axes\":{\"axisX\":{\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"titleFontSize\":12,\"labelFontSize\":12,\"logarithmic\":false}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"bottom\",\"horizontalAlign\":\"right\",\"maxWidth\":400,\"maxHeight\":78,\"fontFamily\":\"Roboto\",\"fontSize\":12,\"fontWeight\":\"normal\",\"showAsTable\":true,\"wrap\":true,\"shownStatistics\":[\"latest\",\"min\",\"max\",\"avg\"]},\"color\":{\"family\":\"Categorical Default\"},\"general\":{\"type\":\"area\",\"displayType\":\"default\",\"roundDataPoints\":true,\"markerSize\":5,\"lineDashType\":\"solid\",\"markerType\":\"none\",\"lineThickness\":1,\"fillOpacity\":0.25,\"mode\":\"timeSeries\"},\"series\":{},\"overrides\":[{\"series\":[\"_metricId=iKAOP9y9ASQvERkBGhwecQ metric=slurm_queue_pending_gauge\"],\"queries\":[],\"properties\":{\"name\":\"Pending Jobs\"}},{\"series\":[\"_metricId=SSgA7oFFRn7snvqo8v6aKw metric=slurm_queue_completing_gauge\"],\"queries\":[],\"properties\":{\"name\":\"Completing Jobs\"}},{\"series\":[\"_metricId=w0bnpgFjf9vRSIvQTRgTgg metric=slurm_queue_completed_gauge\"],\"queries\":[],\"properties\":{\"name\":\"Completed Jobs\"}},{\"series\":[\"_metricId=2jg7kKmfj795uqRbHkfTeQ metric=slurm_queue_running_gauge\"],\"queries\":[],\"properties\":{\"name\":\"Running Jobs\"}},{\"series\":[],\"queries\":[\"B\"],\"properties\":{\"name\":\"Total Jobs\"}}]}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries":
+            [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=* metric=(slurm_queue_completed_gauge OR slurm_queue_completing_gauge OR slurm_queue_pending_gauge OR slurm_queue_running_gauge)",
+                    "queryType": "Metrics",
+                    "queryKey": "A",
+                    "metricsQueryMode": "Advanced",
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                },
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=* metric=(slurm_queue_completed_gauge OR slurm_queue_completing_gauge OR slurm_queue_pending_gauge OR slurm_queue_running_gauge) | sum",
+                    "queryType": "Metrics",
+                    "queryKey": "B",
+                    "metricsQueryMode": "Advanced",
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards":
+            []
+        },
+        {
+            "id": null,
+            "key": "panel820249BE8370394B",
+            "title": "Other Job Types (cancelled/configuring/failed/preempted/timeout/suspended/pending dependency/node fail)",
+            "visualSettings": "{\"title\":{\"fontSize\":14},\"axes\":{\"axisX\":{\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"titleFontSize\":12,\"labelFontSize\":12,\"logarithmic\":false}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"bottom\",\"horizontalAlign\":\"right\",\"maxWidth\":400,\"maxHeight\":78,\"fontFamily\":\"Roboto\",\"fontSize\":12,\"fontWeight\":\"normal\",\"showAsTable\":true,\"wrap\":true,\"shownStatistics\":[\"latest\",\"min\",\"max\",\"avg\"]},\"color\":{\"family\":\"Categorical Default\"},\"general\":{\"type\":\"area\",\"displayType\":\"default\",\"roundDataPoints\":true,\"markerSize\":5,\"lineDashType\":\"solid\",\"markerType\":\"none\",\"lineThickness\":1,\"fillOpacity\":0.25,\"mode\":\"timeSeries\"},\"series\":{},\"overrides\":[{\"series\":[\"_metricId=ZCtiGxXi_xNk43ASC80owQ metric=slurm_queue_suspended_gauge\"],\"queries\":[],\"properties\":{\"name\":\"Suspended Jobs\"}},{\"series\":[\"_metricId=ggmxOPDuGUr0NK5z5huDKA metric=slurm_queue_timeout_gauge\"],\"queries\":[],\"properties\":{\"name\":\"Timed Out Jobs\"}},{\"series\":[\"_metricId=isjutezeUYTy7vx-Pnliag metric=slurm_queue_pending_dependency_gauge\"],\"queries\":[],\"properties\":{\"name\":\"Pending Dependency Jobs\"}},{\"series\":[\"_metricId=OlbYL45sq3S4VXHSwn8Ckw metric=slurm_queue_failed_gauge\"],\"queries\":[],\"properties\":{\"name\":\"Failed Jobs\"}},{\"series\":[\"_metricId=nY_nNASxFG5fox0sB8ZPdw metric=slurm_queue_preempted_gauge\"],\"queries\":[],\"properties\":{\"name\":\"Preempted Jobs\"}},{\"series\":[\"_metricId=n8Ebio3MoS3JH4CC5YsMnQ metric=slurm_queue_configuring_gauge\"],\"queries\":[],\"properties\":{\"name\":\"Configuring Jobs\"}},{\"series\":[\"_metricId=mDHWfzN8LJythmRdbsfEVA metric=slurm_queue_cancelled_gauge\"],\"queries\":[],\"properties\":{\"name\":\"Cancelled Jobs\"}},{\"series\":[\"_metricId=fGLzESw8BIwmvuPAg7ZhQw metric=slurm_queue_node_fail_gauge\"],\"queries\":[],\"properties\":{\"name\":\"Failed Jobs (due to Node Fail)\"}}]}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries":
+            [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=* metric=(slurm_queue_cancelled_gauge OR slurm_queue_configuring_gauge or slurm_queue_failed_gauge OR slurm_queue_preempted_gauge OR slurm_queue_timeout_gauge OR slurm_queue_suspended_gauge OR slurm_queue_pending_dependency_gauge OR slurm_queue_node_fail_gauge)",
+                    "queryType": "Metrics",
+                    "queryKey": "A",
+                    "metricsQueryMode": "Advanced",
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards":
+            []
+        },
+        {
+            "id": null,
+            "key": "panel1B9E0243B798EA41",
+            "title": "Scheduler Threads",
+            "visualSettings": "{\"title\":{\"fontSize\":14},\"axes\":{\"axisX\":{\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"titleFontSize\":12,\"labelFontSize\":12,\"logarithmic\":false,\"title\":\"\"}},\"legend\":{\"enabled\":false,\"verticalAlign\":\"bottom\",\"horizontalAlign\":\"right\",\"maxWidth\":400,\"maxHeight\":78,\"fontFamily\":\"Roboto\",\"fontSize\":12,\"fontWeight\":\"normal\",\"showAsTable\":true,\"wrap\":true,\"shownStatistics\":[\"latest\",\"min\",\"max\",\"avg\"]},\"color\":{\"family\":\"Categorical Default\"},\"general\":{\"type\":\"area\",\"displayType\":\"default\",\"roundDataPoints\":true,\"markerSize\":5,\"lineDashType\":\"solid\",\"markerType\":\"none\",\"lineThickness\":1,\"fillOpacity\":0.25,\"mode\":\"timeSeries\"},\"series\":{},\"overrides\":[]}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries":
+            [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=* metric=slurm_scheduler_threads_gauge ",
+                    "queryType": "Metrics",
+                    "queryKey": "A",
+                    "metricsQueryMode": "Advanced",
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards":
+            []
+        },
+        {
+            "id": null,
+            "key": "panelF6EB72488CCB694C",
+            "title": "Scheduler Threads",
+            "visualSettings": "{\"title\":{\"fontSize\":14},\"general\":{\"type\":\"svp\",\"displayType\":\"default\",\"roundDataPoints\":true,\"mode\":\"singleValueMetrics\"},\"svp\":{\"option\":\"Latest\",\"unitify\":false,\"textColor\":\"\",\"backgroundColor\":\"\",\"label\":\"\",\"useBackgroundColor\":false,\"useNoData\":false,\"noDataString\":\"\",\"hideData\":false,\"hideLabel\":false,\"rounding\":2,\"valueFontSize\":24,\"labelFontSize\":14,\"thresholds\":[{\"from\":null,\"to\":null,\"color\":\"#16943E\"},{\"from\":null,\"to\":null,\"color\":\"#DFBE2E\"},{\"from\":null,\"to\":null,\"color\":\"#BF2121\"}],\"sparkline\":{\"show\":false,\"color\":\"#222D3B\"},\"gauge\":{\"show\":false,\"min\":0,\"max\":100,\"showThreshold\":false,\"showThresholdMarker\":false}},\"series\":{}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries":
+            [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=* metric=slurm_scheduler_threads_gauge ",
+                    "queryType": "Metrics",
+                    "queryKey": "A",
+                    "metricsQueryMode": "Advanced",
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards":
+            []
+        },
+        {
+            "id": null,
+            "key": "panelF0468D1D8CCE4942",
+            "title": "Agent Queue Size",
+            "visualSettings": "{\"title\":{\"fontSize\":14},\"general\":{\"type\":\"svp\",\"displayType\":\"default\",\"roundDataPoints\":true,\"mode\":\"singleValueMetrics\"},\"svp\":{\"option\":\"Latest\",\"unitify\":false,\"textColor\":\"\",\"backgroundColor\":\"\",\"label\":\"\",\"useBackgroundColor\":false,\"useNoData\":false,\"noDataString\":\"\",\"hideData\":false,\"hideLabel\":false,\"rounding\":2,\"valueFontSize\":24,\"labelFontSize\":14,\"thresholds\":[{\"from\":null,\"to\":null,\"color\":\"#16943E\"},{\"from\":null,\"to\":null,\"color\":\"#DFBE2E\"},{\"from\":null,\"to\":null,\"color\":\"#BF2121\"}],\"sparkline\":{\"show\":false,\"color\":\"#222D3B\"},\"gauge\":{\"show\":false,\"min\":0,\"max\":100,\"showThreshold\":false,\"showThresholdMarker\":false}},\"series\":{}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries":
+            [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=* metric=slurm_scheduler_queue_size_gauge ",
+                    "queryType": "Metrics",
+                    "queryKey": "A",
+                    "metricsQueryMode": "Advanced",
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards":
+            []
+        },
+        {
+            "id": null,
+            "key": "panelC60BE4BD9494C84A",
+            "title": "Scheduler Backfill Depth Mean",
+            "visualSettings": "{\"title\":{\"fontSize\":14},\"general\":{\"type\":\"line\",\"displayType\":\"default\",\"roundDataPoints\":true,\"markerSize\":5,\"lineDashType\":\"solid\",\"markerType\":\"none\",\"lineThickness\":1,\"mode\":\"timeSeries\"},\"axes\":{\"axisX\":{\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"titleFontSize\":12,\"labelFontSize\":12,\"logarithmic\":false,\"title\":\"\"}},\"legend\":{\"enabled\":false,\"verticalAlign\":\"bottom\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":false,\"wrap\":true},\"color\":{\"family\":\"Categorical Default\"},\"series\":{},\"overrides\":[]}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries":
+            [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=* metric=slurm_scheduler_backfill_depth_mean_gauge  ",
+                    "queryType": "Metrics",
+                    "queryKey": "A",
+                    "metricsQueryMode": "Advanced",
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards":
+            []
+        },
+        {
+            "id": null,
+            "key": "panelFE76DC0B83C0584C",
+            "title": "Scheduler Cycles",
+            "visualSettings": "{\"title\":{\"fontSize\":14},\"axes\":{\"axisX\":{\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"titleFontSize\":12,\"labelFontSize\":12,\"logarithmic\":false,\"title\":\"\"}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"bottom\",\"horizontalAlign\":\"right\",\"maxWidth\":400,\"maxHeight\":78,\"fontFamily\":\"Roboto\",\"fontSize\":12,\"fontWeight\":\"normal\",\"showAsTable\":true,\"wrap\":true,\"shownStatistics\":[\"latest\",\"min\",\"max\",\"avg\"]},\"color\":{\"family\":\"Categorical Default\"},\"general\":{\"type\":\"area\",\"displayType\":\"default\",\"roundDataPoints\":true,\"markerSize\":5,\"lineDashType\":\"solid\",\"markerType\":\"none\",\"lineThickness\":1,\"fillOpacity\":0.25,\"mode\":\"timeSeries\"},\"series\":{},\"overrides\":[{\"series\":[\"_metricId=Kb3FmvNnAFc49jFb7pOVkw metric=slurm_scheduler_last_cycle_gauge\"],\"queries\":[],\"properties\":{\"name\":\"Scheduler Last Cycle Time\"}},{\"series\":[\"_metricId=UMNIx6FMozDKsDDPEtaWpQ metric=slurm_scheduler_mean_cycle_gauge\"],\"queries\":[],\"properties\":{\"name\":\"Scheduler Mean Cycle Time\"}},{\"series\":[],\"queries\":[\"B\"],\"properties\":{\"name\":\"Total Cycles\"}}]}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries":
+            [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=* metric=(slurm_scheduler_mean_cycle_gauge OR slurm_scheduler_last_cycle_gauge)",
+                    "queryType": "Metrics",
+                    "queryKey": "A",
+                    "metricsQueryMode": "Advanced",
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                },
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=* metric=(slurm_scheduler_mean_cycle_gauge OR slurm_scheduler_last_cycle_gauge) | sum",
+                    "queryType": "Metrics",
+                    "queryKey": "B",
+                    "metricsQueryMode": "Advanced",
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards":
+            []
+        },
+        {
+            "id": null,
+            "key": "panel72242B769D65C940",
+            "title": "Backfill Scheduler Cycles",
+            "visualSettings": "{\"title\":{\"fontSize\":14},\"axes\":{\"axisX\":{\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"titleFontSize\":12,\"labelFontSize\":12,\"logarithmic\":false,\"title\":\"\",\"unit\":{\"value\":\"\",\"isCustom\":false}}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"bottom\",\"horizontalAlign\":\"right\",\"maxWidth\":400,\"maxHeight\":78,\"fontFamily\":\"Roboto\",\"fontSize\":12,\"fontWeight\":\"normal\",\"showAsTable\":true,\"wrap\":true,\"shownStatistics\":[\"latest\",\"min\",\"max\",\"avg\"]},\"color\":{\"family\":\"Categorical Default\"},\"general\":{\"type\":\"area\",\"displayType\":\"default\",\"roundDataPoints\":true,\"markerSize\":5,\"lineDashType\":\"solid\",\"markerType\":\"none\",\"lineThickness\":1,\"fillOpacity\":0.25,\"mode\":\"timeSeries\"},\"series\":{},\"overrides\":[{\"series\":[\"_metricId=uR2UmtCFbssympInrz-abg metric=slurm_scheduler_backfilled_jobs_since_cycle_total_gauge\"],\"queries\":[],\"properties\":{\"name\":\"Scheduler Backfilled Jobs Since Cycle Total\"}},{\"series\":[\"_metricId=iFJR7bOVVGIHy5-lSRMAFw metric=slurm_scheduler_backfill_last_cycle_gauge\"],\"queries\":[],\"properties\":{\"name\":\"Scheduler Backfill Last Cycle\"}},{\"series\":[\"_metricId=2ZLPuvaSTX6HwoY-YRksEw metric=slurm_scheduler_backfill_mean_cycle_gauge\"],\"queries\":[],\"properties\":{\"name\":\"Scheduler Backfill Mean Cycle\"}}]}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries":
+            [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=* metric=(slurm_scheduler_backfill_last_cycle_gauge  OR slurm_scheduler_backfill_mean_cycle_gauge OR slurm_scheduler_backfilled_jobs_since_cycle_total_gauge)",
+                    "queryType": "Metrics",
+                    "queryKey": "A",
+                    "metricsQueryMode": "Advanced",
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards":
+            []
+        },
+        {
+            "id": null,
+            "key": "panel4A33FB69B1A65B4C",
+            "title": "CPU Gauge",
+            "visualSettings": "{\"title\":{\"fontSize\":14},\"axes\":{\"axisX\":{\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"titleFontSize\":12,\"labelFontSize\":12,\"logarithmic\":false,\"title\":\"\"}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"bottom\",\"horizontalAlign\":\"right\",\"maxWidth\":400,\"maxHeight\":78,\"fontFamily\":\"Roboto\",\"fontSize\":12,\"fontWeight\":\"normal\",\"showAsTable\":true,\"wrap\":true,\"shownStatistics\":[\"latest\",\"min\",\"max\",\"avg\"]},\"color\":{\"family\":\"Categorical Default\"},\"general\":{\"type\":\"area\",\"displayType\":\"default\",\"roundDataPoints\":true,\"markerSize\":5,\"lineDashType\":\"solid\",\"markerType\":\"none\",\"lineThickness\":1,\"fillOpacity\":0.25,\"mode\":\"timeSeries\"},\"series\":{},\"overrides\":[{\"series\":[\"_metricId=QbGsVga9O12BLiJ2iWZSQA metric=slurm_cpus_alloc_gauge\"],\"queries\":[],\"properties\":{\"name\":\"CPU Allocated\"}},{\"series\":[\"_metricId=_gtxCHtv9QiVrPfXub36Hg metric=slurm_cpus_total_gauge\"],\"queries\":[],\"properties\":{\"name\":\"CPU Total\"}},{\"series\":[\"_metricId=ks_5Q4M4yM9dyEeZp7DP6w metric=slurm_cpus_idle_gauge\"],\"queries\":[],\"properties\":{\"name\":\"CPU Idle\"}},{\"series\":[\"_metricId=UzFzOaJsNPCVMOyCEcMnpA metric=slurm_cpus_other_gauge\"],\"queries\":[],\"properties\":{\"name\":\"CPU Other\"}}]}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries":
+            [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=* metric=(slurm_cpus_idle_gauge OR slurm_cpus_alloc_gauge OR slurm_cpus_other_gauge OR slurm_cpus_total_gauge)",
+                    "queryType": "Metrics",
+                    "queryKey": "A",
+                    "metricsQueryMode": "Advanced",
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards":
+            []
+        },
+        {
+            "id": null,
+            "key": "panel55A02BD3A31B0B4A",
+            "title": "Memory Node Gauge",
+            "visualSettings": "{\"title\":{\"fontSize\":14},\"general\":{\"type\":\"honeyComb\",\"displayType\":\"default\",\"roundDataPoints\":true,\"mode\":\"honeyComb\"},\"honeyComb\":{\"thresholds\":[{\"from\":null,\"to\":100000,\"color\":\"#98ECA9\"},{\"from\":100000,\"to\":200000,\"color\":\"#F2DA73\"},{\"from\":200000,\"to\":null,\"color\":\"#FFB5B5\"}],\"shape\":\"hexagon\",\"groupBy\":[],\"aggregationType\":\"avg\",\"noDataMessage\":\"\"},\"series\":{},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"properties\":{\"name\":\"{{node}}\"}}]}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries":
+            [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=* metric=(slurm_node_mem_alloc_gauge OR slurm_node_mem_total_gauge) | avg by node",
+                    "queryType": "Metrics",
+                    "queryKey": "A",
+                    "metricsQueryMode": "Advanced",
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards":
+            []
+        },
+        {
+            "id": null,
+            "key": "panel700DE15CB13ECB4F",
+            "title": "CPU Node Gauge",
+            "visualSettings": "{\"title\":{\"fontSize\":14},\"general\":{\"type\":\"honeyComb\",\"displayType\":\"default\",\"roundDataPoints\":true,\"mode\":\"honeyComb\"},\"honeyComb\":{\"thresholds\":[{\"from\":null,\"to\":20,\"color\":\"#98ECA9\"},{\"from\":20,\"to\":40,\"color\":\"#F2DA73\"},{\"from\":40,\"to\":null,\"color\":\"#FFB5B5\"}],\"shape\":\"hexagon\",\"groupBy\":[],\"aggregationType\":\"avg\",\"noDataMessage\":\"\"},\"series\":{},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"properties\":{\"name\":\"{{node}}\"}}]}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries":
+            [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=* metric=(slurm_node_cpu_alloc_gauge OR slurm_node_cpu_total_gauge OR slurm_node_cpu_other_gauge) | avg by node",
+                    "queryType": "Metrics",
+                    "queryKey": "A",
+                    "metricsQueryMode": "Advanced",
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards":
+            []
+        },
+        {
+            "id": null,
+            "key": "panel4DB4326186125842",
+            "title": "Account Fairshare",
+            "visualSettings": "{\"title\":{\"fontSize\":14},\"general\":{\"type\":\"pie\",\"displayType\":\"default\",\"roundDataPoints\":true,\"fillOpacity\":1,\"startAngle\":270,\"innerRadius\":\"30%\",\"maxNumOfSlices\":10,\"mode\":\"distribution\"},\"legend\":{\"enabled\":false,\"verticalAlign\":\"bottom\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":false,\"wrap\":true},\"axes\":{\"axisX\":{\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"titleFontSize\":12,\"labelFontSize\":12}},\"series\":{}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries":
+            [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=* metric=slurm_account_fairshare_gauge | sum by account",
+                    "queryType": "Metrics",
+                    "queryKey": "A",
+                    "metricsQueryMode": "Advanced",
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards":
+            []
+        }
+    ],
+    "variables":
+    [],
+    "coloringRules":
+    []
+}
