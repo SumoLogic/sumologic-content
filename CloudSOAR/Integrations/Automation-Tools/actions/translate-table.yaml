@@ -1,0 +1,72 @@
+integration: Automation Tools
+name: Translate HTML Table to Markdown
+type: Custom
+script:
+  code: |
+    import json
+    import os
+    import argparse
+    from bs4 import BeautifulSoup
+    
+    class EnvDefault(argparse.Action):
+        def __init__(self, required=True, default=None, **kwargs):
+            envvar = kwargs.get("dest")
+            default = os.environ.get(envvar, default) if envvar in os.environ else default
+            required = False if required and default else required
+            super(EnvDefault, self).__init__(default=default, required=required, **kwargs)
+    
+        def __call__(self, parser, namespace, values, option_string=None):
+            setattr(namespace, self.dest, values)
+    
+    def html_to_markdown(html_content):
+        try:
+            soup = BeautifulSoup(html_content, 'html.parser')
+            table = soup.find('table')
+    
+            if not table:
+                raise ValueError("No table found in the provided HTML content.")
+    
+            rows = table.find_all('tr')
+            if not rows:
+                raise ValueError("Table contains no rows.")
+    
+            markdown_output = []
+    
+            for row in rows:
+                cols = [col.get_text(strip=True) for col in row.find_all(['th', 'td'])]
+                markdown_output.append("| " + " | ".join(cols) + " |")
+    
+            header_divider = "| " + " | ".join(["-" * len(col) for col in rows[0].find_all(['th', 'td'])]) + " |"
+            markdown_output.insert(1, header_divider)
+    
+            markdown_result = "\n".join(markdown_output)
+            
+            return json.dumps({"translated": markdown_result}, indent=4)
+    
+        except Exception as e:
+            return json.dumps({"translated": f"Error: {str(e)}"}, indent=4)
+    
+    def main():
+        parser = argparse.ArgumentParser(description="Convert HTML table string to Markdown")
+        parser.add_argument("--html_string", action=EnvDefault, required=True, help="HTML table content as a string")
+        args = parser.parse_args()
+    
+        try:
+            html_string = args.html_string.encode('utf-8').decode('unicode_escape')  # Fix potential escape issues
+            result = html_to_markdown(html_string)
+            print(result)
+        except Exception as e:
+            print(json.dumps({"translated": f"Error: {str(e)}"}))
+    
+    if __name__ == "__main__":
+        main()
+
+fields:
+- id: html_string
+  label: HTML String
+  type: text
+  required: true
+  hint: Provide the output from the search sumo logic action for aggregated table
+output:
+- path: translated
+  type: text
