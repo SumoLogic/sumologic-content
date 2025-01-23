@@ -107,6 +107,9 @@ This integration is in active development. Actions, or the parameters defined th
 ### Decode Base64
 - When supplied with a JSON payload containing a base64 encoded string (requires output.raw), this action will decode it into usable data. Uses 'upload' field type.
 
+### Translate Table
+- Converts an HTML table (ex: table_view_for_aggregate) to markup so that it can be leveraged in ticketing systems like JIRA.
+
 ## To upload your own content:
 Please see [Sumo Logic Community Ecosystem Apps FAQs](https://help.sumologic.com/docs/integrations/community-ecosystem-apps/#faq).
 
