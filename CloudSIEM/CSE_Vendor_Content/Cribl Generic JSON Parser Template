@@ -1,0 +1,31 @@
+## This parser will work for Cribl data in JSON format that includes orginal fields in the '_raw' field. If '_raw'is not used, use the basic JSON template
+
+[parser]
+#pre-parser to grab '_raw' field that contains all original fields 
+FORMAT = REGEX
+REGEX = (?<full_message>.*\"_raw\":(?<nested_message>.*}),.*)
+
+TRANSFORM:nested_message= parse_raw_fields
+TRANSFORM:full_message= parse_cribl_fields
+
+DROP:nested_message = true
+DROP:full_message = true
+
+DROP:r|_raw.* = true
+
+[TRANSFORM:parse_raw_fields]
+FORMAT = JSON
+
+[TRANSFORM:parse_cribl_fields]
+FORMAT = JSON
+
+MAPPER:vendor= Vendor #Replace w/ Vendor Name Zscaler
+MAPPER:product= Product #Replace w/ Product Name 
+MAPPER:event_id= {{event_id}} #Replace w/ Event ID Field 
+
+START_TIME_FIELD = _messagetime
+TIME_PARSER = X1000
+
+
+
+
