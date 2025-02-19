@@ -1,6 +1,6 @@
 # Indago CloudSOAR Integration for Sumo Logic
 
-Sumo Logic Custom CloudSOAR Integration for Indago, provided by the community. This integration allows you to post JSON payloads into an Indago collection via the Indago API.
+Sumo Logic Custom CloudSOAR Integration for Indago, provided by the community. This integration allows you to post JSON payloads into an Indago collection via the Indago API. Please see here for [more information on Indago](https://indagotech.com/)
 
 ## What's Included:
 1. **Integration YAML File**: Contains the configuration and test connection script for Indago API.
@@ -30,7 +30,7 @@ Before using this integration, ensure you have:
 
 ### 4. Configure the Integration:
    Fill in the API details, including:
-   - **API URL**: `https://staging.indagoapp.com/`
+   - **API URL**: `https://secure.indagoapp.com/`
    - **API Key** (stored securely)
    - **Collection ID** (where data will be sent)
 
