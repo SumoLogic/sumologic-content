@@ -1,0 +1,96 @@
+action:
+  integration: Indago
+  name: Post_collection
+  type: Custom
+  script:
+    code: |
+      import os
+      import sys
+      import json
+      import argparse
+      import requests
+      import urllib3
+
+      # Disabling warnings
+      urllib3.disable_warnings()
+
+      class EnvDefault(argparse.Action):
+          def __init__(self, required=True, default=None, **kwargs):
+              envvar = kwargs.get("dest")
+              default = os.environ.get(envvar, default) if envvar in os.environ else default
+              required = False if required and default else required
+              super(EnvDefault, self).__init__(default=default, required=required, **kwargs)
+
+          def __call__(self, parser, namespace, values, option_string=None):
+              setattr(namespace, self.dest, values)
+
+      try:
+          parser = argparse.ArgumentParser()
+
+          # Inherit from Integration (pre-configured fields)
+          parser.add_argument('--host', help='Indago API Base URL', required=True, action=EnvDefault)
+          parser.add_argument('--apiKey', help='Indago API Key', required=True, action=EnvDefault)
+          parser.add_argument('--collectionId', help='Collection ID', required=True, action=EnvDefault)
+
+          # Action-specific parameters
+          parser.add_argument('--title', help='Title of Collection Item, REQUIRED', required=True, action=EnvDefault)
+          parser.add_argument('--content', help='JSON Content, REQUIRED', required=True, action=EnvDefault)
+          parser.add_argument('--timeout', help='Timeout in seconds', required=False, action=EnvDefault)
+          parser.add_argument('--verify', help='Verify SSL', required=False, action=EnvDefault)
+          parser.add_argument('--proxy_url', help='Proxy URL', required=False, action=EnvDefault)
+
+          args, unknown = parser.parse_known_args()
+
+          # Handle optional parameters
+          proxies = {'http': args.proxy_url, 'https': args.proxy_url} if args.proxy_url else None
+          timeout = float(args.timeout) if args.timeout else 180.0
+          verify = args.verify.lower() == "true" if args.verify else True
+
+          # Construct request
+          headers = {
+              "Authorization": f"Bearer {args.apiKey}",
+              "Content-Type": "application/json"
+          }
+
+          url = f"{args.host.rstrip('/')}/api/v1/collection/{args.collectionId}"
+
+          payload = {
+              "title": args.title,
+              "content": json.loads(args.content)
+          }
+
+          response = requests.post(url, headers=headers, json=payload, proxies=proxies, verify=verify, timeout=timeout)
+          response.raise_for_status()
+          response_data = response.json()
+
+          print(json.dumps(response_data))
+          sys.exit(0)
+
+      except Exception as e:
+          sys.stderr.write(str(e))
+          sys.exit(1)
+  fields:
+  - id: title
+    label: Collection Item Title
+    type: text
+    required: true
+    hint: The title of the collection item
+  - id: content
+    label: JSON Content
+    type: text
+    required: true
+    hint: The JSON data to be stored in the collection
+  output:
+  - path: $.data.collectionItemId
+    type: string
+    description: The ID of the stored collection item
+  - path: $.ok
+    type: boolean
+    description: Success status of the operation
+  - path: $.errors
+    type: list
+    description: List of error messages (if any)
+  table_view:
+  - display_name: Collection Item ID
+    value: $.data.collectionItemId
+integration: '{{541112c6.Indago.integration.yaml|id}}'

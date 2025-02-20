@@ -1,0 +1,111 @@
+name: Indago
+version: '1.0'
+icon: data:image/png;base64,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
+script:
+  type: python
+  test_connection_code: |
+    import sys
+    import os
+    import argparse
+    import requests
+    import urllib3
+    urllib3.disable_warnings()
+
+    class EnvDefault(argparse.Action):
+        def __init__(self, required=True, default=None, **kwargs):
+            envvar = kwargs.get("dest")
+            default = os.environ.get(envvar, default) if envvar in os.environ else default
+            required = False if required and default else required
+            super(EnvDefault, self).__init__(default=default, required=required, **kwargs)
+
+        def __call__(self, parser, namespace, values, option_string=None):
+            setattr(namespace, self.dest, values)
+
+    try:
+        parser = argparse.ArgumentParser()
+        parser.add_argument('--host', help='host, REQUIRED', required=True, action=EnvDefault)
+        parser.add_argument('--apiKey', help='apiKey, REQUIRED', required=True, action=EnvDefault)
+        parser.add_argument('--collectionId', help='Collection ID, REQUIRED', required=True, action=EnvDefault)
+        parser.add_argument('--timeout', help='timeout', required=False, action=EnvDefault)
+        parser.add_argument('--verify', help='verify', required=False, action=EnvDefault)
+        parser.add_argument('--proxy_url', help='proxy_url', required=False, action=EnvDefault)
+        args, unknown = parser.parse_known_args()
+
+        proxies = {'http': args.proxy_url, 'https': args.proxy_url} if args.proxy_url is not None else None
+        try:
+            timeout = float(args.timeout)
+        except (ValueError, TypeError):
+            timeout = 180.0
+        verify = args.verify == "true"
+
+        headers = {
+            "Authorization": f"Bearer {args.apiKey}",
+            "Content-Type": "application/json"
+        }
+
+        endpoint = f"{args.host.rstrip('/')}/api/v1/collection/{args.collectionId}"
+        payload = {
+            "title": "Test Connection",
+            "content": {"test": "connection"}
+        }
+
+        session = requests.Session()
+        response = session.post(endpoint, json=payload, headers=headers, proxies=proxies, verify=verify, timeout=timeout)
+        response.raise_for_status()
+
+        exit(0)
+    except Exception as e:
+        err = str(e)
+        try:
+            if hasattr(e, "response"):
+                try:
+                    response = e.response.json()
+                    errors = response.get("errors", None)
+                    if errors is not None:
+                        err = f"API Error: {errors}"
+                except ValueError:
+                    err = str(e)
+        except AttributeError:
+            err = str(e)
+        sys.stderr.write(str(err))
+        exit(-1)
+docker_repo_tag: python3_generic:latest
+configuration:
+  testable_connection: true
+  require_proxy_config: true
+  data_attributes:
+    host:
+      label: API URL
+      type: text
+      required: true
+      validator: url
+      default: https://secure.indagoapp.com/
+    apiKey:
+      label: API Key
+      type: password
+      required: true
+    collectionId:
+      label: Collection ID
+      type: text
+      required: true
+    timeout:
+      label: Connection Timeout (s)
+      type: text
+      required: false
+      validator: integer
+    verify:
+      label: Verify Server Certificate
+      type: checkbox
+      required: false
+    cloud_soar_url:
+      label: Cloud SOAR URL
+      type: text
+      required: false
+      validator: url
+      visible_for: []
+      hint: 'i.e : https://your-cloud-soar-host/incmansuite_ng'
+    token:
+      label: Cloud SOAR User JWT (Token)
+      type: password
+      required: false
+      visible_for: []
