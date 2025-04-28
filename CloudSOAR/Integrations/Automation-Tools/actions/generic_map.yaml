@@ -1,0 +1,124 @@
+integration: 'Automation Tools'
+name: 'Generic Map'
+type: Custom
+script:
+  code: |
+    import json
+    import argparse
+    import os
+
+    class EnvDefault(argparse.Action):
+        def __init__(self, required=True, default=None, **kwargs):
+            envvar = kwargs.get("dest")
+            default = os.environ.get(envvar, default) if envvar in os.environ else default
+            required = False if required and default else required
+            super(EnvDefault, self).__init__(default=default, required=required, **kwargs)
+
+        def __call__(self, parser, namespace, values, option_string=None):
+            setattr(namespace, self.dest, values)
+
+    def get_mapped_value(input_value, mappings):
+        for value, output in mappings:
+            if value and output and input_value == value.strip().lower():
+                return output.strip()
+        return ""
+
+    if __name__ == "__main__":
+        parser = argparse.ArgumentParser()
+        parser.add_argument('--input_value', help='Input value to map', required=True, action=EnvDefault)
+        for i in range(1, 9):
+            parser.add_argument(f'--value_{i}', help=f'Map input value {i}', required=False, action=EnvDefault)
+            parser.add_argument(f'--output_{i}', help=f'Map output value {i}', required=False, action=EnvDefault)
+
+        args, unknown = parser.parse_known_args()
+
+        input_value = (args.input_value or '').strip().lower()
+
+        mappings = []
+        for i in range(1, 9):
+            value = getattr(args, f'value_{i}', None)
+            output = getattr(args, f'output_{i}', None)
+            mappings.append((value, output))
+
+        mapped_output = get_mapped_value(input_value, mappings)
+
+        json_dict = {"text_value": mapped_output}
+        print(json.dumps(json_dict))
+fields:
+- id: input_value
+  label: 'Input Value'
+  type: text
+  required: true
+  incident_artifacts: true
+  hint: 'The input value to be mapped.'
+
+# Now define up to 8 optional mapping fields
+- id: value_1
+  label: 'Match Value 1'
+  type: text
+  required: false
+- id: output_1
+  label: 'Output Value 1'
+  type: text
+  required: false
+- id: value_2
+  label: 'Match Value 2'
+  type: text
+  required: false
+- id: output_2
+  label: 'Output Value 2'
+  type: text
+  required: false
+- id: value_3
+  label: 'Match Value 3'
+  type: text
+  required: false
+- id: output_3
+  label: 'Output Value 3'
+  type: text
+  required: false
+- id: value_4
+  label: 'Match Value 4'
+  type: text
+  required: false
+- id: output_4
+  label: 'Output Value 4'
+  type: text
+  required: false
+- id: value_5
+  label: 'Match Value 5'
+  type: text
+  required: false
+- id: output_5
+  label: 'Output Value 5'
+  type: text
+  required: false
+- id: value_6
+  label: 'Match Value 6'
+  type: text
+  required: false
+- id: output_6
+  label: 'Output Value 6'
+  type: text
+  required: false
+- id: value_7
+  label: 'Match Value 7'
+  type: text
+  required: false
+- id: output_7
+  label: 'Output Value 7'
+  type: text
+  required: false
+- id: value_8
+  label: 'Match Value 8'
+  type: text
+  required: false
+- id: output_8
+  label: 'Output Value 8'
+  type: text
+  required: false
+
+output:
+  - path: text_value
+    type: text
+    example: 'Mapped Output'
