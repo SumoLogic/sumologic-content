@@ -1,0 +1,64 @@
+{
+    "response": {
+        "Attribute": [
+            {
+                "id": "19638",
+                "event_id": "92",
+                "object_id": "0",
+                "object_relation": null,
+                "category": "Payload delivery",
+                "type": "sha256",
+                "to_ids": true,
+                "uuid": "571be427-a170-40cd-89dc-424802de0b81",
+                "timestamp": "1461445671",
+                "distribution": "5",
+                "sharing_group_id": "0",
+                "comment": "Imported via the freetext import.",
+                "deleted": false,
+                "disable_correlation": false,
+                "first_seen": null,
+                "last_seen": null,
+                "value": "a48f881f254dc8452561a8f13e2fb81933473ff22e549787f0ca67f19ba7fe67",
+                "Event": {
+                    "org_id": "1",
+                    "distribution": "3",
+                    "publish_timestamp": "1750728561",
+                    "id": "92",
+                    "info": "OSINT The Ghost Dragon by Cylance",
+                    "orgc_id": "2",
+                    "uuid": "571bd702-031c-400b-a851-43ce02de0b81",
+                    "user_id": "1"
+                }
+            },
+            {
+                "id": "19639",
+                "event_id": "92",
+                "object_id": "0",
+                "object_relation": null,
+                "category": "Payload delivery",
+                "type": "sha256",
+                "to_ids": true,
+                "uuid": "571be427-a4e0-405e-81a7-4cc502de0b81",
+                "timestamp": "1461445671",
+                "distribution": "5",
+                "sharing_group_id": "0",
+                "comment": "Imported via the freetext import.",
+                "deleted": false,
+                "disable_correlation": false,
+                "first_seen": null,
+                "last_seen": null,
+                "value": "71a52058f6b5cef66302c19169f67cf304507b4454cca83e2c36151da8da1d97",
+                "Event": {
+                    "org_id": "1",
+                    "distribution": "3",
+                    "publish_timestamp": "1750728561",
+                    "id": "92",
+                    "info": "OSINT The Ghost Dragon by Cylance",
+                    "orgc_id": "2",
+                    "uuid": "571bd702-031c-400b-a851-43ce02de0b81",
+                    "user_id": "1"
+                }
+            }
+        ]
+    }
+}
