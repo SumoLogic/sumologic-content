@@ -1,5 +1,5 @@
-Now Sumo support two types of Threat Intels as the following.
-* [Legacy Threat Intel](https://help.sumologic.com/docs/cse/administration/create-custom-threat-intel-source/): Indicators are only used in Cloud SIEM
+Now Sumo has two types of Threat Intels as the following.
+* [Legacy Threat Intel](https://help.sumologic.com/docs/cse/administration/create-custom-threat-intel-source/): Indicators are only used in Cloud SIEM. 
 * [Unified Threat Intel](https://help.sumologic.com/docs/security/threat-intelligence/upload-formats/): Indicators are used in Cloud SIEM and planned to be used in Log Analytics Platform as well.
 
 This is the script, run.py which download indicators from MSIP and upload those to [Unified Threat Intel](https://help.sumologic.com/docs/security/threat-intelligence/upload-formats/).
