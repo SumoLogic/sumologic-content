@@ -29,4 +29,4 @@ Please provide a review/comment for this content by following the guidelines bel
 
 Code owners will review and merge your comments on the content to the repo.
 
-Please see [How to add a review/comment to an app](https://help.sumologic.com/docs/integrations/community-ecosystem-apps/#how-do-i-add-a-reviewrating-to-an-app) for more information.
+Please see [How to add a review/comment to an app](https://help.sumologic.com/docs/integrations/community-ecosystem-apps/#how-do-i-add-a-reviewrating-to-an-app) for more information. 

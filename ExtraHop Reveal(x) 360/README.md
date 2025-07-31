@@ -128,3 +128,4 @@ Please see [Contributing Guidelines](https://help.sumologic.com/docs/integration
 
 Authors: Jeff D (Sumo Logic SE), Thomas S (ExtraHop SE)
 Contributors: Beth G (Sumo Logic SE)
+ 

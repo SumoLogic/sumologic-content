@@ -56,4 +56,4 @@ All the retrieved data is sent to the SIEM HTTPS endpoint specified, with approp
 
 ### Error Handling
 
-The script has built-in error handling. If a request to the Kandji API fails, the script will retry once before moving on to the next task. If the response from an API call is not valid JSON, the script will log an error message and retry the request.
+The script has built-in error handling. If a request to the Kandji API fails, the script will retry once before moving on to the next task. If the response from an API call is not valid JSON, the script will log an error message and retry the request. 
