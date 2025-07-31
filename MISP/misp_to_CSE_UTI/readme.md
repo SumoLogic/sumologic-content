@@ -20,5 +20,6 @@ hostname:~/misp # python3 run.py
 You can run this script regularly once a day or once an hour. If you want to run this once an hour, please modify the value of mist_last in env.ini file from 24h to 1h.
 
 From my test, I was able to successfully upload 1,905 indicators from CIRCL OSINT Feed to Sumo as the attached screenshot.
-![The feed I tested from MISP](https://drive.google.com/file/d/1kC7ZESlE1M9yz_H5vx7LFAVI9nU7c2Ji/view?usp=sharing)
-![Threat Intel Source in Sumo](https://drive.google.com/file/d/1u1uQn2quYajKF4-depRNcCm1ztVRpjwj/view?usp=sharing)
+![The feed I tested from MISP](screenshots/MispFeed.png)
+
+![Threat Intel Source in Sumo](screenshots/Sumo_TI.png)
