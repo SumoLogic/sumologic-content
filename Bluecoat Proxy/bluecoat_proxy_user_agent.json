@@ -1,0 +1,253 @@
+{
+    "type": "DashboardV2SyncDefinition",
+    "name": "Blue Coat Traffic Logging - User Agent Analysis",
+    "description": "",
+    "title": "Blue Coat Traffic Logging - User Agent Analysis",
+    "theme": "Dark",
+    "topologyLabelMap": {
+        "data": {}
+    },
+    "refreshInterval": 0,
+    "timeRange": {
+        "type": "BeginBoundedTimeRange",
+        "from": {
+            "type": "RelativeTimeRangeBoundary",
+            "relativeTime": "-1d"
+        },
+        "to": null
+    },
+    "layout": {
+        "layoutType": "Grid",
+        "layoutStructures": [
+            {
+                "key": "panelPANE-4A9AAC98A4D8AA47",
+                "structure": "{\"height\":17,\"width\":7,\"x\":0,\"y\":0}"
+            },
+            {
+                "key": "panelPANE-38A8226F8AC2D842",
+                "structure": "{\"height\":9,\"width\":7,\"x\":10,\"y\":24}"
+            },
+            {
+                "key": "panel9C0B66BCB1669A4D",
+                "structure": "{\"height\":7,\"width\":14,\"x\":10,\"y\":17}"
+            },
+            {
+                "key": "panelA32870D2834E9948",
+                "structure": "{\"height\":9,\"width\":7,\"x\":17,\"y\":24}"
+            },
+            {
+                "key": "panelPANE-D2128EF884606B46",
+                "structure": "{\"height\":16,\"width\":10,\"x\":0,\"y\":17}"
+            },
+            {
+                "key": "panelPANE-6350C24DBFCFDA4A",
+                "structure": "{\"height\":17,\"width\":8,\"x\":7,\"y\":0}"
+            },
+            {
+                "key": "panelPANE-C94239F8B4DA1B4A",
+                "structure": "{\"height\":17,\"width\":9,\"x\":15,\"y\":0}"
+            }
+        ]
+    },
+    "panels": [
+        {
+            "id": null,
+            "key": "panelPANE-4A9AAC98A4D8AA47",
+            "title": "Top Destinations",
+            "visualSettings": "{\"title\":{\"fontSize\":14},\"legend\":{\"enabled\":true,\"verticalAlign\":\"bottom\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":false,\"wrap\":true},\"axes\":{\"axisX\":{\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"titleFontSize\":12,\"labelFontSize\":12}},\"series\":{},\"general\":{\"type\":\"table\",\"displayType\":\"default\",\"roundDataPoints\":true,\"paginationPageSize\":100,\"fontSize\":12,\"mode\":\"distribution\"}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=\"syslog/bluecoat\" \n| parse regex \"(?<payload>\\\\|.*)\"    \n| parse regex \"(?:\\\\||^)s-action=(?<s_action>[^|]+)\"        \n| parse regex \"(?:\\\\||^)sc-status=(?<sc_status>[^|]+)\"      nodrop\n| parse regex \"(?:\\\\||^)cs-method=(?<cs_method>[^|]+)\"      nodrop\n| parse regex \"(?:\\\\||^)time-taken=(?<time_taken>[^|]+)\"    nodrop\n| parse regex \"(?:\\\\||^)sc-bytes=(?<sc_bytes>[^|]+)\"        nodrop\n| parse regex \"(?:\\\\||^)cs-bytes=(?<cs_bytes>[^|]+)\"        nodrop\n| parse regex \"(?:\\\\||^)cs-uri-scheme=(?<cs_uri_scheme>[^|]+)\" nodrop\n| parse regex \"(?:\\\\||^)cs-host=(?<cs_host>[^|]+)\"          nodrop\n| parse regex \"(?:\\\\||^)cs-uri-path=(?<cs_uri_path>[^|]+)\"  nodrop\n| parse regex \"(?:\\\\||^)cs-uri-query=(?<cs_uri_query>[^|]+)\" nodrop\n| parse regex \"(?:\\\\||^)cs-uri-extension=(?<cs_uri_extension>[^|]+)\" nodrop\n| parse regex \"(?:\\\\||^)cs-auth-group=(?<cs_auth_group>[^|]+)\" nodrop\n| parse regex \"(?:\\\\||^)rs\\\\(Content-Type\\\\)=(?<rs_content_type>[^|]+)\" nodrop\n| parse regex \"(?:\\\\||^)cs\\\\(User-Agent\\\\)=(?<cs_user_agent>[^|]+)\" nodrop\n| parse regex \"(?:\\\\||^)cs\\\\(Referer\\\\)=(?<cs_referer>[^|]+)\" nodrop\n| parse regex \"(?:\\\\||^)sc-filter-result=(?<sc_filter_result>[^|]+)\" nodrop\n| parse regex \"(?:\\\\||^)filter-category=(?<filter_category>[^|]+)\" nodrop\n| parse regex \"(?:\\\\||^)cs-uri=(?<cs_uri>[^|]+)\"            nodrop\n| count by cs_host\n| sort by _count desc\n| limit 100",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "RelativeTimeRangeBoundary",
+                    "relativeTime": "-1d"
+                },
+                "to": null
+            },
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panelPANE-38A8226F8AC2D842",
+            "title": "Traffic by Filter Category",
+            "visualSettings": "{\"title\":{\"fontSize\":14},\"legend\":{\"enabled\":true,\"verticalAlign\":\"bottom\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":false,\"wrap\":true},\"axes\":{\"axisX\":{\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"titleFontSize\":12,\"labelFontSize\":12}},\"series\":{},\"general\":{\"type\":\"pie\",\"displayType\":\"default\",\"roundDataPoints\":true,\"fillOpacity\":1,\"startAngle\":270,\"innerRadius\":\"30%\",\"maxNumOfSlices\":10,\"mode\":\"distribution\"}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=\"syslog/bluecoat\" \n| parse regex \"(?<payload>\\\\|.*)\"       \n| parse regex \"(?:\\\\||^)filter-category=(?<filter_category>[^|]+)\" \n| count by filter_category\n| sort by _count desc\n| limit 10",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panel9C0B66BCB1669A4D",
+            "title": "Time Taken Distribution",
+            "visualSettings": "{\"general\":{\"mode\":\"table\",\"type\":\"table\",\"displayType\":\"default\",\"paginationPageSize\":25},\"xy\":{\"xDimension\":[],\"yDimension\":[],\"zDimension\":[]},\"legend\":{},\"svp\":{}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory = \"syslog/bluecoat\"\n| parse regex \"(?<payload>\\\\|.*)\" nodrop\n| parse regex \"(?:\\\\||^)cs-host=(?<cs_host>[^|]+)\"      \n| parse regex \"(?:\\\\||^)time-taken=(?<time_taken>[^|]+)\" nodrop\n| toNumber(time_taken) as time_taken_ms\n| pct(time_taken_ms, 0)   as min_ms,\n  pct(time_taken_ms, 25)  as q1_ms,\n  pct(time_taken_ms, 50)  as median_ms,\n  pct(time_taken_ms, 75)  as q3_ms,\n  pct(time_taken_ms, 100) as max_ms\n  by cs_host\n| sort median_ms desc\n| limit 10\n",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panelA32870D2834E9948",
+            "title": "Observed vs Blocked Traffic",
+            "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"pie\",\"displayType\":\"default\",\"roundDataPoints\":true,\"fillOpacity\":1,\"startAngle\":270,\"innerRadius\":\"30%\",\"maxNumOfSlices\":10},\"legend\":{\"enabled\":true,\"verticalAlign\":\"bottom\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":false,\"wrap\":true},\"xy\":{\"xDimension\":[],\"yDimension\":[],\"zDimension\":[]},\"svp\":{},\"series\":{}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=\"syslog/bluecoat\"\n| parse regex \"(?<payload>\\\\|.*)\"    \n| parse regex \"(?:\\\\||^)s-action=(?<s_action>[^|]+)\"        \n| parse regex \"(?:\\\\||^)sc-status=(?<sc_status>[^|]+)\"      nodrop\n| parse regex \"(?:\\\\||^)cs-method=(?<cs_method>[^|]+)\"      nodrop\n| parse regex \"(?:\\\\||^)time-taken=(?<time_taken>[^|]+)\"    nodrop\n| parse regex \"(?:\\\\||^)sc-bytes=(?<sc_bytes>[^|]+)\"        nodrop\n| parse regex \"(?:\\\\||^)cs-bytes=(?<cs_bytes>[^|]+)\"        nodrop\n| parse regex \"(?:\\\\||^)cs-uri-scheme=(?<cs_uri_scheme>[^|]+)\" nodrop\n| parse regex \"(?:\\\\||^)cs-host=(?<cs_host>[^|]+)\"          nodrop\n| parse regex \"(?:\\\\||^)cs-uri-path=(?<cs_uri_path>[^|]+)\"  nodrop\n| parse regex \"(?:\\\\||^)cs-uri-query=(?<cs_uri_query>[^|]+)\" nodrop\n| parse regex \"(?:\\\\||^)cs-uri-extension=(?<cs_uri_extension>[^|]+)\" nodrop\n| parse regex \"(?:\\\\||^)cs-auth-group=(?<cs_auth_group>[^|]+)\" nodrop\n| parse regex \"(?:\\\\||^)rs\\\\(Content-Type\\\\)=(?<rs_content_type>[^|]+)\" nodrop\n| parse regex \"(?:\\\\||^)cs\\\\(User-Agent\\\\)=(?<cs_user_agent>[^|]+)\" nodrop\n| parse regex \"(?:\\\\||^)cs\\\\(Referer\\\\)=(?<cs_referer>[^|]+)\" nodrop\n| parse regex \"(?:\\\\||^)sc-filter-result=(?<sc_filter_result>[^|]+)\" nodrop\n| parse regex \"(?:\\\\||^)filter-category=(?<filter_category>[^|]+)\" nodrop\n| parse regex \"(?:\\\\||^)cs-uri=(?<cs_uri>[^|]+)\"            nodrop\n| count by sc_filter_result\n| sort by _count desc",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panelPANE-D2128EF884606B46",
+            "title": "Chrome Versions",
+            "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"pie\",\"displayType\":\"default\",\"roundDataPoints\":true,\"fillOpacity\":1,\"startAngle\":270,\"innerRadius\":\"30%\",\"maxNumOfSlices\":10},\"title\":{\"fontSize\":14},\"legend\":{\"enabled\":true,\"verticalAlign\":\"bottom\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":false,\"wrap\":true},\"axes\":{\"axisX\":{\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"titleFontSize\":12,\"labelFontSize\":12}},\"series\":{}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=\"syslog/bluecoat\" \n| where cs_user_agent contains (\"Chrome\")\n| parse regex \"(?:\\\\||^)Chrome/(?<chrome_version>[\\d+\\.\\d+\\.\\d+\\.\\d+]+)\" \n| count by chrome_version\n| sort by chrome_version desc",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panelPANE-6350C24DBFCFDA4A",
+            "title": "New Non-Browser User Agents",
+            "visualSettings": "{\"title\":{\"fontSize\":14},\"legend\":{\"enabled\":true,\"verticalAlign\":\"bottom\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":false,\"wrap\":true},\"axes\":{\"axisX\":{\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"titleFontSize\":12,\"labelFontSize\":12}},\"series\":{},\"general\":{\"type\":\"table\",\"displayType\":\"default\",\"roundDataPoints\":true,\"paginationPageSize\":100,\"fontSize\":12,\"mode\":\"distribution\"}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=\"syslog/bluecoat\" \n| where !(cs_user_agent matches \"*Mozilla*\") AND !(cs_user_agent matches \"-\") AND !isEmpty(%\"cs_user_agent\")\n| count by cs_user_agent\n| compare with timeshift 1d\n| sort _count_1d asc",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panelPANE-C94239F8B4DA1B4A",
+            "title": "New Browser User Agents",
+            "visualSettings": "{\"title\":{\"fontSize\":14},\"legend\":{\"enabled\":true,\"verticalAlign\":\"bottom\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":false,\"wrap\":true},\"axes\":{\"axisX\":{\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"titleFontSize\":12,\"labelFontSize\":12}},\"series\":{},\"general\":{\"type\":\"table\",\"displayType\":\"default\",\"roundDataPoints\":true,\"paginationPageSize\":100,\"fontSize\":12,\"mode\":\"distribution\"}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory=\"syslog/bluecoat\" \n| where (cs_user_agent matches \"*Mozilla*\") AND !(cs_user_agent matches \"-\") AND !isEmpty(%\"cs_user_agent\")\n| count by cs_user_agent\n| compare with timeshift 1d\n| sort _count_1d asc",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        }
+    ],
+    "variables": [],
+    "coloringRules": [],
+    "schedules": null
+}
