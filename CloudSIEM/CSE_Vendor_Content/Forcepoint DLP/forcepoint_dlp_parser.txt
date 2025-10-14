@@ -1,0 +1,46 @@
+[parser]
+FORMAT = CEF
+
+MAPPER:vendor  = Forcepoint
+MAPPER:product = Forcepoint DLP
+MAPPER:event_id = {{name}}
+
+START_TIME_FIELD = localTime
+TIME_PARSER      = dd MMM. yyyy, hh:mm:ss a z
+
+TRANSFORM_IF_PRESENT:sourceIp          = alias_src_ip
+TRANSFORM_IF_PRESENT:destinationHosts  = alias_dst_host
+TRANSFORM_IF_PRESENT:sourceHost        = alias_src_host
+TRANSFORM_IF_PRESENT:duser             = alias_user_dst
+TRANSFORM_IF_PRESENT:suser             = alias_user_src
+TRANSFORM_IF_PRESENT:msg               = alias_message
+TRANSFORM_IF_PRESENT:cat               = alias_category
+
+
+TRANSFORM_IF_PRESENT:loginName         = trim_ws
+TRANSFORM_IF_PRESENT:fname             = trim_ws
+
+[transform:alias_src_ip]
+COPY_FIELD:src_ip = _$log_entry_field
+
+[transform:alias_dst_host]
+COPY_FIELD:dst_host = _$log_entry_field
+
+[transform:alias_src_host]
+COPY_FIELD:src_host = _$log_entry_field
+
+[transform:alias_user_dst]
+COPY_FIELD:user_dst = _$log_entry_field
+
+[transform:alias_user_src]
+COPY_FIELD:user_src = _$log_entry_field
+
+[transform:alias_message]
+COPY_FIELD:message = _$log_entry_field
+
+[transform:alias_category]
+COPY_FIELD:category = _$log_entry_field
+
+[transform:trim_ws]
+REGEX = ^\s*['"]?(?<val>.*?)['"]?\s*$
+COPY_FIELD:_$log_entry_field = val

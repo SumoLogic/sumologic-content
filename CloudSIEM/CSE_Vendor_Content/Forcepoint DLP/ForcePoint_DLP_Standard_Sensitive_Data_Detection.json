@@ -1,0 +1,45 @@
+{
+    "rules": [
+        {
+            "content_type": "RULE",
+            "created_by": "jeff.ding@sumologic.com",
+            "enabled": true,
+            "id": "MATCH-U00003",
+            "is_prototype": false,
+            "last_updated_by": "jeff.ding@sumologic.com",
+            "name": "ForcePoint DLP - Standard Sensitive Data Detection",
+            "rule_description": "",
+            "rule_source": "user",
+            "summary_expression": "ForcePoint DLP Threat with a severity of {{severity}}",
+            "tags": [],
+            "category": "Unknown/Other",
+            "created": "2025-10-09T14:18:03.385000",
+            "last_updated": "2025-10-13T13:32:27.338000",
+            "mode": "ACTIVE",
+            "pattern_type": "templated_match",
+            "stream": "record",
+            "score_mapping": {
+                "default": 5,
+                "type": "fieldValueMapping",
+                "field": "severity",
+                "mapping": [
+                    {
+                        "from": "HIGH",
+                        "from_end": "",
+                        "to": 7,
+                        "type": "equal"
+                    }
+                ]
+            },
+            "description_expression": "Alerts when Forcepoint DLP fires its built-in <strong>Standard Sensitive Data Detection</strong> policy (e.g., credit cards, SSNs, banking/health IDs) on outbound traffic or file movement\u2014indicating potential sensitive-data exfiltration or policy violation.",
+            "name_expression": "ForcePoint DLP- {{threat_category}}",
+            "expression": "metadata_vendor=\"Forcepoint\" AND \nmetadata_product=\"Forcepoint DLP\" AND\n!isEmpty(fields[\"cat\"]) AND\n(contains(fields[\"cat\"],\"Standard Sensitive\") OR fields[\"cat\"] = \"Personal Files\")",
+            "entity_selectors": [
+                {
+                    "expression": "user_username",
+                    "entity_type": "_username"
+                }
+            ]
+        }
+    ]
+}
