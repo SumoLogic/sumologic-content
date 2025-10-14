@@ -1,0 +1,32 @@
+parse "CEF:*|*|*|*|*|*|* *" as cef_version, device_vendor, device_product, device_version, signature_id, name, severity, ext nodrop
+
+/* ---------- DLP Syslog variant ---------- */
+| parse field=ext "act=* duser="                as act           nodrop
+| parse field=ext "duser=* fname="              as duser         nodrop
+| parse field=ext "fname=* msg="                as fname         nodrop
+| parse field=ext "msg=* suser="                as msg           nodrop
+| parse field=ext "suser=* cat="                as suser         nodrop
+| parse field=ext "cat=* sourceServiceName="    as cat           nodrop
+| parse field=ext "sourceServiceName=* analyzedBy=" as sourceServiceName nodrop
+| parse field=ext "analyzedBy=* loginName="     as analyzedBy    nodrop
+| parse field=ext "loginName=* sourceIp="       as loginName     nodrop
+| parse field=ext "sourceIp=* severityType="    as sourceIp      nodrop
+| parse field=ext "severityType=* sourceHost="  as severityType  nodrop
+| parse field=ext "sourceHost=* productVersion=" as sourceHost   nodrop
+| parse field=ext "productVersion=* maxMatches=" as productVersion nodrop
+| parse field=ext "maxMatches=* timeStamp="     as maxMatches    nodrop
+| parse field=ext "timeStamp=* destinationHosts=" as timeStamp   nodrop
+| parse field=ext "destinationHosts=* eventId=" as destinationHosts nodrop
+| parse field=ext "eventId=* "                  as eventId       nodrop
+
+/* ---------- System Log ---------- */
+| parse field=ext "msg=* timeStamp="            as msg_sys       nodrop
+| parse field=ext "timeStamp=* cat="            as timeStamp_sys nodrop
+| parse field=ext "cat=* src="                  as cat_sys       nodrop
+| parse field=ext "src=* component="            as src           nodrop
+| parse field=ext "component=* code="           as component     nodrop
+| parse field=ext "code=* srcType="             as code          nodrop
+| parse field=ext "srcType=* localTime="        as srcType       nodrop
+| parse field=ext "localTime=* "                as localTime     nodrop
+|"true" as _siemForward
+| "/Parsers/Forcepoint DLP" as _parser
