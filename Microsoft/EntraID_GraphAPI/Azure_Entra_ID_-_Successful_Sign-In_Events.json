@@ -1,0 +1,439 @@
+{
+    "type": "DashboardV2SyncDefinition",
+    "name": "Azure Entra ID - Successful Sign-In Events",
+    "description": "",
+    "title": "Azure Entra ID - Successful Sign-In Events",
+    "theme": "Dark",
+    "topologyLabelMap": {
+        "data": {}
+    },
+    "refreshInterval": 0,
+    "timeRange": {
+        "type": "BeginBoundedTimeRange",
+        "from": {
+            "type": "RelativeTimeRangeBoundary",
+            "relativeTime": "-1d"
+        },
+        "to": null
+    },
+    "layout": {
+        "layoutType": "Grid",
+        "layoutStructures": [
+            {
+                "key": "panelPANE-68D4EB5F8BBA0947",
+                "structure": "{\"height\":9,\"width\":11,\"x\":0,\"y\":0}"
+            },
+            {
+                "key": "panelPANE-6E405DC49B5B684A",
+                "structure": "{\"height\":9,\"width\":7,\"x\":11,\"y\":0}"
+            },
+            {
+                "key": "panelPANE-E45C4F5BA10F1945",
+                "structure": "{\"height\":9,\"width\":6,\"x\":18,\"y\":0}"
+            },
+            {
+                "key": "panelPANE-C423E56D94AF9A46",
+                "structure": "{\"height\":8,\"width\":11,\"x\":0,\"y\":9}"
+            },
+            {
+                "key": "panelPANE-2910774385160A4D",
+                "structure": "{\"height\":8,\"width\":13,\"x\":11,\"y\":9}"
+            },
+            {
+                "key": "panelPANE-840EF2BA99ED2B4D",
+                "structure": "{\"height\":8,\"width\":5,\"x\":19,\"y\":17}"
+            },
+            {
+                "key": "panelPANE-B47B253C84550942",
+                "structure": "{\"height\":8,\"width\":7,\"x\":12,\"y\":17}"
+            },
+            {
+                "key": "panelPANE-6777C15394A5A94A",
+                "structure": "{\"height\":8,\"width\":12,\"x\":0,\"y\":17}"
+            }
+        ]
+    },
+    "panels": [
+        {
+            "id": null,
+            "key": "panelPANE-68D4EB5F8BBA0947",
+            "title": "Geo Location of Sign-in",
+            "visualSettings": "{\"general\":{\"mode\":\"map\",\"type\":\"map\",\"displayType\":\"default\",\"roundDataPoints\":true},\"title\":{\"fontSize\":14},\"series\":{},\"legend\":{\"enabled\":false}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory={{Logsdatasource}}\n| json \"status.failureReason\", \"status.errorCode\", \"status.additionalDetails\", \"createdDateTime\", \"_logType\", \"appDisplayName\", \"conditionalAccessStatus\", \"clientAppUsed\", \"ipAddress\", \"correlationId\", \"id\", \"location\", \"location.countryOrRegion\", \"location.city\", \"location.state\", \"location.geoCoordinates.latitude\", \"location.geoCoordinates.longitude\",\"deviceDetail.operatingSystem\", \"deviceDetail.browser\",\"deviceDetail.displayName\", \"userDisplayName\", \"userPrincipalName\", \"riskState\" as failureReason, errorCode, failureDetails, date_time, logtype, appDisplayName, conditionalAccessStatus, clientAppUsed, ip_addr, correlationId, id, location, country_or_region, city, state, latitude, longitude, operating_system, browser, deviceDisplayName, userDisplayName, userPrincipalName, riskState nodrop\n| if(riskState in (\"atRisk\", \"confirmedCompromised\"), \"true\", \"false\") as is_risky\n| where errorCode = 0 AND city matches \"{{city}}\" AND appDisplayName matches \"{{appDisplayName}}\" AND userPrincipalName matches \"{{userPrincipalName}}\" AND clientAppUsed matches \"{{clientAppUsed}}\" AND browser matches \"{{browser}}\" AND logtype matches \"{{logtype}}\" AND is_Risky matches \"{{is_Risky}}\" AND ip_addr matches \"{{ip_addr}}\"\n| count as frequency by latitude, longitude, country_or_region, city, state\n| sort by frequency ",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "RelativeTimeRangeBoundary",
+                    "relativeTime": "-1w"
+                },
+                "to": null
+            },
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panelPANE-6E405DC49B5B684A",
+            "title": "Sign-In by User - One Day Time Comparison",
+            "visualSettings": "{\"title\":{\"fontSize\":14},\"axes\":{\"axisX\":{\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"titleFontSize\":12,\"labelFontSize\":12,\"logarithmic\":false}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"bottom\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":false,\"wrap\":true},\"color\":{\"family\":\"Categorical Default\"},\"series\":{},\"general\":{\"type\":\"table\",\"displayType\":\"default\",\"roundDataPoints\":true,\"paginationPageSize\":100,\"fontSize\":12,\"mode\":\"timeSeries\"}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory={{Logsdatasource}}\n| json \"status.failureReason\", \"status.errorCode\", \"status.additionalDetails\", \"createdDateTime\", \"_logType\", \"appDisplayName\", \"conditionalAccessStatus\", \"clientAppUsed\", \"ipAddress\", \"correlationId\", \"id\", \"location\", \"location.countryOrRegion\", \"location.city\", \"location.state\", \"location.geoCoordinates.latitude\", \"location.geoCoordinates.longitude\",\"deviceDetail.operatingSystem\", \"deviceDetail.browser\",\"deviceDetail.displayName\", \"userDisplayName\", \"userPrincipalName\", \"riskState\" as failureReason, errorCode, failureDetails, date_time, logtype, appDisplayName, conditionalAccessStatus, clientAppUsed, ip_addr, correlationId, id, location, country_or_region, city, state, latitude, longitude, operating_system, browser, deviceDisplayName, userDisplayName, userPrincipalName, riskState nodrop\n| if(riskState in (\"atRisk\", \"confirmedCompromised\"), \"true\", \"false\") as is_risky\n| where errorCode = 0 AND city matches \"{{city}}\" AND appDisplayName matches \"{{appDisplayName}}\" AND userPrincipalName matches \"{{userPrincipalName}}\" AND clientAppUsed matches \"{{clientAppUsed}}\" AND browser matches \"{{browser}}\" AND logtype matches \"{{logtype}}\" AND is_Risky matches \"{{is_Risky}}\" AND ip_addr matches \"{{ip_addr}}\"\n| count as frequency by userPrincipalName\n| compare with timeshift -1d\n| sort by frequency",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "RelativeTimeRangeBoundary",
+                    "relativeTime": "-1d"
+                },
+                "to": null
+            },
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panelPANE-E45C4F5BA10F1945",
+            "title": "Breakdown by OS",
+            "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"pie\",\"displayType\":\"default\",\"roundDataPoints\":true,\"fillOpacity\":1,\"startAngle\":270,\"innerRadius\":\"30%\",\"maxNumOfSlices\":10},\"title\":{\"fontSize\":14},\"legend\":{\"enabled\":false,\"verticalAlign\":\"bottom\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":false,\"wrap\":true},\"axes\":{\"axisX\":{\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"titleFontSize\":12,\"labelFontSize\":12}},\"series\":{}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory={{Logsdatasource}}\n| json \"status.failureReason\", \"status.errorCode\", \"status.additionalDetails\", \"createdDateTime\", \"_logType\", \"appDisplayName\", \"conditionalAccessStatus\", \"clientAppUsed\", \"ipAddress\", \"correlationId\", \"id\", \"location\", \"location.countryOrRegion\", \"location.city\", \"location.state\", \"location.geoCoordinates.latitude\", \"location.geoCoordinates.longitude\",\"deviceDetail.operatingSystem\", \"deviceDetail.browser\",\"deviceDetail.displayName\", \"userDisplayName\", \"userPrincipalName\", \"riskState\" as failureReason, errorCode, failureDetails, date_time, logtype, appDisplayName, conditionalAccessStatus, clientAppUsed, ip_addr, correlationId, id, location, country_or_region, city, state, latitude, longitude, operating_system, browser, deviceDisplayName, userDisplayName, userPrincipalName, riskState nodrop\n| if(riskState in (\"atRisk\", \"confirmedCompromised\"), \"true\", \"false\") as is_risky\n| where errorCode = 0 AND city matches \"{{city}}\" AND appDisplayName matches \"{{appDisplayName}}\" AND userPrincipalName matches \"{{userPrincipalName}}\" AND clientAppUsed matches \"{{clientAppUsed}}\" AND browser matches \"{{browser}}\" AND logtype matches \"{{logtype}}\" AND is_Risky matches \"{{is_Risky}}\" AND ip_addr matches \"{{ip_addr}}\"\n| count as frequency by operating_system\n| sort by frequency",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "RelativeTimeRangeBoundary",
+                    "relativeTime": "-1d"
+                },
+                "to": null
+            },
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panelPANE-C423E56D94AF9A46",
+            "title": "Risky Sign In",
+            "visualSettings": "{\"title\":{\"fontSize\":14},\"axes\":{\"axisX\":{\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"titleFontSize\":12,\"labelFontSize\":12,\"logarithmic\":false}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"bottom\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":false,\"wrap\":true},\"color\":{\"family\":\"Categorical Default\"},\"series\":{},\"general\":{\"type\":\"table\",\"displayType\":\"default\",\"roundDataPoints\":true,\"paginationPageSize\":100,\"fontSize\":12,\"mode\":\"timeSeries\"}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory={{Logsdatasource}}\n| json \"status.failureReason\", \"status.errorCode\", \"status.additionalDetails\", \"createdDateTime\", \"_logType\", \"appDisplayName\", \"conditionalAccessStatus\", \"clientAppUsed\", \"ipAddress\", \"correlationId\", \"id\", \"location\", \"location.countryOrRegion\", \"location.city\", \"location.state\", \"location.geoCoordinates.latitude\", \"location.geoCoordinates.longitude\",\"deviceDetail.operatingSystem\", \"deviceDetail.browser\",\"deviceDetail.displayName\", \"userDisplayName\", \"userPrincipalName\", \"riskState\" as failureReason, errorCode, failureDetails, date_time, logtype, appDisplayName, conditionalAccessStatus, clientAppUsed, ip_addr, correlationId, id, location, country_or_region, city, state, latitude, longitude, operating_system, browser, deviceDisplayName, userDisplayName, userPrincipalName, riskState nodrop\n| if(riskState in (\"atRisk\", \"confirmedCompromised\"), \"true\", \"false\") as is_risky\n| where errorCode = 0 AND city matches \"{{city}}\" AND appDisplayName matches \"{{appDisplayName}}\" AND userPrincipalName matches \"{{userPrincipalName}}\" AND clientAppUsed matches \"{{clientAppUsed}}\" AND browser matches \"{{browser}}\" AND logtype matches \"{{logtype}}\" AND is_Risky matches \"{{is_Risky}}\" AND ip_addr matches \"{{ip_addr}}\"\n| where is_risky matches \"true\"\n| count as frequency by date_time, userPrincipalName, ip_addr, country_or_region, state, city, browser, appDisplayName, operating_system\n| sort by frequency",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": {
+                "type": "BeginBoundedTimeRange",
+                "from": {
+                    "type": "RelativeTimeRangeBoundary",
+                    "relativeTime": "-1w"
+                },
+                "to": null
+            },
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panelPANE-2910774385160A4D",
+            "title": "Top 10 Active Users",
+            "visualSettings": "{\"title\":{\"fontSize\":14},\"axes\":{\"axisX\":{\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"titleFontSize\":12,\"labelFontSize\":12,\"logarithmic\":false}},\"legend\":{\"enabled\":false,\"verticalAlign\":\"bottom\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":false,\"wrap\":true},\"color\":{\"family\":\"Categorical Default\"},\"series\":{},\"general\":{\"type\":\"bar\",\"displayType\":\"default\",\"roundDataPoints\":true,\"fillOpacity\":1,\"mode\":\"timeSeries\"},\"overrides\":[]}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory={{Logsdatasource}}\n| json \"status.failureReason\", \"status.errorCode\", \"status.additionalDetails\", \"createdDateTime\", \"_logType\", \"appDisplayName\", \"conditionalAccessStatus\", \"clientAppUsed\", \"ipAddress\", \"correlationId\", \"id\", \"location\", \"location.countryOrRegion\", \"location.city\", \"location.state\", \"location.geoCoordinates.latitude\", \"location.geoCoordinates.longitude\",\"deviceDetail.operatingSystem\", \"deviceDetail.browser\",\"deviceDetail.displayName\", \"userDisplayName\", \"userPrincipalName\", \"riskState\" as failureReason, errorCode, failureDetails, date_time, logtype, appDisplayName, conditionalAccessStatus, clientAppUsed, ip_addr, correlationId, id, location, country_or_region, city, state, latitude, longitude, operating_system, browser, deviceDisplayName, userDisplayName, userPrincipalName, riskState nodrop\n| if(riskState in (\"atRisk\", \"confirmedCompromised\"), \"true\", \"false\") as is_risky\n| where errorCode = 0 AND city matches \"{{city}}\" AND appDisplayName matches \"{{appDisplayName}}\" AND userPrincipalName matches \"{{userPrincipalName}}\" AND clientAppUsed matches \"{{clientAppUsed}}\" AND browser matches \"{{browser}}\" AND logtype matches \"{{logtype}}\" AND is_Risky matches \"{{is_Risky}}\" AND ip_addr matches \"{{ip_addr}}\"\n| count as frequency by userPrincipalName\n| sort by frequency\n| limit 10",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panelPANE-840EF2BA99ED2B4D",
+            "title": "Breakdown by browser",
+            "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"pie\",\"displayType\":\"default\",\"roundDataPoints\":true,\"fillOpacity\":1,\"startAngle\":270,\"innerRadius\":\"30%\",\"maxNumOfSlices\":10},\"title\":{\"fontSize\":14},\"legend\":{\"enabled\":false,\"verticalAlign\":\"bottom\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":false,\"wrap\":true},\"axes\":{\"axisX\":{\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"titleFontSize\":12,\"labelFontSize\":12}},\"series\":{}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory={{Logsdatasource}}\n| json \"status.failureReason\", \"status.errorCode\", \"status.additionalDetails\", \"createdDateTime\", \"_logType\", \"appDisplayName\", \"conditionalAccessStatus\", \"clientAppUsed\", \"ipAddress\", \"correlationId\", \"id\", \"location\", \"location.countryOrRegion\", \"location.city\", \"location.state\", \"location.geoCoordinates.latitude\", \"location.geoCoordinates.longitude\",\"deviceDetail.operatingSystem\", \"deviceDetail.browser\",\"deviceDetail.displayName\", \"userDisplayName\", \"userPrincipalName\", \"riskState\" as failureReason, errorCode, failureDetails, date_time, logtype, appDisplayName, conditionalAccessStatus, clientAppUsed, ip_addr, correlationId, id, location, country_or_region, city, state, latitude, longitude, operating_system, browser, deviceDisplayName, userDisplayName, userPrincipalName, riskState nodrop\n| if(riskState in (\"atRisk\", \"confirmedCompromised\"), \"true\", \"false\") as is_risky\n| where errorCode = 0 AND city matches \"{{city}}\" AND appDisplayName matches \"{{appDisplayName}}\" AND userPrincipalName matches \"{{userPrincipalName}}\" AND clientAppUsed matches \"{{clientAppUsed}}\" AND browser matches \"{{browser}}\" AND logtype matches \"{{logtype}}\" AND is_Risky matches \"{{is_Risky}}\" AND ip_addr matches \"{{ip_addr}}\"\n| count as frequency by browser\n| sort by frequency",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panelPANE-B47B253C84550942",
+            "title": "Sign-In by Application",
+            "visualSettings": "{\"general\":{\"mode\":\"distribution\",\"type\":\"pie\",\"displayType\":\"default\",\"roundDataPoints\":true,\"fillOpacity\":1,\"startAngle\":270,\"innerRadius\":\"30%\",\"maxNumOfSlices\":10},\"title\":{\"fontSize\":14},\"legend\":{\"enabled\":false,\"verticalAlign\":\"bottom\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":false,\"wrap\":true},\"axes\":{\"axisX\":{\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"titleFontSize\":12,\"labelFontSize\":12}},\"series\":{}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory={{Logsdatasource}}\n| json \"status.failureReason\", \"status.errorCode\", \"status.additionalDetails\", \"createdDateTime\", \"_logType\", \"appDisplayName\", \"conditionalAccessStatus\", \"clientAppUsed\", \"ipAddress\", \"correlationId\", \"id\", \"location\", \"location.countryOrRegion\", \"location.city\", \"location.state\", \"location.geoCoordinates.latitude\", \"location.geoCoordinates.longitude\",\"deviceDetail.operatingSystem\", \"deviceDetail.browser\",\"deviceDetail.displayName\", \"userDisplayName\", \"userPrincipalName\", \"riskState\" as failureReason, errorCode, failureDetails, date_time, logtype, appDisplayName, conditionalAccessStatus, clientAppUsed, ip_addr, correlationId, id, location, country_or_region, city, state, latitude, longitude, operating_system, browser, deviceDisplayName, userDisplayName, userPrincipalName, riskState nodrop\n| if(riskState in (\"atRisk\", \"confirmedCompromised\"), \"true\", \"false\") as is_risky\n| where errorCode = 0 AND city matches \"{{city}}\" AND appDisplayName matches \"{{appDisplayName}}\" AND userPrincipalName matches \"{{userPrincipalName}}\" AND clientAppUsed matches \"{{clientAppUsed}}\" AND browser matches \"{{browser}}\" AND logtype matches \"{{logtype}}\" AND is_Risky matches \"{{is_Risky}}\" AND ip_addr matches \"{{ip_addr}}\"\n| count as frequency by appDisplayName\n| sort by frequency",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        },
+        {
+            "id": null,
+            "key": "panelPANE-6777C15394A5A94A",
+            "title": "Breakdown by Country, State City",
+            "visualSettings": "{\"title\":{\"fontSize\":14},\"axes\":{\"axisX\":{\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"titleFontSize\":12,\"labelFontSize\":12,\"logarithmic\":false}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"bottom\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":false,\"wrap\":true},\"color\":{\"family\":\"Categorical Default\"},\"series\":{},\"general\":{\"type\":\"table\",\"displayType\":\"default\",\"roundDataPoints\":true,\"paginationPageSize\":100,\"fontSize\":12,\"mode\":\"timeSeries\"}}",
+            "keepVisualSettingsConsistentWithParent": true,
+            "panelType": "SumoSearchPanel",
+            "queries": [
+                {
+                    "transient": false,
+                    "queryString": "_sourceCategory={{Logsdatasource}}\n| json \"status.failureReason\", \"status.errorCode\", \"status.additionalDetails\", \"createdDateTime\", \"_logType\", \"appDisplayName\", \"conditionalAccessStatus\", \"clientAppUsed\", \"ipAddress\", \"correlationId\", \"id\", \"location\", \"location.countryOrRegion\", \"location.city\", \"location.state\", \"location.geoCoordinates.latitude\", \"location.geoCoordinates.longitude\",\"deviceDetail.operatingSystem\", \"deviceDetail.browser\",\"deviceDetail.displayName\", \"userDisplayName\", \"userPrincipalName\", \"riskState\" as failureReason, errorCode, failureDetails, date_time, logtype, appDisplayName, conditionalAccessStatus, clientAppUsed, ip_addr, correlationId, id, location, country_or_region, city, state, latitude, longitude, operating_system, browser, deviceDisplayName, userDisplayName, userPrincipalName, riskState nodrop\n| if(riskState in (\"atRisk\", \"confirmedCompromised\"), \"true\", \"false\") as is_risky\n| where errorCode = 0 AND city matches \"{{city}}\" AND appDisplayName matches \"{{appDisplayName}}\" AND userPrincipalName matches \"{{userPrincipalName}}\" AND clientAppUsed matches \"{{clientAppUsed}}\" AND browser matches \"{{browser}}\" AND logtype matches \"{{logtype}}\" AND is_Risky matches \"{{is_Risky}}\" AND ip_addr matches \"{{ip_addr}}\"\n| count as frequency by country_or_region, state, city\n| sort by frequency",
+                    "queryType": "Logs",
+                    "queryKey": "A",
+                    "metricsQueryMode": null,
+                    "metricsQueryData": null,
+                    "tracesQueryData": null,
+                    "spansQueryData": null,
+                    "parseMode": "Auto",
+                    "timeSource": "Message",
+                    "outputCardinalityLimit": 1000
+                }
+            ],
+            "description": "",
+            "timeRange": null,
+            "coloringRules": null,
+            "linkedDashboards": []
+        }
+    ],
+    "variables": [
+        {
+            "id": null,
+            "name": "Logsdatasource",
+            "displayName": "Logsdatasource",
+            "defaultValue": "microsoft/entra-ID",
+            "sourceDefinition": {
+                "variableSourceType": "CsvVariableSourceDefinition",
+                "values": "microsoft/entra-ID"
+            },
+            "allowMultiSelect": false,
+            "includeAllOption": true,
+            "hideFromUI": false,
+            "valueType": "Any"
+        },
+        {
+            "id": null,
+            "name": "userPrincipalName",
+            "displayName": "userPrincipalName",
+            "defaultValue": "*",
+            "sourceDefinition": {
+                "variableSourceType": "LogQueryVariableSourceDefinition",
+                "query": "_sourceCategory=microsoft/entra-ID \"SignIn\"\n| json \"userPrincipalName\" as userPrincipalName",
+                "field": "userPrincipalName"
+            },
+            "allowMultiSelect": false,
+            "includeAllOption": true,
+            "hideFromUI": false,
+            "valueType": "Any"
+        },
+        {
+            "id": null,
+            "name": "ip_addr",
+            "displayName": "ip_addr",
+            "defaultValue": "*",
+            "sourceDefinition": {
+                "variableSourceType": "LogQueryVariableSourceDefinition",
+                "query": "_sourcecategory=\"microsoft/entra-ID\" \"SignIn\"\n| json \"ipAddress\" as ip_addr",
+                "field": "ip_addr"
+            },
+            "allowMultiSelect": false,
+            "includeAllOption": true,
+            "hideFromUI": false,
+            "valueType": "Any"
+        },
+        {
+            "id": null,
+            "name": "city",
+            "displayName": "city",
+            "defaultValue": "*",
+            "sourceDefinition": {
+                "variableSourceType": "LogQueryVariableSourceDefinition",
+                "query": "_sourcecategory=\"microsoft/entra-ID\" \"SignIn\"\n| json \"location.city\" as city",
+                "field": "city"
+            },
+            "allowMultiSelect": false,
+            "includeAllOption": true,
+            "hideFromUI": false,
+            "valueType": "Any"
+        },
+        {
+            "id": null,
+            "name": "appDisplayName",
+            "displayName": "appDisplayName",
+            "defaultValue": "*",
+            "sourceDefinition": {
+                "variableSourceType": "LogQueryVariableSourceDefinition",
+                "query": "_sourceCategory=\"microsoft/entra-ID\" \"SignIn\"\n| json \"appDisplayName\" as appDisplayName",
+                "field": "appDisplayName"
+            },
+            "allowMultiSelect": false,
+            "includeAllOption": true,
+            "hideFromUI": false,
+            "valueType": "Any"
+        },
+        {
+            "id": null,
+            "name": "clientAppUsed",
+            "displayName": "clientAppUsed",
+            "defaultValue": "*",
+            "sourceDefinition": {
+                "variableSourceType": "LogQueryVariableSourceDefinition",
+                "query": "_sourceCategory=\"microsoft/entra-id\" \"SignIn\"\n| json \"clientAppUsed\" as clientAppUsed",
+                "field": "clientAppUsed"
+            },
+            "allowMultiSelect": false,
+            "includeAllOption": true,
+            "hideFromUI": false,
+            "valueType": "Any"
+        },
+        {
+            "id": null,
+            "name": "browser",
+            "displayName": "browser",
+            "defaultValue": "*",
+            "sourceDefinition": {
+                "variableSourceType": "LogQueryVariableSourceDefinition",
+                "query": "_sourceCategory=\"microsoft/Entra-ID\" \"Signin\"\n| json \"deviceDetail.browser\" as browser",
+                "field": "browser"
+            },
+            "allowMultiSelect": false,
+            "includeAllOption": true,
+            "hideFromUI": false,
+            "valueType": "Any"
+        },
+        {
+            "id": null,
+            "name": "logtype",
+            "displayName": "logtype",
+            "defaultValue": "*",
+            "sourceDefinition": {
+                "variableSourceType": "LogQueryVariableSourceDefinition",
+                "query": "_sourceCategory=\"microsoft/entra-id\" \"SignIn\"\n| json \"_logType\" as logtype",
+                "field": "logtype"
+            },
+            "allowMultiSelect": false,
+            "includeAllOption": true,
+            "hideFromUI": false,
+            "valueType": "Any"
+        },
+        {
+            "id": null,
+            "name": "is_Risky",
+            "displayName": "is_Risky",
+            "defaultValue": "*",
+            "sourceDefinition": {
+                "variableSourceType": "CsvVariableSourceDefinition",
+                "values": "true,false"
+            },
+            "allowMultiSelect": false,
+            "includeAllOption": true,
+            "hideFromUI": false,
+            "valueType": "Any"
+        }
+    ],
+    "coloringRules": [],
+    "schedules": null
+}
